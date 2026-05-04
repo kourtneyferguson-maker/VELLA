@@ -1,305 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vella</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vella</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #050505;
+  color: white;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top, #13221f, #050505 55%);
-      color: white;
-      padding-bottom: 90px;
-    }
+header {
+  text-align: center;
+  padding: 15px;
+  background: #0d0d0d;
+  border-bottom: 1px solid #00ffd0;
+}
 
-    header {
-      text-align: center;
-      padding: 18px;
-      background: rgba(10, 10, 10, 0.9);
-      border-bottom: 1px solid rgba(0, 255, 200, 0.25);
-      box-shadow: 0 0 20px rgba(0, 255, 200, 0.08);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00ffd0;
+}
 
-    .logo {
-      font-size: 28px;
-      font-weight: 900;
-      letter-spacing: 3px;
-      text-shadow: 0 0 12px #00ffd0;
-    }
+.section {
+  display: none;
+  padding: 20px;
+}
 
-    .tagline {
-      font-size: 13px;
-      color: #b8fff1;
-      margin-top: 4px;
-    }
+.active {
+  display: block;
+}
 
-    .hero {
-      margin: 18px;
-      padding: 24px;
-      border-radius: 28px;
-      background: linear-gradient(135deg, #101010, #102722);
-      border: 1px solid rgba(0, 255, 200, 0.25);
-      box-shadow: 0 0 25px rgba(0, 255, 200, 0.12);
-    }
+.hero {
+  background: #111;
+  padding: 20px;
+  border-radius: 15px;
+}
 
-    .hero h1 {
-      margin: 0;
-      font-size: 30px;
-    }
+button {
+  background: #00ffd0;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+}
 
-    .hero p {
-      color: #d7fff8;
-      line-height: 1.5;
-    }
+.card {
+  background: #111;
+  padding: 15px;
+  border-radius: 15px;
+  margin-top: 10px;
+}
 
-    .main-button {
-      border: none;
-      background: #00ffd0;
-      color: #00110e;
-      padding: 13px 18px;
-      border-radius: 18px;
-      font-weight: 900;
-      cursor: pointer;
-      box-shadow: 0 0 18px rgba(0, 255, 200, 0.5);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      padding: 0 18px;
-    }
-
-    .card {
-      background: rgba(14, 14, 14, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 24px;
-      padding: 18px;
-      min-height: 135px;
-      box-shadow: 0 0 18px rgba(0, 255, 200, 0.08);
-      cursor: pointer;
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 22px rgba(0, 255, 200, 0.25);
-    }
-
-    .icon {
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-    }
-
-    .card p {
-      margin: 0;
-      color: #c9c9c9;
-      font-size: 14px;
-      line-height: 1.4;
-    }
-
-    .section {
-      display: none;
-      padding: 18px;
-    }
-
-    .section.active {
-      display: block;
-    }
-
-    .section-title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-
-    .video-box {
-      height: 420px;
-      border-radius: 30px;
-      background: linear-gradient(160deg, #141414, #06241f);
-      border: 1px solid rgba(0, 255, 200, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      box-shadow: 0 0 22px rgba(0, 255, 200, 0.15);
-    }
-
-    .nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(8, 8, 8, 0.96);
-      border-top: 1px solid rgba(0, 255, 200, 0.25);
-      display: flex;
-      justify-content: space-around;
-      padding: 12px 5px;
-      z-index: 20;
-    }
-
-    .nav button {
-      background: none;
-      border: none;
-      color: #e8e8e8;
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    .nav button.active {
-      color: #00ffd0;
-      text-shadow: 0 0 12px #00ffd0;
-    }
-
-    .pill {
-      display: inline-block;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(0, 255, 200, 0.12);
-      color: #9dfff0;
-      margin: 5px;
-      font-size: 13px;
-    }
-
-    @media (max-width: 650px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero h1 {
-        font-size: 25px;
-      }
-    }
-  </style>
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background: #111;
+  padding: 10px;
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <div class="logo">VELLA</div>
-    <div class="tagline">Create. Save. Sell. Plan. Glow.</div>
-  </header>
+<header>
+  <div class="logo">VELLA</div>
+</header>
 
-  <main>
-    <section id="home" class="section active">
-      <div class="hero">
-        <h1>Your content world in one place</h1>
-        <p>
-          Vella helps users watch videos, organise saved content, plan goals,
-          launch products, run campaigns and build their personal brand.
-        </p>
-        <button class="main-button" onclick="showSection('videos')">
-          Start Exploring
-        </button>
-      </div>
-
-      <div class="grid">
-        <div class="card" onclick="showSection('videos')">
-          <div class="icon">🎬</div>
-          <h3>Video Feed</h3>
-          <p>Fun scrolling videos for entertainment, learning and ideas.</p>
-        </div>
-
-        <div class="card" onclick="showSection('sell')">
-          <div class="icon">🛍️</div>
-          <h3>Sell Products</h3>
-          <p>Launch products, promote offers and grow a brand.</p>
-        </div>
-
-        <div class="card" onclick="showSection('planner')">
-          <div class="icon">📅</div>
-          <h3>Vella Planner</h3>
-          <p>Save workouts, recipes, ideas, reminders and goals.</p>
-        </div>
-
-        <div class="card" onclick="showSection('profile')">
-          <div class="icon">✨</div>
-          <h3>Creator Profile</h3>
-          <p>Custom pages with vibe, links, products and content.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="videos" class="section">
-      <div class="section-title">🎬 Video Feed</div>
-      <div class="video-box">
-        <div>
-          <h2>Glow Feed Preview</h2>
-          <p>Reels, lives, saved videos and creator content will go here.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="sell" class="section">
-      <div class="section-title">🛍️ Sell + Launch</div>
-      <div class="card">
-        <h3>Business Tools</h3>
-        <p>Create product launches, paid campaigns, countdowns, events and sales pages.</p>
-        <span class="pill">Product Launch</span>
-        <span class="pill">Paid Campaigns</span>
-        <span class="pill">Live Selling</span>
-        <span class="pill">Countdowns</span>
-      </div>
-    </section>
-
-    <section id="planner" class="section">
-      <div class="section-title">📅 Vella Planner</div>
-      <div class="card">
-        <h3>Save + Remind</h3>
-        <p>Users can save videos into folders and set reminders for workouts, recipes, shopping, beauty routines and goals.</p>
-        <span class="pill">Workout</span>
-        <span class="pill">Recipes</span>
-        <span class="pill">Shopping</span>
-        <span class="pill">Content Ideas</span>
-      </div>
-    </section>
-
-    <section id="profile" class="section">
-      <div class="section-title">✨ Profile</div>
-      <div class="card">
-        <h3>Your Vella Page</h3>
-        <p>Users can customise their page, add products, videos, links, lives and creator tools.</p>
-        <span class="pill">Custom Theme</span>
-        <span class="pill">Links</span>
-        <span class="pill">Products</span>
-        <span class="pill">Creator Bio</span>
-      </div>
-    </section>
-  </main>
-
-  <div class="nav">
-    <button class="active" onclick="showSection('home')">🏠 Home</button>
-    <button onclick="showSection('videos')">🎬 Videos</button>
-    <button onclick="showSection('sell')">🛍 Sell</button>
-    <button onclick="showSection('planner')">📅 Planner</button>
-    <button onclick="showSection('profile')">✨ Profile</button>
+<!-- HOME -->
+<div id="home" class="section active">
+  <div class="hero">
+    <h2>Your content world in one place</h2>
+    <p>Watch, save, plan and sell all in one app.</p>
+    <button onclick="showSection('videos')">Start</button>
   </div>
 
-  <script>
-    function showSection(sectionId) {
-      const sections = document.querySelectorAll('.section');
-      sections.forEach(section => section.classList.remove('active'));
+  <div class="card" onclick="showSection('videos')">🎬 Videos</div>
+  <div class="card" onclick="showSection('sell')">🛍 Sell</div>
+  <div class="card" onclick="showSection('planner')">📅 Planner</div>
+  <div class="card" onclick="showSection('profile')">✨ Profile</div>
+</div>
 
-      document.getElementById(sectionId).classList.add('active');
+<!-- VIDEOS -->
+<div id="videos" class="section">
+  <h2>🎬 Videos</h2>
+  <p>Video feed coming soon</p>
+</div>
 
-      const buttons = document.querySelectorAll('.nav button');
-      buttons.forEach(button => button.classList.remove('active'));
+<!-- SELL -->
+<div id="sell" class="section">
+  <h2>🛍 Sell</h2>
+  <p>Launch products and campaigns</p>
+</div>
 
-      event.target.classList.add('active');
-    }
-  </script>
+<!-- PLANNER -->
+<div id="planner" class="section">
+  <h2>📅 Planner</h2>
+  <p>Save content and set reminders</p>
+</div>
+
+<!-- PROFILE -->
+<div id="profile" class="section">
+  <h2>✨ Profile</h2>
+  <p>Your creator page</p>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <button onclick="showSection('home')">Home</button>
+  <button onclick="showSection('videos')">Videos</button>
+  <button onclick="showSection('sell')">Sell</button>
+  <button onclick="showSection('planner')">Planner</button>
+  <button onclick="showSection('profile')">Profile</button>
+</div>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(sec => {
+    sec.classList.remove('active');
+  });
+
+  document.getElementById(id).classList.add('active');
+}
+</script>
 
 </body>
 </html>
