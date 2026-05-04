@@ -1,8 +1,9 @@
+import React from "react";
+
 function App() {
   return (
     <div>
-      <h1>Vella</h1>
-      <p>It is working!</p>
+      <h1>Hi Vella!</h1>
     </div>
   );
 }
