@@ -1,19 +1,3 @@
-{
-  "name": "vella-app",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "start": "vite preview"
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "framer-motion": "^10.16.4",
-    "lucide-react": "^0.292.0"
-  },
-  "devDependencies": {
-    "vite": "^5.0.0"
-  }
-}
+return (
+  <h1>Hello Vella!</h1>
+)
