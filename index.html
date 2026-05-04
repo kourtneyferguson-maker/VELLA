@@ -12,8 +12,9 @@
     }
 
     .app {
-      max-width: 420px;
+      max-width: 430px;
       margin: auto;
+      padding-bottom: 90px;
     }
 
     .logo {
@@ -34,4 +35,70 @@
       border-radius: 22px;
       padding: 20px;
       margin-bottom: 16px;
-      box-shadow: 0 0 
+      box-shadow: 0 0 18px rgba(255, 79, 216, 0.35);
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      color: #ffffff;
+    }
+
+    .card p {
+      margin: 0;
+      color: #d8cfff;
+    }
+
+    .nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #090011;
+      border-top: 1px solid #331044;
+      display: flex;
+      justify-content: space-around;
+      padding: 14px 0;
+    }
+
+    .nav span {
+      color: #ff9bea;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <div class="logo">Vella ✨</div>
+    <p class="tagline">Save videos, plan your life, shop, launch and grow.</p>
+
+    <div class="card">
+      <h2>🎬 Watch Reels</h2>
+      <p>Discover videos, ideas, products and creators.</p>
+    </div>
+
+    <div class="card">
+      <h2>📁 My Saved Videos</h2>
+      <p>Organise videos into beauty, fitness, recipes and business folders.</p>
+    </div>
+
+    <div class="card">
+      <h2>⏰ Planner</h2>
+      <p>Set reminders for workouts, recipes, content and launches.</p>
+    </div>
+
+    <div class="card">
+      <h2>🚀 Launch Tools</h2>
+      <p>Create countdowns, sales, campaigns and product launches.</p>
+    </div>
+  </div>
+
+  <div class="nav">
+    <span>Home</span>
+    <span>Reels</span>
+    <span>Saved</span>
+    <span>Live</span>
+    <span>Shop</span>
+  </div>
+</body>
+</html>
