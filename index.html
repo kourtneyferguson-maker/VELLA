@@ -4,58 +4,73 @@
   <title>Vella</title>
 </head>
 
-<body style="margin:0; font-family:Arial; background:#090b10; color:#e8e8f0; padding-bottom:90px;">
+<body style="margin:0; font-family:Arial; background:#080a10; color:#e8e8f0; padding-bottom:90px;">
 
+  <!-- TOP BAR -->
   <div style="padding:20px; display:flex; justify-content:space-between; align-items:center;">
-    <h2 style="margin:0;">Vella</h2>
-    <button style="background:#141823; color:#e8e8f0; border:1px solid #252b3a; padding:10px 16px; border-radius:20px;">
+    <h2 style="margin:0;">Vella ✨</h2>
+    <button style="background:#141823; border:1px solid #2a3145; color:white; padding:10px 16px; border-radius:20px; box-shadow:0 0 12px rgba(255,80,180,0.3);">
       Go Live
     </button>
   </div>
 
+  <!-- REEL CARDS -->
+  <div style="padding:15px; display:flex; gap:12px; overflow-x:auto;">
+
+    <div style="min-width:140px; height:200px; background:#111523; border-radius:20px; display:flex; align-items:flex-end; padding:10px; box-shadow:0 0 20px rgba(255,90,200,0.2);">
+      <p>🔥 Trending</p>
+    </div>
+
+    <div style="min-width:140px; height:200px; background:#111523; border-radius:20px; display:flex; align-items:flex-end; padding:10px; box-shadow:0 0 20px rgba(100,200,255,0.2);">
+      <p>💄 Beauty</p>
+    </div>
+
+    <div style="min-width:140px; height:200px; background:#111523; border-radius:20px; display:flex; align-items:flex-end; padding:10px; box-shadow:0 0 20px rgba(140,100,255,0.2);">
+      <p>💪 Fitness</p>
+    </div>
+
+  </div>
+
+  <!-- MAIN CARD -->
+  <div style="padding:18px;">
+    <div style="background:#10131d; border-radius:28px; padding:22px; box-shadow:0 0 30px rgba(140,100,255,0.2);">
+      <h2>Watch. Save. Shop.</h2>
+      <p style="color:#a6a6b3;">Scroll content, save into folders, join lives and shop easily.</p>
+    </div>
+  </div>
+
+  <!-- ICON GRID -->
   <div style="padding:18px; display:grid; grid-template-columns:1fr 1fr; gap:14px;">
 
-    <div style="grid-row:span 2; background:#121622; border-radius:28px; padding:22px; box-shadow:0 0 24px rgba(125,90,255,0.16);">
-      <p style="color:#9fa5b5; margin:0;">Featured</p>
-      <h1 style="font-size:28px; margin:12px 0;">Watch. Save. Shop.</h1>
-      <p style="color:#b8bdd0; line-height:1.5;">Your content, folders, lives and shopping in one calm space.</p>
-      <button style="margin-top:18px; background:#1b2030; color:white; border:1px solid #2c344a; padding:12px 16px; border-radius:18px;">
-        Explore
-      </button>
+    <div style="background:#10131d; border-radius:24px; padding:20px; text-align:center; box-shadow:0 0 18px rgba(255,90,200,0.2);">
+      <div style="font-size:26px;">📁</div>
+      <p>Save</p>
     </div>
 
-    <div style="background:#121622; border-radius:24px; padding:18px; box-shadow:0 0 18px rgba(255,90,200,0.12);">
-      <h3>📁 Save</h3>
-      <p style="color:#9fa5b5;">Create folders</p>
+    <div style="background:#10131d; border-radius:24px; padding:20px; text-align:center; box-shadow:0 0 18px rgba(100,200,255,0.2);">
+      <div style="font-size:26px;">🔴</div>
+      <p>Live</p>
     </div>
 
-    <div style="background:#121622; border-radius:24px; padding:18px; box-shadow:0 0 18px rgba(100,200,255,0.12);">
-      <h3>🔴 Live</h3>
-      <p style="color:#9fa5b5;">Shop streams</p>
+    <div style="background:#10131d; border-radius:24px; padding:20px; text-align:center; box-shadow:0 0 18px rgba(140,100,255,0.2);">
+      <div style="font-size:26px;">🛍</div>
+      <p>Shop</p>
     </div>
 
-  </div>
-
-  <div style="padding:0 18px; display:grid; grid-template-columns:1fr 1fr; gap:14px;">
-
-    <div style="background:#121622; border-radius:24px; padding:18px; box-shadow:0 0 18px rgba(120,255,200,0.12);">
-      <h3>🛍 Shop</h3>
-      <p style="color:#9fa5b5;">Buy from content</p>
-    </div>
-
-    <div style="background:#121622; border-radius:24px; padding:18px; box-shadow:0 0 18px rgba(160,120,255,0.12);">
-      <h3>🤝 Brands</h3>
-      <p style="color:#9fa5b5;">Paid campaigns</p>
+    <div style="background:#10131d; border-radius:24px; padding:20px; text-align:center; box-shadow:0 0 18px rgba(0,255,180,0.2);">
+      <div style="font-size:26px;">🤝</div>
+      <p>Deals</p>
     </div>
 
   </div>
 
-  <div style="position:fixed; bottom:0; width:100%; background:#0f121a; border-top:1px solid #1c1f2a; display:flex; justify-content:space-around; padding:14px 0; font-size:13px; color:#9fa5b5;">
-    <span>Home</span>
-    <span>Live</span>
-    <span>Saved</span>
-    <span>Shop</span>
-    <span>Profile</span>
+  <!-- BOTTOM NAV -->
+  <div style="position:fixed; bottom:0; width:100%; background:#0d1018; border-top:1px solid #1c2230; display:flex; justify-content:space-around; padding:14px 0; font-size:13px; color:#a0a6b2;">
+    <span>🏠</span>
+    <span>🔴</span>
+    <span>📁</span>
+    <span>🛍</span>
+    <span>👤</span>
   </div>
 
 </body>
