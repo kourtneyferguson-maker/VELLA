@@ -2,130 +2,36 @@
 <html>
 <head>
   <title>Vella</title>
-</head>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #050008;
+      color: white;
+      padding: 25px;
+    }
 
-<body style="margin:0; font-family:Arial; background:#07080d; color:white; padding-bottom:90px;">
+    .app {
+      max-width: 420px;
+      margin: auto;
+    }
 
-  <!-- TOP BAR -->
-  <div style="padding:18px; display:flex; justify-content:space-between; align-items:center; background:#0c0f18; position:sticky; top:0; z-index:10;">
-    <h2 style="margin:0;">Vella ✨</h2>
-    <button style="background:#151b28; color:white; border:1px solid #2b3448; padding:10px 15px; border-radius:20px;">
-      ☰ Menu
-    </button>
-  </div>
+    .logo {
+      font-size: 42px;
+      font-weight: bold;
+      color: #ff4fd8;
+      text-shadow: 0 0 18px #ff4fd8;
+    }
 
-  <!-- HOME -->
-  <div style="padding:18px;">
-    <div style="background:linear-gradient(135deg,#111827,#1b1430); border-radius:30px; padding:24px; box-shadow:0 0 35px rgba(130,90,255,0.20);">
-      <p style="color:#9fa7bd; margin:0;">watch • save • shop • earn</p>
-      <h1 style="font-size:32px; margin:12px 0;">Your creator commerce world</h1>
-      <p style="color:#b9bed0; line-height:1.5;">Save videos into folders, shop from content, join live launches and connect brands with creators.</p>
-    </div>
-  </div>
+    .tagline {
+      color: #cfc7ff;
+      margin-bottom: 25px;
+    }
 
-  <!-- REELS -->
-  <div style="padding:18px;">
-    <h3>Reels For You</h3>
-    <div style="display:flex; gap:14px; overflow-x:auto;">
-      <div style="min-width:145px; height:220px; background:#111522; border-radius:24px; padding:14px; display:flex; align-items:flex-end; box-shadow:0 0 22px rgba(255,80,170,0.16);">
-        <b>💄 Beauty Reel<br>Save • Shop</b>
-      </div>
-      <div style="min-width:145px; height:220px; background:#111522; border-radius:24px; padding:14px; display:flex; align-items:flex-end; box-shadow:0 0 22px rgba(90,180,255,0.16);">
-        <b>🍝 Recipe Reel<br>Save to Cooking</b>
-      </div>
-      <div style="min-width:145px; height:220px; background:#111522; border-radius:24px; padding:14px; display:flex; align-items:flex-end; box-shadow:0 0 22px rgba(120,255,200,0.16);">
-        <b>💪 Fitness Reel<br>Try Later</b>
-      </div>
-    </div>
-  </div>
-
-  <!-- QUICK ACTIONS -->
-  <div style="padding:18px; display:grid; grid-template-columns:1fr 1fr; gap:14px;">
-    <div style="background:#10141f; border-radius:24px; padding:20px;">
-      <h3>📁 Saved</h3>
-      <p style="color:#aeb4c4;">Folders, wishlists, try later.</p>
-    </div>
-
-    <div style="background:#10141f; border-radius:24px; padding:20px;">
-      <h3>🔴 Live</h3>
-      <p style="color:#aeb4c4;">Live selling + countdowns.</p>
-    </div>
-
-    <div style="background:#10141f; border-radius:24px; padding:20px;">
-      <h3>🛍 Shop</h3>
-      <p style="color:#aeb4c4;">Buy from videos and lives.</p>
-    </div>
-
-    <div style="background:#10141f; border-radius:24px; padding:20px;">
-      <h3>🤝 Campaigns</h3>
-      <p style="color:#aeb4c4;">Brands hire creators.</p>
-    </div>
-  </div>
-
-  <!-- SAVED FOLDERS -->
-  <div style="padding:18px;">
-    <h3>Saved Folders</h3>
-    <div style="display:flex; gap:12px; overflow-x:auto;">
-      <button style="min-width:120px; background:#151b28; color:white; border:1px solid #2b3448; padding:16px; border-radius:20px;">🍝 Cooking</button>
-      <button style="min-width:120px; background:#151b28; color:white; border:1px solid #2b3448; padding:16px; border-radius:20px;">💪 Fitness</button>
-      <button style="min-width:120px; background:#151b28; color:white; border:1px solid #2b3448; padding:16px; border-radius:20px;">💄 Beauty</button>
-      <button style="min-width:120px; background:#151b28; color:white; border:1px solid #2b3448; padding:16px; border-radius:20px;">🛍 Wishlist</button>
-    </div>
-  </div>
-
-  <!-- PRODUCT LAUNCH -->
-  <div style="padding:18px;">
-    <h3>Upcoming Product Launch</h3>
-    <div style="background:#10141f; border-radius:26px; padding:20px; border:1px solid #263044; box-shadow:0 0 24px rgba(90,180,255,0.12);">
-      <h2>💪 Fitness Band Launch</h2>
-      <p style="color:#aeb4c4;">Creators are going live to demo and sell this new workout product.</p>
-      <p>⏰ Launch: Friday 7PM</p>
-      <button style="background:#222a3d; color:white; border:1px solid #3b4560; padding:11px 16px; border-radius:18px;">Remind Me</button>
-      <button style="background:#222a3d; color:white; border:1px solid #3b4560; padding:11px 16px; border-radius:18px;">Save Launch</button>
-    </div>
-  </div>
-
-  <!-- PAID CAMPAIGNS -->
-  <div style="padding:18px;">
-    <h3>Paid Campaigns</h3>
-
-    <div style="background:#10141f; border-radius:24px; padding:20px; margin-bottom:14px; border:1px solid #222a3a;">
-      <h3>Skincare Brand Campaign</h3>
-      <p style="color:#aeb4c4;">Make 2 reels and 1 live selling session for a glow serum.</p>
-      <p>Pay: $100 + commission</p>
-      <button style="background:#222a3d; color:white; border:1px solid #3b4560; padding:10px 16px; border-radius:18px;">Apply</button>
-    </div>
-
-    <div style="background:#10141f; border-radius:24px; padding:20px; border:1px solid #222a3a;">
-      <h3>Fitness Product Campaign</h3>
-      <p style="color:#aeb4c4;">Promote workout bands through reels, saved workouts and live shopping.</p>
-      <p>Pay: Commission per sale</p>
-      <button style="background:#222a3d; color:white; border:1px solid #3b4560; padding:10px 16px; border-radius:18px;">Apply</button>
-    </div>
-  </div>
-
-  <!-- MENU / SETTINGS -->
-  <div style="padding:18px;">
-    <h3>Menu + Business Tools</h3>
-
-    <div style="display:grid; gap:12px;">
-      <div style="background:#121827; border-radius:20px; padding:18px;">📊 Creator Dashboard — earnings, lives, campaigns</div>
-      <div style="background:#121827; border-radius:20px; padding:18px;">🏢 Brand Dashboard — post jobs, find creators, track sales</div>
-      <div style="background:#121827; border-radius:20px; padding:18px;">💰 Vella Wallet — payments, commissions, withdrawals</div>
-      <div style="background:#121827; border-radius:20px; padding:18px;">📦 Orders — buyer purchases and seller orders</div>
-      <div style="background:#121827; border-radius:20px; padding:18px;">🛡 Safety + Trust — ratings, reports, verified creators</div>
-      <div style="background:#121827; border-radius:20px; padding:18px;">⚙️ Account Settings</div>
-    </div>
-  </div>
-
-  <!-- BOTTOM NAV -->
-  <div style="position:fixed; bottom:0; width:100%; background:#0c0f18; border-top:1px solid #202637; display:flex; justify-content:space-around; padding:14px 0; font-size:12px; color:#aeb4c4;">
-    <span>Home</span>
-    <span>Reels</span>
-    <span>Saved</span>
-    <span>Live</span>
-    <span>Shop</span>
-  </div>
-
-</body>
-</html>
+    .card {
+      background: #120018;
+      border: 1px solid #ff4fd8;
+      border-radius: 22px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 0 
