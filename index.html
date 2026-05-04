@@ -1,60 +1,67 @@
-
 <!DOCTYPE html>
 <html>
 <head>
   <title>Vella</title>
 </head>
 
-<body style="margin:0; font-family:Arial; background:black; color:white; overflow-y:scroll;">
+<body style="margin:0; font-family:Arial; background:#0b0b0f; color:white; padding-bottom:80px;">
 
   <!-- TOP BAR -->
-  <div style="position:fixed; top:0; width:100%; padding:15px; font-size:20px; font-weight:bold; border-bottom:1px solid #222; background:black; z-index:10;">
-    Vella 🔥
+  <div style="padding:18px; background:#11111a; font-size:20px; font-weight:bold;">
+    Saved 📁
   </div>
 
-  <!-- SPACER -->
-  <div style="height:60px;"></div>
+  <!-- FOLDER SECTION -->
+  <div style="padding:20px;">
 
-  <!-- FIRST SCREEN (TikTok style) -->
-  <div style="height:100vh; position:relative; border-bottom:1px solid #222;">
+    <h3>Your Folders</h3>
 
-    <!-- Fake Video -->
-    <div style="position:absolute; width:100%; height:100%; background:#111; display:flex; align-items:center; justify-content:center;">
-      <p>🎥 Video Playing</p>
-    </div>
+    <div style="display:grid; gap:15px; margin-top:15px;">
 
-    <!-- Text bottom left -->
-    <div style="position:absolute; bottom:80px; left:15px;">
-      <p><b>@creatorname</b></p>
-      <p>First post on Vella 🔥</p>
-    </div>
+      <div style="background:#171722; padding:20px; border-radius:20px;">
+        🍝 Cooking
+      </div>
 
-    <!-- Buttons right -->
-    <div style="position:absolute; right:15px; bottom:80px; text-align:center;">
-      <p>❤️</p>
-      <p>💬</p>
-      <p>🔗</p>
+      <div style="background:#171722; padding:20px; border-radius:20px;">
+        💪 Workouts
+      </div>
+
+      <div style="background:#171722; padding:20px; border-radius:20px;">
+        🛍 Wishlist
+      </div>
+
+      <div style="background:#171722; padding:20px; border-radius:20px;">
+        💄 Beauty
+      </div>
+
     </div>
 
   </div>
 
-  <!-- SECOND SCREEN -->
-  <div style="height:100vh; display:flex; align-items:center; justify-content:center; border-bottom:1px solid #222;">
-    <p>🛍️ Shop + Live Selling Coming</p>
-  </div>
+  <!-- SAVED VIDEOS PREVIEW -->
+  <div style="padding:20px;">
+    <h3>Recent Saves</h3>
 
-  <!-- THIRD SCREEN -->
-  <div style="height:100vh; display:flex; align-items:center; justify-content:center;">
-    <p>💬 Creator Content Here</p>
+    <div style="display:grid; gap:15px; margin-top:15px;">
+
+      <div style="background:#111; padding:40px; border-radius:20px; text-align:center;">
+        🎥 Saved Video
+      </div>
+
+      <div style="background:#111; padding:40px; border-radius:20px; text-align:center;">
+        🎥 Saved Video
+      </div>
+
+    </div>
   </div>
 
   <!-- BOTTOM NAV -->
-  <div style="position:fixed; bottom:0; width:100%; background:black; border-top:1px solid #222; display:flex; justify-content:space-around; padding:10px;">
-    <span>🏠</span>
-    <span>🔍</span>
-    <span>➕</span>
-    <span>🛍️</span>
-    <span>👤</span>
+  <div style="position:fixed; bottom:0; width:100%; background:#11111a; border-top:1px solid #242433; display:flex; justify-content:space-around; padding:12px 0;">
+    <span>🏠 Home</span>
+    <span>🔴 Live</span>
+    <span>💾 Saved</span>
+    <span>🛍 Shop</span>
+    <span>👤 Profile</span>
   </div>
 
 </body>
