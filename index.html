@@ -1,247 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vella</title>
-<button class="btn" onclick="openDream()">✨ Dream Fit</button>
+
 <style>
-*{box-sizing:border-box}
-
 body{
-  margin:0;<section id="dream" class="screen">
-  <h1>Dream Fit ✨</h1>
-
-  <div class="hero" style="
-    background:
-    linear-gradient(#0002,#000b),
-    url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=80');
-    background-size:cover;
-  ">
-
-    <span class="badge">Trending Look</span>
-
-    <div class="product-box">
-      <h2>Ultimate Influencer Outfit</h2>
-      <p>🔥 viral · selling fast</p>
-      <h3>$129.99</h3>
-
-      <button class="btn" onclick="openTryOn('Dream Outfit',129.99)">Try On ✨</button>
-      <button class="btn" onclick="startCheckout('Dream Outfit',129.99)">Buy Now 🔥</button>
-      <button class="btn dark" onclick="openModal('Saved','Added to your dream fits')">Save Look</button>
-    </div>
-
-  </div>
-
-  <div class="card">
-    <h2>✨ Why people love this</h2>
-    <p>“I saw this and instantly bought it”</p>
-    <p>“This is the main character outfit”</p>
-    <p>“Perfect for going out / content / confidence”</p>
-  </div>
-
-</section>
-  font-family:Arial, sans-serif;
-  background:radial-gradient(circle at top left,#42002f,#090014 45%,#020202);
+  margin:0;
+  font-family:Arial;
+  background:#0a0a0a;
   color:white;
-  min-height:100vh;
-}
-
-::-webkit-scrollbar{height:6px;width:6px}
-::-webkit-scrollbar-track{background:rgba(255,255,255,.06);border-radius:10px}
-::-webkit-scrollbar-thumb{
-  background:linear-gradient(90deg,#ff2bd6,#22e8ff);
-  border-radius:10px;
-  box-shadow:0 0 10px #ff2bd6;
 }
 
 .app{
   max-width:430px;
   margin:auto;
-  min-height:100vh;
-  padding:26px 16px 120px;
+  padding:20px;
 }
 
-.screen{display:none}
-.screen.active{display:block}
-
 h1{
-  font-size:40px;
-  margin:70px 0 18px;
-  font-style:italic;
-  background:linear-gradient(90deg,#ff2bd6,#35eaff);
+  font-size:34px;
+  background:linear-gradient(90deg,#ff2bd6,#2befff);
   -webkit-background-clip:text;
   color:transparent;
 }
 
-.back{
-  position:fixed;
-  top:18px;
-  left:18px;
-  width:54px;
-  height:54px;
-  border-radius:20px;
-  border:1px solid #ffffff33;
-  background:#050505dd;
-  color:white;
-  font-size:24px;
-  z-index:20;
-}
-
-.chips{
-  display:flex;
-  gap:10px;
-  overflow:auto;
-  margin-bottom:16px;
-}
-
-.chip{
-  border:0;
-  border-radius:25px;
-  padding:11px 16px;
-  background:#141414dd;
-  color:white;
-  font-weight:bold;
-}
-
-.chip.active{background:#ff2bd6}
-
 .hero{
-  min-height:600px;
-  border-radius:35px;
-  padding:22px;
-  position:relative;
-  overflow:hidden;
+  height:500px;
+  border-radius:25px;
+  padding:20px;
   background:
-    linear-gradient(#0001,#000b),
-    url("https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80");
+    linear-gradient(#0003,#0008),
+    url("https://images.unsplash.com/photo-1490481651871-ab68de25d43d");
   background-size:cover;
-  background-position:center;
-  box-shadow:0 0 35px #ff2bd655;
+  position:relative;
 }
 
-.badge{
-  display:inline-block;
-  border-radius:30px;
-  padding:12px 16px;
-  background:#ff22c7;
-  font-weight:900;
-  box-shadow:0 0 22px #ff22c7;
-}
-
-.side{
+.product{
   position:absolute;
-  right:16px;
-  top:220px;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-
-.side button{
-  width:58px;
-  height:58px;
-  border:0;
-  border-radius:22px;
-  background:#111c;
-  color:white;
-  font-size:24px;
-}
-
-.product-box{
-  position:absolute;
-  left:18px;
-  right:18px;
-  bottom:24px;
-  padding:18px;
-  border-radius:30px;
-  background:#111c;
-  border:1px solid #ffffff33;
-  backdrop-filter:blur(10px);
+  bottom:20px;
+  left:20px;
+  right:20px;
+  background:#111;
+  padding:15px;
+  border-radius:20px;
 }
 
 .btn{
   width:100%;
-  border:0;
-  border-radius:24px;
-  padding:16px;
-  margin-top:12px;
-  font-size:16px;
-  font-weight:900;
-  color:#050505;
-  background:linear-gradient(90deg,#ff2bd6,#24e8e8);
-}
-
-.btn.dark{
-  color:white;
-  background:#ffffff18;
-  border:1px solid #ffffff22;
-}
-
-.card{
-  background:#ffffff12;
-  border:1px solid #ffffff22;
-  border-radius:30px;
-  padding:20px;
-  margin:16px 0;
-  box-shadow:0 0 25px #ff2bd61a;
-}
-
-.row{
-  display:flex;
-  gap:14px;
-  overflow-x:auto;
-  padding-bottom:10px;
-}
-
-.small-card{
-  min-width:170px;
-}
-
-input, select{
-  width:100%;
-  padding:15px;
   margin-top:10px;
-  border-radius:22px;
-  border:1px solid #ffffff22;
-  background:#ffffff18;
-  color:white;
-  font-size:15px;
-}
-
-.nav{
-  position:fixed;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  max-width:430px;
-  width:100%;
-  height:88px;
-  background:#050505;
-  border-top:1px solid #ffffff22;
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  z-index:30;
-}
-
-.nav button{
-  background:0;
-  border:0;
-  color:#aaa;
+  padding:14px;
+  border:none;
+  border-radius:15px;
   font-weight:bold;
-}
-
-.nav button.active{color:#ff2bd6}
-
-.plus{
-  width:66px;
-  height:66px;
-  border-radius:26px;
-  background:linear-gradient(135deg,#ff2bd6,#24e8e8)!important;
-  color:#050505!important;
-  font-size:34px!important;
-  box-shadow:0 0 28px #ff2bd6;
+  background:linear-gradient(90deg,#ff2bd6,#2befff);
+  color:black;
 }
 
 .modal{
@@ -249,413 +62,75 @@ input, select{
   position:fixed;
   inset:0;
   background:#000c;
-  z-index:100;
-  align-items:center;
   justify-content:center;
-  padding:20px;
+  align-items:center;
 }
 
-.modal-box{
+.box{
   background:#111;
-  border:1px solid #ff2bd677;
-  border-radius:30px;
-  padding:24px;
-  max-width:370px;
-  width:100%;
-  box-shadow:0 0 45px #ff2bd655;
+  padding:20px;
+  border-radius:20px;
+  width:90%;
 }
 
-.try-preview{
-  min-height:250px;
-  border-radius:28px;
-  margin:14px 0;
+.preview{
+  height:200px;
+  border-radius:15px;
+  margin:10px 0;
+  background:#222;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:
-    linear-gradient(#0003,#0008),
-    url("https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=700&q=80");
-  background-size:cover;
-  background-position:center;
-  border:1px solid #ffffff22;
-}
-
-.size-row,.colour-row{
-  display:flex;
-  gap:8px;
-  margin-top:10px;
-}
-
-.size-row button,.colour-row button{
-  flex:1;
-  border:0;
-  padding:11px;
-  border-radius:18px;
-  background:#ffffff18;
-  color:white;
-  font-weight:bold;
 }
 </style>
 </head>
 
 <body>
 
-<button class="back" onclick="goBack()">←</button>
-
 <div class="app">
 
-<section id="feed" class="screen active">
-  <h1>For You</h1>
+<h1>Vella</h1>
 
-  <div class="chips">
-    <button class="chip active" onclick="filterFeed('All',this)">All</button>
-    <button class="chip" onclick="filterFeed('Fashion',this)">Fashion</button>
-    <button class="chip" onclick="filterFeed('Beauty',this)">Beauty</button>
-    <button class="chip" onclick="filterFeed('Fitness',this)">Fitness</button>
-    <button class="chip" onclick="filterFeed('Local',this)">Local</button>
-  </div>
+<div class="hero">
 
-  <div class="hero">
-    <span class="badge">● LIVE</span>
+<div class="product">
+<h2>Influencer Outfit</h2>
+<p>$79.99</p>
 
-    <div class="side">
-      <button onclick="likePost()">♡</button>
-      <button onclick="openModal('Comments','People can ask questions, review products and chat with sellers.')">💬</button>
-      <button onclick="openModal('Share','Users can share videos, products and live sales.')">↗</button>
-      <button onclick="openModal('Gift Sent','Viewers can send gifts so creators earn more.')">🎁</button>
-    </div>
+<button class="btn" onclick="openTryOn()">Try On ✨</button>
+<button class="btn" onclick="buy()">Buy</button>
 
-    <div class="product-box">
-      <h2>Luxe Collection ✓</h2>
-      <p><span id="viewCount">21</span> people viewing · selling fast</p>
-      <h3>$79.99</h3>
-      <button class="btn" onclick="openTryOn('Luxe Collection',79.99)">Try On ✨</button>
-      <button class="btn" onclick="startCheckout('Luxe Collection',79.99)">BUY 🔥</button>
-    </div>
-  </div>
-</section>
-
-<section id="live" class="screen">
-  <h1>Live Selling</h1>
-
-  <div class="hero">
-    <span class="badge">● LIVE 1.8k</span>
-    <span class="badge" style="float:right;background:#111c;box-shadow:none">Sale ends 04:31</span>
-
-    <div class="product-box">
-      <p><b>Mia:</b> Is the pink one still available?</p>
-      <p><b>Jade:</b> Just bought mine 😍</p>
-      <p><b>Vella:</b> 12 orders in the last minute</p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="card small-card">
-      <h3>Glow Serum</h3>
-      <p>$29.95</p>
-      <button class="btn" onclick="startCheckout('Glow Serum',29.95)">Buy</button>
-    </div>
-
-    <div class="card small-card">
-      <h3>Hydration Kit</h3>
-      <p>$49.95</p>
-      <button class="btn" onclick="startCheckout('Hydration Kit',49.95)">Buy</button>
-    </div>
-
-    <div class="card small-card">
-      <h3>Mini Dress</h3>
-      <p>$69.95</p>
-      <button class="btn" onclick="openTryOn('Mini Dress',69.95)">Try On</button>
-      <button class="btn" onclick="startCheckout('Mini Dress',69.95)">Buy</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>Live tools</h2>
-    <p>Pin products, run countdown deals, receive gifts and see orders in real time.</p>
-    <button class="btn" onclick="showScreen('seller')">Open Seller Tools</button>
-  </div>
-</section>
-
-<section id="add" class="screen">
-  <h1>Add Product</h1>
-
-  <div class="card">
-    <h2>Add to your Vella shop</h2>
-    <input id="productName" placeholder="Product name">
-    <input id="productPrice" placeholder="Price e.g. 29.95">
-    <button class="btn" onclick="saveProduct()">Add Product</button>
-  </div>
-
-  <div id="productList"></div>
-</section>
-
-<section id="rank" class="screen">
-  <h1>Weekly Rankings</h1>
-  <div class="card"><h2>👑 #1 Mila Threads</h2><p>$12,840 sales · +34%</p></div>
-  <div class="card"><h2>✨ #2 Luna Rose</h2><p>$9,410 sales · +29%</p></div>
-  <div class="card"><h2>🔥 #3 Sage Home</h2><p>$6,220 sales · +18%</p></div>
-</section>
-
-<section id="store" class="screen">
-  <h1>Store</h1>
-
-  <div class="card">
-    <h2>Business Profile</h2>
-    <p>Your storefront, products, campaigns and seller tools live here.</p>
-    <button class="btn" onclick="showScreen('seller')">Open Seller Tools</button>
-  </div>
-
-  <div class="card">
-    <h2>Virtual Try-On</h2>
-    <p>Shoppers can preview clothing sizes, colours and outfits before buying.</p>
-    <button class="btn" onclick="openTryOn('Vella Outfit',79.99)">Try On Demo ✨</button>
-  </div>
-</section>
-
-<section id="seller" class="screen">
-  <h1>Seller Tools</h1>
-
-  <div class="card">
-    <h2>Sales Dashboard</h2>
-    <p>Total earnings: <b id="earnings">$0.00</b></p>
-    <p>Total orders: <b id="ordersCount">0</b></p>
-  </div>
-
-  <div class="card"><h2>Add Product</h2><button class="btn" onclick="showScreen('add')">Open</button></div>
-  <div class="card"><h2>Go Live</h2><button class="btn" onclick="showScreen('live')">Start Live</button></div>
-  <div class="card"><h2>Orders</h2><button class="btn" onclick="showScreen('orders')">View Orders</button></div>
-  <div class="card"><h2>Earnings</h2><button class="btn" onclick="openModal('Earnings','This dashboard tracks seller income from live sales, store sales and campaigns.')">View Earnings</button></div>
-  <div class="card"><h2>Weekly Seller Rankings</h2><button class="btn" onclick="showScreen('rank')">View Rankings</button></div>
-  <div class="card"><h2>Brand Deals</h2><button class="btn" onclick="openModal('Brand Deals','Brands can sponsor creators and sellers through campaign offers.')">Open</button></div>
-  <div class="card"><h2>Paid Campaigns</h2><button class="btn" onclick="openModal('Paid Campaigns','Promote lives, products and launches.')">Open</button></div>
-</section>
-
-<section id="orders" class="screen">
-  <h1>Orders</h1>
-  <div id="ordersList" class="card">
-    <p>No orders yet. Make a demo purchase to see orders appear here.</p>
-  </div>
-</section>
-
-<section id="checkout" class="screen">
-  <h1>Checkout</h1>
-
-  <div class="card">
-    <h2>Secure Demo Checkout</h2>
-    <p id="checkoutProduct">Product</p>
-    <h2 id="checkoutPrice">$0.00</h2>
-
-    <input placeholder="Name">
-    <input placeholder="Delivery address">
-    <input placeholder="Card details">
-
-    <button class="btn" onclick="completePurchase()">Complete Demo Purchase</button>
-    <button class="btn dark" onclick="showScreen('feed')">Back to Feed</button>
-  </div>
-</section>
+</div>
+</div>
 
 </div>
 
-<div class="nav">
-  <button onclick="showScreen('feed')" class="active">⌂<br>Feed</button>
-  <button onclick="showScreen('live')">●<br>Live</button>
-  <button class="plus" onclick="showScreen('add')">+</button>
-  <button onclick="showScreen('rank')">♛<br>Rank</button>
-  <button onclick="showScreen('store')">▣<br>Store</button>
+<div id="tryOn" class="modal">
+<div class="box">
+
+<h2>Try On ✨</h2>
+
+<div class="preview">👗 Preview</div>
+
+<button class="btn">Select Size</button>
+<button class="btn">Change Colour</button>
+<button class="btn" onclick="buy()">Buy Now</button>
+<button class="btn" onclick="closeTryOn()">Close</button>
+
 </div>
-
-<div id="modal" class="modal">
-  <div class="modal-box">
-    <h2 id="modalTitle"></h2>
-    <p id="modalText"></p>
-    <button class="btn" onclick="closeModal()">Close</button>
-  </div>
-</div>
-
-<div id="tryOnModal" class="modal">
-  <div class="modal-box">
-    <h2>Vella Virtual Try-On ✨</h2>
-    <p id="tryOnText">Preview this item before buying.</p>
-
-    <div class="try-preview">
-      <h2 style="text-shadow:0 0 12px #000">👗 Model Preview</h2>
-    </div>
-
-    <p>Choose size:</p>
-    <div class="size-row">
-      <button onclick="selectSize(this)">XS</button>
-      <button onclick="selectSize(this)">S</button>
-      <button onclick="selectSize(this)">M</button>
-      <button onclick="selectSize(this)">L</button>
-      <button onclick="selectSize(this)">XL</button>
-    </div>
-
-    <p>Choose colour:</p>
-    <div class="colour-row">
-      <button onclick="selectColour('Black')">Black</button>
-      <button onclick="selectColour('Pink')">Pink</button>
-      <button onclick="selectColour('White')">White</button>
-    </div>
-
-    <button class="btn" onclick="openModal('Saved Look','This outfit was saved to your Vella looks.')">Save Look</button>
-    <button class="btn" onclick="openModal('Ask Friends','Your friends can vote if this outfit suits you.')">Ask Friends</button>
-    <button class="btn" onclick="buyTryOn()">Buy Now</button>
-    <button class="btn dark" onclick="closeTryOn()">Close</button>
-  </div>
 </div>
 
 <script>
-let historyStack = ["feed"];
-let liked = false;
-let views = 21;
-
-let currentProduct = "Luxe Collection";
-let currentPrice = 79.99;
-
-let earnings = 0;
-let orders = [];
-
-function showScreen(id){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-
-  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
-
-  if(historyStack[historyStack.length-1] !== id){
-    historyStack.push(id);
-  }
-
-  window.scrollTo(0,0);
-}
-
-function goBack(){
-  if(historyStack.length > 1){
-    historyStack.pop();
-    const previous = historyStack[historyStack.length-1];
-    document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-    document.getElementById(previous).classList.add("active");
-  } else {
-    showScreen("feed");
-  }
-}
-
-function filterFeed(type, btn){
-  document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
-  btn.classList.add("active");
-  openModal(type + " Feed", "Vella is now showing " + type + " content.");
-}
-
-function likePost(){
-  liked = !liked;
-  views++;
-  document.getElementById("viewCount").innerText = views;
-  openModal(liked ? "Liked" : "Unliked", liked ? "You liked this post." : "You removed your like.");
-}
-
-function openModal(title,text){
-  document.getElementById("modalTitle").innerText = title;
-  document.getElementById("modalText").innerText = text;
-  document.getElementById("modal").style.display = "flex";
-}
-
-function closeModal(){
-  document.getElementById("modal").style.display = "none";
-}
-
-function openTryOn(product,price){
-  currentProduct = product;
-  currentPrice = price;
-  document.getElementById("tryOnText").innerText = "Preview " + product + " before buying.";
-  document.getElementById("tryOnModal").style.display = "flex";
+function openTryOn(){
+  document.getElementById("tryOn").style.display="flex";
 }
 
 function closeTryOn(){
-  document.getElementById("tryOnModal").style.display = "none";
+  document.getElementById("tryOn").style.display="none";
 }
 
-function selectSize(btn){
-  document.querySelectorAll(".size-row button").forEach(b=>b.style.background="#ffffff18");
-  btn.style.background = "linear-gradient(90deg,#ff2bd6,#24e8e8)";
-}
-
-function selectColour(colour){
-  openModal("Colour Selected", colour + " selected for this look.");
-}
-
-function buyTryOn(){
-  closeTryOn();
-  startCheckout(currentProduct,currentPrice);
-}
-
-function startCheckout(product,price){
-  currentProduct = product;
-  currentPrice = price;
-  document.getElementById("checkoutProduct").innerText = product;
-  document.getElementById("checkoutPrice").innerText = "$" + price.toFixed(2);
-  showScreen("checkout");
-}
-
-function completePurchase(){
-  earnings += currentPrice;
-
-  const order = {
-    product: currentProduct,
-    price: currentPrice,
-    time: new Date().toLocaleTimeString()
-  };
-
-  orders.unshift(order);
-  updateSellerStats();
-
-  openModal("Purchase Complete","Demo order placed. Seller earnings and orders have updated.");
-}
-
-function updateSellerStats(){
-  document.getElementById("earnings").innerText = "$" + earnings.toFixed(2);
-  document.getElementById("ordersCount").innerText = orders.length;
-
-  const ordersList = document.getElementById("ordersList");
-  ordersList.innerHTML = "";
-
-  orders.forEach(order=>{
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `
-      <h2>${order.product}</h2>
-      <p>$${order.price.toFixed(2)}</p>
-      <p>Order time: ${order.time}</p>
-      <p>Status: Pending</p>
-    `;
-    ordersList.appendChild(div);
-  });
-}
-
-function saveProduct(){
-  const name = document.getElementById("productName").value;
-  const priceRaw = document.getElementById("productPrice").value;
-  const price = parseFloat(priceRaw.replace("$",""));
-
-  if(!name || !price){
-    openModal("Missing Info","Add a product name and price first.");
-    return;
-  }
-
-  const item = document.createElement("div");
-  item.className = "card";
-  item.innerHTML = `
-    <h2>${name}</h2>
-    <p>$${price.toFixed(2)}</p>
-    <button class="btn" onclick="openTryOn('${name}',${price})">Try On ✨</button>
-    <button class="btn" onclick="startCheckout('${name}',${price})">Buy</button>
-  `;
-
-  document.getElementById("productList").prepend(item);
-
-  document.getElementById("productName").value = "";
-  document.getElementById("productPrice").value = "";
-
-  openModal("Product Added", name + " is now in your Vella shop.");
+function buy(){
+  alert("✨ Demo Purchase Complete");
 }
 </script>
 
