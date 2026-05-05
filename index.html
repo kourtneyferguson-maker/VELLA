@@ -1,356 +1,369 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vella</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vella V1</title>
 
 <style>
 *{box-sizing:border-box}
-
 body{
   margin:0;
-  font-family:Arial, sans-serif;
-  background:radial-gradient(circle at top left,#3b002d,#06000d 55%,#000);
+  font-family:Arial,sans-serif;
+  background:#050007;
   color:white;
+  overflow:hidden;
 }
-
-.app{
-  max-width:430px;
-  margin:auto;
-  min-height:100vh;
-  padding:22px 18px 40px;
+.feed{
+  height:100vh;
+  overflow-y:scroll;
+  scroll-snap-type:y mandatory;
 }
-
-h1{
-  font-size:42px;
-  margin:20px 0;
+.post{
+  height:100vh;
+  position:relative;
+  scroll-snap-align:start;
+  background-size:cover;
+  background-position:center;
+}
+.post::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom,#0002,#0003,#000d);
+}
+.logo{
+  position:absolute;
+  top:25px;
+  left:20px;
+  z-index:2;
+  font-size:34px;
+  font-weight:900;
   font-style:italic;
-  background:linear-gradient(90deg,#ff2bd6,#37eaff);
+  background:linear-gradient(90deg,#ff2bd6,#27eaff);
   -webkit-background-clip:text;
   color:transparent;
 }
-
-.hero{
-  height:620px;
-  border-radius:34px;
-  padding:22px;
-  position:relative;
-  overflow:hidden;
-  background:
-    linear-gradient(#0002,#000c),
-    url("https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=80");
-  background-size:cover;
-  background-position:center;
-  box-shadow:0 0 40px rgba(255,43,214,.25);
+.tags{
+  position:absolute;
+  top:82px;
+  left:20px;
+  z-index:2;
 }
-
-.badge{
+.tag{
   display:inline-block;
-  padding:10px 16px;
-  border-radius:30px;
-  background:rgba(255,43,214,.9);
-  font-weight:bold;
-  box-shadow:0 0 20px rgba(255,43,214,.7);
+  background:#0009;
+  padding:9px 13px;
+  border-radius:20px;
+  margin-right:6px;
+  font-size:13px;
 }
-
 .side{
   position:absolute;
   right:16px;
-  top:230px;
+  bottom:210px;
+  z-index:2;
   display:flex;
   flex-direction:column;
   gap:14px;
 }
-
 .side button{
-  width:54px;
-  height:54px;
+  width:55px;
+  height:55px;
   border:0;
   border-radius:20px;
-  background:rgba(0,0,0,.55);
+  background:#0009;
   color:white;
   font-size:23px;
 }
-
-.product{
+.info{
   position:absolute;
   left:18px;
-  right:18px;
-  bottom:22px;
-  padding:18px;
-  border-radius:28px;
-  background:rgba(10,10,10,.78);
-  border:1px solid rgba(255,255,255,.16);
+  right:85px;
+  bottom:30px;
+  z-index:2;
+}
+.info h2{margin:0;font-size:26px}
+.info p{opacity:.85}
+.card{
+  background:#000b;
+  border:1px solid #ffffff30;
+  border-radius:26px;
+  padding:16px;
   backdrop-filter:blur(12px);
 }
-
-.product h2{
-  margin:0 0 6px;
-}
-
-.product p{
-  opacity:.8;
-  margin:4px 0;
-}
-
 .btn{
   width:100%;
-  margin-top:12px;
   padding:15px;
+  margin-top:10px;
   border:0;
   border-radius:18px;
   font-weight:900;
   font-size:15px;
-  background:linear-gradient(90deg,#ff2bd6,#33eaff);
   color:#050505;
+  background:linear-gradient(90deg,#ff2bd6,#2befff);
 }
-
 .btn.dark{
-  background:rgba(255,255,255,.12);
+  background:#ffffff18;
   color:white;
-  border:1px solid rgba(255,255,255,.14);
+  border:1px solid #ffffff25;
 }
-
 .modal{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.82);
   z-index:99;
+  background:#000c;
   align-items:center;
   justify-content:center;
-  padding:20px;
+  padding:18px;
 }
-
-.tryon-box{
+.box{
   width:100%;
   max-width:390px;
-  border-radius:34px;
-  padding:24px;
-  background:linear-gradient(160deg,#171017,#0b0b0f);
-  border:1px solid rgba(255,255,255,.15);
-  box-shadow:0 0 50px rgba(255,43,214,.28);
+  background:linear-gradient(160deg,#171017,#08080d);
+  border:1px solid #ffffff25;
+  border-radius:30px;
+  padding:22px;
+  box-shadow:0 0 45px #ff2bd650;
 }
-
-.tryon-box h2{
-  margin:0;
-  font-size:30px;
-}
-
 .preview{
-  height:330px;
-  margin:18px 0;
-  border-radius:28px;
-  position:relative;
-  overflow:hidden;
-  background:
-    linear-gradient(#0001,#0009),
-    url("https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80");
+  height:310px;
+  border-radius:25px;
+  margin:16px 0;
   background-size:cover;
   background-position:center;
+  position:relative;
+  overflow:hidden;
 }
-
-.preview-label{
+.preview::after{
+  content:"Preview look";
   position:absolute;
-  left:16px;
-  right:16px;
-  bottom:16px;
-  padding:14px;
-  border-radius:20px;
-  background:rgba(0,0,0,.55);
-  backdrop-filter:blur(10px);
+  left:14px;
+  bottom:14px;
+  background:#0009;
+  padding:12px 16px;
+  border-radius:18px;
 }
-
-.preview-label b{
-  display:block;
-  font-size:18px;
-}
-
-.preview-label span{
-  font-size:13px;
-  opacity:.75;
-}
-
 .options{
   display:flex;
-  gap:10px;
-  margin:12px 0;
+  gap:8px;
+  margin:10px 0;
 }
-
-.option{
+.options button{
   flex:1;
   padding:12px;
-  border-radius:16px;
-  background:rgba(255,255,255,.09);
-  text-align:center;
-  font-size:13px;
+  border:0;
+  border-radius:15px;
+  background:#ffffff18;
+  color:white;
+  font-weight:bold;
 }
-
-.close{
-  text-align:center;
-  opacity:.6;
-  font-size:13px;
-  margin-top:16px;
-  cursor:pointer;
-}
-
-.checkout-box{
-  display:none;
-  margin-top:18px;
-  padding:18px;
-  border-radius:24px;
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.12);
-}
-
 input{
   width:100%;
   padding:14px;
   margin-top:10px;
   border-radius:16px;
-  border:1px solid rgba(255,255,255,.16);
-  background:rgba(255,255,255,.1);
+  border:1px solid #ffffff30;
+  background:#ffffff15;
   color:white;
 }
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:30px;
+  transform:translateX(-50%);
+  background:#111;
+  border:1px solid #ff2bd680;
+  border-radius:20px;
+  padding:14px 18px;
+  display:none;
+  z-index:120;
+  box-shadow:0 0 25px #ff2bd650;
+}
 </style>
- .feed{
-  height:100vh;
-  overflow-y:scroll;
-  scroll-snap-type:y mandatory;
-}
-
-.post{
-  height:100vh;
-  width:100%;
-  position:relative;
-  scroll-snap-align:start;
-}
-
-.post img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.overlay{
-  position:absolute;
-  bottom:0;
-  left:0;
-  right:0;
-  padding:20px;
-  background:linear-gradient(transparent,rgba(0,0,0,0.85));
-}
-
-.overlay button{
-  margin-top:10px;
-  padding:12px;
-  border:none;
-  border-radius:14px;
-  background:linear-gradient(90deg,#ff2bd6,#2befff);
-} 
 </head>
 
 <body>
 
 <div class="feed">
 
-  <div class="post">
-    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=80">
-    <div class="overlay">
-      <h3>Summer Fit ✨</h3>
-      <p>$79.99 · selling fast</p>
-      <button onclick="openTryOn()">Try On</button>
+  <section class="post" style="background-image:url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=80')">
+    <div class="logo">Vella</div>
+    <div class="tags">
+      <span class="tag">Fashion</span><span class="tag">Trending</span><span class="tag">Try & Buy</span>
     </div>
-  </div>
 
-  <div class="post">
-    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80">
-    <div class="overlay">
-      <h3>Night Look 🔥</h3>
-      <p>$89.99 · trending</p>
-      <button onclick="openTryOn()">Try On</button>
+    <div class="side">
+      <button onclick="like()">♡</button>
+      <button onclick="comment()">💬</button>
+      <button onclick="saveLook()">💾</button>
+      <button onclick="share()">↗</button>
     </div>
-  </div>
 
-</div>
-
-<h1>Vella</h1>
-
-<div class="hero">
-  <span class="badge">LIVE FIT ✨</span>
-
-  <div class="side">
-    <button onclick="pop('Saved to your looks ✨')">♡</button>
-    <button onclick="pop('Comments coming soon 💬')">💬</button>
-    <button onclick="pop('Shared with friends ↗')">↗</button>
-  </div>
-
-  <div class="product">
-    <h2>Influencer Outfit</h2>
-    <p>Try it visually before you buy</p>
-    <h3>$79.99</h3>
-
-    <button class="btn" onclick="openTryOn()">Try On ✨</button>
-    <button class="btn dark" onclick="openCheckout()">Buy Now</button>
-  </div>
-</div>
-
-<div id="checkout" class="checkout-box">
-  <h2>Checkout</h2>
-  <p>Influencer Outfit — $79.99</p>
-  <input placeholder="Name">
-  <input placeholder="Delivery address">
-  <input placeholder="Card details">
-  <button class="btn" onclick="pop('✨ Demo Purchase Complete')">Complete Purchase</button>
-</div>
-
-</div>
-
-<div id="tryOn" class="modal">
-  <div class="tryon-box">
-    <h2>Try On ✨</h2>
-
-    <div class="preview">
-      <div class="preview-label">
-        <b>Influencer Outfit</b>
-        <span>See the look, choose your size, then buy with confidence.</span>
+    <div class="info">
+      <div class="card">
+        <h2>Influencer Outfit ✨</h2>
+        <p>$79.99 · 21 people viewing · selling fast</p>
+        <button class="btn" onclick="openTryOn('Influencer Outfit',79.99,'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80')">Try On ✨</button>
+        <button class="btn dark" onclick="openCheckout('Influencer Outfit',79.99)">Buy Now</button>
       </div>
     </div>
+  </section>
 
-    <div class="options">
-      <div class="option">Size: S</div>
-      <div class="option">Colour: Black</div>
+  <section class="post" style="background-image:url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80')">
+    <div class="logo">Vella</div>
+    <div class="tags">
+      <span class="tag">Night Look</span><span class="tag">Hot Now</span>
     </div>
 
-    <div class="options">
-      <div class="option" onclick="pop('Size changed to M')">M</div>
-      <div class="option" onclick="pop('Size changed to L')">L</div>
-      <div class="option" onclick="pop('Pink selected')">Pink</div>
+    <div class="side">
+      <button onclick="like()">♡</button>
+      <button onclick="comment()">💬</button>
+      <button onclick="saveLook()">💾</button>
+      <button onclick="share()">↗</button>
     </div>
 
-    <button class="btn" onclick="pop('Saved to your dream fits ✨')">Save Look</button>
-    <button class="btn" onclick="closeTryOn();openCheckout()">Buy This Look</button>
+    <div class="info">
+      <div class="card">
+        <h2>Night Out Fit 🔥</h2>
+        <p>$89.99 · people are saving this</p>
+        <button class="btn" onclick="openTryOn('Night Out Fit',89.99,'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80')">Try On ✨</button>
+        <button class="btn dark" onclick="openCheckout('Night Out Fit',89.99)">Buy Now</button>
+      </div>
+    </div>
+  </section>
 
-    <p class="close" onclick="closeTryOn()">Close</p>
+  <section class="post" style="background-image:url('https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=900&q=80')">
+    <div class="logo">Vella</div>
+    <div class="tags">
+      <span class="tag">Clean Girl</span><span class="tag">Everyday</span>
+    </div>
+
+    <div class="side">
+      <button onclick="like()">♡</button>
+      <button onclick="comment()">💬</button>
+      <button onclick="saveLook()">💾</button>
+      <button onclick="share()">↗</button>
+    </div>
+
+    <div class="info">
+      <div class="card">
+        <h2>Clean Girl Fit 🤍</h2>
+        <p>$69.99 · simple, cute, easy</p>
+        <button class="btn" onclick="openTryOn('Clean Girl Fit',69.99,'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80')">Try On ✨</button>
+        <button class="btn dark" onclick="openCheckout('Clean Girl Fit',69.99)">Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div id="tryModal" class="modal">
+  <div class="box">
+    <h2>Try On ✨</h2>
+    <p id="tryText">Preview before buying.</p>
+    <div id="preview" class="preview"></div>
+
+    <p>Choose size</p>
+    <div class="options">
+      <button onclick="toast('XS selected')">XS</button>
+      <button onclick="toast('S selected')">S</button>
+      <button onclick="toast('M selected')">M</button>
+      <button onclick="toast('L selected')">L</button>
+    </div>
+
+    <p>Choose colour</p>
+    <div class="options">
+      <button onclick="toast('Black selected')">Black</button>
+      <button onclick="toast('Pink selected')">Pink</button>
+      <button onclick="toast('White selected')">White</button>
+    </div>
+
+    <button class="btn" onclick="saveLook()">Save Look</button>
+    <button class="btn" onclick="buyFromTryOn()">Buy This Look</button>
+    <button class="btn dark" onclick="closeTryOn()">Close</button>
   </div>
 </div>
 
+<div id="checkoutModal" class="modal">
+  <div class="box">
+    <h2>Checkout</h2>
+    <p id="checkoutItem">Item</p>
+    <h2 id="checkoutPrice">$0.00</h2>
+
+    <input placeholder="Name">
+    <input placeholder="Delivery address">
+    <input placeholder="Card details">
+
+    <button class="btn" onclick="completePurchase()">Complete Demo Purchase</button>
+    <button class="btn dark" onclick="closeCheckout()">Close</button>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
 <script>
-function openTryOn(){
-  document.getElementById("tryOn").style.display="flex";
+let currentProduct = "Influencer Outfit";
+let currentPrice = 79.99;
+let currentImage = "";
+
+function openTryOn(product, price, image){
+  currentProduct = product;
+  currentPrice = price;
+  currentImage = image;
+  document.getElementById("tryText").innerText = "Preview " + product + " before buying.";
+  document.getElementById("preview").style.backgroundImage = "url('" + image + "')";
+  document.getElementById("tryModal").style.display = "flex";
 }
 
 function closeTryOn(){
-  document.getElementById("tryOn").style.display="none";
+  document.getElementById("tryModal").style.display = "none";
 }
 
-function openCheckout(){
-  document.getElementById("checkout").style.display="block";
-  document.getElementById("checkout").scrollIntoView({behavior:"smooth"});
+function openCheckout(product, price){
+  currentProduct = product;
+  currentPrice = price;
+  document.getElementById("checkoutItem").innerText = product;
+  document.getElementById("checkoutPrice").innerText = "$" + price.toFixed(2);
+  document.getElementById("checkoutModal").style.display = "flex";
 }
 
-function pop(message){
-  alert(message);
+function closeCheckout(){
+  document.getElementById("checkoutModal").style.display = "none";
+}
+
+function buyFromTryOn(){
+  closeTryOn();
+  openCheckout(currentProduct,currentPrice);
+}
+
+function completePurchase(){
+  closeCheckout();
+  toast("✨ Demo Purchase Complete");
+}
+
+function like(){
+  toast("Liked this look ♡");
+}
+
+function comment(){
+  toast("Comments: omg I need this · does it come in pink?");
+}
+
+function saveLook(){
+  toast("Saved to your Vella looks ✨");
+}
+
+function share(){
+  toast("Shared with friends ↗");
+}
+
+function toast(message){
+  const t = document.getElementById("toast");
+  t.innerText = message;
+  t.style.display = "block";
+  setTimeout(()=>{t.style.display="none"},2200);
 }
 </script>
 
