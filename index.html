@@ -1,31 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vella</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #050505;
+      color: white;
+    }
+
+    header {
+      text-align: center;
+      padding: 18px;
+      background: #111;
+      border-bottom: 1px solid #00ffd0;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 3px;
+    }
+
+    .feed {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      padding: 25px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .post {
+      height: 620px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #111, #062b2b);
+      box-shadow: 0 0 35px rgba(0,255,208,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .overlay {
+      position: absolute;
+      bottom: 25px;
+      left: 25px;
+    }
+
+    .overlay h3 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .overlay p {
+      font-size: 18px;
+    }
+
+    .buy {
+      background: #00ffd0;
+      color: #00110e;
+      border: none;
+      border-radius: 25px;
+      padding: 13px 22px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(0,255,208,0.7);
+    }
+  </style>
+</head>
+
 <body>
+  <header>VELLA</header>
 
-<header>
-  <div class="logo">VELLA</div>
-</header>
+  <div class="feed">
 
-<div class="feed">
-
-  <!-- CARD 1 -->
-  <div class="post">
-    <div class="video">🔥 Trending Product Video</div>
-    <div class="overlay">
-      <h3>@GlowBeauty</h3>
-      <p>Hydrating Skin Serum ✨</p>
-      <button class="buy">Buy Now</button>
+    <div class="post">
+      <div class="video">🔥 Trending Product Video</div>
+      <div class="overlay">
+        <h3>@GlowBeauty</h3>
+        <p>Hydrating Skin Serum ✨</p>
+        <button class="buy">Buy Now</button>
+      </div>
     </div>
-  </div>
 
-  <!-- CARD 2 -->
-  <div class="post">
-    <div class="video">💪 Fitness Product Demo</div>
-    <div class="overlay">
-      <h3>@FitLife</h3>
-      <p>Resistance Bands Set</p>
-      <button class="buy">Buy Now</button>
+    <div class="post">
+      <div class="video">💪 Fitness Product Demo</div>
+      <div class="overlay">
+        <h3>@FitLife</h3>
+        <p>Resistance Bands Set</p>
+        <button class="buy">Buy Now</button>
+      </div>
     </div>
+
   </div>
-
-</div>
-
 </body>
+</html>
