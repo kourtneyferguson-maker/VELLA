@@ -213,11 +213,66 @@ input{
   color:white;
 }
 </style>
+ .feed{
+  height:100vh;
+  overflow-y:scroll;
+  scroll-snap-type:y mandatory;
+}
+
+.post{
+  height:100vh;
+  width:100%;
+  position:relative;
+  scroll-snap-align:start;
+}
+
+.post img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.overlay{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:20px;
+  background:linear-gradient(transparent,rgba(0,0,0,0.85));
+}
+
+.overlay button{
+  margin-top:10px;
+  padding:12px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(90deg,#ff2bd6,#2befff);
+} 
 </head>
 
 <body>
 
-<div class="app">
+<div class="feed">
+
+  <div class="post">
+    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=80">
+    <div class="overlay">
+      <h3>Summer Fit ✨</h3>
+      <p>$79.99 · selling fast</p>
+      <button onclick="openTryOn()">Try On</button>
+    </div>
+  </div>
+
+  <div class="post">
+    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80">
+    <div class="overlay">
+      <h3>Night Look 🔥</h3>
+      <p>$89.99 · trending</p>
+      <button onclick="openTryOn()">Try On</button>
+    </div>
+  </div>
+
+</div>
 
 <h1>Vella</h1>
 
