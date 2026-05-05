@@ -10,7 +10,7 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #050505;
+      background: #030003;
       color: white;
       overflow: hidden;
     }
@@ -19,237 +19,593 @@
       display: none;
       height: 100vh;
       width: 100vw;
-      padding: 20px;
+      overflow-y: auto;
+      padding: 18px;
       background:
-        radial-gradient(circle at top, rgba(255,0,150,0.2), transparent 35%),
-        radial-gradient(circle at bottom, rgba(0,255,200,0.15), transparent 35%),
-        #050505;
+        radial-gradient(circle at 20% 15%, rgba(255,0,180,.25), transparent 28%),
+        radial-gradient(circle at 80% 20%, rgba(105,50,255,.22), transparent 30%),
+        radial-gradient(circle at bottom, rgba(0,180,255,.14), transparent 35%),
+        #050005;
     }
 
-    .active { display: flex; flex-direction: column; }
+    .active { display: block; }
 
-    /* WELCOME */
-    .center {
+    .phone {
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100%;
+      padding-bottom: 90px;
+    }
+
+    .status {
+      display: flex;
       justify-content: space-between;
-      align-items: center;
+      font-weight: 900;
+      font-size: 14px;
+      padding: 4px 8px 12px;
+    }
+
+    .hero-collage {
+      height: 250px;
+      display: grid;
+      grid-template-columns: 1fr 1.15fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .photo {
+      border-radius: 24px;
+      background:
+        linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,.45)),
+        url("https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=500&q=80") center/cover;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 0 28px rgba(255,0,180,.25);
+      position: relative;
+    }
+
+    .photo:nth-child(2) {
+      height: 100%;
+      background:
+        linear-gradient(rgba(0,0,0,.05), rgba(0,0,0,.4)),
+        url("https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80") center/cover;
+      transform: scale(1.05);
+      z-index: 2;
+    }
+
+    .photo:nth-child(3) {
+      background:
+        linear-gradient(rgba(0,0,0,.1), rgba(0,0,0,.45)),
+        url("https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=500&q=80") center/cover;
+    }
+
+    .live-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.55);
+      border: 1px solid rgba(255,0,180,.45);
+      color: #ff4bd8;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .explore {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 11px 14px;
+      border-radius: 17px;
+      background: rgba(0,0,0,.48);
+      border: 1px solid rgba(255,255,255,.18);
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .v-symbol {
+      font-size: 62px;
+      color: #ff34df;
+      text-shadow: 0 0 30px #ff34df;
       text-align: center;
+      margin-top: -20px;
+      font-weight: 900;
     }
 
-    .logo {
-      font-size: 48px;
+    .hello-title {
+      text-align: center;
+      font-size: 74px;
+      line-height: .85;
       font-weight: 900;
-      background: linear-gradient(90deg,#ff2bd6,#00ffd0);
+      font-style: italic;
+      background: linear-gradient(135deg, #ff2bd6, #7b4dff, #31b8ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 35px rgba(255,0,180,.55);
+      margin: 8px 0 16px;
     }
 
-    .big {
-      font-size: 60px;
+    .hello-title span {
+      display: block;
+      font-size: 32px;
+      color: #ff6be6;
+      -webkit-text-fill-color: #ff6be6;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #ddd;
+      font-size: 17px;
+      line-height: 1.35;
+      margin: 0 auto 18px;
+      max-width: 330px;
+    }
+
+    .word-row {
+      text-align: center;
+      letter-spacing: 4px;
+      font-size: 12px;
       font-weight: 900;
-      background: linear-gradient(90deg,#ff2bd6,#00ffd0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    .word-row b {
+      color: #ff3bd8;
+      margin: 0 6px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .feature {
+      text-align: center;
+      font-size: 10px;
+      color: #ddd;
+    }
+
+    .feature-icon {
+      height: 58px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin-bottom: 6px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,0,180,.25);
+      box-shadow: 0 0 20px rgba(255,0,180,.22);
     }
 
     .btn {
       width: 100%;
-      max-width: 420px;
-      padding: 16px;
-      border-radius: 999px;
+      padding: 17px;
+      border-radius: 22px;
       border: none;
+      margin: 8px 0;
+      font-size: 16px;
       font-weight: 900;
+      color: white;
       cursor: pointer;
-      background: linear-gradient(90deg,#ff2bd6,#00ffd0);
-      color: black;
-      margin-top: 12px;
     }
 
-    .ghost {
-      background: transparent;
-      border: 1px solid #444;
-      color: white;
+    .create {
+      background: linear-gradient(90deg,#ff149d,#8b3dff,#1473ff);
+      box-shadow: 0 0 28px rgba(255,20,157,.55);
     }
 
-    input {
-      width: 100%;
+    .login-btn {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.18);
+    }
+
+    .or {
+      text-align: center;
+      color: #aaa;
+      margin: 12px 0;
+      font-size: 12px;
+    }
+
+    .social-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .social {
       padding: 14px;
-      margin-top: 10px;
-      border-radius: 14px;
-      border: 1px solid #333;
-      background: #111;
-      color: white;
+      border-radius: 18px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.18);
+      text-align: center;
+      font-weight: 900;
+      font-size: 13px;
     }
 
     /* HOME */
-    .home { overflow-y: auto; padding-bottom: 90px; }
-
-    .topbar {
+    .home-top {
       display: flex;
-      justify-content: space-between;
-      margin-bottom: 15px;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .vella-logo {
+      font-size: 38px;
+      font-weight: 900;
+      font-style: italic;
+      background: linear-gradient(90deg,#ff2bd6,#6f5cff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .search {
       flex: 1;
-      margin: 0 10px;
-      padding: 10px;
-      border-radius: 20px;
-      background: #111;
-      border: 1px solid #333;
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.06);
       color: white;
     }
 
     .stories {
       display: flex;
-      gap: 12px;
+      gap: 13px;
       overflow-x: auto;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
+      padding-bottom: 4px;
     }
 
     .story {
+      min-width: 76px;
       text-align: center;
       font-size: 11px;
+      color: #eee;
     }
 
-    .circle {
-      width: 65px;
-      height: 65px;
+    .story-pic {
+      width: 68px;
+      height: 68px;
+      margin: 0 auto 6px;
       border-radius: 50%;
       border: 2px solid #ff2bd6;
-      background: url('https://picsum.photos/100') center/cover;
-      margin-bottom: 5px;
+      background: url("https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80") center/cover;
+      box-shadow: 0 0 18px rgba(255,43,214,.5);
     }
 
-    .top-sellers {
-      padding: 15px;
-      border-radius: 20px;
-      background: linear-gradient(135deg,#ff2bd6,#00ffd0);
-      margin-bottom: 20px;
+    .go-live-box {
+      width: 68px;
+      height: 68px;
+      border-radius: 22px;
+      border: 2px solid #ff2bd6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      box-shadow: 0 0 20px rgba(255,43,214,.45);
     }
 
-    .feed-card {
-      border-radius: 20px;
+    .seller-rank {
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 18px;
+      background:
+        radial-gradient(circle at 75% 30%, rgba(255,43,214,.3), transparent 35%),
+        linear-gradient(135deg, rgba(70,20,120,.9), rgba(15,5,30,.95));
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 0 28px rgba(120,50,255,.2);
+    }
+
+    .seller-rank h2 {
+      margin: 0 0 14px;
+      font-size: 24px;
+    }
+
+    .podium {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      text-align: center;
+      gap: 8px;
+    }
+
+    .place {
+      flex: 1;
+      padding: 10px 6px;
+      border-radius: 18px 18px 0 0;
+      background: rgba(255,255,255,.08);
+      font-size: 12px;
+    }
+
+    .place.one {
+      padding-top: 38px;
+      background: linear-gradient(180deg, rgba(255,0,180,.35), rgba(70,20,160,.55));
+    }
+
+    .place strong {
+      display: block;
+      font-size: 24px;
+      color: #fff;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      margin: 20px 0 12px;
+      font-weight: 900;
+      color: #999;
+    }
+
+    .tabs .active-tab {
+      color: white;
+      border-bottom: 3px solid #ff2bd6;
+      padding-bottom: 8px;
+    }
+
+    .post {
+      position: relative;
+      min-height: 570px;
+      border-radius: 26px;
       overflow: hidden;
       margin-bottom: 20px;
-      background: #111;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.05), rgba(0,0,0,.78)),
+        url("https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80") center/cover;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: 0 0 26px rgba(255,43,214,.18);
     }
 
-    .feed-img {
-      height: 250px;
-      background: url('https://picsum.photos/400') center/cover;
+    .post-info {
+      position: absolute;
+      left: 18px;
+      top: 20px;
     }
 
-    .feed-content {
-      padding: 12px;
+    .post-info h2 {
+      margin: 10px 0 4px;
+      font-size: 24px;
+    }
+
+    .product {
+      position: absolute;
+      left: 18px;
+      bottom: 90px;
+      width: 260px;
+      padding: 13px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.58);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(12px);
+    }
+
+    .buy {
+      margin-top: 10px;
+      padding: 11px 18px;
+      border-radius: 14px;
+      border: none;
+      background: #ff2bd6;
+      color: white;
+      font-weight: 900;
+      box-shadow: 0 0 18px rgba(255,43,214,.65);
+    }
+
+    .side-actions {
+      position: absolute;
+      right: 16px;
+      bottom: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .side-actions div {
+      font-size: 26px;
+      filter: drop-shadow(0 0 8px #ff2bd6);
+    }
+
+    .comment {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 20px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.58);
+      border: 1px solid rgba(255,255,255,.14);
+      color: #aaa;
     }
 
     .bottom-nav {
       position: fixed;
       bottom: 0;
-      width: 100%;
+      left: 0;
+      right: 0;
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 12px 8px 18px;
+      background: rgba(0,0,0,.92);
+      border-top: 1px solid rgba(255,255,255,.12);
       display: flex;
       justify-content: space-around;
-      background: #000;
-      padding: 10px 0;
+      z-index: 50;
     }
 
     .nav {
       text-align: center;
-      font-size: 12px;
+      font-size: 11px;
+      color: #ccc;
+      font-weight: 800;
+    }
+
+    .nav span {
+      display: block;
+      font-size: 25px;
+      margin-bottom: 4px;
     }
 
     .plus {
-      font-size: 28px;
-      background: linear-gradient(90deg,#ff2bd6,#00ffd0);
-      padding: 5px 12px;
-      border-radius: 10px;
-      color: black;
+      width: 56px;
+      height: 56px;
+      margin-top: -28px;
+      border-radius: 20px;
+      background: linear-gradient(135deg,#ff2bd6,#6f5cff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      font-weight: 900;
+      box-shadow: 0 0 28px rgba(255,43,214,.75);
     }
   </style>
 </head>
 
 <body>
 
-<!-- WELCOME -->
-<div id="welcome" class="screen active center">
-  <div></div>
+  <!-- WELCOME SCREEN -->
+  <section id="welcome" class="screen active">
+    <div class="phone">
+      <div class="status">
+        <span>9:41</span>
+        <span>●●● WiFi 🔋</span>
+      </div>
 
-  <div>
-    <div class="big">Hello Vella!</div>
-    <p>The ultimate platform for creators, designers & businesses.</p>
-  </div>
+      <div class="hero-collage">
+        <div class="photo"><div class="live-badge">● LIVE</div></div>
+        <div class="photo"></div>
+        <div class="photo"><div class="explore">Explore Vella ›</div></div>
+      </div>
 
-  <button class="btn" onclick="go('login')">Create Account</button>
-  <button class="btn ghost" onclick="go('login')">Log In</button>
-</div>
+      <div class="v-symbol">∨</div>
 
-<!-- LOGIN -->
-<div id="login" class="screen center">
-  <div></div>
+      <div class="hello-title"><span>Hello</span>Vella!</div>
 
-  <div style="width:100%; max-width:400px;">
-    <div class="logo">Vella</div>
-    <input placeholder="Email">
-    <input placeholder="Password">
-    <button class="btn" onclick="go('home')">Enter</button>
-  </div>
+      <p class="subtitle">The ultimate platform for creators, designers, artists & businesses.</p>
 
-  <div></div>
-</div>
+      <div class="word-row">CREATE <b>•</b> LIVE <b>•</b> SELL <b>•</b> RANK <b>•</b> GROW</div>
 
-<!-- HOME -->
-<div id="home" class="screen home">
+      <div class="features">
+        <div class="feature"><div class="feature-icon">📡</div><b>GO LIVE</b><br>Real time</div>
+        <div class="feature"><div class="feature-icon">🛍️</div><b>SELL</b><br>Shop</div>
+        <div class="feature"><div class="feature-icon">🏆</div><b>RANK</b><br>Charts</div>
+        <div class="feature"><div class="feature-icon">👑</div><b>BE SEEN</b><br>Grow</div>
+        <div class="feature"><div class="feature-icon">👥</div><b>JOIN</b><br>Community</div>
+      </div>
 
-  <div class="topbar">
-    <div class="logo">Vella</div>
-    <input class="search" placeholder="Search creators...">
-  </div>
+      <button class="btn create" onclick="go('login')">✧ Create Account ›</button>
+      <button class="btn login-btn" onclick="go('login')">Log In ›</button>
 
-  <div class="stories">
-    <div class="story"><div class="circle"></div>Live</div>
-    <div class="story"><div class="circle"></div>Luxe</div>
-    <div class="story"><div class="circle"></div>Art</div>
-    <div class="story"><div class="circle"></div>Style</div>
-  </div>
+      <div class="or">OR</div>
 
-  <div class="top-sellers">
-    <b>Top Sellers This Week</b>
-  </div>
-
-  <div class="feed-card">
-    <div class="feed-img"></div>
-    <div class="feed-content">
-      <b>Luxe Collection</b>
-      <p>Live now • Buy trending items</p>
-      <button class="btn">Buy Now</button>
+      <div class="social-row">
+        <div class="social">G Continue with Google</div>
+        <div class="social"> Continue with Apple</div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="feed-card">
-    <div class="feed-img"></div>
-    <div class="feed-content">
-      <b>Art By Tay</b>
-      <p>New drops available</p>
-      <button class="btn">View</button>
+  <!-- LOGIN SCREEN -->
+  <section id="login" class="screen">
+    <div class="phone" style="display:flex; flex-direction:column; justify-content:center;">
+      <div style="text-align:center;">
+        <div class="vella-logo" style="font-size:56px;">Vella</div>
+        <h1>Welcome back</h1>
+        <input class="search" placeholder="Email address" style="width:100%; margin-bottom:12px;">
+        <input class="search" placeholder="Password" type="password" style="width:100%; margin-bottom:18px;">
+        <button class="btn create" onclick="go('home')">Enter Vella ›</button>
+        <button class="btn login-btn" onclick="go('welcome')">Back</button>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="bottom-nav">
-    <div class="nav">Home</div>
-    <div class="nav">Discover</div>
-    <div class="plus">+</div>
-    <div class="nav">Rank</div>
-    <div class="nav">Profile</div>
-  </div>
+  <!-- HOME SCREEN -->
+  <section id="home" class="screen">
+    <div class="phone">
+      <div class="status">
+        <span>9:41</span>
+        <span>●●● WiFi 🔋</span>
+      </div>
 
-</div>
+      <div class="home-top">
+        <div class="vella-logo">Vella</div>
+        <input class="search" placeholder="Search creators, products...">
+        <div>🔔</div>
+      </div>
 
-<script>
-function go(id){
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-</script>
+      <div class="stories">
+        <div class="story"><div class="go-live-box">📡</div>Go Live</div>
+        <div class="story"><div class="story-pic"></div>Your Story</div>
+        <div class="story"><div class="story-pic"></div>Luxe Collection</div>
+        <div class="story"><div class="story-pic"></div>Art By Tay</div>
+        <div class="story"><div class="story-pic"></div>Glow Beauty</div>
+      </div>
+
+      <div class="seller-rank">
+        <h2>Top Sellers 👑<br>This Week</h2>
+        <div class="podium">
+          <div class="place"><strong>2</strong>Luxe<br>$18,940</div>
+          <div class="place one"><strong>1</strong>Street<br>$21,670</div>
+          <div class="place"><strong>3</strong>Art Tay<br>$16,230</div>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <div class="active-tab">For You</div>
+        <div>Following</div>
+        <div>Live Now</div>
+        <div>Nearby</div>
+        <div>New</div>
+      </div>
+
+      <div class="post">
+        <div class="post-info">
+          <span class="live-badge">LIVE</span>
+          <h2>Luxe Collection ✓</h2>
+          <p>📍 Sydney, NSW</p>
+          <h3>New drop 💜</h3>
+          <p>Limited pieces.<br>Live only.</p>
+        </div>
+
+        <div class="side-actions">
+          <div>♡</div>2.4K
+          <div>💬</div>386
+          <div>↗</div>512
+          <div>🎁</div>
+        </div>
+
+        <div class="product">
+          <b>LUXE Oversized Hoodie</b><br>
+          <b>$79.99</b><br>
+          <button class="buy">🛍 Buy Now</button>
+        </div>
+
+        <div class="comment">Add a comment...</div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav"><span>⌂</span>Home</div>
+      <div class="nav"><span>⌕</span>Discover</div>
+      <div class="plus">+</div>
+      <div class="nav"><span>♕</span>Rankings</div>
+      <div class="nav"><span>♙</span>Profile</div>
+    </div>
+  </section>
+
+  <script>
+    function go(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+  </script>
 
 </body>
 </html>
