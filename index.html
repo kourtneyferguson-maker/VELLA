@@ -1,69 +1,241 @@
-.feed-card {
-  width: 100%;
-  max-width: 500px;
-  height: 620px;
-  border-radius: 38px;
-  position: relative;
-  overflow: hidden;
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vella</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  background:
-    linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.6)),
-    radial-gradient(circle at 30% 20%, rgba(0,255,208,0.35), transparent 40%),
-    radial-gradient(circle at 70% 80%, rgba(255,43,214,0.25), transparent 40%),
-    #050505;
+  <style>
+    * { box-sizing: border-box; }
 
-  border: 1px solid rgba(255,255,255,0.1);
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(0,255,208,0.15), transparent 30%),
+        radial-gradient(circle at bottom, rgba(255,43,214,0.12), transparent 30%),
+        #020202;
+      color: white;
+    }
 
-  box-shadow:
-    0 0 60px rgba(0,255,208,0.25),
-    0 0 120px rgba(255,43,214,0.15),
-    inset 0 0 40px rgba(255,255,255,0.05);
-}.button {
-  width: 100%;
-  margin-top: 16px;
-  padding: 15px;
-  border: none;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #00ffd0, #ff2bd6);
-  color: black;
-  font-weight: 900;
-  font-size: 16px;
-  cursor: pointer;
+    .page { display:none; min-height:100vh; padding:24px; }
+    .page.active { display:flex; flex-direction:column; align-items:center; justify-content:center; }
 
-  box-shadow:
-    0 0 25px rgba(0,255,208,0.6),
-    0 0 35px rgba(255,43,214,0.4);
+    .card {
+      width:100%; max-width:420px;
+      padding:28px;
+      border-radius:30px;
+      background: rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 0 40px rgba(0,255,208,0.15);
+      text-align:center;
+    }
 
-  transition: 0.2s;
+    .logo {
+      font-size:42px;
+      font-weight:900;
+      letter-spacing:8px;
+      background: linear-gradient(90deg,#00ffd0,#ff2bd6);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      text-shadow:0 0 25px rgba(0,255,208,0.4);
+    }
+
+    .hello {
+      font-size:14px;
+      color:#00ffd0;
+      font-weight:bold;
+      letter-spacing:3px;
+      margin-bottom:10px;
+    }
+
+    h1 { font-size:30px; margin:10px 0; }
+    p { color:#cffff8; font-size:14px; }
+
+    .button {
+      width:100%;
+      margin-top:14px;
+      padding:14px;
+      border:none;
+      border-radius:999px;
+      background: linear-gradient(135deg,#00ffd0,#ff2bd6);
+      font-weight:900;
+      cursor:pointer;
+      box-shadow:0 0 25px rgba(0,255,208,0.6);
+    }
+
+    input {
+      width:100%;
+      padding:14px;
+      margin-top:10px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.5);
+      color:white;
+    }
+
+    /* APP */
+    .app { justify-content:flex-start !important; }
+
+    .topbar {
+      width:100%; max-width:500px;
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:15px;
+    }
+
+    .small-logo {
+      font-size:24px;
+      font-weight:900;
+      letter-spacing:4px;
+      color:#00ffd0;
+    }
+
+    .feed-card {
+      width:100%;
+      max-width:500px;
+      height:600px;
+      border-radius:35px;
+      position:relative;
+      overflow:hidden;
+
+      background:
+        linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.6)),
+        radial-gradient(circle at 30% 20%, rgba(0,255,208,0.35), transparent 40%),
+        radial-gradient(circle at 70% 80%, rgba(255,43,214,0.25), transparent 40%),
+        #050505;
+
+      border:1px solid rgba(255,255,255,0.1);
+
+      box-shadow:
+        0 0 60px rgba(0,255,208,0.25),
+        0 0 120px rgba(255,43,214,0.15),
+        inset 0 0 40px rgba(255,255,255,0.05);
+    }
+
+    .video {
+      height:65%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      font-size:26px;
+      font-weight:900;
+    }
+
+    .seller {
+      position:absolute;
+      bottom:15px;
+      left:15px;
+      right:70px;
+      padding:15px;
+      border-radius:25px;
+
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(18px);
+      border:1px solid rgba(0,255,208,0.2);
+    }
+
+    .actions {
+      position:absolute;
+      right:12px;
+      bottom:100px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .action {
+      width:45px;
+      height:45px;
+      border-radius:16px;
+      background: rgba(0,0,0,0.6);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .bottom-nav {
+      position:fixed;
+      bottom:0;
+      width:100%;
+      display:flex;
+      justify-content:space-around;
+      padding:10px;
+      background: rgba(0,0,0,0.9);
+    }
+
+  </style>
+</head>
+
+<body>
+
+<!-- FRONT -->
+<div id="front" class="page active">
+  <div class="card">
+    <div class="logo">VELLA</div>
+    <h1>Content + Shopping + Live</h1>
+    <p>Scroll, sell, go live and get ranked.</p>
+    <button class="button" onclick="go('hello')">Start</button>
+  </div>
+</div>
+
+<!-- HELLO -->
+<div id="hello" class="page">
+  <div class="card">
+    <div class="hello">HELLO VELLA</div>
+    <div class="logo">VELLA</div>
+    <h1>Your feed is ready</h1>
+    <button class="button" onclick="go('signin')">Continue</button>
+  </div>
+</div>
+
+<!-- SIGN IN -->
+<div id="signin" class="page">
+  <div class="card">
+    <h1>Sign In</h1>
+    <input placeholder="Email">
+    <input placeholder="Password">
+    <button class="button" onclick="go('app')">Enter</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" class="page app">
+
+  <div class="topbar">
+    <div class="small-logo">VELLA</div>
+    <div>⚡</div>
+  </div>
+
+  <div class="feed-card">
+
+    <div class="video">
+      ✨ Viral product demo
+    </div>
+
+    <div class="actions">
+      <div class="action">♡</div>
+      <div class="action">💬</div>
+      <div class="action">🛍️</div>
+    </div>
+
+    <div class="seller">
+      <h3>@GlowBeauty</h3>
+      <p>Hydrating Serum</p>
+      <button class="button">Buy</button>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
+</script>
 
-.button:hover {
-  transform: scale(1.05);
-}.logo {
-  font-size: 44px;
-  font-weight: 900;
-  letter-spacing: 8px;
-  background: linear-gradient(90deg, #00ffd0, #ff2bd6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  text-shadow:
-    0 0 20px rgba(0,255,208,0.6),
-    0 0 35px rgba(255,43,214,0.4);
-}.seller {
-  position: absolute;
-  left: 18px;
-  right: 78px;
-  bottom: 18px;
-  padding: 18px;
-  border-radius: 28px;
-
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(18px);
-
-  border: 1px solid rgba(0,255,208,0.2);
-
-  box-shadow:
-    0 0 25px rgba(0,255,208,0.15),
-    inset 0 0 20px rgba(255,255,255,0.05);
-}
+</body>
+</html>
