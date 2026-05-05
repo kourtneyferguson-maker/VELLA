@@ -83,6 +83,75 @@ h1{
   justify-content:center;
 }
 </style>
+  .modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.8);
+  justify-content:center;
+  align-items:center;
+}
+
+.tryon-box{
+  width:90%;
+  max-width:380px;
+  background:#111;
+  padding:25px;
+  border-radius:25px;
+  box-shadow:0 0 40px #ff2bd644;
+  text-align:center;
+}
+
+.preview{
+  height:220px;
+  border-radius:20px;
+  margin:20px 0;
+  background:linear-gradient(145deg,#1a1a1a,#0d0d0d);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-size:40px;
+}
+
+.preview p{
+  font-size:12px;
+  opacity:0.6;
+  margin-top:10px;
+}
+
+.options{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+.option{
+  background:#1a1a1a;
+  padding:10px 14px;
+  border-radius:12px;
+  font-size:13px;
+  opacity:0.8;
+}
+
+.buy-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  font-weight:bold;
+  background:linear-gradient(90deg,#ff2bd6,#2befff);
+  color:black;
+  font-size:15px;
+  margin-top:10px;
+}
+
+.close{
+  margin-top:15px;
+  font-size:13px;
+  opacity:0.5;
+  cursor:pointer;
+}
 </head>
 
 <body>
@@ -110,29 +179,25 @@ h1{
 
 <h2>Try On ✨</h2>
 
-<div class="preview">👗 Preview</div>
+<div id="tryOn" class="modal">
+  <div class="tryon-box">
 
-<button class="btn">Select Size</button>
-<button class="btn">Change Colour</button>
-<button class="btn" onclick="buy()">Buy Now</button>
-<button class="btn" onclick="closeTryOn()">Close</button>
+    <h2>Try On ✨</h2>
 
+    <div class="preview">
+      👗
+      <p>See the vibe before you buy</p>
+    </div>
+
+    <div class="options">
+      <div class="option">Size: S M L</div>
+      <div class="option">Colour: Black / White</div>
+    </div>
+
+    <button class="buy-btn" onclick="buy()">Buy Now ✨</button>
+
+    <p class="close" onclick="closeTryOn()">Close</p>
+
+  </div>
 </div>
-</div>
-
-<script>
-function openTryOn(){
-  document.getElementById("tryOn").style.display="flex";
-}
-
-function closeTryOn(){
-  document.getElementById("tryOn").style.display="none";
-}
-
-function buy(){
-  alert("✨ Demo Purchase Complete");
-}
-</script>
-
-</body>
 </html>
