@@ -1,909 +1,742 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Vella Premium Glass</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+import React, { useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Home,
+  Radio,
+  ShoppingBag,
+  FolderHeart,
+  BellRing,
+  User,
+  Menu,
+  Plus,
+  Search,
+  Heart,
+  Bookmark,
+  Gift,
+  Send,
+  Star,
+  Sparkles,
+  Crown,
+  Settings,
+  CalendarDays,
+  BarChart3,
+  PackagePlus,
+  X,
+  Play,
+  Clock,
+  Flame,
+  Store,
+  Users,
+  Wallet,
+  Megaphone,
+  ChevronRight,
+  CheckCircle2,
+} from "lucide-react";
 
-  <style>
-    * { box-sizing: border-box; }
+const videos = [
+  {
+    id: 1,
+    creator: "Luna Rose",
+    handle: "@lunarose.studio",
+    title: "Glow drop styling hack",
+    category: "Beauty",
+    saves: "18.4k",
+    likes: "42k",
+    product: "Glow Drop Serum",
+    price: "$24.95",
+    bg: "from-fuchsia-950 via-zinc-950 to-purple-950",
+  },
+  {
+    id: 2,
+    creator: "Mila Threads",
+    handle: "@milathreads",
+    title: "New winter capsule try-on",
+    category: "Fashion",
+    saves: "31.1k",
+    likes: "77k",
+    product: "Velvet Crop Blazer",
+    price: "$89.00",
+    bg: "from-indigo-950 via-zinc-950 to-cyan-950",
+  },
+  {
+    id: 3,
+    creator: "Sage Home",
+    handle: "@sagehomeco",
+    title: "Small town market setup",
+    category: "Home",
+    saves: "9.7k",
+    likes: "23k",
+    product: "Ceramic Candle Set",
+    price: "$32.00",
+    bg: "from-emerald-950 via-zinc-950 to-teal-950",
+  },
+];
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #050006;
-      color: white;
-      overflow: hidden;
-    }
+const products = [
+  { id: 1, name: "Velvet Crop Blazer", seller: "Mila Threads", price: "$89.00", stock: 14, tag: "Trending" },
+  { id: 2, name: "Glow Drop Serum", seller: "Luna Rose", price: "$24.95", stock: 43, tag: "Live Deal" },
+  { id: 3, name: "Ceramic Candle Set", seller: "Sage Home", price: "$32.00", stock: 22, tag: "Handmade" },
+  { id: 4, name: "Pearl Bow Hair Clip", seller: "Pretty Lane", price: "$12.00", stock: 67, tag: "New" },
+];
 
-    .screen {
-      display: none;
-      height: 100vh;
-      width: 100vw;
-      overflow-y: auto;
-      background:
-        radial-gradient(circle at 20% 10%, rgba(255,43,214,.26), transparent 34%),
-        radial-gradient(circle at 80% 20%, rgba(123,92,255,.22), transparent 32%),
-        radial-gradient(circle at 50% 100%, rgba(0,255,208,.14), transparent 38%),
-        #050006;
-    }
+const rankings = [
+  { rank: 1, name: "Mila Threads", sales: "$12,840", growth: "+34%", badge: "Fashion Queen" },
+  { rank: 2, name: "Luna Rose", sales: "$9,410", growth: "+29%", badge: "Beauty Boss" },
+  { rank: 3, name: "Sage Home", sales: "$6,220", growth: "+18%", badge: "Home Star" },
+];
 
-    .active { display: block; }
+const folders = [
+  { id: 1, name: "Outfits to try", count: 24, icon: "👗" },
+  { id: 2, name: "Workout saves", count: 12, icon: "🏋️" },
+  { id: 3, name: "Recipes", count: 18, icon: "🍝" },
+  { id: 4, name: "Business ideas", count: 39, icon: "💡" },
+];
 
-    .page {
-      max-width: 430px;
-      margin: auto;
-      padding: 62px 16px 105px;
-      min-height: 100vh;
-    }
+const tabs = [
+  { id: "home", label: "Home", icon: Home },
+  { id: "live", label: "Live", icon: Radio },
+  { id: "sell", label: "Sell", icon: ShoppingBag },
+  { id: "saved", label: "Saved", icon: FolderHeart },
+  { id: "profile", label: "Profile", icon: User },
+];
 
-    .logo {
-      font-size: 39px;
-      font-weight: 900;
-      font-style: italic;
-      background: linear-gradient(90deg,#ff2bd6,#7b5cff,#00ffd0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 16px rgba(255,43,214,.7));
-      margin-bottom: 14px;
-    }
+function GlowButton({ children, onClick, className = "", variant = "primary", icon: Icon }) {
+  const styles =
+    variant === "primary"
+      ? "bg-fuchsia-500/90 hover:bg-fuchsia-400 text-white shadow-fuchsia-500/30"
+      : variant === "cyan"
+      ? "bg-cyan-400/90 hover:bg-cyan-300 text-zinc-950 shadow-cyan-400/30"
+      : "bg-white/10 hover:bg-white/15 text-white border border-white/10 shadow-white/5";
 
-    .back {
-      position: fixed;
-      top: 15px;
-      left: 15px;
-      z-index: 999;
-      padding: 10px 14px;
-      border-radius: 16px;
-      background: rgba(0,0,0,.48);
-      border: 1px solid rgba(255,255,255,.18);
-      backdrop-filter: blur(18px);
-      color: white;
-      font-size: 18px;
-      cursor: pointer;
-      box-shadow: 0 0 24px rgba(255,43,214,.18);
-    }
+  return (
+    <button
+      onClick={onClick}
+      className={`inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold shadow-lg transition active:scale-[0.98] ${styles} ${className}`}
+    >
+      {Icon && <Icon size={17} />}
+      {children}
+    </button>
+  );
+}
 
-    .glass {
-      position: relative;
-      padding: 18px;
-      border-radius: 28px;
-      background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.035));
-      border: 1px solid rgba(255,255,255,.16);
-      backdrop-filter: blur(22px);
-      box-shadow:
-        0 0 30px rgba(255,43,214,.16),
-        inset 0 0 22px rgba(255,255,255,.05);
-      margin-bottom: 15px;
-      overflow: hidden;
-    }
-
-    .glass::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 12%;
-      right: 12%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.75), transparent);
-    }
-
-    .btn {
-      width: 100%;
-      padding: 14px;
-      border-radius: 18px;
-      border: none;
-      background: linear-gradient(90deg,#ff2bd6,#7b5cff,#00ffd0);
-      color: black;
-      font-weight: 900;
-      margin-top: 10px;
-      box-shadow: 0 0 24px rgba(255,43,214,.38);
-      cursor: pointer;
-    }
-
-    .dark-btn {
-      background: rgba(255,255,255,.075);
-      color: white;
-      border: 1px solid rgba(255,255,255,.15);
-      box-shadow: none;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 14px;
-      margin-top: 10px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.065);
-      color: white;
-      outline: none;
-      backdrop-filter: blur(12px);
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .stat {
-      text-align: center;
-      padding: 13px 6px;
-      border-radius: 20px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.12);
-      font-size: 12px;
-    }
-
-    .stat strong {
-      display: block;
-      color: #00ffd0;
-      font-size: 18px;
-      margin-bottom: 4px;
-    }
-
-    .feed {
-      height: 100vh;
-      overflow-y: scroll;
-      scroll-snap-type: y mandatory;
-      padding-bottom: 82px;
-    }
-
-    .category-bar {
-      position: fixed;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 430px;
-      z-index: 70;
-      padding: 12px 15px 14px;
-      background: linear-gradient(to bottom, rgba(5,0,6,.96), rgba(5,0,6,.65), transparent);
-      backdrop-filter: blur(14px);
-    }
-
-    .category-title {
-      font-size: 28px;
-      font-weight: 900;
-      font-style: italic;
-      background: linear-gradient(90deg,#ff2bd6,#7b5cff,#00ffd0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 8px;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-    }
-
-    .post {
-      height: 100vh;
-      max-width: 430px;
-      margin: auto;
-      position: relative;
-      scroll-snap-align: start;
-      overflow: hidden;
-      background:
-        linear-gradient(to bottom, rgba(0,0,0,.05), rgba(0,0,0,.88)),
-        url("https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80") center/cover;
-    }
-
-    .post.two {
-      background:
-        linear-gradient(to bottom, rgba(0,0,0,.05), rgba(0,0,0,.88)),
-        url("https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80") center/cover;
-    }
-
-    .topbar {
-      position: absolute;
-      top: 90px;
-      left: 15px;
-      right: 15px;
-      z-index: 20;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .pill {
-      padding: 9px 13px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.50);
-      border: 1px solid rgba(255,255,255,.18);
-      backdrop-filter: blur(16px);
-      font-size: 12px;
-      font-weight: 900;
-      box-shadow: 0 0 22px rgba(255,43,214,.14);
-      white-space: nowrap;
-    }
-
-    .live-pulse {
-      background: #ff149d;
-      animation: pulse 1.3s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); box-shadow: 0 0 14px rgba(255,20,157,.55); }
-      50% { transform: scale(1.06); box-shadow: 0 0 34px rgba(255,20,157,1); }
-      100% { transform: scale(1); box-shadow: 0 0 14px rgba(255,20,157,.55); }
-    }
-
-    .floating-order {
-      position: absolute;
-      top: 140px;
-      left: 15px;
-      z-index: 20;
-      padding: 11px 14px;
-      border-radius: 18px;
-      background: rgba(0,0,0,.56);
-      border: 1px solid rgba(0,255,208,.35);
-      backdrop-filter: blur(18px);
-      font-size: 13px;
-      font-weight: 900;
-      animation: slidePop 4s infinite;
-    }
-
-    @keyframes slidePop {
-      0% { opacity: 0; transform: translateY(-10px); }
-      15% { opacity: 1; transform: translateY(0); }
-      75% { opacity: 1; }
-      100% { opacity: 0; transform: translateY(-10px); }
-    }
-
-    .fake-comments {
-      position: absolute;
-      left: 15px;
-      bottom: 215px;
-      z-index: 20;
-      width: 255px;
-    }
-
-    .creator-card {
-      position: absolute;
-      bottom: 92px;
-      left: 15px;
-      right: 76px;
-      z-index: 20;
-      padding: 17px;
-      border-radius: 28px;
-      background: linear-gradient(135deg, rgba(0,0,0,.78), rgba(255,255,255,.07));
-      border: 1px solid rgba(255,255,255,.16);
-      backdrop-filter: blur(22px);
-      box-shadow:
-        0 0 34px rgba(255,43,214,.18),
-        inset 0 0 24px rgba(255,255,255,.05);
-    }
-
-    .creator-card h3 { margin: 0 0 6px; font-size: 22px; }
-    .creator-card p { margin: 5px 0; color: #e6e6e6; font-size: 13px; }
-
-    .product-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .thumb {
-      width: 58px;
-      height: 58px;
-      border-radius: 17px;
-      background:
-        radial-gradient(circle at 30% 20%, rgba(255,255,255,.35), transparent 30%),
-        linear-gradient(135deg,#ff2bd6,#7b5cff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-      box-shadow: 0 0 22px rgba(255,43,214,.45);
-    }
-
-    .buy {
-      margin-left: auto;
-      padding: 11px 14px;
-      border-radius: 15px;
-      border: none;
-      background: #ff2bd6;
-      color: white;
-      font-weight: 900;
-      cursor: pointer;
-      box-shadow: 0 0 22px rgba(255,43,214,.72);
-    }
-
-    .glow-btn {
-      animation: glowPulse 1.5s infinite;
-    }
-
-    @keyframes glowPulse {
-      0% { box-shadow: 0 0 10px rgba(255,43,214,.6); }
-      50% { box-shadow: 0 0 28px rgba(255,43,214,1); }
-      100% { box-shadow: 0 0 10px rgba(255,43,214,.6); }
-    }
-
-    .side {
-      position: absolute;
-      right: 14px;
-      bottom: 158px;
-      z-index: 20;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 13px;
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    .side-icon {
-      width: 51px;
-      height: 51px;
-      border-radius: 19px;
-      background: rgba(0,0,0,.50);
-      border: 1px solid rgba(255,255,255,.16);
-      backdrop-filter: blur(18px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 23px;
-      box-shadow: 0 0 18px rgba(255,43,214,.18);
-    }
-
-    .rank-strip {
-      position: absolute;
-      left: 15px;
-      right: 15px;
-      bottom: 18px;
-      z-index: 20;
-      padding: 12px 14px;
-      border-radius: 22px;
-      background: linear-gradient(90deg, rgba(255,43,214,.27), rgba(0,255,208,.14));
-      border: 1px solid rgba(255,255,255,.14);
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      font-weight: 900;
-      backdrop-filter: blur(18px);
-    }
-
-    .live-stage {
-      height: 62vh;
-      border-radius: 32px;
-      position: relative;
-      overflow: hidden;
-      background:
-        linear-gradient(to bottom, rgba(0,0,0,.05), rgba(0,0,0,.78)),
-        url("https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80") center/cover;
-      border: 1px solid rgba(255,255,255,.14);
-      margin-bottom: 14px;
-      box-shadow: 0 0 30px rgba(255,43,214,.20);
-    }
-
-    .live-top {
-      position: absolute;
-      top: 14px;
-      left: 14px;
-      right: 14px;
-      display: flex;
-      justify-content: space-between;
-      z-index: 3;
-    }
-
-    .chat {
-      position: absolute;
-      left: 14px;
-      right: 14px;
-      bottom: 14px;
-    }
-
-    .chat-msg {
-      padding: 9px 12px;
-      background: rgba(0,0,0,.55);
-      border-radius: 16px;
-      margin-top: 7px;
-      font-size: 13px;
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255,.10);
-      animation: chatFloat 4s infinite;
-    }
-
-    .chat-msg:nth-child(2) { animation-delay: .8s; }
-    .chat-msg:nth-child(3) { animation-delay: 1.6s; }
-
-    @keyframes chatFloat {
-      0% { opacity: .35; transform: translateY(8px); }
-      30% { opacity: 1; transform: translateY(0); }
-      100% { opacity: .9; }
-    }
-
-    .product-scroll {
-      display: flex;
-      gap: 12px;
-      overflow-x: auto;
-      margin-bottom: 14px;
-    }
-
-    .product {
-      min-width: 175px;
-      padding: 14px;
-      border-radius: 23px;
-      background: rgba(255,255,255,.075);
-      border: 1px solid rgba(255,255,255,.13);
-      backdrop-filter: blur(16px);
-    }
-
-    .leader {
-      display: flex;
-      justify-content: space-between;
-      padding: 14px;
-      border-radius: 20px;
-      background: rgba(0,0,0,.35);
-      margin-top: 10px;
-      border: 1px solid rgba(255,255,255,.1);
-      backdrop-filter: blur(12px);
-    }
-
-    .leader strong { color: #00ffd0; }
-
-    .success {
-      text-align: center;
-      padding-top: 120px;
-    }
-
-    .success-icon {
-      font-size: 72px;
-      animation: pulse 1.2s infinite;
-    }
-
-    .store-banner {
-      height: 125px;
-      border-radius: 28px;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,.32), transparent 28%),
-        linear-gradient(135deg,#ff2bd6,#7b5cff,#00ffd0);
-      margin-bottom: -46px;
-      box-shadow: 0 0 28px rgba(255,43,214,.28);
-    }
-
-    .avatar {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-      margin: auto;
-      background: #111;
-      border: 4px solid #ff2bd6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 42px;
-      box-shadow: 0 0 24px rgba(255,43,214,.55);
-    }
-
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      max-width: 430px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      display: flex;
-      justify-content: space-around;
-      background: rgba(0,0,0,.82);
-      backdrop-filter: blur(20px);
-      border-top: 1px solid rgba(255,255,255,.12);
-      padding: 10px 0 16px;
-      box-shadow: 0 0 30px rgba(255,43,214,.15);
-    }
-
-    .nav {
-      text-align: center;
-      font-size: 11px;
-      font-weight: 900;
-      color: #aaa;
-      cursor: pointer;
-    }
-
-    .nav span {
-      display: block;
-      font-size: 23px;
-      margin-bottom: 4px;
-    }
-
-    .nav.active-nav { color: #ff2bd6; }
-
-    .plus {
-      width: 56px;
-      height: 56px;
-      margin-top: -28px;
-      border-radius: 21px;
-      background: linear-gradient(135deg,#ff2bd6,#00ffd0);
-      display: flex !important;
-      align-items: center;
-      justify-content: center;
-      color: black;
-      font-size: 34px !important;
-      font-weight: 900;
-      box-shadow: 0 0 28px rgba(255,43,214,.8);
-    }
-  </style>
-</head>
-
-<body>
-
-<div class="back" onclick="goBack()">←</div>
-
-<section id="home" class="screen active">
-  <div class="feed">
-
-    <div class="category-bar">
-      <div class="category-title">For You</div>
-      <div class="tabs">
-        <div class="pill">All</div>
-        <div class="pill">Fashion</div>
-        <div class="pill">Beauty</div>
-        <div class="pill">Fitness</div>
-        <div class="pill">Local</div>
-      </div>
+function Card({ children, className = "" }) {
+  return (
+    <div className={`rounded-[1.7rem] border border-white/10 bg-white/[0.06] p-4 shadow-2xl shadow-black/30 backdrop-blur ${className}`}>
+      {children}
     </div>
+  );
+}
 
-    <div class="post">
-      <div class="topbar">
-        <div></div>
-        <div class="pill live-pulse">● LIVE</div>
-      </div>
-
-      <div class="floating-order">🛍️ Mia just bought this</div>
-
-      <div class="fake-comments">
-        <div class="chat-msg">omg I need this 😍</div>
-        <div class="chat-msg">just ordered one</div>
-        <div class="chat-msg">is this still in stock?</div>
-      </div>
-
-      <div class="side">
-        <div class="side-icon">♡</div>2.4K
-        <div class="side-icon">💬</div>386
-        <div class="side-icon">↗</div>512
-        <div class="side-icon">🎁</div>
-      </div>
-
-      <div class="creator-card">
-        <h3>Luxe Collection ✓</h3>
-        <p id="viewerText">12 people viewing · selling fast</p>
-
-        <div class="product-row">
-          <div class="thumb">🧥</div>
-          <div>
-            <b>$79.99</b><br>
-            <small><span id="stock">22</span> left · <span id="sold">318</span> sold</small>
+function Modal({ title, children, onClose }) {
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+      >
+        <motion.div
+          initial={{ y: 30, scale: 0.95, opacity: 0 }}
+          animate={{ y: 0, scale: 1, opacity: 1 }}
+          exit={{ y: 30, scale: 0.95, opacity: 0 }}
+          className="w-full max-w-md rounded-[2rem] border border-white/10 bg-zinc-950 p-5 text-white shadow-2xl shadow-fuchsia-500/20"
+        >
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="text-xl font-bold">{title}</h3>
+            <button onClick={onClose} className="rounded-full bg-white/10 p-2 hover:bg-white/20">
+              <X size={18} />
+            </button>
           </div>
-          <button class="buy glow-btn" onclick="makeSale(79.99); show('checkout', navHome)">BUY 🔥</button>
-        </div>
-      </div>
+          {children}
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
 
-      <div class="rank-strip">
-        <span>🔥 Trending</span>
-        <span>+1.2k bought today</span>
-      </div>
-    </div>
+export default function VellaPrototypeApp() {
+  const [signedIn, setSignedIn] = useState(false);
+  const [page, setPage] = useState("home");
+  const [modal, setModal] = useState(null);
+  const [saved, setSaved] = useState([1]);
+  const [cart, setCart] = useState([]);
+  const [newProductName, setNewProductName] = useState("");
+  const [newProductPrice, setNewProductPrice] = useState("");
+  const [sellerProducts, setSellerProducts] = useState(products);
+  const [reminders, setReminders] = useState([
+    { id: 1, title: "Try saved workout", time: "Tonight, 6:30 PM", folder: "Workout saves" },
+    { id: 2, title: "Check live fashion sale", time: "Friday, 7:00 PM", folder: "Outfits to try" },
+  ]);
 
-    <div class="post two">
-      <div class="topbar">
-        <div></div>
-        <div class="pill live-pulse">● BEAUTY DROP</div>
-      </div>
+  const activeVideo = videos[0];
 
-      <div class="floating-order">✨ Jade just purchased</div>
+  const cartTotal = useMemo(() => cart.length, [cart]);
 
-      <div class="fake-comments">
-        <div class="chat-msg">this looks so good</div>
-        <div class="chat-msg">adding to cart now</div>
-        <div class="chat-msg">price is actually good</div>
-      </div>
+  function addProduct() {
+    if (!newProductName.trim() || !newProductPrice.trim()) {
+      setModal("missingProduct");
+      return;
+    }
 
-      <div class="side">
-        <div class="side-icon">♡</div>9.1K
-        <div class="side-icon">💬</div>740
-        <div class="side-icon">↗</div>1.2K
-        <div class="side-icon">🛍️</div>
-      </div>
+    setSellerProducts([
+      { id: Date.now(), name: newProductName, seller: "Your Vella Shop", price: newProductPrice.startsWith("$") ? newProductPrice : `$${newProductPrice}`, stock: 10, tag: "New" },
+      ...sellerProducts,
+    ]);
+    setNewProductName("");
+    setNewProductPrice("");
+    setModal("productAdded");
+  }
 
-      <div class="creator-card">
-        <h3>Glow Beauty ✨</h3>
-        <p>1.8k watching · almost sold out</p>
+  function saveVideo(id) {
+    setSaved((prev) => (prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]));
+  }
 
-        <div class="product-row">
-          <div class="thumb">💄</div>
-          <div>
-            <b>$29.95</b><br>
-            <small><span id="serumSold">318</span> sold today</small>
+  function addReminder() {
+    setReminders([
+      { id: Date.now(), title: "Use saved recipe video", time: "Tomorrow, 5:00 PM", folder: "Recipes" },
+      ...reminders,
+    ]);
+    setModal("reminderAdded");
+  }
+
+  if (!signedIn) {
+    return (
+      <main className="min-h-screen overflow-hidden bg-zinc-950 text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(236,72,153,0.35),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.25),transparent_35%)]" />
+        <div className="relative mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-5 py-10 text-center">
+          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="mb-8 rounded-full border border-fuchsia-300/30 bg-white/10 px-5 py-2 text-sm text-fuchsia-100 shadow-lg shadow-fuchsia-500/20 backdrop-blur">
+            Pretty Project prototype
+          </motion.div>
+
+          <motion.h1 initial={{ y: 25, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="text-6xl font-black tracking-tight sm:text-8xl">
+            Hello <span className="bg-gradient-to-r from-fuchsia-300 via-pink-400 to-cyan-300 bg-clip-text text-transparent drop-shadow">Vella!</span>
+          </motion.h1>
+
+          <p className="mt-5 max-w-2xl text-lg text-zinc-300">
+            A dark neon social selling app where creators, small businesses, designers and artists can post, go live, sell products, organise saves and turn attention into income.
+          </p>
+
+          <div className="mt-8 grid w-full max-w-3xl gap-4 sm:grid-cols-3">
+            <Card>
+              <Radio className="mx-auto mb-3 text-fuchsia-300" />
+              <p className="font-bold">Go live</p>
+              <p className="mt-1 text-sm text-zinc-400">Sell products without messy links.</p>
+            </Card>
+            <Card>
+              <FolderHeart className="mx-auto mb-3 text-cyan-300" />
+              <p className="font-bold">Save smarter</p>
+              <p className="mt-1 text-sm text-zinc-400">Folders for workouts, recipes and ideas.</p>
+            </Card>
+            <Card>
+              <BellRing className="mx-auto mb-3 text-pink-300" />
+              <p className="font-bold">Set reminders</p>
+              <p className="mt-1 text-sm text-zinc-400">Bring saved videos back when needed.</p>
+            </Card>
           </div>
-          <button class="buy glow-btn" onclick="makeSale(29.95); show('checkout', navHome)">BUY 🔥</button>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <GlowButton onClick={() => setSignedIn(true)} icon={Sparkles}>Enter Vella</GlowButton>
+            <GlowButton onClick={() => setModal("demo")} variant="ghost" icon={Play}>View demo info</GlowButton>
+          </div>
         </div>
-      </div>
 
-      <div class="rank-strip">
-        <span>🔥 Viral</span>
-        <span>selling fast</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<section id="live" class="screen">
-  <div class="page">
-    <div class="logo">Live Selling</div>
-
-    <div class="live-stage">
-      <div class="live-top">
-        <div class="pill live-pulse">● LIVE 1.8k</div>
-        <div class="pill">Sale ends <span id="timer">04:52</span></div>
-      </div>
-
-      <div class="chat">
-        <div class="chat-msg">Mia: Is the pink one still available?</div>
-        <div class="chat-msg">Jade: Just bought mine 😍</div>
-        <div class="chat-msg">Vella: 12 orders in the last minute</div>
-      </div>
-    </div>
-
-    <div class="product-scroll">
-      <div class="product">
-        <h3>Glow Serum</h3>
-        <p>$29.95</p>
-        <button class="btn" onclick="makeSale(29.95); show('checkout', navLive)">Buy</button>
-      </div>
-      <div class="product">
-        <h3>Hydration Kit</h3>
-        <p>$49.95</p>
-        <button class="btn" onclick="makeSale(49.95)">Add</button>
-      </div>
-      <div class="product">
-        <h3>Night Cream</h3>
-        <p>$34.95</p>
-        <button class="btn" onclick="makeSale(34.95)">Add</button>
-      </div>
-    </div>
-
-    <div class="glass">
-      <h2>Live tools</h2>
-      <p>Pin products, run countdown deals, receive gifts, and see orders in real time.</p>
-    </div>
-  </div>
-</section>
-
-<section id="checkout" class="screen">
-  <div class="page">
-    <div class="logo">Checkout</div>
-
-    <div class="glass">
-      <h2>Secure Demo Checkout</h2>
-      <p>Creator receives the sale. Vella earns commission.</p>
-      <h2>$79.99</h2>
-      <input placeholder="Name">
-      <input placeholder="Delivery address">
-      <input placeholder="Card details">
-      <button class="btn" onclick="show('success', navHome)">Complete Demo Purchase</button>
-      <button class="btn dark-btn" onclick="show('home', navHome)">Back to Feed</button>
-    </div>
-  </div>
-</section>
-
-<section id="success" class="screen">
-  <div class="page success">
-    <div class="success-icon">✅</div>
-    <h1>Order placed!</h1>
-    <p>Your purchase supports the creator directly.</p>
-    <button class="btn" onclick="show('home', navHome)">Back to Feed</button>
-    <button class="btn dark-btn" onclick="show('dashboard', navDash)">View Storefront</button>
-  </div>
-</section>
-
-<section id="create" class="screen">
-  <div class="page">
-    <div class="logo">Create Drop</div>
-
-    <div class="glass">
-      <h2>Launch a product campaign</h2>
-      <input placeholder="Product name">
-      <input placeholder="Price">
-      <input placeholder="Countdown sale time">
-      <textarea placeholder="Describe your drop"></textarea>
-      <button class="btn">Create Demo Drop</button>
-    </div>
-
-    <div class="glass">🔴 Start live sale</div>
-    <div class="glass">⏳ Add countdown</div>
-    <div class="glass">📣 Boost to audience</div>
-  </div>
-</section>
-
-<section id="rank" class="screen">
-  <div class="page">
-    <div class="logo">Rankings</div>
-
-    <div class="glass">
-      <h2>Weekly Vella Charts 👑</h2>
-      <p>Ranked by sales, lives, engagement, growth and repeat buyers.</p>
-      <div class="leader"><span>1. Luxe Collection</span><strong>$21,670</strong></div>
-      <div class="leader"><span>2. Glow Beauty</span><strong>$19,120</strong></div>
-      <div class="leader"><span>3. Art By Tay</span><strong>$16,230</strong></div>
-      <div class="leader"><span>4. FitLife</span><strong>$11,850</strong></div>
-    </div>
-  </div>
-</section>
-
-<section id="dashboard" class="screen">
-  <div class="page">
-    <div class="logo">Luxe Storefront</div>
-
-    <div class="glass" style="text-align:center;">
-      <div class="store-banner"></div>
-      <div class="avatar">👗</div>
-
-      <h2>Luxe Collection ✓</h2>
-      <p>Fashion creator · Sydney NSW</p>
-      <p>Live drops, limited pieces, creator-only sales.</p>
-
-      <div class="stats">
-        <div class="stat"><strong>42.8k</strong>Followers</div>
-        <div class="stat"><strong id="revenue">$0</strong>Sales</div>
-        <div class="stat"><strong>#1</strong>Fashion</div>
-      </div>
-
-      <button class="btn" onclick="show('live', navLive)">● Watch Live</button>
-      <button class="btn dark-btn">Follow Store</button>
-    </div>
-
-    <div class="glass">
-      <h2>Vella Money System</h2>
-      <p>Vella earns commission + boost revenue.</p>
-      <div class="stats">
-        <div class="stat"><strong id="orders">0</strong>Orders</div>
-        <div class="stat"><strong id="commission">$0</strong>Vella Cut</div>
-        <div class="stat"><strong>8%</strong>Fee</div>
-      </div>
-    </div>
-
-    <div class="glass">
-      <h2>Boost Reach 🚀</h2>
-      <p>Creators pay to reach more of their audience.</p>
-      <button class="btn" onclick="boost(10,1000)">$10 → 1,000 views</button>
-      <button class="btn" onclick="boost(50,10000)">$50 → 10,000 views</button>
-      <button class="btn" onclick="boost(100,50000)">$100 → Trending</button>
-    </div>
-
-    <div class="glass">
-      <h2>Creator Shop</h2>
-
-      <div class="product-row">
-        <div class="thumb">🧥</div>
-        <div><b>Oversized Hoodie</b><br><small>$79.99 · 22 left</small></div>
-        <button class="buy" onclick="makeSale(79.99); show('checkout', navDash)">Buy</button>
-      </div>
-
-      <div class="product-row">
-        <div class="thumb">👜</div>
-        <div><b>Mini Luxe Bag</b><br><small>$54.99 · trending</small></div>
-        <button class="buy" onclick="makeSale(54.99)">Buy</button>
-      </div>
-
-      <div class="product-row">
-        <div class="thumb">🧢</div>
-        <div><b>Logo Cap</b><br><small>$29.99 · new</small></div>
-        <button class="buy" onclick="makeSale(29.99)">Buy</button>
-      </div>
-    </div>
-
-    <div class="glass">
-      <h2>Store Activity</h2>
-      <div class="leader"><span>🛍️ Hoodie sold</span><strong>$79.99</strong></div>
-      <div class="leader"><span>👀 Live viewers</span><strong>1.8k</strong></div>
-      <div class="leader"><span>🏆 Weekly rank</span><strong>#1</strong></div>
-    </div>
-  </div>
-</section>
-
-<nav class="bottom-nav">
-  <div id="navHome" class="nav active-nav" onclick="show('home', this)"><span>⌂</span>Feed</div>
-  <div id="navLive" class="nav" onclick="show('live', this)"><span>●</span>Live</div>
-  <div id="navCreate" class="nav" onclick="show('create', this)"><span class="plus">+</span></div>
-  <div id="navRank" class="nav" onclick="show('rank', this)"><span>♕</span>Rank</div>
-  <div id="navDash" class="nav" onclick="show('dashboard', this)"><span>▣</span>Store</div>
-</nav>
-
-<script>
-  const navHome = document.getElementById("navHome");
-  const navLive = document.getElementById("navLive");
-  const navCreate = document.getElementById("navCreate");
-  const navRank = document.getElementById("navRank");
-  const navDash = document.getElementById("navDash");
-
-  let historyStack = [];
-  let sold = 318;
-  let stock = 22;
-  let serumSold = 318;
-  let seconds = 292;
-
-  let revenue = 0;
-  let orders = 0;
-  let vellaCut = 0;
-
-  function show(id, nav) {
-    const current = document.querySelector('.screen.active');
-    if (current && current.id !== id) historyStack.push(current.id);
-
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-
-    document.querySelectorAll('.nav').forEach(n => n.classList.remove('active-nav'));
-    if (nav) nav.classList.add('active-nav');
-
-    window.scrollTo(0, 0);
+        {modal === "demo" && (
+          <Modal title="Demo mode" onClose={() => setModal(null)}>
+            <p className="text-zinc-300">This prototype uses fake content, fake products and fake sales so every button can show how Vella would work before the real backend is built.</p>
+            <GlowButton onClick={() => { setModal(null); setSignedIn(true); }} className="mt-5 w-full">Start demo</GlowButton>
+          </Modal>
+        )}
+      </main>
+    );
   }
 
-  function goBack() {
-    if (historyStack.length > 0) {
-      const last = historyStack.pop();
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(last).classList.add('active');
-    }
-  }
+  return (
+    <main className="min-h-screen bg-zinc-950 text-white">
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(236,72,153,0.18),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.16),transparent_30%)]" />
 
-  function makeSale(price) {
-    orders++;
-    revenue += price;
-    vellaCut += price * 0.08;
-    updateMoney();
-  }
+      <div className="relative mx-auto flex min-h-screen max-w-7xl">
+        <aside className="hidden w-72 border-r border-white/10 bg-black/20 p-5 backdrop-blur lg:block">
+          <div className="mb-8 flex items-center gap-3">
+            <div className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-fuchsia-500 to-cyan-300 shadow-lg shadow-fuchsia-500/30">
+              <Sparkles size={24} />
+            </div>
+            <div>
+              <h2 className="text-2xl font-black">Vella</h2>
+              <p className="text-xs text-zinc-400">Pretty Project</p>
+            </div>
+          </div>
 
-  function boost(amount, views) {
-    vellaCut += amount;
-    alert("Boost activated 🚀 +" + views + " views");
-    updateMoney();
-  }
+          <nav className="space-y-2">
+            {tabs.map((tab) => {
+              const Icon = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setPage(tab.id)}
+                  className={`flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-left text-sm font-semibold transition ${page === tab.id ? "bg-fuchsia-500/20 text-fuchsia-100 shadow-lg shadow-fuchsia-500/10" : "text-zinc-300 hover:bg-white/10"}`}
+                >
+                  <Icon size={18} />
+                  {tab.label}
+                </button>
+              );
+            })}
+          </nav>
 
-  function updateMoney() {
-    document.getElementById("revenue").innerText = "$" + revenue.toFixed(2);
-    document.getElementById("orders").innerText = orders;
-    document.getElementById("commission").innerText = "$" + vellaCut.toFixed(2);
-  }
+          <div className="mt-6 rounded-[1.7rem] border border-cyan-300/20 bg-cyan-300/10 p-4">
+            <p className="flex items-center gap-2 text-sm font-bold text-cyan-100"><Crown size={16} /> Seller rank</p>
+            <p className="mt-2 text-3xl font-black">#8</p>
+            <p className="text-sm text-zinc-300">You’re climbing this week.</p>
+          </div>
+        </aside>
 
-  setInterval(() => {
-    sold++;
-    serumSold++;
-    if (stock > 3) stock--;
+        <section className="flex-1 pb-24 lg:pb-0">
+          <header className="sticky top-0 z-30 border-b border-white/10 bg-zinc-950/80 px-4 py-4 backdrop-blur lg:px-8">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-xs uppercase tracking-[0.25em] text-fuchsia-300">Hello Vella</p>
+                <h1 className="text-2xl font-black sm:text-3xl">{pageTitle(page)}</h1>
+              </div>
 
-    if (document.getElementById("sold")) document.getElementById("sold").innerText = sold;
-    if (document.getElementById("stock")) document.getElementById("stock").innerText = stock;
-    if (document.getElementById("serumSold")) document.getElementById("serumSold").innerText = serumSold;
+              <div className="flex items-center gap-2">
+                <button onClick={() => setModal("search")} className="rounded-2xl bg-white/10 p-3 hover:bg-white/15"><Search size={19} /></button>
+                <button onClick={() => setPage("saved")} className="relative rounded-2xl bg-white/10 p-3 hover:bg-white/15">
+                  <ShoppingBag size={19} />
+                  {cartTotal > 0 && <span className="absolute -right-1 -top-1 grid h-5 w-5 place-items-center rounded-full bg-fuchsia-500 text-xs font-bold">{cartTotal}</span>}
+                </button>
+                <button onClick={() => setPage("menu")} className="rounded-2xl bg-white/10 p-3 hover:bg-white/15"><Menu size={19} /></button>
+              </div>
+            </div>
+          </header>
 
-    makeSale(Math.random() * 38 + 21);
-  }, 5000);
+          <div className="p-4 lg:p-8">
+            <AnimatePresence mode="wait">
+              <motion.div key={page} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.2 }}>
+                {page === "home" && <HomePage activeVideo={activeVideo} saved={saved} saveVideo={saveVideo} setModal={setModal} setPage={setPage} setCart={setCart} cart={cart} />}
+                {page === "live" && <LivePage setModal={setModal} setCart={setCart} cart={cart} setPage={setPage} />}
+                {page === "sell" && <SellPage products={sellerProducts} rankings={rankings} newProductName={newProductName} setNewProductName={setNewProductName} newProductPrice={newProductPrice} setNewProductPrice={setNewProductPrice} addProduct={addProduct} setPage={setPage} setModal={setModal} />}
+                {page === "saved" && <SavedPage folders={folders} saved={saved} reminders={reminders} addReminder={addReminder} setModal={setModal} />}
+                {page === "profile" && <ProfilePage setPage={setPage} />}
+                {page === "menu" && <MenuPage setPage={setPage} setModal={setModal} />}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </section>
+      </div>
 
-  setInterval(() => {
-    seconds--;
-    if (seconds < 0) seconds = 292;
+      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-zinc-950/90 p-2 backdrop-blur lg:hidden">
+        <div className="grid grid-cols-5 gap-1">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            return (
+              <button key={tab.id} onClick={() => setPage(tab.id)} className={`rounded-2xl px-2 py-3 text-xs font-semibold ${page === tab.id ? "bg-fuchsia-500/20 text-fuchsia-100" : "text-zinc-400"}`}>
+                <Icon className="mx-auto mb-1" size={18} />
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+      </nav>
 
-    const min = Math.floor(seconds / 60);
-    const sec = seconds % 60;
+      {modal === "search" && (
+        <Modal title="Search Vella" onClose={() => setModal(null)}>
+          <div className="rounded-2xl bg-white/10 px-4 py-3 text-zinc-400">Search creators, products, lives, folders...</div>
+          <div className="mt-4 space-y-2 text-sm text-zinc-300">
+            <p>Try: “fashion live sales”</p>
+            <p>Try: “workout saves”</p>
+            <p>Try: “small business candles”</p>
+          </div>
+        </Modal>
+      )}
 
-    if (document.getElementById("timer")) {
-      document.getElementById("timer").innerText =
-        String(min).padStart(2, "0") + ":" + String(sec).padStart(2, "0");
-    }
-  }, 1000);
+      {modal === "order" && (
+        <Modal title="Order started" onClose={() => setModal(null)}>
+          <p className="text-zinc-300">This would open checkout in the real app. For this prototype, the item has been added to your Vella bag.</p>
+          <GlowButton onClick={() => setModal(null)} className="mt-5 w-full" icon={CheckCircle2}>Done</GlowButton>
+        </Modal>
+      )}
 
-  setInterval(() => {
-    const viewers = Math.floor(Math.random() * 20) + 5;
-    const viewerText = document.getElementById("viewerText");
-    if (viewerText) {
-      viewerText.innerText = viewers + " people viewing · selling fast";
-    }
-  }, 3000);
-</script>
+      {modal === "gift" && (
+        <Modal title="Send a gift" onClose={() => setModal(null)}>
+          <div className="grid grid-cols-3 gap-3">
+            {["💖", "✨", "👑", "🔥", "🌙", "💎"].map((gift) => (
+              <button key={gift} onClick={() => setModal("giftSent")} className="rounded-2xl bg-white/10 p-5 text-3xl hover:bg-white/15">{gift}</button>
+            ))}
+          </div>
+        </Modal>
+      )}
 
-</body>
-</html>
+      {modal === "giftSent" && (
+        <Modal title="Gift sent" onClose={() => setModal(null)}>
+          <p className="text-zinc-300">Your creator received a gift. In the real app this helps creators earn from lives and content.</p>
+        </Modal>
+      )}
+
+      {modal === "productAdded" && (
+        <Modal title="Product added" onClose={() => setModal(null)}>
+          <p className="text-zinc-300">Your product is now listed in your seller dashboard and ready for a live sale.</p>
+        </Modal>
+      )}
+
+      {modal === "missingProduct" && (
+        <Modal title="Almost done" onClose={() => setModal(null)}>
+          <p className="text-zinc-300">Add both a product name and a price first.</p>
+        </Modal>
+      )}
+
+      {modal === "reminderAdded" && (
+        <Modal title="Reminder set" onClose={() => setModal(null)}>
+          <p className="text-zinc-300">Vella will bring your saved video back when you need it.</p>
+        </Modal>
+      )}
+
+      {modal === "comingSoon" && (
+        <Modal title="Coming soon" onClose={() => setModal(null)}>
+          <p className="text-zinc-300">This button is wired up for the prototype. In the real app it would connect to a backend, payment system or notification system.</p>
+        </Modal>
+      )}
+    </main>
+  );
+}
+
+function pageTitle(page) {
+  const names = {
+    home: "Home Reels",
+    live: "Live Selling",
+    sell: "Seller Dashboard",
+    saved: "Saved Folders",
+    profile: "Profile",
+    menu: "Menu & Settings",
+  };
+  return names[page] || "Vella";
+}
+
+function HomePage({ activeVideo, saved, saveVideo, setModal, setPage, setCart, cart }) {
+  return (
+    <div className="grid gap-5 xl:grid-cols-[1.1fr_0.9fr]">
+      <Card className={`min-h-[620px] overflow-hidden bg-gradient-to-br ${activeVideo.bg}`}>
+        <div className="flex h-full flex-col justify-between">
+          <div className="flex items-center justify-between">
+            <div className="rounded-full bg-black/30 px-4 py-2 text-sm font-bold backdrop-blur">For You</div>
+            <div className="rounded-full bg-fuchsia-500/20 px-4 py-2 text-sm font-bold text-fuchsia-100">{activeVideo.category}</div>
+          </div>
+
+          <div className="my-16 grid place-items-center">
+            <div className="grid h-28 w-28 place-items-center rounded-full border border-white/20 bg-white/10 shadow-2xl shadow-fuchsia-500/30 backdrop-blur">
+              <Play size={42} fill="white" />
+            </div>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
+            <div>
+              <p className="text-sm text-zinc-300">{activeVideo.handle}</p>
+              <h2 className="mt-1 text-4xl font-black">{activeVideo.title}</h2>
+              <p className="mt-3 text-zinc-300">Shop the product, save the video into a folder, or set a reminder to use it later.</p>
+
+              <div className="mt-4 rounded-3xl border border-white/10 bg-black/30 p-4 backdrop-blur">
+                <p className="text-sm text-zinc-400">Featured product</p>
+                <div className="mt-1 flex items-center justify-between gap-3">
+                  <div>
+                    <p className="font-bold">{activeVideo.product}</p>
+                    <p className="text-fuchsia-200">{activeVideo.price}</p>
+                  </div>
+                  <GlowButton onClick={() => { setCart([...cart, activeVideo.product]); setModal("order"); }} variant="cyan" icon={ShoppingBag}>Order</GlowButton>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-2 md:flex-col">
+              <ActionButton icon={Heart} label={activeVideo.likes} onClick={() => setModal("comingSoon")} />
+              <ActionButton icon={Bookmark} label={saved.includes(activeVideo.id) ? "Saved" : activeVideo.saves} onClick={() => saveVideo(activeVideo.id)} active={saved.includes(activeVideo.id)} />
+              <ActionButton icon={BellRing} label="Remind" onClick={() => setPage("saved")} />
+              <ActionButton icon={Gift} label="Gift" onClick={() => setModal("gift")} />
+              <ActionButton icon={Send} label="Share" onClick={() => setModal("comingSoon")} />
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      <div className="space-y-5">
+        <Card>
+          <h3 className="flex items-center gap-2 text-xl font-black"><Flame className="text-fuchsia-300" /> Trending lives</h3>
+          <div className="mt-4 space-y-3">
+            {videos.map((video) => (
+              <button key={video.id} onClick={() => setPage("live")} className="flex w-full items-center justify-between rounded-2xl bg-white/10 p-3 text-left hover:bg-white/15">
+                <div>
+                  <p className="font-bold">{video.creator}</p>
+                  <p className="text-sm text-zinc-400">{video.product} • {video.price}</p>
+                </div>
+                <ChevronRight size={18} />
+              </button>
+            ))}
+          </div>
+        </Card>
+
+        <Card>
+          <h3 className="flex items-center gap-2 text-xl font-black"><Sparkles className="text-cyan-300" /> Vella solves</h3>
+          <div className="mt-4 grid gap-3">
+            <Feature icon={FolderHeart} title="No lost saves" text="Videos go into useful folders instead of a messy saved pile." />
+            <Feature icon={BellRing} title="Reminders" text="Saved workouts, recipes and shopping ideas come back at the right time." />
+            <Feature icon={Store} title="Cleaner selling" text="Live sellers can show products, take orders and promote launches in one place." />
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function LivePage({ setModal, setCart, cart, setPage }) {
+  return (
+    <div className="grid gap-5 xl:grid-cols-[1.2fr_0.8fr]">
+      <Card className="min-h-[590px] bg-gradient-to-br from-zinc-950 via-fuchsia-950/50 to-cyan-950/40">
+        <div className="flex h-full flex-col justify-between">
+          <div className="flex items-center justify-between">
+            <div className="rounded-full bg-red-500 px-4 py-2 text-sm font-black">LIVE</div>
+            <div className="flex items-center gap-2 rounded-full bg-black/30 px-4 py-2 text-sm"><Users size={16} /> 12.8k watching</div>
+          </div>
+
+          <div className="grid flex-1 place-items-center py-20">
+            <div className="text-center">
+              <div className="mx-auto mb-5 grid h-32 w-32 place-items-center rounded-full bg-white/10 shadow-2xl shadow-fuchsia-500/30">
+                <Radio size={54} className="text-fuchsia-200" />
+              </div>
+              <h2 className="text-4xl font-black">Mila Threads Live Sale</h2>
+              <p className="mt-2 text-zinc-300">Try-ons, limited stock, instant order buttons.</p>
+            </div>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-3">
+            <GlowButton onClick={() => setModal("gift")} icon={Gift}>Send gift</GlowButton>
+            <GlowButton onClick={() => setPage("sell")} variant="ghost" icon={Store}>Seller tools</GlowButton>
+            <GlowButton onClick={() => setModal("comingSoon")} variant="ghost" icon={Megaphone}>Share live</GlowButton>
+          </div>
+        </div>
+      </Card>
+
+      <div className="space-y-5">
+        <Card>
+          <h3 className="text-xl font-black">Shop this live</h3>
+          <div className="mt-4 space-y-3">
+            {products.slice(0, 3).map((product) => (
+              <div key={product.id} className="rounded-2xl bg-white/10 p-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="font-bold">{product.name}</p>
+                    <p className="text-sm text-zinc-400">{product.seller}</p>
+                    <p className="mt-1 text-fuchsia-200">{product.price}</p>
+                  </div>
+                  <span className="rounded-full bg-cyan-300/15 px-3 py-1 text-xs font-bold text-cyan-100">{product.tag}</span>
+                </div>
+                <GlowButton onClick={() => { setCart([...cart, product.name]); setModal("order"); }} className="mt-3 w-full" variant="cyan" icon={ShoppingBag}>Order now</GlowButton>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        <Card>
+          <h3 className="text-xl font-black">Live chat</h3>
+          <div className="mt-4 space-y-2 text-sm text-zinc-300">
+            <p><b className="text-white">Tara:</b> That blazer is so cute 😍</p>
+            <p><b className="text-white">Jess:</b> Do you ship to NSW?</p>
+            <p><b className="text-white">Mila:</b> Yes babe, Australia wide!</p>
+          </div>
+          <button onClick={() => setModal("comingSoon")} className="mt-4 w-full rounded-2xl bg-white/10 px-4 py-3 text-left text-zinc-400">Write a comment...</button>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+function SellPage({ products, rankings, newProductName, setNewProductName, newProductPrice, setNewProductPrice, addProduct, setPage, setModal }) {
+  return (
+    <div className="space-y-5">
+      <div className="grid gap-5 md:grid-cols-4">
+        <Metric icon={Wallet} label="Weekly sales" value="$2,480" />
+        <Metric icon={Users} label="New followers" value="1,204" />
+        <Metric icon={Bookmark} label="Product saves" value="8,913" />
+        <Metric icon={Crown} label="Seller rank" value="#8" />
+      </div>
+
+      <div className="grid gap-5 xl:grid-cols-[0.9fr_1.1fr]">
+        <Card>
+          <h3 className="flex items-center gap-2 text-xl font-black"><PackagePlus className="text-fuchsia-300" /> Add product</h3>
+          <div className="mt-4 space-y-3">
+            <input value={newProductName} onChange={(e) => setNewProductName(e.target.value)} placeholder="Product name" className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 outline-none placeholder:text-zinc-500 focus:border-fuchsia-300" />
+            <input value={newProductPrice} onChange={(e) => setNewProductPrice(e.target.value)} placeholder="Price, e.g. $29.95" className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 outline-none placeholder:text-zinc-500 focus:border-fuchsia-300" />
+            <GlowButton onClick={addProduct} className="w-full" icon={Plus}>Add to shop</GlowButton>
+          </div>
+
+          <div className="mt-5 grid gap-3 sm:grid-cols-2">
+            <GlowButton onClick={() => setPage("live")} variant="cyan" icon={Radio}>Go live</GlowButton>
+            <GlowButton onClick={() => setModal("comingSoon")} variant="ghost" icon={CalendarDays}>Create launch</GlowButton>
+          </div>
+        </Card>
+
+        <Card>
+          <h3 className="text-xl font-black">Your products</h3>
+          <div className="mt-4 grid gap-3 md:grid-cols-2">
+            {products.map((product) => (
+              <div key={product.id} className="rounded-2xl bg-white/10 p-3">
+                <div className="mb-3 flex items-center justify-between">
+                  <span className="rounded-full bg-fuchsia-300/15 px-3 py-1 text-xs font-bold text-fuchsia-100">{product.tag}</span>
+                  <span className="text-xs text-zinc-400">Stock {product.stock}</span>
+                </div>
+                <p className="font-bold">{product.name}</p>
+                <p className="text-sm text-zinc-400">{product.seller}</p>
+                <p className="mt-2 text-lg font-black text-cyan-200">{product.price}</p>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+
+      <Card>
+        <h3 className="flex items-center gap-2 text-xl font-black"><BarChart3 className="text-cyan-300" /> Weekly seller rankings</h3>
+        <div className="mt-4 grid gap-3 md:grid-cols-3">
+          {rankings.map((seller) => (
+            <div key={seller.rank} className="rounded-2xl bg-white/10 p-4">
+              <p className="text-sm text-zinc-400">Rank #{seller.rank}</p>
+              <p className="mt-1 text-xl font-black">{seller.name}</p>
+              <p className="mt-2 text-fuchsia-200">{seller.sales}</p>
+              <p className="text-sm text-cyan-200">{seller.growth} growth</p>
+              <p className="mt-3 rounded-full bg-white/10 px-3 py-2 text-sm">{seller.badge}</p>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+function SavedPage({ folders, saved, reminders, addReminder, setModal }) {
+  return (
+    <div className="grid gap-5 xl:grid-cols-[1fr_0.9fr]">
+      <Card>
+        <h3 className="flex items-center gap-2 text-xl font-black"><FolderHeart className="text-fuchsia-300" /> Your folders</h3>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          {folders.map((folder) => (
+            <button key={folder.id} onClick={() => setModal("comingSoon")} className="rounded-[1.5rem] bg-white/10 p-4 text-left hover:bg-white/15">
+              <div className="text-3xl">{folder.icon}</div>
+              <p className="mt-3 font-bold">{folder.name}</p>
+              <p className="text-sm text-zinc-400">{folder.count} saved videos</p>
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-5 rounded-3xl border border-fuchsia-300/20 bg-fuchsia-300/10 p-4">
+          <p className="font-bold">Saved videos in this prototype: {saved.length}</p>
+          <p className="mt-1 text-sm text-zinc-300">Save videos from the home feed, then organise and set reminders here.</p>
+        </div>
+      </Card>
+
+      <Card>
+        <h3 className="flex items-center gap-2 text-xl font-black"><BellRing className="text-cyan-300" /> Reminders</h3>
+        <div className="mt-4 space-y-3">
+          {reminders.map((reminder) => (
+            <div key={reminder.id} className="rounded-2xl bg-white/10 p-4">
+              <p className="font-bold">{reminder.title}</p>
+              <p className="mt-1 flex items-center gap-2 text-sm text-zinc-400"><Clock size={15} /> {reminder.time}</p>
+              <p className="mt-1 text-sm text-fuchsia-200">Folder: {reminder.folder}</p>
+            </div>
+          ))}
+        </div>
+        <GlowButton onClick={addReminder} className="mt-4 w-full" icon={Plus}>Add reminder</GlowButton>
+      </Card>
+    </div>
+  );
+}
+
+function ProfilePage({ setPage }) {
+  return (
+    <div className="space-y-5">
+      <Card className="bg-gradient-to-br from-fuchsia-950/60 via-zinc-950 to-cyan-950/50">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-4">
+            <div className="grid h-24 w-24 place-items-center rounded-[2rem] bg-gradient-to-br from-fuchsia-400 to-cyan-300 text-4xl shadow-lg shadow-fuchsia-500/20">V</div>
+            <div>
+              <h2 className="text-3xl font-black">Your Vella Shop</h2>
+              <p className="text-zinc-300">@yourvellashop</p>
+              <p className="mt-2 text-sm text-fuchsia-200">Creator • Seller • Small business</p>
+            </div>
+          </div>
+          <GlowButton onClick={() => setPage("sell")} icon={Settings}>Edit shop</GlowButton>
+        </div>
+      </Card>
+
+      <div className="grid gap-5 md:grid-cols-3">
+        <Metric icon={Users} label="Followers" value="24.8k" />
+        <Metric icon={Heart} label="Likes" value="144k" />
+        <Metric icon={ShoppingBag} label="Orders" value="732" />
+      </div>
+
+      <Card>
+        <h3 className="text-xl font-black">Creator storefront</h3>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          {products.slice(0, 3).map((product) => (
+            <div key={product.id} className="rounded-2xl bg-white/10 p-4">
+              <div className="mb-3 h-28 rounded-2xl bg-gradient-to-br from-white/10 to-fuchsia-500/20" />
+              <p className="font-bold">{product.name}</p>
+              <p className="text-fuchsia-200">{product.price}</p>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+function MenuPage({ setPage, setModal }) {
+  const items = [
+    { icon: Store, title: "Business tools", text: "Products, campaigns, launches and seller rankings.", action: () => setPage("sell") },
+    { icon: CalendarDays, title: "Events & countdowns", text: "Launch sales, fundraisers and live event reminders.", action: () => setModal("comingSoon") },
+    { icon: Megaphone, title: "Paid campaigns", text: "Promote lives, products and creator collabs.", action: () => setModal("comingSoon") },
+    { icon: Settings, title: "Settings", text: "Profile, privacy, shop settings and notifications.", action: () => setModal("comingSoon") },
+  ];
+
+  return (
+    <div className="grid gap-4 md:grid-cols-2">
+      {items.map((item) => {
+        const Icon = item.icon;
+        return (
+          <button key={item.title} onClick={item.action} className="rounded-[1.7rem] border border-white/10 bg-white/[0.06] p-5 text-left hover:bg-white/10">
+            <Icon className="mb-4 text-fuchsia-300" />
+            <h3 className="text-xl font-black">{item.title}</h3>
+            <p className="mt-2 text-zinc-400">{item.text}</p>
+            <p className="mt-4 flex items-center gap-2 text-sm font-bold text-cyan-200">Open <ChevronRight size={16} /></p>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function ActionButton({ icon: Icon, label, onClick, active }) {
+  return (
+    <button onClick={onClick} className={`rounded-2xl p-3 text-center shadow-lg transition hover:scale-105 ${active ? "bg-fuchsia-500 text-white" : "bg-black/35 text-white backdrop-blur"}`}>
+      <Icon className="mx-auto" size={22} />
+      <p className="mt-1 text-xs font-bold">{label}</p>
+    </button>
+  );
+}
+
+function Feature({ icon: Icon, title, text }) {
+  return (
+    <div className="flex gap-3 rounded-2xl bg-white/10 p-3">
+      <Icon className="mt-1 shrink-0 text-fuchsia-300" size={20} />
+      <div>
+        <p className="font-bold">{title}</p>
+        <p className="text-sm text-zinc-400">{text}</p>
+      </div>
+    </div>
+  );
+}
+
+function Metric({ icon: Icon, label, value }) {
+  return (
+    <Card>
+      <Icon className="mb-4 text-fuchsia-300" />
+      <p className="text-sm text-zinc-400">{label}</p>
+      <p className="mt-1 text-3xl font-black">{value}</p>
+    </Card>
+  );
+}
