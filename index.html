@@ -3,22 +3,20 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Vella V1 Glow</title>
+<title>Vella V1</title>
 
 <style>
 *{box-sizing:border-box}
 
 :root{
-  --pink:#ff2bd6;
-  --cyan:#22f0ff;
-  --purple:#8b5cff;
-  --glass:rgba(255,255,255,.10);
-  --glass2:rgba(255,255,255,.16);
+  --pink:#ff22d6;
+  --cyan:#25eaff;
+  --purple:#9b5cff;
 }
 
 body{
   margin:0;
-  font-family:Arial,sans-serif;
+  font-family:Arial, sans-serif;
   background:#050007;
   color:white;
   overflow:hidden;
@@ -28,128 +26,185 @@ body{
   height:100vh;
   overflow-y:scroll;
   scroll-snap-type:y mandatory;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(255,34,214,.22),transparent 30%),
+    radial-gradient(circle at 80% 80%,rgba(37,234,255,.18),transparent 34%),
+    #050007;
 }
 
 .feed::-webkit-scrollbar{width:0}
 
 .post{
   height:100vh;
+  max-width:430px;
+  margin:auto;
   position:relative;
   scroll-snap-align:start;
   background-size:cover;
   background-position:center;
   overflow:hidden;
-}
-
-.post::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at 15% 20%,rgba(255,43,214,.42),transparent 28%),
-    radial-gradient(circle at 85% 85%,rgba(34,240,255,.30),transparent 32%);
-  z-index:1;
+  box-shadow:0 0 80px rgba(255,34,214,.18);
 }
 
 .post::after{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(to bottom,rgba(0,0,0,.18),rgba(0,0,0,.35),rgba(0,0,0,.92));
+  background:
+    radial-gradient(circle at 80% 20%,rgba(255,34,214,.25),transparent 23%),
+    linear-gradient(to bottom,rgba(0,0,0,.06),rgba(0,0,0,.25),rgba(0,0,0,.92));
   z-index:1;
 }
 
 .logo{
   position:absolute;
-  top:24px;
-  left:20px;
-  z-index:3;
-  font-size:38px;
+  top:26px;
+  left:22px;
+  z-index:5;
+  font-size:40px;
   font-weight:900;
   font-style:italic;
-  letter-spacing:-1px;
   background:linear-gradient(90deg,var(--pink),#fff,var(--cyan));
   -webkit-background-clip:text;
   color:transparent;
-  filter:drop-shadow(0 0 14px rgba(255,43,214,.7));
+  filter:drop-shadow(0 0 16px rgba(255,34,214,.8));
+}
+
+.live-dot{
+  position:absolute;
+  top:28px;
+  right:20px;
+  z-index:5;
+  width:78px;
+  height:78px;
+  border-radius:50%;
+  background:var(--pink);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  font-weight:900;
+  box-shadow:0 0 35px rgba(255,34,214,.85);
+}
+
+.bubble{
+  position:absolute;
+  top:112px;
+  left:22px;
+  z-index:5;
+  padding:12px 16px;
+  border-radius:22px;
+  background:rgba(0,0,0,.58);
+  backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.15);
+  font-size:14px;
+  font-weight:800;
 }
 
 .tags{
   position:absolute;
   top:84px;
-  left:18px;
-  right:18px;
-  z-index:3;
+  left:20px;
+  z-index:5;
   display:flex;
   gap:8px;
-  overflow:auto;
 }
 
 .tag{
   padding:9px 13px;
   border-radius:999px;
-  background:rgba(0,0,0,.45);
-  border:1px solid rgba(255,255,255,.18);
-  backdrop-filter:blur(16px);
+  background:rgba(0,0,0,.48);
+  backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.15);
   font-size:12px;
-  font-weight:800;
-  box-shadow:0 0 18px rgba(255,43,214,.16);
+  font-weight:900;
 }
 
 .side{
   position:absolute;
   right:16px;
-  bottom:220px;
-  z-index:3;
+  bottom:190px;
+  z-index:5;
   display:flex;
   flex-direction:column;
-  gap:14px;
+  gap:13px;
 }
 
 .side button{
   width:56px;
   height:56px;
-  border:1px solid rgba(255,255,255,.20);
-  border-radius:22px;
-  background:rgba(10,10,15,.45);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:21px;
+  background:rgba(0,0,0,.55);
   color:white;
   font-size:23px;
   backdrop-filter:blur(18px);
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,.18),
-    0 0 24px rgba(255,43,214,.18);
+  box-shadow:0 0 24px rgba(255,34,214,.20);
+}
+
+.side span{
+  display:block;
+  text-align:center;
+  font-size:12px;
+  font-weight:900;
+  margin-top:4px;
 }
 
 .info{
   position:absolute;
-  left:16px;
+  left:18px;
   right:84px;
-  bottom:28px;
-  z-index:3;
+  bottom:30px;
+  z-index:5;
 }
 
 .card{
   padding:18px;
   border-radius:30px;
-  background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.07));
-  border:1px solid rgba(255,255,255,.22);
+  background:linear-gradient(145deg,rgba(0,0,0,.72),rgba(20,20,24,.48));
+  border:1px solid rgba(255,255,255,.18);
   backdrop-filter:blur(22px);
   box-shadow:
-    inset 0 1px 1px rgba(255,255,255,.22),
-    0 0 35px rgba(255,43,214,.26),
-    0 0 55px rgba(34,240,255,.10);
+    0 0 35px rgba(255,34,214,.35),
+    0 0 55px rgba(37,234,255,.12),
+    inset 0 1px 1px rgba(255,255,255,.16);
 }
 
 .card h2{
-  margin:0;
+  margin:0 0 6px;
   font-size:27px;
   letter-spacing:-.4px;
 }
 
 .card p{
-  margin:7px 0 2px;
-  opacity:.86;
+  margin:5px 0;
+  opacity:.88;
   font-size:14px;
+  line-height:1.35;
+}
+
+.product-row{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin:14px 0 4px;
+}
+
+.product-icon{
+  width:64px;
+  height:64px;
+  border-radius:20px;
+  background:linear-gradient(135deg,var(--pink),var(--purple),var(--cyan));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  box-shadow:0 0 25px rgba(255,34,214,.55);
+}
+
+.price{
+  font-size:18px;
+  font-weight:900;
 }
 
 .btn{
@@ -157,19 +212,56 @@ body{
   padding:15px;
   margin-top:11px;
   border:0;
-  border-radius:20px;
+  border-radius:22px;
   font-weight:950;
   font-size:15px;
   color:#050505;
-  background:linear-gradient(100deg,var(--pink),#b46bff,var(--cyan));
-  box-shadow:0 0 24px rgba(255,43,214,.55);
+  background:linear-gradient(100deg,var(--pink),#b86cff,var(--cyan));
+  box-shadow:0 0 26px rgba(255,34,214,.58);
 }
 
 .btn.dark{
   color:white;
-  background:rgba(255,255,255,.11);
-  border:1px solid rgba(255,255,255,.20);
-  box-shadow:inset 0 1px 1px rgba(255,255,255,.18);
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.14);
+}
+
+.nav{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:430px;
+  height:86px;
+  background:rgba(0,0,0,.86);
+  backdrop-filter:blur(22px);
+  border-top:1px solid rgba(255,255,255,.12);
+  z-index:20;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+}
+
+.nav button{
+  background:none;
+  border:0;
+  color:#aaa;
+  font-weight:900;
+  font-size:12px;
+}
+
+.nav button.active{color:var(--pink)}
+
+.plus{
+  width:66px!important;
+  height:66px!important;
+  border-radius:25px!important;
+  font-size:32px!important;
+  color:#050505!important;
+  background:linear-gradient(135deg,var(--pink),var(--cyan))!important;
+  box-shadow:0 0 35px rgba(255,34,214,.75)!important;
 }
 
 .modal{
@@ -181,32 +273,27 @@ body{
   align-items:center;
   justify-content:center;
   padding:18px;
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(12px);
 }
 
 .box{
   width:100%;
   max-width:390px;
+  max-height:92vh;
+  overflow:auto;
   border-radius:34px;
   padding:23px;
   background:
-    radial-gradient(circle at top left,rgba(255,43,214,.22),transparent 38%),
+    radial-gradient(circle at top left,rgba(255,34,214,.22),transparent 40%),
     linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.06));
   border:1px solid rgba(255,255,255,.24);
   backdrop-filter:blur(28px);
-  box-shadow:
-    inset 0 1px 1px rgba(255,255,255,.18),
-    0 0 55px rgba(255,43,214,.34);
+  box-shadow:0 0 60px rgba(255,34,214,.38);
 }
 
 .box h2{
   margin:0 0 4px;
   font-size:31px;
-  letter-spacing:-.5px;
-}
-
-.box p{
-  opacity:.85;
 }
 
 .preview{
@@ -218,7 +305,7 @@ body{
   position:relative;
   overflow:hidden;
   border:1px solid rgba(255,255,255,.18);
-  box-shadow:0 0 28px rgba(34,240,255,.16);
+  box-shadow:0 0 28px rgba(37,234,255,.16);
 }
 
 .preview::after{
@@ -229,9 +316,9 @@ body{
   bottom:14px;
   padding:13px 15px;
   border-radius:20px;
-  background:rgba(0,0,0,.48);
+  background:rgba(0,0,0,.55);
   backdrop-filter:blur(16px);
-  font-weight:800;
+  font-weight:900;
 }
 
 .options{
@@ -248,7 +335,6 @@ body{
   background:rgba(255,255,255,.10);
   color:white;
   font-weight:900;
-  backdrop-filter:blur(12px);
 }
 
 input{
@@ -264,16 +350,17 @@ input{
 .toast{
   position:fixed;
   left:50%;
-  bottom:28px;
+  bottom:102px;
   transform:translateX(-50%);
-  background:rgba(10,10,12,.82);
-  border:1px solid rgba(255,43,214,.55);
+  background:rgba(10,10,12,.84);
+  border:1px solid rgba(255,34,214,.58);
   border-radius:22px;
   padding:14px 18px;
   display:none;
   z-index:120;
   backdrop-filter:blur(18px);
-  box-shadow:0 0 30px rgba(255,43,214,.45);
+  box-shadow:0 0 30px rgba(255,34,214,.45);
+  font-weight:800;
 }
 </style>
 </head>
@@ -282,75 +369,108 @@ input{
 
 <div class="feed">
 
-<section class="post" style="background-image:url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=80')">
-  <div class="logo">Vella</div>
-  <div class="tags">
-    <span class="tag">Fashion</span><span class="tag">Trending</span><span class="tag">Try & Buy</span>
-  </div>
+  <section class="post" style="background-image:url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80')">
+    <div class="logo">Vella</div>
+    <div class="live-dot">● LIVE</div>
+    <div class="bubble">🛍️ Mia just bought this</div>
 
-  <div class="side">
-    <button onclick="like()">♡</button>
-    <button onclick="comment()">💬</button>
-    <button onclick="saveLook()">💾</button>
-    <button onclick="share()">↗</button>
-  </div>
-
-  <div class="info">
-    <div class="card">
-      <h2>Influencer Outfit ✨</h2>
-      <p>$79.99 · 21 people viewing · selling fast</p>
-      <button class="btn" onclick="openTryOn('Influencer Outfit',79.99,'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80')">Try On ✨</button>
-      <button class="btn dark" onclick="openCheckout('Influencer Outfit',79.99)">Buy Now</button>
+    <div class="side">
+      <button onclick="like()">♡</button><span>2.4K</span>
+      <button onclick="comment()">💬</button><span>386</span>
+      <button onclick="saveLook()">💾</button><span>Save</span>
+      <button onclick="share()">↗</button><span>512</span>
     </div>
-  </div>
-</section>
 
-<section class="post" style="background-image:url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80')">
-  <div class="logo">Vella</div>
-  <div class="tags">
-    <span class="tag">Night Look</span><span class="tag">Hot Now</span>
-  </div>
+    <div class="info">
+      <div class="card">
+        <h2>Luxe Collection ✓</h2>
+        <p>Live selling now · Sydney NSW</p>
+        <p>Drop: oversized hoodie</p>
 
-  <div class="side">
-    <button onclick="like()">♡</button>
-    <button onclick="comment()">💬</button>
-    <button onclick="saveLook()">💾</button>
-    <button onclick="share()">↗</button>
-  </div>
+        <div class="product-row">
+          <div class="product-icon">🧥</div>
+          <div>
+            <div class="price">$79.99</div>
+            <p>3 left · 949 sold</p>
+          </div>
+        </div>
 
-  <div class="info">
-    <div class="card">
-      <h2>Night Out Fit 🔥</h2>
-      <p>$89.99 · people are saving this</p>
-      <button class="btn" onclick="openTryOn('Night Out Fit',89.99,'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80')">Try On ✨</button>
-      <button class="btn dark" onclick="openCheckout('Night Out Fit',89.99)">Buy Now</button>
+        <button class="btn" onclick="openTryOn('Luxe Collection',79.99,'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80')">Try On ✨</button>
+        <button class="btn dark" onclick="openCheckout('Luxe Collection',79.99)">Buy Now</button>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="post" style="background-image:url('https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=900&q=80')">
-  <div class="logo">Vella</div>
-  <div class="tags">
-    <span class="tag">Clean Girl</span><span class="tag">Everyday</span>
-  </div>
+  <section class="post" style="background-image:url('https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=900&q=80')">
+    <div class="logo">Vella</div>
+    <div class="live-dot">HOT</div>
+    <div class="bubble">🔥 18 people saved this look</div>
 
-  <div class="side">
-    <button onclick="like()">♡</button>
-    <button onclick="comment()">💬</button>
-    <button onclick="saveLook()">💾</button>
-    <button onclick="share()">↗</button>
-  </div>
-
-  <div class="info">
-    <div class="card">
-      <h2>Clean Girl Fit 🤍</h2>
-      <p>$69.99 · simple, cute, easy</p>
-      <button class="btn" onclick="openTryOn('Clean Girl Fit',69.99,'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80')">Try On ✨</button>
-      <button class="btn dark" onclick="openCheckout('Clean Girl Fit',69.99)">Buy Now</button>
+    <div class="side">
+      <button onclick="like()">♡</button><span>1.8K</span>
+      <button onclick="comment()">💬</button><span>214</span>
+      <button onclick="saveLook()">💾</button><span>Save</span>
+      <button onclick="share()">↗</button><span>301</span>
     </div>
-  </div>
-</section>
 
+    <div class="info">
+      <div class="card">
+        <h2>Clean Girl Fit 🤍</h2>
+        <p>Simple, soft, everyday outfit</p>
+
+        <div class="product-row">
+          <div class="product-icon">🤍</div>
+          <div>
+            <div class="price">$69.99</div>
+            <p>selling fast · easy fit</p>
+          </div>
+        </div>
+
+        <button class="btn" onclick="openTryOn('Clean Girl Fit',69.99,'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80')">Try On ✨</button>
+        <button class="btn dark" onclick="openCheckout('Clean Girl Fit',69.99)">Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="post" style="background-image:url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80')">
+    <div class="logo">Vella</div>
+    <div class="live-dot">NEW</div>
+    <div class="bubble">✨ New drop just landed</div>
+
+    <div class="side">
+      <button onclick="like()">♡</button><span>3.1K</span>
+      <button onclick="comment()">💬</button><span>422</span>
+      <button onclick="saveLook()">💾</button><span>Save</span>
+      <button onclick="share()">↗</button><span>890</span>
+    </div>
+
+    <div class="info">
+      <div class="card">
+        <h2>Night Out Fit 🔥</h2>
+        <p>For going out, dinner, content nights</p>
+
+        <div class="product-row">
+          <div class="product-icon">👗</div>
+          <div>
+            <div class="price">$89.99</div>
+            <p>limited drop · 12 left</p>
+          </div>
+        </div>
+
+        <button class="btn" onclick="openTryOn('Night Out Fit',89.99,'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=800&q=80')">Try On ✨</button>
+        <button class="btn dark" onclick="openCheckout('Night Out Fit',89.99)">Buy Now</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button class="active">⌂<br>Feed</button>
+  <button onclick="toast('Live shopping opens here')">●<br>Live</button>
+  <button class="plus" onclick="toast('Add product/post coming soon')">+</button>
+  <button onclick="toast('Rankings coming soon')">♛<br>Rank</button>
+  <button onclick="toast('Store opens here')">▣<br>Store</button>
 </div>
 
 <div id="tryModal" class="modal">
@@ -398,7 +518,7 @@ input{
 <div id="toast" class="toast"></div>
 
 <script>
-let currentProduct = "Influencer Outfit";
+let currentProduct = "Luxe Collection";
 let currentPrice = 79.99;
 
 function openTryOn(product, price, image){
@@ -435,21 +555,10 @@ function completePurchase(){
   toast("✨ Demo Purchase Complete");
 }
 
-function like(){
-  toast("Liked this look ♡");
-}
-
-function comment(){
-  toast("Comments: omg I need this · does it come in pink?");
-}
-
-function saveLook(){
-  toast("Saved to your Vella looks ✨");
-}
-
-function share(){
-  toast("Shared with friends ↗");
-}
+function like(){ toast("Liked this look ♡"); }
+function comment(){ toast("Comments: omg I need this · does it come in pink?"); }
+function saveLook(){ toast("Saved to your Vella looks ✨"); }
+function share(){ toast("Shared with friends ↗"); }
 
 function toast(message){
   const t = document.getElementById("toast");
