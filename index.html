@@ -1,12 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vella</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Vella</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #0a0a0a;
+      color: white;
+    }
+
+    .page {
+      display: none;
+      padding: 20px;
+    }
+
+    .active {
+      display: block;
+    }
+
+    .nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+      background: #111;
+      border-top: 1px solid #333;
+    }
+
+    .nav button {
+      flex: 1;
+      padding: 15px;
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    .nav button.active {
+      color: #ff3cac;
+    }
+
+    .card {
+      background: #151515;
+      border-radius: 15px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+
+    .button {
+      background: #ff3cac;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      color: white;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #111;
+      padding: 20px;
+      border-radius: 15px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<div id="home" class="page active">
+  <h1>Hello Vella</h1>
+
+  <div class="card">
+    <h3>Glow Product</h3>
+    <button class="button" onclick="order()">Buy Now</button>
+  </div>
+</div>
+
+<!-- SELLER TOOLS -->
+<div id="seller" class="page">
+  <h1>Seller Tools</h1>
+
+  <div class="card">
+    <h3>Add Product</h3>
+    <button class="button" onclick="popup('Add products to your shop')">Open</button>
+  </div>
+
+  <div class="card">
+    <h3>Go Live</h3>
+    <button class="button" onclick="popup('Start a live selling session')">Start</button>
+  </div>
+
+  <div class="card">
+    <h3>Create Countdown</h3>
+    <button class="button" onclick="popup('Set a sale countdown')">Create</button>
+  </div>
+
+  <div class="card">
+    <h3>Orders</h3>
+    <button class="button" onclick="popup('View customer orders')">View</button>
+  </div>
+
+  <div class="card">
+    <h3>Earnings</h3>
+    <button class="button" onclick="popup('Track your income')">View</button>
+  </div>
+
+  <div class="card">
+    <h3>Rankings</h3>
+    <button class="button" onclick="popup('Weekly performance ranking')">View</button>
+  </div>
+
+  <div class="card">
+    <h3>Campaigns</h3>
+    <button class="button" onclick="popup('Promote your products')">Open</button>
+  </div>
+
+  <div class="card">
+    <h3>Business Profile</h3>
+    <button class="button" onclick="popup('Edit your shop profile')">Edit</button>
+  </div>
+</div>
+
+<!-- POPUP -->
+<div id="popup" class="popup">
+  <p id="popupText"></p>
+  <button class="button" onclick="closePopup()">Close</button>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <button onclick="showPage('home', this)" class="active">Home</button>
+  <button onclick="showPage('seller', this)">Sell</button>
+</div>
+
+<script>
+function showPage(page, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(page).classList.add('active');
+
+  document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function popup(text) {
+  document.getElementById('popupText').innerText = text;
+  document.getElementById('popup').style.display = 'block';
+}
+
+function closePopup() {
+  document.getElementById('popup').style.display = 'none';
+}
+
+function order() {
+  popup("Order placed (demo)");
+}
+</script>
+
+</body>
 </html>
