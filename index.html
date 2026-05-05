@@ -10,232 +10,446 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(0,255,208,0.15), transparent 30%),
-        radial-gradient(circle at bottom, rgba(255,43,214,0.12), transparent 30%),
-        #020202;
+      background: #020202;
       color: white;
+      overflow: hidden;
     }
 
-    .page { display:none; min-height:100vh; padding:24px; }
-    .page.active { display:flex; flex-direction:column; align-items:center; justify-content:center; }
-
-    .card {
-      width:100%; max-width:420px;
-      padding:28px;
-      border-radius:30px;
-      background: rgba(255,255,255,0.05);
-      border:1px solid rgba(255,255,255,0.1);
-      backdrop-filter: blur(16px);
-      box-shadow: 0 0 40px rgba(0,255,208,0.15);
-      text-align:center;
+    .screen {
+      display: none;
+      height: 100vh;
+      width: 100vw;
+      padding: 24px;
+      background:
+        radial-gradient(circle at top, rgba(0,255,208,.22), transparent 32%),
+        radial-gradient(circle at bottom, rgba(255,43,214,.18), transparent 35%),
+        #020202;
     }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+      animation: fade .45s ease;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: scale(.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .center {
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+    }
+
+    .top-space { height: 40px; }
 
     .logo {
-      font-size:42px;
-      font-weight:900;
-      letter-spacing:8px;
-      background: linear-gradient(90deg,#00ffd0,#ff2bd6);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      text-shadow:0 0 25px rgba(0,255,208,0.4);
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: 10px;
+      background: linear-gradient(90deg,#00ffd0,#8bd7ff,#ff2bd6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 35px rgba(0,255,208,.45);
     }
 
     .hello {
-      font-size:14px;
-      color:#00ffd0;
-      font-weight:bold;
-      letter-spacing:3px;
-      margin-bottom:10px;
+      color: #00ffd0;
+      font-size: 13px;
+      letter-spacing: 4px;
+      font-weight: 900;
+      margin-bottom: 12px;
     }
 
-    h1 { font-size:30px; margin:10px 0; }
-    p { color:#cffff8; font-size:14px; }
+    h1 {
+      font-size: 34px;
+      line-height: 1.1;
+      margin: 18px 0 12px;
+    }
 
-    .button {
-      width:100%;
-      margin-top:14px;
-      padding:14px;
-      border:none;
-      border-radius:999px;
+    p {
+      color: #d8fffb;
+      font-size: 15px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .glass {
+      width: 100%;
+      max-width: 430px;
+      padding: 26px;
+      border-radius: 34px;
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(18px);
+      box-shadow:
+        0 0 45px rgba(0,255,208,.16),
+        inset 0 0 24px rgba(255,255,255,.04);
+    }
+
+    .chips {
+      display: flex;
+      gap: 9px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .chip {
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.45);
+      border: 1px solid rgba(0,255,208,.18);
+      font-size: 12px;
+      color: #dffffb;
+      font-weight: 800;
+    }
+
+    .btn {
+      width: 100%;
+      max-width: 430px;
+      border: none;
+      border-radius: 999px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
       background: linear-gradient(135deg,#00ffd0,#ff2bd6);
-      font-weight:900;
-      cursor:pointer;
-      box-shadow:0 0 25px rgba(0,255,208,0.6);
+      color: black;
+      box-shadow:
+        0 0 28px rgba(0,255,208,.55),
+        0 0 34px rgba(255,43,214,.28);
+    }
+
+    .ghost {
+      margin-top: 12px;
+      background: rgba(255,255,255,.08);
+      color: white;
+      border: 1px solid rgba(255,255,255,.15);
+      box-shadow: none;
     }
 
     input {
-      width:100%;
-      padding:14px;
-      margin-top:10px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,0.1);
-      background: rgba(0,0,0,0.5);
-      color:white;
+      width: 100%;
+      margin-top: 12px;
+      padding: 15px;
+      border-radius: 18px;
+      border: 1px solid rgba(0,255,208,.22);
+      background: rgba(0,0,0,.48);
+      color: white;
+      outline: none;
+      font-size: 15px;
     }
 
-    /* APP */
-    .app { justify-content:flex-start !important; }
+    input::placeholder { color: #8ddbd2; }
 
-    .topbar {
-      width:100%; max-width:500px;
-      display:flex;
-      justify-content:space-between;
-      margin-bottom:15px;
+    /* HOME APP */
+    .app {
+      padding: 14px;
+      overflow-y: auto;
+      padding-bottom: 90px;
     }
 
-    .small-logo {
-      font-size:24px;
-      font-weight:900;
-      letter-spacing:4px;
-      color:#00ffd0;
+    .app-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .mini-logo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 6px;
+      color: #00ffd0;
+      text-shadow: 0 0 20px rgba(0,255,208,.55);
+    }
+
+    .pill {
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .story-row {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      margin-bottom: 18px;
+      padding-bottom: 5px;
+    }
+
+    .story {
+      min-width: 74px;
+      height: 74px;
+      border-radius: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg,rgba(0,255,208,.25),rgba(255,43,214,.22));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 0 22px rgba(0,255,208,.18);
+      font-size: 26px;
     }
 
     .feed-card {
-      width:100%;
-      max-width:500px;
-      height:600px;
-      border-radius:35px;
-      position:relative;
-      overflow:hidden;
-
+      height: 74vh;
+      min-height: 580px;
+      border-radius: 38px;
+      position: relative;
+      overflow: hidden;
       background:
-        linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.6)),
-        radial-gradient(circle at 30% 20%, rgba(0,255,208,0.35), transparent 40%),
-        radial-gradient(circle at 70% 80%, rgba(255,43,214,0.25), transparent 40%),
-        #050505;
-
-      border:1px solid rgba(255,255,255,0.1);
-
+        linear-gradient(to bottom, rgba(255,255,255,.06), rgba(0,0,0,.72)),
+        radial-gradient(circle at 25% 18%, rgba(255,43,214,.32), transparent 34%),
+        radial-gradient(circle at 78% 82%, rgba(0,255,208,.32), transparent 36%),
+        #071313;
+      border: 1px solid rgba(255,255,255,.12);
       box-shadow:
-        0 0 60px rgba(0,255,208,0.25),
-        0 0 120px rgba(255,43,214,0.15),
-        inset 0 0 40px rgba(255,255,255,0.05);
+        0 0 60px rgba(0,255,208,.20),
+        inset 0 0 35px rgba(255,255,255,.04);
     }
 
-    .video {
-      height:65%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      font-size:26px;
-      font-weight:900;
+    .live {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      background: #ff2bd6;
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      box-shadow: 0 0 20px rgba(255,43,214,.7);
     }
 
-    .seller {
-      position:absolute;
-      bottom:15px;
-      left:15px;
-      right:70px;
-      padding:15px;
-      border-radius:25px;
+    .rank {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.55);
+      border: 1px solid rgba(0,255,208,.24);
+      font-size: 12px;
+      font-weight: 900;
+    }
 
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(18px);
-      border:1px solid rgba(0,255,208,0.2);
+    .video-text {
+      height: 62%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1.15;
     }
 
     .actions {
-      position:absolute;
-      right:12px;
-      bottom:100px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
+      position: absolute;
+      right: 14px;
+      bottom: 130px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .action {
-      width:45px;
-      height:45px;
-      border-radius:16px;
-      background: rgba(0,0,0,0.6);
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      width: 50px;
+      height: 50px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.58);
+      border: 1px solid rgba(255,255,255,.16);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      backdrop-filter: blur(10px);
+    }
+
+    .seller {
+      position: absolute;
+      left: 16px;
+      right: 76px;
+      bottom: 16px;
+      padding: 17px;
+      border-radius: 28px;
+      background: rgba(0,0,0,.62);
+      border: 1px solid rgba(0,255,208,.2);
+      backdrop-filter: blur(16px);
+    }
+
+    .seller h2 { margin: 0 0 6px; }
+    .seller p { font-size: 13px; margin: 5px 0; }
+
+    .price {
+      color: #00ffd0;
+      font-weight: 900;
+      margin-top: 8px;
+    }
+
+    .buy {
+      margin-top: 12px;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: #00ffd0;
+      color: #00110e;
+      font-weight: 900;
+      box-shadow: 0 0 20px rgba(0,255,208,.65);
     }
 
     .bottom-nav {
-      position:fixed;
-      bottom:0;
-      width:100%;
-      display:flex;
-      justify-content:space-around;
-      padding:10px;
-      background: rgba(0,0,0,0.9);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,.88);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(0,255,208,.26);
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      z-index: 99;
     }
 
+    .nav {
+      text-align: center;
+      font-size: 11px;
+      color: #d8fffb;
+      font-weight: 800;
+    }
+
+    .nav span {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 3px;
+    }
+
+    .plus {
+      width: 58px;
+      height: 58px;
+      margin-top: -26px;
+      border-radius: 22px;
+      background: linear-gradient(135deg,#00ffd0,#ff2bd6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      font-weight: 900;
+      color: black;
+      box-shadow: 0 0 28px rgba(0,255,208,.72);
+    }
   </style>
 </head>
 
 <body>
 
-<!-- FRONT -->
-<div id="front" class="page active">
-  <div class="card">
-    <div class="logo">VELLA</div>
-    <h1>Content + Shopping + Live</h1>
-    <p>Scroll, sell, go live and get ranked.</p>
-    <button class="button" onclick="go('hello')">Start</button>
-  </div>
-</div>
+  <!-- WELCOME -->
+  <section id="welcome" class="screen active center">
+    <div class="top-space"></div>
 
-<!-- HELLO -->
-<div id="hello" class="page">
-  <div class="card">
-    <div class="hello">HELLO VELLA</div>
-    <div class="logo">VELLA</div>
-    <h1>Your feed is ready</h1>
-    <button class="button" onclick="go('signin')">Continue</button>
-  </div>
-</div>
+    <div class="glass">
+      <div class="hello">HELLO VELLA</div>
+      <div class="logo">VELLA</div>
+      <h1>Your glow feed starts here.</h1>
+      <p>Watch, shop, go live, sell products and build your creator world in one beautiful app.</p>
 
-<!-- SIGN IN -->
-<div id="signin" class="page">
-  <div class="card">
-    <h1>Sign In</h1>
-    <input placeholder="Email">
-    <input placeholder="Password">
-    <button class="button" onclick="go('app')">Enter</button>
-  </div>
-</div>
-
-<!-- APP -->
-<div id="app" class="page app">
-
-  <div class="topbar">
-    <div class="small-logo">VELLA</div>
-    <div>⚡</div>
-  </div>
-
-  <div class="feed-card">
-
-    <div class="video">
-      ✨ Viral product demo
+      <div class="chips">
+        <div class="chip">Live selling</div>
+        <div class="chip">Creator shops</div>
+        <div class="chip">Viral rankings</div>
+      </div>
     </div>
 
-    <div class="actions">
-      <div class="action">♡</div>
-      <div class="action">💬</div>
-      <div class="action">🛍️</div>
+    <button class="btn" onclick="show('signin')">Start Vella</button>
+  </section>
+
+  <!-- SIGN IN -->
+  <section id="signin" class="screen center">
+    <div class="top-space"></div>
+
+    <div class="glass">
+      <div class="hello">WELCOME BACK</div>
+      <div class="logo">VELLA</div>
+      <h1>Sign in</h1>
+      <p>Demo sign in for now — this lets us test the app flow.</p>
+
+      <input placeholder="Email address">
+      <input placeholder="Password">
+
+      <button class="btn" onclick="show('home')">Enter App</button>
+      <button class="btn ghost" onclick="show('welcome')">Back</button>
     </div>
 
-    <div class="seller">
-      <h3>@GlowBeauty</h3>
-      <p>Hydrating Serum</p>
-      <button class="button">Buy</button>
+    <div></div>
+  </section>
+
+  <!-- HOME -->
+  <section id="home" class="screen app">
+    <div class="app-top">
+      <div>
+        <div class="hello">HELLO VELLA</div>
+        <div class="mini-logo">VELLA</div>
+      </div>
+      <div class="pill">⚡ Creator Mode</div>
     </div>
 
-  </div>
+    <div class="story-row">
+      <div class="story">✨</div>
+      <div class="story">🛍️</div>
+      <div class="story">🔴</div>
+      <div class="story">🏆</div>
+      <div class="story">💄</div>
+      <div class="story">💪</div>
+    </div>
 
-</div>
+    <div class="feed-card">
+      <div class="live">● LIVE SALE</div>
+      <div class="rank">#1 Beauty</div>
 
-<script>
-function go(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-</script>
+      <div class="video-text">
+        ✨ Viral serum demo<br>
+        “Glow up while I pack orders”
+      </div>
+
+      <div class="actions">
+        <div class="action">♡</div>
+        <div class="action">💬</div>
+        <div class="action">↗</div>
+        <div class="action">🛍️</div>
+      </div>
+
+      <div class="seller">
+        <h2>@GlowBeauty</h2>
+        <p>Hydrating Skin Serum ✨</p>
+        <p>2.4k watching · 318 sold today</p>
+        <div class="price">$29.95</div>
+        <button class="buy">Buy Now</button>
+      </div>
+    </div>
+
+    <nav class="bottom-nav">
+      <div class="nav" onclick="show('home')"><span>🏠</span>Home</div>
+      <div class="nav"><span>🔴</span>Live</div>
+      <div class="plus">+</div>
+      <div class="nav"><span>🏆</span>Rank</div>
+      <div class="nav"><span>👤</span>Me</div>
+    </nav>
+  </section>
+
+  <script>
+    function show(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+  </script>
 
 </body>
 </html>
