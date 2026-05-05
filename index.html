@@ -330,3 +330,35 @@ function closeModal(){
 
 </body>
 </html>
+<button class="btn" onclick="openTryOn()">Try On ✨</button>
+<div id="tryOnModal" class="modal">
+  <div class="modal-box">
+    <h2>Try On ✨</h2>
+    <p>Preview how this item looks before buying.</p>
+
+    <div style="height:200px;background:#222;border-radius:20px;margin:10px 0;display:flex;align-items:center;justify-content:center;">
+      <span>👗 Model Preview</span>
+    </div>
+
+    <button class="btn" onclick="openModal('Colour','Change colour options here')">Change Colour</button>
+    <button class="btn" onclick="openModal('Size','Select your size')">Select Size</button>
+    <button class="btn" onclick="openModal('Save Look','Saved to your outfits')">Save Look</button>
+    <button class="btn" onclick="showScreen('checkout')">Buy Now</button>
+
+    <button class="btn" onclick="closeTryOn()">Close</button>
+  </div>
+</div>
+function openTryOn(){
+  document.getElementById("tryOnModal").style.display = "flex";
+}
+
+function closeTryOn(){
+  document.getElementById("tryOnModal").style.display = "none";
+}
+function openTryOn(){
+  document.getElementById("tryOnModal").style.display = "flex";
+}
+
+function closeTryOn(){
+  document.getElementById("tryOnModal").style.display = "none";
+}
