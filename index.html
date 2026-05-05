@@ -4,12 +4,43 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Vella</title>
-
+<button class="btn" onclick="openDream()">✨ Dream Fit</button>
 <style>
 *{box-sizing:border-box}
 
 body{
-  margin:0;
+  margin:0;<section id="dream" class="screen">
+  <h1>Dream Fit ✨</h1>
+
+  <div class="hero" style="
+    background:
+    linear-gradient(#0002,#000b),
+    url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=80');
+    background-size:cover;
+  ">
+
+    <span class="badge">Trending Look</span>
+
+    <div class="product-box">
+      <h2>Ultimate Influencer Outfit</h2>
+      <p>🔥 viral · selling fast</p>
+      <h3>$129.99</h3>
+
+      <button class="btn" onclick="openTryOn('Dream Outfit',129.99)">Try On ✨</button>
+      <button class="btn" onclick="startCheckout('Dream Outfit',129.99)">Buy Now 🔥</button>
+      <button class="btn dark" onclick="openModal('Saved','Added to your dream fits')">Save Look</button>
+    </div>
+
+  </div>
+
+  <div class="card">
+    <h2>✨ Why people love this</h2>
+    <p>“I saw this and instantly bought it”</p>
+    <p>“This is the main character outfit”</p>
+    <p>“Perfect for going out / content / confidence”</p>
+  </div>
+
+</section>
   font-family:Arial, sans-serif;
   background:radial-gradient(circle at top left,#42002f,#090014 45%,#020202);
   color:white;
