@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Vella</title>
+  <title>Vella Premium Glass</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
@@ -21,8 +21,9 @@
       width: 100vw;
       overflow-y: auto;
       background:
-        radial-gradient(circle at top, rgba(255,43,214,.25), transparent 35%),
-        radial-gradient(circle at bottom, rgba(0,255,208,.12), transparent 35%),
+        radial-gradient(circle at 20% 10%, rgba(255,43,214,.26), transparent 34%),
+        radial-gradient(circle at 80% 20%, rgba(123,92,255,.22), transparent 32%),
+        radial-gradient(circle at 50% 100%, rgba(0,255,208,.14), transparent 38%),
         #050006;
     }
 
@@ -31,18 +32,19 @@
     .page {
       max-width: 430px;
       margin: auto;
-      padding: 60px 15px 100px;
+      padding: 62px 16px 105px;
       min-height: 100vh;
     }
 
     .logo {
-      font-size: 38px;
+      font-size: 39px;
       font-weight: 900;
       font-style: italic;
       background: linear-gradient(90deg,#ff2bd6,#7b5cff,#00ffd0);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 12px;
+      filter: drop-shadow(0 0 16px rgba(255,43,214,.7));
+      margin-bottom: 14px;
     }
 
     .back {
@@ -50,23 +52,39 @@
       top: 15px;
       left: 15px;
       z-index: 999;
-      background: rgba(0,0,0,.65);
-      border: 1px solid rgba(255,255,255,.2);
-      color: white;
       padding: 10px 14px;
-      border-radius: 14px;
+      border-radius: 16px;
+      background: rgba(0,0,0,.48);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(18px);
+      color: white;
       font-size: 18px;
       cursor: pointer;
-      backdrop-filter: blur(10px);
+      box-shadow: 0 0 24px rgba(255,43,214,.18);
     }
 
-    .card {
+    .glass {
+      position: relative;
       padding: 18px;
-      border-radius: 25px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.14);
-      margin-bottom: 14px;
-      backdrop-filter: blur(16px);
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.035));
+      border: 1px solid rgba(255,255,255,.16);
+      backdrop-filter: blur(22px);
+      box-shadow:
+        0 0 30px rgba(255,43,214,.16),
+        inset 0 0 22px rgba(255,255,255,.05);
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+
+    .glass::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 12%;
+      right: 12%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.75), transparent);
     }
 
     .btn {
@@ -74,34 +92,90 @@
       padding: 14px;
       border-radius: 18px;
       border: none;
-      background: linear-gradient(90deg,#ff2bd6,#00ffd0);
+      background: linear-gradient(90deg,#ff2bd6,#7b5cff,#00ffd0);
       color: black;
       font-weight: 900;
       margin-top: 10px;
+      box-shadow: 0 0 24px rgba(255,43,214,.38);
       cursor: pointer;
     }
 
     .dark-btn {
-      background: rgba(255,255,255,.08);
+      background: rgba(255,255,255,.075);
       color: white;
-      border: 1px solid rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.15);
+      box-shadow: none;
     }
 
-    input {
+    input, textarea {
       width: 100%;
       padding: 14px;
       margin-top: 10px;
-      border-radius: 16px;
+      border-radius: 18px;
       border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
+      background: rgba(255,255,255,.065);
       color: white;
+      outline: none;
+      backdrop-filter: blur(12px);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 13px 6px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.12);
+      font-size: 12px;
+    }
+
+    .stat strong {
+      display: block;
+      color: #00ffd0;
+      font-size: 18px;
+      margin-bottom: 4px;
     }
 
     .feed {
       height: 100vh;
       overflow-y: scroll;
       scroll-snap-type: y mandatory;
-      padding-bottom: 80px;
+      padding-bottom: 82px;
+    }
+
+    .category-bar {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      z-index: 70;
+      padding: 12px 15px 14px;
+      background: linear-gradient(to bottom, rgba(5,0,6,.96), rgba(5,0,6,.65), transparent);
+      backdrop-filter: blur(14px);
+    }
+
+    .category-title {
+      font-size: 28px;
+      font-weight: 900;
+      font-style: italic;
+      background: linear-gradient(90deg,#ff2bd6,#7b5cff,#00ffd0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
     }
 
     .post {
@@ -112,35 +186,37 @@
       scroll-snap-align: start;
       overflow: hidden;
       background:
-        linear-gradient(to bottom, rgba(0,0,0,.05), rgba(0,0,0,.85)),
+        linear-gradient(to bottom, rgba(0,0,0,.05), rgba(0,0,0,.88)),
         url("https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80") center/cover;
     }
 
     .post.two {
       background:
-        linear-gradient(to bottom, rgba(0,0,0,.05), rgba(0,0,0,.85)),
+        linear-gradient(to bottom, rgba(0,0,0,.05), rgba(0,0,0,.88)),
         url("https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80") center/cover;
     }
 
     .topbar {
       position: absolute;
-      top: 15px;
+      top: 90px;
       left: 15px;
       right: 15px;
+      z-index: 20;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 10;
     }
 
     .pill {
-      background: rgba(0,0,0,.65);
       padding: 9px 13px;
       border-radius: 999px;
+      background: rgba(0,0,0,.50);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(16px);
       font-size: 12px;
       font-weight: 900;
-      border: 1px solid rgba(255,255,255,.18);
-      backdrop-filter: blur(10px);
+      box-shadow: 0 0 22px rgba(255,43,214,.14);
+      white-space: nowrap;
     }
 
     .live-pulse {
@@ -149,20 +225,21 @@
     }
 
     @keyframes pulse {
-      0% { transform: scale(1); box-shadow: 0 0 15px rgba(255,20,157,.55); }
-      50% { transform: scale(1.06); box-shadow: 0 0 30px rgba(255,20,157,1); }
-      100% { transform: scale(1); box-shadow: 0 0 15px rgba(255,20,157,.55); }
-    }https://github.com/kourtneyferguson-maker/VELLA/blob/main/index.html
+      0% { transform: scale(1); box-shadow: 0 0 14px rgba(255,20,157,.55); }
+      50% { transform: scale(1.06); box-shadow: 0 0 34px rgba(255,20,157,1); }
+      100% { transform: scale(1); box-shadow: 0 0 14px rgba(255,20,157,.55); }
+    }
 
     .floating-order {
       position: absolute;
-      top: 85px;
+      top: 140px;
       left: 15px;
       z-index: 20;
       padding: 11px 14px;
       border-radius: 18px;
-      background: rgba(0,0,0,.66);
+      background: rgba(0,0,0,.56);
       border: 1px solid rgba(0,255,208,.35);
+      backdrop-filter: blur(18px);
       font-size: 13px;
       font-weight: 900;
       animation: slidePop 4s infinite;
@@ -175,84 +252,101 @@
       100% { opacity: 0; transform: translateY(-10px); }
     }
 
+    .fake-comments {
+      position: absolute;
+      left: 15px;
+      bottom: 215px;
+      z-index: 20;
+      width: 255px;
+    }
+
     .creator-card {
       position: absolute;
-      bottom: 90px;
+      bottom: 92px;
       left: 15px;
-      right: 75px;
-      background: rgba(0,0,0,.72);
-      padding: 16px;
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,.14);
-      backdrop-filter: blur(16px);
-      z-index: 10;
+      right: 76px;
+      z-index: 20;
+      padding: 17px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(0,0,0,.78), rgba(255,255,255,.07));
+      border: 1px solid rgba(255,255,255,.16);
+      backdrop-filter: blur(22px);
+      box-shadow:
+        0 0 34px rgba(255,43,214,.18),
+        inset 0 0 24px rgba(255,255,255,.05);
     }
 
-    .creator-card h3 {
-      margin: 0 0 5px;
-      font-size: 22px;
-    }
-
-    .creator-card p {
-      margin: 5px 0;
-      color: #ddd;
-      font-size: 13px;
-    }
+    .creator-card h3 { margin: 0 0 6px; font-size: 22px; }
+    .creator-card p { margin: 5px 0; color: #e6e6e6; font-size: 13px; }
 
     .product-row {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     .thumb {
-      width: 55px;
-      height: 55px;
-      border-radius: 14px;
-      background: linear-gradient(135deg,#ff2bd6,#7b5cff);
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      width: 58px;
+      height: 58px;
+      border-radius: 17px;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,.35), transparent 30%),
+        linear-gradient(135deg,#ff2bd6,#7b5cff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 26px;
+      box-shadow: 0 0 22px rgba(255,43,214,.45);
     }
 
     .buy {
       margin-left: auto;
-      padding: 11px 13px;
-      border-radius: 14px;
+      padding: 11px 14px;
+      border-radius: 15px;
       border: none;
       background: #ff2bd6;
       color: white;
-      font-weight: bold;
+      font-weight: 900;
       cursor: pointer;
-      box-shadow: 0 0 18px rgba(255,43,214,.7);
+      box-shadow: 0 0 22px rgba(255,43,214,.72);
+    }
+
+    .glow-btn {
+      animation: glowPulse 1.5s infinite;
+    }
+
+    @keyframes glowPulse {
+      0% { box-shadow: 0 0 10px rgba(255,43,214,.6); }
+      50% { box-shadow: 0 0 28px rgba(255,43,214,1); }
+      100% { box-shadow: 0 0 10px rgba(255,43,214,.6); }
     }
 
     .side {
       position: absolute;
       right: 14px;
-      bottom: 155px;
+      bottom: 158px;
+      z-index: 20;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 13px;
       font-size: 12px;
       font-weight: 900;
-      z-index: 10;
     }
 
     .side-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 18px;
-      background: rgba(0,0,0,.58);
+      width: 51px;
+      height: 51px;
+      border-radius: 19px;
+      background: rgba(0,0,0,.50);
       border: 1px solid rgba(255,255,255,.16);
+      backdrop-filter: blur(18px);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 23px;
-      backdrop-filter: blur(10px);
+      box-shadow: 0 0 18px rgba(255,43,214,.18);
     }
 
     .rank-strip {
@@ -260,20 +354,21 @@
       left: 15px;
       right: 15px;
       bottom: 18px;
+      z-index: 20;
       padding: 12px 14px;
       border-radius: 22px;
-      background: linear-gradient(90deg, rgba(255,43,214,.28), rgba(0,255,208,.14));
+      background: linear-gradient(90deg, rgba(255,43,214,.27), rgba(0,255,208,.14));
       border: 1px solid rgba(255,255,255,.14);
       display: flex;
       justify-content: space-between;
       font-size: 13px;
       font-weight: 900;
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(18px);
     }
 
     .live-stage {
       height: 62vh;
-      border-radius: 30px;
+      border-radius: 32px;
       position: relative;
       overflow: hidden;
       background:
@@ -281,6 +376,7 @@
         url("https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80") center/cover;
       border: 1px solid rgba(255,255,255,.14);
       margin-bottom: 14px;
+      box-shadow: 0 0 30px rgba(255,43,214,.20);
     }
 
     .live-top {
@@ -290,6 +386,7 @@
       right: 14px;
       display: flex;
       justify-content: space-between;
+      z-index: 3;
     }
 
     .chat {
@@ -305,6 +402,8 @@
       border-radius: 16px;
       margin-top: 7px;
       font-size: 13px;
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.10);
       animation: chatFloat 4s infinite;
     }
 
@@ -312,7 +411,7 @@
     .chat-msg:nth-child(3) { animation-delay: 1.6s; }
 
     @keyframes chatFloat {
-      0% { opacity: .3; transform: translateY(8px); }
+      0% { opacity: .35; transform: translateY(8px); }
       30% { opacity: 1; transform: translateY(0); }
       100% { opacity: .9; }
     }
@@ -327,31 +426,10 @@
     .product {
       min-width: 175px;
       padding: 14px;
-      border-radius: 22px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.12);
-    }
-
-    .stats {
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:10px;
-      margin-top: 10px;
-    }
-
-    .stat {
-      text-align:center;
-      padding: 12px 6px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.12);
-      font-size: 12px;
-    }
-
-    .stat strong {
-      display:block;
-      font-size: 18px;
-      color: #00ffd0;
+      border-radius: 23px;
+      background: rgba(255,255,255,.075);
+      border: 1px solid rgba(255,255,255,.13);
+      backdrop-filter: blur(16px);
     }
 
     .leader {
@@ -359,9 +437,10 @@
       justify-content: space-between;
       padding: 14px;
       border-radius: 20px;
-      background: rgba(0,0,0,.38);
+      background: rgba(0,0,0,.35);
       margin-top: 10px;
       border: 1px solid rgba(255,255,255,.1);
+      backdrop-filter: blur(12px);
     }
 
     .leader strong { color: #00ffd0; }
@@ -376,6 +455,30 @@
       animation: pulse 1.2s infinite;
     }
 
+    .store-banner {
+      height: 125px;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.32), transparent 28%),
+        linear-gradient(135deg,#ff2bd6,#7b5cff,#00ffd0);
+      margin-bottom: -46px;
+      box-shadow: 0 0 28px rgba(255,43,214,.28);
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      margin: auto;
+      background: #111;
+      border: 4px solid #ff2bd6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      box-shadow: 0 0 24px rgba(255,43,214,.55);
+    }
+
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -383,12 +486,14 @@
       max-width: 430px;
       left: 50%;
       transform: translateX(-50%);
+      z-index: 100;
       display: flex;
       justify-content: space-around;
-      background: rgba(0,0,0,.94);
+      background: rgba(0,0,0,.82);
+      backdrop-filter: blur(20px);
       border-top: 1px solid rgba(255,255,255,.12);
       padding: 10px 0 16px;
-      z-index: 100;
+      box-shadow: 0 0 30px rgba(255,43,214,.15);
     }
 
     .nav {
@@ -400,8 +505,8 @@
     }
 
     .nav span {
-      display:block;
-      font-size:23px;
+      display: block;
+      font-size: 23px;
       margin-bottom: 4px;
     }
 
@@ -411,7 +516,7 @@
       width: 56px;
       height: 56px;
       margin-top: -28px;
-      border-radius: 20px;
+      border-radius: 21px;
       background: linear-gradient(135deg,#ff2bd6,#00ffd0);
       display: flex !important;
       align-items: center;
@@ -419,7 +524,7 @@
       color: black;
       font-size: 34px !important;
       font-weight: 900;
-      box-shadow: 0 0 25px rgba(255,43,214,.8);
+      box-shadow: 0 0 28px rgba(255,43,214,.8);
     }
   </style>
 </head>
@@ -428,17 +533,33 @@
 
 <div class="back" onclick="goBack()">←</div>
 
-<!-- HOME FEED -->
 <section id="home" class="screen active">
   <div class="feed">
 
+    <div class="category-bar">
+      <div class="category-title">For You</div>
+      <div class="tabs">
+        <div class="pill">All</div>
+        <div class="pill">Fashion</div>
+        <div class="pill">Beauty</div>
+        <div class="pill">Fitness</div>
+        <div class="pill">Local</div>
+      </div>
+    </div>
+
     <div class="post">
       <div class="topbar">
-        <div class="logo">Vella</div>
+        <div></div>
         <div class="pill live-pulse">● LIVE</div>
       </div>
 
-      <div class="floating-order">🛍️ Mia just bought a hoodie</div>
+      <div class="floating-order">🛍️ Mia just bought this</div>
+
+      <div class="fake-comments">
+        <div class="chat-msg">omg I need this 😍</div>
+        <div class="chat-msg">just ordered one</div>
+        <div class="chat-msg">is this still in stock?</div>
+      </div>
 
       <div class="side">
         <div class="side-icon">♡</div>2.4K
@@ -449,29 +570,37 @@
 
       <div class="creator-card">
         <h3>Luxe Collection ✓</h3>
-        <p>Live selling now · Sydney NSW</p>
-        <p>Drop: oversized hoodie</p>
+        <p id="viewerText">12 people viewing · selling fast</p>
 
         <div class="product-row">
           <div class="thumb">🧥</div>
-          <div><b>$79.99</b><br><small><span id="stock">22</span> left · <span id="sold">318</span> sold</small></div>
-          <button class="buy" onclick="show('checkout', navHome)">Buy</button>
+          <div>
+            <b>$79.99</b><br>
+            <small><span id="stock">22</span> left · <span id="sold">318</span> sold</small>
+          </div>
+          <button class="buy glow-btn" onclick="makeSale(79.99); show('checkout', navHome)">BUY 🔥</button>
         </div>
       </div>
 
       <div class="rank-strip">
-        <span>🏆 #1 Fashion</span>
-        <span>$21.6k this week</span>
+        <span>🔥 Trending</span>
+        <span>+1.2k bought today</span>
       </div>
     </div>
 
     <div class="post two">
       <div class="topbar">
-        <div class="logo">Vella</div>
+        <div></div>
         <div class="pill live-pulse">● BEAUTY DROP</div>
       </div>
 
-      <div class="floating-order">✨ Jade ordered Glow Serum</div>
+      <div class="floating-order">✨ Jade just purchased</div>
+
+      <div class="fake-comments">
+        <div class="chat-msg">this looks so good</div>
+        <div class="chat-msg">adding to cart now</div>
+        <div class="chat-msg">price is actually good</div>
+      </div>
 
       <div class="side">
         <div class="side-icon">♡</div>9.1K
@@ -482,26 +611,27 @@
 
       <div class="creator-card">
         <h3>Glow Beauty ✨</h3>
-        <p>1.8k watching · serum demo</p>
-        <p>Hydration bundle, live sale.</p>
+        <p>1.8k watching · almost sold out</p>
 
         <div class="product-row">
           <div class="thumb">💄</div>
-          <div><b>$29.95</b><br><small><span id="serumSold">318</span> sold today</small></div>
-          <button class="buy" onclick="show('live', navLive)">Live</button>
+          <div>
+            <b>$29.95</b><br>
+            <small><span id="serumSold">318</span> sold today</small>
+          </div>
+          <button class="buy glow-btn" onclick="makeSale(29.95); show('checkout', navHome)">BUY 🔥</button>
         </div>
       </div>
 
       <div class="rank-strip">
-        <span>🏆 #1 Beauty</span>
-        <span>Trending ↑</span>
+        <span>🔥 Viral</span>
+        <span>selling fast</span>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- LIVE -->
 <section id="live" class="screen">
   <div class="page">
     <div class="logo">Live Selling</div>
@@ -523,50 +653,44 @@
       <div class="product">
         <h3>Glow Serum</h3>
         <p>$29.95</p>
-        <button class="btn" onclick="show('checkout', navLive)">Buy</button>
+        <button class="btn" onclick="makeSale(29.95); show('checkout', navLive)">Buy</button>
       </div>
-
       <div class="product">
         <h3>Hydration Kit</h3>
         <p>$49.95</p>
-        <button class="btn">Add</button>
+        <button class="btn" onclick="makeSale(49.95)">Add</button>
       </div>
-
       <div class="product">
         <h3>Night Cream</h3>
         <p>$34.95</p>
-        <button class="btn">Add</button>
+        <button class="btn" onclick="makeSale(34.95)">Add</button>
       </div>
     </div>
 
-    <div class="card">
+    <div class="glass">
       <h2>Live tools</h2>
       <p>Pin products, run countdown deals, receive gifts, and see orders in real time.</p>
     </div>
   </div>
 </section>
 
-<!-- CHECKOUT -->
 <section id="checkout" class="screen">
   <div class="page">
     <div class="logo">Checkout</div>
 
-    <div class="card">
-      <h2>LUXE Oversized Hoodie</h2>
-      <p>Creator: Luxe Collection</p>
+    <div class="glass">
+      <h2>Secure Demo Checkout</h2>
+      <p>Creator receives the sale. Vella earns commission.</p>
       <h2>$79.99</h2>
-
       <input placeholder="Name">
       <input placeholder="Delivery address">
       <input placeholder="Card details">
-
       <button class="btn" onclick="show('success', navHome)">Complete Demo Purchase</button>
       <button class="btn dark-btn" onclick="show('home', navHome)">Back to Feed</button>
     </div>
   </div>
 </section>
 
-<!-- SUCCESS -->
 <section id="success" class="screen">
   <div class="page success">
     <div class="success-icon">✅</div>
@@ -577,34 +701,32 @@
   </div>
 </section>
 
-<!-- CREATE -->
 <section id="create" class="screen">
   <div class="page">
     <div class="logo">Create Drop</div>
 
-    <div class="card">
+    <div class="glass">
       <h2>Launch a product campaign</h2>
       <input placeholder="Product name">
       <input placeholder="Price">
       <input placeholder="Countdown sale time">
+      <textarea placeholder="Describe your drop"></textarea>
       <button class="btn">Create Demo Drop</button>
     </div>
 
-    <div class="card">🔴 Start live sale</div>
-    <div class="card">⏳ Add countdown</div>
-    <div class="card">📣 Boost to audience</div>
+    <div class="glass">🔴 Start live sale</div>
+    <div class="glass">⏳ Add countdown</div>
+    <div class="glass">📣 Boost to audience</div>
   </div>
 </section>
 
-<!-- RANKINGS -->
 <section id="rank" class="screen">
   <div class="page">
     <div class="logo">Rankings</div>
 
-    <div class="card">
+    <div class="glass">
       <h2>Weekly Vella Charts 👑</h2>
       <p>Ranked by sales, lives, engagement, growth and repeat buyers.</p>
-
       <div class="leader"><span>1. Luxe Collection</span><strong>$21,670</strong></div>
       <div class="leader"><span>2. Glow Beauty</span><strong>$19,120</strong></div>
       <div class="leader"><span>3. Art By Tay</span><strong>$16,230</strong></div>
@@ -613,17 +735,13 @@
   </div>
 </section>
 
-<!-- STOREFRONT -->
 <section id="dashboard" class="screen">
   <div class="page">
     <div class="logo">Luxe Storefront</div>
 
-    <div class="card" style="text-align:center;">
-      <div style="height:120px;border-radius:26px;background:linear-gradient(135deg,#ff2bd6,#7b5cff,#00ffd0);margin-bottom:-45px;"></div>
-
-      <div style="width:95px;height:95px;border-radius:50%;margin:auto;background:#111;border:4px solid #ff2bd6;display:flex;align-items:center;justify-content:center;font-size:40px;">
-        👗
-      </div>
+    <div class="glass" style="text-align:center;">
+      <div class="store-banner"></div>
+      <div class="avatar">👗</div>
 
       <h2>Luxe Collection ✓</h2>
       <p>Fashion creator · Sydney NSW</p>
@@ -631,7 +749,7 @@
 
       <div class="stats">
         <div class="stat"><strong>42.8k</strong>Followers</div>
-        <div class="stat"><strong>$21.6k</strong>Sales</div>
+        <div class="stat"><strong id="revenue">$0</strong>Sales</div>
         <div class="stat"><strong>#1</strong>Fashion</div>
       </div>
 
@@ -639,36 +757,47 @@
       <button class="btn dark-btn">Follow Store</button>
     </div>
 
-    <div class="card">
+    <div class="glass">
+      <h2>Vella Money System</h2>
+      <p>Vella earns commission + boost revenue.</p>
+      <div class="stats">
+        <div class="stat"><strong id="orders">0</strong>Orders</div>
+        <div class="stat"><strong id="commission">$0</strong>Vella Cut</div>
+        <div class="stat"><strong>8%</strong>Fee</div>
+      </div>
+    </div>
+
+    <div class="glass">
+      <h2>Boost Reach 🚀</h2>
+      <p>Creators pay to reach more of their audience.</p>
+      <button class="btn" onclick="boost(10,1000)">$10 → 1,000 views</button>
+      <button class="btn" onclick="boost(50,10000)">$50 → 10,000 views</button>
+      <button class="btn" onclick="boost(100,50000)">$100 → Trending</button>
+    </div>
+
+    <div class="glass">
       <h2>Creator Shop</h2>
 
       <div class="product-row">
         <div class="thumb">🧥</div>
         <div><b>Oversized Hoodie</b><br><small>$79.99 · 22 left</small></div>
-        <button class="buy" onclick="show('checkout', navDash)">Buy</button>
+        <button class="buy" onclick="makeSale(79.99); show('checkout', navDash)">Buy</button>
       </div>
 
       <div class="product-row">
         <div class="thumb">👜</div>
         <div><b>Mini Luxe Bag</b><br><small>$54.99 · trending</small></div>
-        <button class="buy">Buy</button>
+        <button class="buy" onclick="makeSale(54.99)">Buy</button>
       </div>
 
       <div class="product-row">
         <div class="thumb">🧢</div>
         <div><b>Logo Cap</b><br><small>$29.99 · new</small></div>
-        <button class="buy">Buy</button>
+        <button class="buy" onclick="makeSale(29.99)">Buy</button>
       </div>
     </div>
 
-    <div class="card">
-      <h2>Growth Tools</h2>
-      <p>Help this creator reach more people across feed, live, rankings and discovery.</p>
-      <button class="btn">Boost Store</button>
-      <button class="btn dark-btn">Promote Live Drop</button>
-    </div>
-
-    <div class="card">
+    <div class="glass">
       <h2>Store Activity</h2>
       <div class="leader"><span>🛍️ Hoodie sold</span><strong>$79.99</strong></div>
       <div class="leader"><span>👀 Live viewers</span><strong>1.8k</strong></div>
@@ -677,7 +806,6 @@
   </div>
 </section>
 
-<!-- NAV -->
 <nav class="bottom-nav">
   <div id="navHome" class="nav active-nav" onclick="show('home', this)"><span>⌂</span>Feed</div>
   <div id="navLive" class="nav" onclick="show('live', this)"><span>●</span>Live</div>
@@ -699,12 +827,13 @@
   let serumSold = 318;
   let seconds = 292;
 
+  let revenue = 0;
+  let orders = 0;
+  let vellaCut = 0;
+
   function show(id, nav) {
     const current = document.querySelector('.screen.active');
-
-    if (current && current.id !== id) {
-      historyStack.push(current.id);
-    }
+    if (current && current.id !== id) historyStack.push(current.id);
 
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
@@ -718,41 +847,62 @@
   function goBack() {
     if (historyStack.length > 0) {
       const last = historyStack.pop();
-
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById(last).classList.add('active');
     }
   }
 
+  function makeSale(price) {
+    orders++;
+    revenue += price;
+    vellaCut += price * 0.08;
+    updateMoney();
+  }
+
+  function boost(amount, views) {
+    vellaCut += amount;
+    alert("Boost activated 🚀 +" + views + " views");
+    updateMoney();
+  }
+
+  function updateMoney() {
+    document.getElementById("revenue").innerText = "$" + revenue.toFixed(2);
+    document.getElementById("orders").innerText = orders;
+    document.getElementById("commission").innerText = "$" + vellaCut.toFixed(2);
+  }
+
   setInterval(() => {
     sold++;
     serumSold++;
-
     if (stock > 3) stock--;
 
-    const soldEl = document.getElementById("sold");
-    const stockEl = document.getElementById("stock");
-    const serumEl = document.getElementById("serumSold");
+    if (document.getElementById("sold")) document.getElementById("sold").innerText = sold;
+    if (document.getElementById("stock")) document.getElementById("stock").innerText = stock;
+    if (document.getElementById("serumSold")) document.getElementById("serumSold").innerText = serumSold;
 
-    if (soldEl) soldEl.innerText = sold;
-    if (stockEl) stockEl.innerText = stock;
-    if (serumEl) serumEl.innerText = serumSold;
-  }, 3500);
+    makeSale(Math.random() * 38 + 21);
+  }, 5000);
 
   setInterval(() => {
     seconds--;
     if (seconds < 0) seconds = 292;
 
-    let min = Math.floor(seconds / 60);
-    let sec = seconds % 60;
+    const min = Math.floor(seconds / 60);
+    const sec = seconds % 60;
 
-    const timer = document.getElementById("timer");
-
-    if (timer) {
-      timer.innerText =
+    if (document.getElementById("timer")) {
+      document.getElementById("timer").innerText =
         String(min).padStart(2, "0") + ":" + String(sec).padStart(2, "0");
     }
   }, 1000);
+
+  setInterval(() => {
+    const viewers = Math.floor(Math.random() * 20) + 5;
+    const viewerText = document.getElementById("viewerText");
+    if (viewerText) {
+      viewerText.innerText = viewers + " people viewing · selling fast";
+    }
+  }, 3000);
 </script>
 
 </body>
