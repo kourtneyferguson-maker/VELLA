@@ -11,8 +11,8 @@
 html,body{
   width:100%;
   height:100%;
-  background:#050008;
   font-family:Arial,sans-serif;
+  background:#07040b;
   color:white;
   overflow:hidden;
 }
@@ -22,7 +22,7 @@ html,body{
   max-width:470px;
   height:100vh;
   margin:auto;
-  background:#050008;
+  background:radial-gradient(circle at top,#24142e,#07040b 55%);
   position:relative;
   overflow:hidden;
 }
@@ -31,19 +31,27 @@ html,body{
   display:none;
   position:absolute;
   inset:0;
+  overflow-y:auto;
   padding:24px;
   padding-bottom:120px;
-  overflow-y:auto;
   scroll-behavior:smooth;
   -webkit-overflow-scrolling:touch;
 }
 
-.screen.active{
-  display:block;
+.screen.active{display:block}
+.screen::-webkit-scrollbar{width:0}
+
+.title{
+  font-size:34px;
+  color:#f7d9ff;
+  margin-bottom:8px;
+  text-shadow:0 0 20px rgba(255,150,255,.4);
 }
 
-.screen::-webkit-scrollbar{
-  width:0;
+.subtitle{
+  color:#d8d2de;
+  line-height:1.45;
+  margin-bottom:20px;
 }
 
 /* FEED */
@@ -56,8 +64,8 @@ html,body{
 .feed-card{
   height:100vh;
   position:relative;
-  scroll-snap-align:start;
   overflow:hidden;
+  scroll-snap-align:start;
 }
 
 .feed-bg{
@@ -69,11 +77,12 @@ html,body{
 .feed-1{background-image:url('https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop')}
 .feed-2{background-image:url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop')}
 .feed-3{background-image:url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1200&auto=format&fit=crop')}
+.feed-4{background-image:url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop')}
 
 .overlay{
   position:absolute;
   inset:0;
-  background:linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,.1));
+  background:linear-gradient(to top,rgba(0,0,0,.88),rgba(0,0,0,.18));
 }
 
 .logo{
@@ -83,8 +92,8 @@ html,body{
   font-size:34px;
   font-weight:bold;
   font-style:italic;
-  color:#ff4fd8;
-  text-shadow:0 0 20px #ff4fd8;
+  color:#f2d6ff;
+  text-shadow:0 0 22px rgba(255,120,255,.45);
   z-index:5;
 }
 
@@ -92,208 +101,332 @@ html,body{
   position:absolute;
   top:32px;
   right:22px;
-  background:#ff2bd6;
+  background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.25);
   padding:12px 20px;
   border-radius:30px;
   font-weight:bold;
-  box-shadow:0 0 20px #ff2bd6;
+  backdrop-filter:blur(14px);
   z-index:5;
 }
 
 .side-icons{
   position:absolute;
-  right:15px;
-  bottom:130px;
+  right:14px;
+  bottom:125px;
   display:flex;
   flex-direction:column;
-  gap:14px;
-  z-index:5;
+  gap:13px;
+  z-index:8;
 }
 
-.icon-btn,.creator-btn{
+.icon-btn{
   width:52px;
   height:52px;
   border-radius:50%;
-  border:none;
-  background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.14);
   color:white;
   font-size:21px;
-  cursor:pointer;
+  backdrop-filter:blur(16px);
   transition:.25s;
 }
 
 .icon-btn:active,
-.creator-btn:active,
 .nav-btn:active,
-.folder:active,
+.plus-btn:active,
 .rank-card:active,
 .store-item:active,
-.main-btn:active{
+.lux-board:active{
   transform:scale(.94);
-  box-shadow:0 0 25px #ff4fd8;
-}
-
-.icon-btn:hover,
-.creator-btn:hover,
-.folder:hover,
-.rank-card:hover,
-.store-item:hover{
-  transform:translateY(-4px);
-  border:1px solid #ff4fd8;
-  box-shadow:0 0 25px rgba(255,79,216,.45);
+  box-shadow:0 0 30px rgba(255,220,255,.5);
 }
 
 .icon-text{
-  font-size:12px;
   text-align:center;
-  font-weight:bold;
+  font-size:12px;
   margin-top:4px;
+  font-weight:bold;
 }
 
 .product-card{
   position:absolute;
   left:18px;
-  right:75px;
-  bottom:35px;
-  background:rgba(18,18,18,.9);
-  border-radius:24px;
-  padding:18px;
-  box-shadow:0 0 35px rgba(255,0,200,.3);
-  z-index:5;
+  right:78px;
+  bottom:34px;
+  background:rgba(10,10,12,.72);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:26px;
+  padding:17px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 12px 45px rgba(0,0,0,.45);
+  z-index:6;
 }
 
 .product-title{
-  font-size:18px;
+  font-size:19px;
   font-weight:bold;
 }
 
+.small-text{
+  color:#ddd;
+  font-size:14px;
+  margin-top:5px;
+  line-height:1.35;
+}
+
 .price{
-  font-size:28px;
+  font-size:27px;
   font-weight:bold;
-  margin:10px 0;
+  margin:9px 0;
 }
 
 .buy-btn,.main-btn{
   width:100%;
+  padding:13px;
   border:none;
-  padding:14px;
   border-radius:16px;
-  font-size:16px;
+  font-size:15px;
   font-weight:bold;
-  color:white;
-  background:linear-gradient(90deg,#ff2bd6,#45d7ff);
-  margin-top:12px;
-  cursor:pointer;
+  background:linear-gradient(90deg,#e9d5ff,#b9e8ff);
+  color:#111;
+  margin-top:10px;
 }
 
-/* GENERAL */
+/* SAVED LIFESTYLE BOARDS */
 
-.title{
-  font-size:32px;
-  color:#ff4fd8;
-  margin-bottom:10px;
-  text-shadow:0 0 18px rgba(255,79,216,.5);
-}
-
-.subtitle{
-  color:#ccc;
-  line-height:1.45;
+.page-header{
   margin-bottom:22px;
 }
 
-.folder-grid,.store-grid{
+.page-header h1{
+  font-size:34px;
+  color:#f7d9ff;
+  text-shadow:0 0 20px rgba(255,150,255,.35);
+}
+
+.page-header p{
+  color:#d8d2de;
+  margin-top:8px;
+  line-height:1.4;
+}
+
+.lux-board-grid{
+  display:grid;
+  gap:18px;
+  padding-bottom:140px;
+}
+
+.lux-board{
+  position:relative;
+  height:220px;
+  border-radius:30px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:.35s;
+  box-shadow:0 12px 40px rgba(0,0,0,.4);
+  border:1px solid rgba(255,255,255,.12);
+}
+
+.lux-board:hover{
+  transform:translateY(-6px) scale(1.01);
+  box-shadow:0 0 35px rgba(230,200,255,.28);
+}
+
+.board-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.board-overlay{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:24px;
+  background:linear-gradient(to top, rgba(0,0,0,.82), rgba(0,0,0,.08));
+  backdrop-filter:blur(8px);
+}
+
+.board-overlay h2{
+  font-size:27px;
+  margin-bottom:6px;
+}
+
+.board-overlay p{
+  opacity:.9;
+  margin-bottom:8px;
+}
+
+.board-overlay span{
+  font-size:14px;
+  color:#f4d9ff;
+  font-weight:bold;
+}
+
+.add-board{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
+  border:2px dashed rgba(255,255,255,.22);
+}
+
+.add-board-inner{
+  text-align:center;
+}
+
+.add-plus{
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#f3d1ff,#bcecff);
+  color:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:42px;
+  margin:auto;
+  margin-bottom:18px;
+  box-shadow:0 0 30px rgba(255,220,255,.35);
+}
+
+/* CREATE */
+
+.create-card{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:24px;
+  padding:18px;
+  margin-bottom:15px;
+  transition:.25s;
+}
+
+.create-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 0 25px rgba(230,200,255,.2);
+}
+
+/* RANK */
+
+.rank-category{
+  margin-bottom:28px;
+}
+
+.category-title{
+  font-size:20px;
+  color:#f4d9ff;
+  margin-bottom:14px;
+}
+
+.rank-card{
+  background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:24px;
+  padding:16px;
+  margin-bottom:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  transition:.25s;
+  cursor:pointer;
+}
+
+.rank-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 0 30px rgba(220,205,255,.25);
+}
+
+.rank-left{
+  display:flex;
+  gap:13px;
+  align-items:center;
+}
+
+.rank-avatar{
+  width:58px;
+  height:58px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#f3d1ff,#bcecff);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+}
+
+.rank-number{
+  font-size:28px;
+  font-weight:bold;
+  color:#bcecff;
+}
+
+.gold{
+  background:linear-gradient(135deg,rgba(255,229,160,.35),rgba(255,255,255,.06));
+  border:1px solid rgba(255,229,160,.35);
+}
+
+/* STORE */
+
+.store-tabs{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  margin-bottom:18px;
+  padding-bottom:6px;
+}
+
+.store-tabs::-webkit-scrollbar{width:0;height:0}
+
+.tab{
+  white-space:nowrap;
+  padding:10px 16px;
+  border-radius:25px;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.14);
+  font-size:14px;
+}
+
+.store-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:15px;
 }
 
-.folder{
-background:rgba(20,20,24,.78);
-border:1px solid rgba(255,255,255,.06);
-border-radius:28px;
-padding:20px;
-backdrop-filter:blur(18px);
-box-shadow:
-0 10px 40px rgba(0,0,0,.45),
-0 0 30px rgba(140,110,255,.12);
-transition:.35s ease;
-cursor:pointer;
-overflow:hidden;
-position:relative;
-}.folder:hover{
-transform:translateY(-6px);
-box-shadow:
-0 16px 45px rgba(0,0,0,.5),
-0 0 40px rgba(120,170,255,.18);
-}
-
-.folder{
-  min-height:145px;
-}
-
-.folder-icon{
-  font-size:32px;
-  margin-bottom:18px;
-}
-
-.custom-folder{
-  grid-column:span 2;
-  border:2px dashed #ff4fd8;
-  text-align:center;
-}
-
-.reminder-box{
-  margin-top:24px;
-  background:linear-gradient(135deg,rgba(255,43,214,.25),rgba(69,215,255,.15));
+.store-item{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
   border-radius:24px;
-  padding:20px;
+  padding:12px;
+  transition:.25s;
+  cursor:pointer;
 }
 
-.create-card{
-  margin-bottom:16px;
-}
-
-.small-text{
-  color:#cfcfcf;
-  font-size:14px;
-  margin-top:6px;
-  line-height:1.4;
-}
-
-.rank-category{
-  margin-bottom:26px;
-}
-
-.rank-card{
-  margin-bottom:12px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.category-title{
-  color:#ff9cf2;
-  margin-bottom:12px;
-  font-size:20px;
-}
-
-.rank-number{
-  font-size:24px;
-  font-weight:bold;
-  color:#45d7ff;
+.store-item:hover{
+  transform:translateY(-4px);
+  box-shadow:0 0 25px rgba(230,200,255,.22);
 }
 
 .store-img{
   height:130px;
-  border-radius:16px;
-  background:linear-gradient(135deg,#ff2bd6,#45d7ff);
-  margin-bottom:12px;
+  border-radius:18px;
+  background:center/cover;
+  margin-bottom:11px;
 }
 
+.img1{background-image:url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=600&auto=format&fit=crop')}
+.img2{background-image:url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=600&auto=format&fit=crop')}
+.img3{background-image:url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=600&auto=format&fit=crop')}
+.img4{background-image:url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600&auto=format&fit=crop')}
+.img5{background-image:url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600&auto=format&fit=crop')}
+.img6{background-image:url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=600&auto=format&fit=crop')}
+.img7{background-image:url('https://images.unsplash.com/photo-1607082349566-187342175e2f?q=80&w=600&auto=format&fit=crop')}
+.img8{background-image:url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop')}
+
 .sold{
-  color:#ff9cf2;
+  color:#f4d9ff;
   font-size:13px;
-  margin-top:4px;
+  margin-top:5px;
 }
 
 /* POPUP */
@@ -301,7 +434,7 @@ box-shadow:
 .popup{
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,.75);
+  background:rgba(0,0,0,.72);
   display:none;
   align-items:flex-end;
   justify-content:center;
@@ -310,35 +443,29 @@ box-shadow:
 
 .popup-content{
   width:100%;
+  max-height:75vh;
+  overflow-y:auto;
   background:#111;
   border-radius:28px 28px 0 0;
   padding:24px;
-  box-shadow:0 0 35px rgba(255,79,216,.45);
-  animation:slideUp .25s ease;
-  max-height:75vh;
-  overflow-y:auto;
-}
-
-@keyframes slideUp{
-  from{transform:translateY(100%)}
-  to{transform:translateY(0)}
+  box-shadow:0 0 35px rgba(255,255,255,.2);
 }
 
 .popup-item{
   background:rgba(255,255,255,.08);
-  padding:14px;
   border-radius:16px;
+  padding:14px;
   margin-top:12px;
 }
 
 .close-btn{
-  margin-top:18px;
   width:100%;
+  margin-top:18px;
   padding:14px;
   border:none;
   border-radius:16px;
-  background:#ff4fd8;
-  color:white;
+  background:#f1d9ff;
+  color:#111;
   font-weight:bold;
 }
 
@@ -350,12 +477,13 @@ box-shadow:
   left:0;
   right:0;
   height:88px;
-  background:rgba(0,0,0,.97);
+  background:rgba(0,0,0,.86);
+  backdrop-filter:blur(20px);
   border-top:1px solid rgba(255,255,255,.1);
   display:flex;
   justify-content:space-around;
   align-items:center;
-  z-index:999;
+  z-index:1000;
 }
 
 .nav-btn{
@@ -367,7 +495,6 @@ box-shadow:
   flex-direction:column;
   align-items:center;
   gap:5px;
-  cursor:pointer;
 }
 
 .plus-btn{
@@ -375,12 +502,12 @@ box-shadow:
   height:70px;
   border-radius:50%;
   border:none;
-  background:linear-gradient(135deg,#ff2bd6,#45d7ff);
-  color:black;
+  background:linear-gradient(135deg,#f3d1ff,#bcecff);
+  color:#111;
   font-size:40px;
   font-weight:bold;
   margin-top:-35px;
-  box-shadow:0 0 30px #ff2bd6;
+  box-shadow:0 0 28px rgba(230,200,255,.45);
 }
 </style>
 </head>
@@ -388,54 +515,57 @@ box-shadow:
 <body>
 <div class="app">
 
-<!-- FEED -->
 <div id="feed" class="screen feed-screen active">
 
   <div class="feed-card">
-    <div class="feed-bg feed-1"></div>
-    <div class="overlay"></div>
-    <div class="logo">{ Hello Vella! }</div>
-    <div class="live">• LIVE</div>
-
+    <div class="feed-bg feed-1"></div><div class="overlay"></div>
+    <div class="logo">{ Hello Vella! }</div><div class="live">• LIVE</div>
     <div class="side-icons">
       <div><button class="icon-btn">♡</button><div class="icon-text">2.4K</div></div>
       <div><button class="icon-btn">💬</button><div class="icon-text">386</div></div>
       <div><button class="icon-btn" onclick="showScreen('saves')">💾</button><div class="icon-text">Save</div></div>
-      <div><button class="creator-btn" onclick="openSeller('Mia Luxe Wear')">🏪</button><div class="icon-text">Store</div></div>
+      <div><button class="icon-btn">↗</button><div class="icon-text">Share</div></div>
+      <div><button class="icon-btn" onclick="openSeller('Mia Luxe Wear')">🏪</button><div class="icon-text">Store</div></div>
     </div>
-
     <div class="product-card">
       <div class="product-title">Mia Luxe Wear ✓</div>
-      <p class="small-text">Item: Oversized Hoodie</p>
-      <p class="small-text">949 sold this month</p>
+      <p class="small-text">Oversized Hoodie · 949 sold</p>
       <div class="price">$79.99</div>
       <button class="buy-btn" onclick="openSeller('Mia Luxe Wear')">Open Store ✨</button>
     </div>
   </div>
 
   <div class="feed-card">
-    <div class="feed-bg feed-2"></div>
-    <div class="overlay"></div>
+    <div class="feed-bg feed-2"></div><div class="overlay"></div>
     <div class="logo">Vella Feed</div>
-
+    <div class="side-icons">
+      <div><button class="icon-btn">♡</button><div class="icon-text">5.1K</div></div>
+      <div><button class="icon-btn">💬</button><div class="icon-text">904</div></div>
+      <div><button class="icon-btn" onclick="showScreen('saves')">💾</button><div class="icon-text">Save</div></div>
+      <div><button class="icon-btn">↗</button><div class="icon-text">Share</div></div>
+      <div><button class="icon-btn" onclick="openSeller('Glow Beauty Bar')">🏪</button><div class="icon-text">Store</div></div>
+    </div>
     <div class="product-card">
       <div class="product-title">Glow Beauty Bar ✓</div>
-      <p class="small-text">Item: Hydration Skin Set</p>
-      <p class="small-text">1,100 sold this month</p>
+      <p class="small-text">Hydration Skin Set · 1,100 sold</p>
       <div class="price">$49.99</div>
       <button class="buy-btn" onclick="openSeller('Glow Beauty Bar')">Open Store ✨</button>
     </div>
   </div>
 
   <div class="feed-card">
-    <div class="feed-bg feed-3"></div>
-    <div class="overlay"></div>
+    <div class="feed-bg feed-3"></div><div class="overlay"></div>
     <div class="logo">Vella Feed</div>
-
+    <div class="side-icons">
+      <div><button class="icon-btn">♡</button><div class="icon-text">1.8K</div></div>
+      <div><button class="icon-btn">💬</button><div class="icon-text">221</div></div>
+      <div><button class="icon-btn" onclick="showScreen('saves')">💾</button><div class="icon-text">Save</div></div>
+      <div><button class="icon-btn">↗</button><div class="icon-text">Share</div></div>
+      <div><button class="icon-btn" onclick="openSeller('Green Thumb Studio')">🏪</button><div class="icon-text">Store</div></div>
+    </div>
     <div class="product-card">
       <div class="product-title">Green Thumb Studio ✓</div>
-      <p class="small-text">Item: Starter Garden Kit</p>
-      <p class="small-text">420 sold this month</p>
+      <p class="small-text">Starter Garden Kit · 420 sold</p>
       <div class="price">$39.99</div>
       <button class="buy-btn" onclick="openSeller('Green Thumb Studio')">Open Store ✨</button>
     </div>
@@ -443,95 +573,95 @@ box-shadow:
 
 </div>
 
-<!-- SAVES -->
 <div id="saves" class="screen">
-  <h1 class="title">Saved Folders</h1>
-  <p class="subtitle">Tap a folder to open saved content. Users can also create their own custom folder.</p>
+  <div class="page-header">
+    <h1>Saved Lifestyle Boards</h1>
+    <p>Create beautiful collections for everything you love.</p>
+  </div>
 
-  <div class="folder-grid">
-    <div class="folder" onclick="openFolder('Fashion Finds')"><div class="folder-icon">👗</div><h3>Fashion Finds</h3><p>24 saved videos</p></div>
-    <div class="folder" onclick="openFolder('Workout Ideas')"><div class="folder-icon">🏋️</div><h3>Workout Ideas</h3><p>12 saved videos</p></div>
-    <div class="folder" onclick="openFolder('Recipes')"><div class="folder-icon">🍝</div><h3>Recipes</h3><p>18 saved videos</p></div>
-    <div class="folder" onclick="openFolder('Wishlist')"><div class="folder-icon">🛍</div><h3>Wishlist</h3><p>31 saved products</p></div>
+  <div class="lux-board-grid">
+    <div class="lux-board" onclick="openFolder('Glow Up')">
+      <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop" class="board-img">
+      <div class="board-overlay"><h2>Glow Up</h2><p>Skincare • Beauty • Wellness</p><span>42 saved</span></div>
+    </div>
 
-    <div class="folder custom-folder" onclick="openFolder('Custom Folder')">
-      <div class="folder-icon">＋</div>
-      <h3>Create Custom Folder</h3>
-      <p>Save any idea users want.</p>
+    <div class="lux-board" onclick="openFolder('Luxury Fashion')">
+      <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop" class="board-img">
+      <div class="board-overlay"><h2>Luxury Fashion</h2><p>Outfits • Brands • Style</p><span>88 saved</span></div>
+    </div>
+
+    <div class="lux-board" onclick="openFolder('Creator Goals')">
+      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop" class="board-img">
+      <div class="board-overlay"><h2>Creator Goals</h2><p>Content • Branding • Ideas</p><span>27 saved</span></div>
+    </div>
+
+    <div class="lux-board" onclick="openFolder('Garden Dreams')">
+      <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1200&auto=format&fit=crop" class="board-img">
+      <div class="board-overlay"><h2>Garden Dreams</h2><p>Plants • Outdoor • DIY</p><span>31 saved</span></div>
+    </div>
+
+    <div class="lux-board add-board" onclick="openFolder('Create Board')">
+      <div class="add-board-inner">
+        <div class="add-plus">+</div>
+        <h2>Create Board</h2>
+        <p>Add your own folder style</p>
+      </div>
     </div>
   </div>
-
-  <div class="reminder-box">
-    <h2>Reminder Feature</h2>
-    <p class="small-text">Set a reminder and Vella brings saved videos back when needed.</p>
-    <button class="main-btn">Set Reminder ⏰</button>
-  </div>
 </div>
 
-<!-- CREATE -->
 <div id="create" class="screen">
   <h1 class="title">Create</h1>
-  <p class="subtitle">Videos go to the Feed. Products go to Store. Lives go to Live Selling.</p>
-
-  <div class="create-card" onclick="alert('Upload Video selected ✨')">
-    <h3>Upload Video</h3>
-    <p class="small-text">This video appears on the Vella feed for users to watch, save and shop from.</p>
-  </div>
-
-  <div class="create-card" onclick="alert('Add Product selected 🛍')">
-    <h3>Add Product</h3>
-    <p class="small-text">This product appears in the Store and can be attached to creator videos.</p>
-  </div>
-
-  <div class="create-card" onclick="alert('Start Live Sale selected 🔴')">
-    <h3>Start Live Sale</h3>
-    <p class="small-text">Go live, show products and sell directly through Vella.</p>
-  </div>
+  <p class="subtitle">Create videos, products, lives, launches and shopping moments.</p>
+  <div class="create-card"><h3>Upload Video</h3><p class="small-text">Video goes to the Feed.</p></div>
+  <div class="create-card"><h3>Add Product</h3><p class="small-text">Product goes to the Store.</p></div>
+  <div class="create-card"><h3>Start Live Sale</h3><p class="small-text">Go live and sell through Vella.</p></div>
 </div>
 
-<!-- RANK -->
 <div id="rank" class="screen">
   <h1 class="title">Seller Rankings</h1>
-  <p class="subtitle">Tap a ranking to see trending items and open their store.</p>
+  <p class="subtitle">Monthly category leaderboards that help big and small sellers get discovered.</p>
 
   <div class="rank-category">
-    <h2 class="category-title">Clothing Seller Rankings This Month</h2>
-    <div class="rank-card" onclick="openSeller('Mia Luxe Wear')"><div><h3>#1 Mia Luxe Wear</h3><p class="small-text">949 hoodies sold</p></div><div class="rank-number">#1</div></div>
-    <div class="rank-card" onclick="openSeller('Pretty Street Co')"><div><h3>#2 Pretty Street Co</h3><p class="small-text">620 lounge sets sold</p></div><div class="rank-number">#2</div></div>
-    <div class="rank-card" onclick="openSeller('Luna Label')"><div><h3>#3 Luna Label</h3><p class="small-text">410 dresses sold</p></div><div class="rank-number">#3</div></div>
+    <h2 class="category-title">Clothing Sellers This Month</h2>
+    <div class="rank-card gold" onclick="openSeller('Mia Luxe Wear')"><div class="rank-left"><div class="rank-avatar">👗</div><div><h3>Mia Luxe Wear</h3><p class="small-text">949 hoodies sold</p></div></div><div class="rank-number">#1</div></div>
+    <div class="rank-card" onclick="openSeller('Pretty Street Co')"><div class="rank-left"><div class="rank-avatar">🧥</div><div><h3>Pretty Street Co</h3><p class="small-text">620 lounge sets sold</p></div></div><div class="rank-number">#2</div></div>
+    <div class="rank-card" onclick="openSeller('Luna Label')"><div class="rank-left"><div class="rank-avatar">👠</div><div><h3>Luna Label</h3><p class="small-text">410 dresses sold</p></div></div><div class="rank-number">#3</div></div>
   </div>
 
   <div class="rank-category">
-    <h2 class="category-title">Gardening Seller Rankings This Month</h2>
-    <div class="rank-card" onclick="openSeller('Green Thumb Studio')"><div><h3>#1 Green Thumb Studio</h3><p class="small-text">420 garden kits sold</p></div><div class="rank-number">#1</div></div>
-    <div class="rank-card" onclick="openSeller('Backyard Bloom')"><div><h3>#2 Backyard Bloom</h3><p class="small-text">310 planters sold</p></div><div class="rank-number">#2</div></div>
-    <div class="rank-card" onclick="openSeller('Seed & Soil Co')"><div><h3>#3 Seed & Soil Co</h3><p class="small-text">250 seed packs sold</p></div><div class="rank-number">#3</div></div>
+    <h2 class="category-title">Gardening Sellers This Month</h2>
+    <div class="rank-card gold" onclick="openSeller('Green Thumb Studio')"><div class="rank-left"><div class="rank-avatar">🌱</div><div><h3>Green Thumb Studio</h3><p class="small-text">420 kits sold</p></div></div><div class="rank-number">#1</div></div>
+    <div class="rank-card" onclick="openSeller('Backyard Bloom')"><div class="rank-left"><div class="rank-avatar">🪴</div><div><h3>Backyard Bloom</h3><p class="small-text">310 planters sold</p></div></div><div class="rank-number">#2</div></div>
   </div>
 </div>
 
-<!-- STORE -->
 <div id="store" class="screen">
-  <h1 class="title">Store</h1>
-  <p class="subtitle">Clear store names, items and products sold.</p>
+  <h1 class="title">Vella Store</h1>
+  <p class="subtitle">Browse stores, products and creators by category.</p>
+
+  <div class="store-tabs">
+    <div class="tab">All</div><div class="tab">Fashion</div><div class="tab">Beauty</div><div class="tab">Gardening</div><div class="tab">Home</div><div class="tab">Fitness</div><div class="tab">Art</div>
+  </div>
 
   <div class="store-grid">
-    <div class="store-item" onclick="openSeller('Mia Luxe Wear')"><div class="store-img"></div><h3>Mia Luxe Wear</h3><p>Oversized Hoodie</p><p>$79.99</p><p class="sold">949 sold</p></div>
-    <div class="store-item" onclick="openSeller('Glow Beauty Bar')"><div class="store-img"></div><h3>Glow Beauty Bar</h3><p>Hydration Skin Set</p><p>$49.99</p><p class="sold">1,100 sold</p></div>
-    <div class="store-item" onclick="openSeller('Green Thumb Studio')"><div class="store-img"></div><h3>Green Thumb Studio</h3><p>Starter Garden Kit</p><p>$39.99</p><p class="sold">420 sold</p></div>
-    <div class="store-item" onclick="openSeller('Pretty Street Co')"><div class="store-img"></div><h3>Pretty Street Co</h3><p>Matching Lounge Set</p><p>$89.99</p><p class="sold">620 sold</p></div>
+    <div class="store-item" onclick="openSeller('Mia Luxe Wear')"><div class="store-img img1"></div><h3>Mia Luxe Wear</h3><p>Oversized Hoodie</p><p>$79.99</p><p class="sold">949 sold</p></div>
+    <div class="store-item" onclick="openSeller('Glow Beauty Bar')"><div class="store-img img2"></div><h3>Glow Beauty Bar</h3><p>Hydration Skin Set</p><p>$49.99</p><p class="sold">1,100 sold</p></div>
+    <div class="store-item" onclick="openSeller('Green Thumb Studio')"><div class="store-img img3"></div><h3>Green Thumb Studio</h3><p>Starter Garden Kit</p><p>$39.99</p><p class="sold">420 sold</p></div>
+    <div class="store-item" onclick="openSeller('Pretty Street Co')"><div class="store-img img4"></div><h3>Pretty Street Co</h3><p>Lounge Set</p><p>$89.99</p><p class="sold">620 sold</p></div>
+    <div class="store-item" onclick="openSeller('Run Club Co')"><div class="store-img img5"></div><h3>Run Club Co</h3><p>Training Shoes</p><p>$120</p><p class="sold">330 sold</p></div>
+    <div class="store-item" onclick="openSeller('Soft Home Studio')"><div class="store-img img8"></div><h3>Soft Home Studio</h3><p>Candle Set</p><p>$35</p><p class="sold">210 sold</p></div>
   </div>
 </div>
 
-<!-- POPUP -->
 <div class="popup" id="popup">
   <div class="popup-content">
-    <h2 id="popupTitle">Title</h2>
+    <h2 id="popupTitle">Store</h2>
     <div id="popupBody"></div>
     <button class="close-btn" onclick="closePopup()">Close</button>
   </div>
 </div>
 
-<!-- NAV -->
 <div class="bottom-nav">
   <button class="nav-btn" onclick="showScreen('feed')">🏠<span>Feed</span></button>
   <button class="nav-btn" onclick="showScreen('saves')">💾<span>Saves</span></button>
@@ -544,28 +674,26 @@ box-shadow:
 
 <script>
 function showScreen(screenId){
-  document.querySelectorAll('.screen').forEach(screen=>{
-    screen.classList.remove('active');
-  });
+  document.querySelectorAll('.screen').forEach(screen=>screen.classList.remove('active'));
   document.getElementById(screenId).classList.add('active');
 }
 
 function openFolder(name){
-  document.getElementById('popupTitle').innerText = name;
-  document.getElementById('popupBody').innerHTML = `
-    <div class="popup-item">Saved video: ${name} idea #1</div>
-    <div class="popup-item">Saved product: ${name} item #2</div>
-    <div class="popup-item">Reminder option: bring this back later ⏰</div>
+  document.getElementById('popupTitle').innerText=name;
+  document.getElementById('popupBody').innerHTML=`
+    <div class="popup-item">Saved video from ${name}</div>
+    <div class="popup-item">Saved product inside ${name}</div>
+    <div class="popup-item">Reminder: bring this back later ⏰</div>
   `;
   document.getElementById('popup').style.display='flex';
 }
 
 function openSeller(name){
-  document.getElementById('popupTitle').innerText = name + " Store";
-  document.getElementById('popupBody').innerHTML = `
+  document.getElementById('popupTitle').innerText=name+" Store";
+  document.getElementById('popupBody').innerHTML=`
     <div class="popup-item"><b>Top trending item:</b> Best seller this month</div>
     <div class="popup-item"><b>Items sold:</b> 400+ this month</div>
-    <div class="popup-item"><b>Store action:</b> Follow, shop or save products</div>
+    <div class="popup-item"><b>Store actions:</b> Follow, shop, save or view live sale</div>
   `;
   document.getElementById('popup').style.display='flex';
 }
