@@ -8,7 +8,9 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 
-body{
+html,body{
+  width:100%;
+  height:100%;
   background:#050008;
   font-family:Arial,sans-serif;
   color:white;
@@ -20,7 +22,7 @@ body{
   max-width:470px;
   height:100vh;
   margin:auto;
-  background:black;
+  background:#050008;
   position:relative;
   overflow:hidden;
 }
@@ -28,28 +30,45 @@ body{
 .screen{
   display:none;
   position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:88px;
-  overflow-y:auto;
+  inset:0;
   padding:24px;
+  padding-bottom:120px;
+  overflow-y:auto;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
 }
 
-.screen.active{display:block}
+.screen.active{
+  display:block;
+}
 
-.screen::-webkit-scrollbar{width:0}
+.screen::-webkit-scrollbar{
+  width:0;
+}
+
+/* FEED */
 
 .feed-screen{
   padding:0;
+  scroll-snap-type:y mandatory;
+}
+
+.feed-card{
+  height:100vh;
+  position:relative;
+  scroll-snap-align:start;
   overflow:hidden;
 }
 
 .feed-bg{
   position:absolute;
   inset:0;
-  background:url('https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop') center/cover;
+  background:center/cover;
 }
+
+.feed-1{background-image:url('https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop')}
+.feed-2{background-image:url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop')}
+.feed-3{background-image:url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1200&auto=format&fit=crop')}
 
 .overlay{
   position:absolute;
@@ -61,7 +80,7 @@ body{
   position:absolute;
   top:28px;
   left:22px;
-  font-size:42px;
+  font-size:34px;
   font-weight:bold;
   font-style:italic;
   color:#ff4fd8;
@@ -91,7 +110,7 @@ body{
   z-index:5;
 }
 
-.icon-btn{
+.icon-btn,.creator-btn{
   width:52px;
   height:52px;
   border-radius:50%;
@@ -99,6 +118,29 @@ body{
   background:rgba(255,255,255,.16);
   color:white;
   font-size:21px;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.icon-btn:active,
+.creator-btn:active,
+.nav-btn:active,
+.folder:active,
+.rank-card:active,
+.store-item:active,
+.main-btn:active{
+  transform:scale(.94);
+  box-shadow:0 0 25px #ff4fd8;
+}
+
+.icon-btn:hover,
+.creator-btn:hover,
+.folder:hover,
+.rank-card:hover,
+.store-item:hover{
+  transform:translateY(-4px);
+  border:1px solid #ff4fd8;
+  box-shadow:0 0 25px rgba(255,79,216,.45);
 }
 
 .icon-text{
@@ -141,7 +183,10 @@ body{
   color:white;
   background:linear-gradient(90deg,#ff2bd6,#45d7ff);
   margin-top:12px;
+  cursor:pointer;
 }
+
+/* GENERAL */
 
 .title{
   font-size:32px;
@@ -168,18 +213,12 @@ body{
   border-radius:22px;
   padding:18px;
   box-shadow:0 0 20px rgba(255,0,180,.12);
-}
-
-.folder{
-  min-height:145px;
   transition:.25s;
   cursor:pointer;
 }
 
-.folder:hover{
-  transform:translateY(-5px);
-  border:1px solid #ff4fd8;
-  box-shadow:0 0 25px rgba(255,79,216,.35);
+.folder{
+  min-height:145px;
 }
 
 .folder-icon{
@@ -222,14 +261,16 @@ body{
   align-items:center;
 }
 
-.rank-card h3{
-  color:#fff;
-}
-
 .category-title{
   color:#ff9cf2;
   margin-bottom:12px;
   font-size:20px;
+}
+
+.rank-number{
+  font-size:24px;
+  font-weight:bold;
+  color:#45d7ff;
 }
 
 .store-img{
@@ -244,6 +285,54 @@ body{
   font-size:13px;
   margin-top:4px;
 }
+
+/* POPUP */
+
+.popup{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  z-index:2000;
+}
+
+.popup-content{
+  width:100%;
+  background:#111;
+  border-radius:28px 28px 0 0;
+  padding:24px;
+  box-shadow:0 0 35px rgba(255,79,216,.45);
+  animation:slideUp .25s ease;
+  max-height:75vh;
+  overflow-y:auto;
+}
+
+@keyframes slideUp{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
+}
+
+.popup-item{
+  background:rgba(255,255,255,.08);
+  padding:14px;
+  border-radius:16px;
+  margin-top:12px;
+}
+
+.close-btn{
+  margin-top:18px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:16px;
+  background:#ff4fd8;
+  color:white;
+  font-weight:bold;
+}
+
+/* NAV */
 
 .bottom-nav{
   position:absolute;
@@ -268,6 +357,7 @@ body{
   flex-direction:column;
   align-items:center;
   gap:5px;
+  cursor:pointer;
 }
 
 .plus-btn{
@@ -288,111 +378,150 @@ body{
 <body>
 <div class="app">
 
+<!-- FEED -->
 <div id="feed" class="screen feed-screen active">
-  <div class="feed-bg"></div>
-  <div class="overlay"></div>
-  <div class="logo">{ Hello Vella! }</div>
-  <div class="live">• LIVE</div>
 
-  <div class="side-icons">
-    <div><button class="icon-btn">♡</button><div class="icon-text">2.4K</div></div>
-    <div><button class="icon-btn">💬</button><div class="icon-text">386</div></div>
-    <div><button class="icon-btn" onclick="showScreen('saves')">💾</button><div class="icon-text">Save</div></div>
-    <div><button class="icon-btn">↗</button><div class="icon-text">Share</div></div>
+  <div class="feed-card">
+    <div class="feed-bg feed-1"></div>
+    <div class="overlay"></div>
+    <div class="logo">{ Hello Vella! }</div>
+    <div class="live">• LIVE</div>
+
+    <div class="side-icons">
+      <div><button class="icon-btn">♡</button><div class="icon-text">2.4K</div></div>
+      <div><button class="icon-btn">💬</button><div class="icon-text">386</div></div>
+      <div><button class="icon-btn" onclick="showScreen('saves')">💾</button><div class="icon-text">Save</div></div>
+      <div><button class="creator-btn" onclick="openSeller('Mia Luxe Wear')">🏪</button><div class="icon-text">Store</div></div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-title">Mia Luxe Wear ✓</div>
+      <p class="small-text">Item: Oversized Hoodie</p>
+      <p class="small-text">949 sold this month</p>
+      <div class="price">$79.99</div>
+      <button class="buy-btn" onclick="openSeller('Mia Luxe Wear')">Open Store ✨</button>
+    </div>
   </div>
 
-  <div class="product-card">
-    <div class="product-title">Luxe Collection ✓</div>
-    <p class="small-text">Store: Mia Luxe Wear</p>
-    <p class="small-text">Item: Oversized Hoodie</p>
-    <div class="price">$79.99</div>
-    <button class="buy-btn">Try On ✨</button>
+  <div class="feed-card">
+    <div class="feed-bg feed-2"></div>
+    <div class="overlay"></div>
+    <div class="logo">Vella Feed</div>
+
+    <div class="product-card">
+      <div class="product-title">Glow Beauty Bar ✓</div>
+      <p class="small-text">Item: Hydration Skin Set</p>
+      <p class="small-text">1,100 sold this month</p>
+      <div class="price">$49.99</div>
+      <button class="buy-btn" onclick="openSeller('Glow Beauty Bar')">Open Store ✨</button>
+    </div>
   </div>
+
+  <div class="feed-card">
+    <div class="feed-bg feed-3"></div>
+    <div class="overlay"></div>
+    <div class="logo">Vella Feed</div>
+
+    <div class="product-card">
+      <div class="product-title">Green Thumb Studio ✓</div>
+      <p class="small-text">Item: Starter Garden Kit</p>
+      <p class="small-text">420 sold this month</p>
+      <div class="price">$39.99</div>
+      <button class="buy-btn" onclick="openSeller('Green Thumb Studio')">Open Store ✨</button>
+    </div>
+  </div>
+
 </div>
 
+<!-- SAVES -->
 <div id="saves" class="screen">
   <h1 class="title">Saved Folders</h1>
-  <p class="subtitle">Save videos, products, ideas and reminders into folders that actually fit your life.</p>
+  <p class="subtitle">Tap a folder to open saved content. Users can also create their own custom folder.</p>
 
   <div class="folder-grid">
-    <div class="folder"><div class="folder-icon">👗</div><h3>Fashion Finds</h3><p>24 saved videos</p></div>
-    <div class="folder"><div class="folder-icon">🏋️</div><h3>Workout Ideas</h3><p>12 saved videos</p></div>
-    <div class="folder"><div class="folder-icon">🍝</div><h3>Recipes</h3><p>18 saved videos</p></div>
-    <div class="folder"><div class="folder-icon">🛍</div><h3>Wishlist</h3><p>31 saved products</p></div>
-    <div class="folder"><div class="folder-icon">💡</div><h3>Business Ideas</h3><p>9 saved ideas</p></div>
-    <div class="folder"><div class="folder-icon">✨</div><h3>Glow Up</h3><p>15 saved tips</p></div>
+    <div class="folder" onclick="openFolder('Fashion Finds')"><div class="folder-icon">👗</div><h3>Fashion Finds</h3><p>24 saved videos</p></div>
+    <div class="folder" onclick="openFolder('Workout Ideas')"><div class="folder-icon">🏋️</div><h3>Workout Ideas</h3><p>12 saved videos</p></div>
+    <div class="folder" onclick="openFolder('Recipes')"><div class="folder-icon">🍝</div><h3>Recipes</h3><p>18 saved videos</p></div>
+    <div class="folder" onclick="openFolder('Wishlist')"><div class="folder-icon">🛍</div><h3>Wishlist</h3><p>31 saved products</p></div>
 
-    <div class="folder custom-folder">
+    <div class="folder custom-folder" onclick="openFolder('Custom Folder')">
       <div class="folder-icon">＋</div>
       <h3>Create Custom Folder</h3>
-      <p>Users can make folders for any idea they want to save.</p>
+      <p>Save any idea users want.</p>
     </div>
   </div>
 
   <div class="reminder-box">
     <h2>Reminder Feature</h2>
-    <p class="small-text">Set a reminder and Vella brings saved videos back when needed — workouts, recipes, shopping, launches and more.</p>
+    <p class="small-text">Set a reminder and Vella brings saved videos back when needed.</p>
     <button class="main-btn">Set Reminder ⏰</button>
   </div>
 </div>
 
+<!-- CREATE -->
 <div id="create" class="screen">
   <h1 class="title">Create</h1>
-  <p class="subtitle">This is where creators upload videos, product posts, lives and sale events.</p>
+  <p class="subtitle">Videos go to the Feed. Products go to Store. Lives go to Live Selling.</p>
 
-  <div class="create-card">
+  <div class="create-card" onclick="alert('Upload Video selected ✨')">
     <h3>Upload Video</h3>
-    <p class="small-text">Videos go to the Feed so users can watch, like, comment, save and shop.</p>
+    <p class="small-text">This video appears on the Vella feed for users to watch, save and shop from.</p>
   </div>
 
-  <div class="create-card">
+  <div class="create-card" onclick="alert('Add Product selected 🛍')">
     <h3>Add Product</h3>
-    <p class="small-text">Products go to the Store and can also appear inside live selling videos.</p>
+    <p class="small-text">This product appears in the Store and can be attached to creator videos.</p>
   </div>
 
-  <div class="create-card">
+  <div class="create-card" onclick="alert('Start Live Sale selected 🔴')">
     <h3>Start Live Sale</h3>
-    <p class="small-text">Creators can go live, show products and sell directly through Vella.</p>
+    <p class="small-text">Go live, show products and sell directly through Vella.</p>
   </div>
-
-  <button class="main-btn">Create New Post ✨</button>
 </div>
 
+<!-- RANK -->
 <div id="rank" class="screen">
   <h1 class="title">Seller Rankings</h1>
-  <p class="subtitle">Monthly rankings by category so big and small sellers can be discovered.</p>
+  <p class="subtitle">Tap a ranking to see trending items and open their store.</p>
 
   <div class="rank-category">
     <h2 class="category-title">Clothing Seller Rankings This Month</h2>
-    <div class="rank-card"><div><h3>#1 Mia Luxe Wear</h3><p class="small-text">949 hoodies sold</p></div><b>$74K</b></div>
-    <div class="rank-card"><div><h3>#2 Pretty Street Co</h3><p class="small-text">620 sets sold</p></div><b>$42K</b></div>
+    <div class="rank-card" onclick="openSeller('Mia Luxe Wear')"><div><h3>#1 Mia Luxe Wear</h3><p class="small-text">949 hoodies sold</p></div><div class="rank-number">#1</div></div>
+    <div class="rank-card" onclick="openSeller('Pretty Street Co')"><div><h3>#2 Pretty Street Co</h3><p class="small-text">620 lounge sets sold</p></div><div class="rank-number">#2</div></div>
+    <div class="rank-card" onclick="openSeller('Luna Label')"><div><h3>#3 Luna Label</h3><p class="small-text">410 dresses sold</p></div><div class="rank-number">#3</div></div>
   </div>
 
   <div class="rank-category">
     <h2 class="category-title">Gardening Seller Rankings This Month</h2>
-    <div class="rank-card"><div><h3>#1 Green Thumb Studio</h3><p class="small-text">420 kits sold</p></div><b>$19K</b></div>
-    <div class="rank-card"><div><h3>#2 Backyard Bloom</h3><p class="small-text">310 planters sold</p></div><b>$14K</b></div>
-  </div>
-
-  <div class="rank-category">
-    <h2 class="category-title">Beauty Seller Rankings This Month</h2>
-    <div class="rank-card"><div><h3>#1 Glow Beauty Bar</h3><p class="small-text">1,100 skincare sets sold</p></div><b>$55K</b></div>
-    <div class="rank-card"><div><h3>#2 Soft Glam Co</h3><p class="small-text">780 lip kits sold</p></div><b>$31K</b></div>
+    <div class="rank-card" onclick="openSeller('Green Thumb Studio')"><div><h3>#1 Green Thumb Studio</h3><p class="small-text">420 garden kits sold</p></div><div class="rank-number">#1</div></div>
+    <div class="rank-card" onclick="openSeller('Backyard Bloom')"><div><h3>#2 Backyard Bloom</h3><p class="small-text">310 planters sold</p></div><div class="rank-number">#2</div></div>
+    <div class="rank-card" onclick="openSeller('Seed & Soil Co')"><div><h3>#3 Seed & Soil Co</h3><p class="small-text">250 seed packs sold</p></div><div class="rank-number">#3</div></div>
   </div>
 </div>
 
+<!-- STORE -->
 <div id="store" class="screen">
   <h1 class="title">Store</h1>
-  <p class="subtitle">Clear store names, clear products, clear items sold.</p>
+  <p class="subtitle">Clear store names, items and products sold.</p>
 
   <div class="store-grid">
-    <div class="store-item"><div class="store-img"></div><h3>Mia Luxe Wear</h3><p>Oversized Hoodie</p><p>$79.99</p><p class="sold">949 sold</p></div>
-    <div class="store-item"><div class="store-img"></div><h3>Glow Beauty Bar</h3><p>Hydration Skin Set</p><p>$49.99</p><p class="sold">1,100 sold</p></div>
-    <div class="store-item"><div class="store-img"></div><h3>Green Thumb Studio</h3><p>Starter Garden Kit</p><p>$39.99</p><p class="sold">420 sold</p></div>
-    <div class="store-item"><div class="store-img"></div><h3>Pretty Street Co</h3><p>Matching Lounge Set</p><p>$89.99</p><p class="sold">620 sold</p></div>
+    <div class="store-item" onclick="openSeller('Mia Luxe Wear')"><div class="store-img"></div><h3>Mia Luxe Wear</h3><p>Oversized Hoodie</p><p>$79.99</p><p class="sold">949 sold</p></div>
+    <div class="store-item" onclick="openSeller('Glow Beauty Bar')"><div class="store-img"></div><h3>Glow Beauty Bar</h3><p>Hydration Skin Set</p><p>$49.99</p><p class="sold">1,100 sold</p></div>
+    <div class="store-item" onclick="openSeller('Green Thumb Studio')"><div class="store-img"></div><h3>Green Thumb Studio</h3><p>Starter Garden Kit</p><p>$39.99</p><p class="sold">420 sold</p></div>
+    <div class="store-item" onclick="openSeller('Pretty Street Co')"><div class="store-img"></div><h3>Pretty Street Co</h3><p>Matching Lounge Set</p><p>$89.99</p><p class="sold">620 sold</p></div>
   </div>
 </div>
 
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <h2 id="popupTitle">Title</h2>
+    <div id="popupBody"></div>
+    <button class="close-btn" onclick="closePopup()">Close</button>
+  </div>
+</div>
+
+<!-- NAV -->
 <div class="bottom-nav">
   <button class="nav-btn" onclick="showScreen('feed')">🏠<span>Feed</span></button>
   <button class="nav-btn" onclick="showScreen('saves')">💾<span>Saves</span></button>
@@ -409,6 +538,30 @@ function showScreen(screenId){
     screen.classList.remove('active');
   });
   document.getElementById(screenId).classList.add('active');
+}
+
+function openFolder(name){
+  document.getElementById('popupTitle').innerText = name;
+  document.getElementById('popupBody').innerHTML = `
+    <div class="popup-item">Saved video: ${name} idea #1</div>
+    <div class="popup-item">Saved product: ${name} item #2</div>
+    <div class="popup-item">Reminder option: bring this back later ⏰</div>
+  `;
+  document.getElementById('popup').style.display='flex';
+}
+
+function openSeller(name){
+  document.getElementById('popupTitle').innerText = name + " Store";
+  document.getElementById('popupBody').innerHTML = `
+    <div class="popup-item"><b>Top trending item:</b> Best seller this month</div>
+    <div class="popup-item"><b>Items sold:</b> 400+ this month</div>
+    <div class="popup-item"><b>Store action:</b> Follow, shop or save products</div>
+  `;
+  document.getElementById('popup').style.display='flex';
+}
+
+function closePopup(){
+  document.getElementById('popup').style.display='none';
 }
 </script>
 
