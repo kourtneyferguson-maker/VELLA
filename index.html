@@ -3,298 +3,335 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Vella V2</title>
+<title>Vella V3</title>
 
 <style>
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
 body{
-font-family:Arial, sans-serif;
-background:#050007;
-color:white;
-overflow:hidden;
+  font-family:Arial, sans-serif;
+  background:#050007;
+  color:white;
+  overflow:hidden;
 }
 
 .app{
-width:100%;
-max-width:470px;
-margin:auto;
-height:100vh;
-position:relative;
-overflow:hidden;
-background:black;
+  width:100%;
+  max-width:470px;
+  margin:auto;
+  height:100vh;
+  position:relative;
+  overflow:hidden;
+  background:black;
 }
 
 .screen{
-display:none;
-height:100vh;
-overflow-y:auto;
-padding-bottom:90px;
+  display:none;
+  height:100vh;
+  overflow-y:auto;
+  padding-bottom:100px;
 }
 
 .active{
-display:block;
+  display:block;
 }
 
-/* FEED SCREEN */
+/* FEED */
 
 .feed-video{
-position:relative;
-height:100vh;
-background:url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop') center/cover;
+  position:relative;
+  height:100vh;
+  background:url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop') center/cover;
 }
 
 .overlay{
-position:absolute;
-inset:0;
-background:linear-gradient(to top, rgba(0,0,0,.9), rgba(0,0,0,.1));
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.9), rgba(0,0,0,.1));
 }
 
 .logo{
-position:absolute;
-top:30px;
-left:25px;
-font-size:55px;
-font-weight:bold;
-color:#ff4fd8;
-font-style:italic;
-text-shadow:0 0 20px #ff4fd8;
-z-index:2;
+  position:absolute;
+  top:30px;
+  left:25px;
+  font-size:55px;
+  font-weight:bold;
+  color:#ff4fd8;
+  font-style:italic;
+  text-shadow:0 0 20px #ff4fd8;
+  z-index:2;
 }
 
 .live-badge{
-position:absolute;
-top:30px;
-right:25px;
-background:#ff2bd6;
-padding:14px 22px;
-border-radius:40px;
-font-weight:bold;
-z-index:2;
-box-shadow:0 0 20px #ff2bd6;
+  position:absolute;
+  top:30px;
+  right:25px;
+  background:#ff2bd6;
+  padding:14px 22px;
+  border-radius:40px;
+  font-weight:bold;
+  z-index:2;
+  box-shadow:0 0 20px #ff2bd6;
 }
 
 .side-icons{
-position:absolute;
-right:18px;
-bottom:150px;
-display:flex;
-flex-direction:column;
-gap:20px;
-z-index:2;
+  position:absolute;
+  right:18px;
+  bottom:150px;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  z-index:2;
 }
 
 .icon-btn{
-width:58px;
-height:58px;
-border-radius:50%;
-background:rgba(255,255,255,.15);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-backdrop-filter:blur(10px);
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:rgba(255,255,255,.15);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  backdrop-filter:blur(10px);
+  border:none;
+  color:white;
 }
 
 .icon-text{
-text-align:center;
-font-size:13px;
-font-weight:bold;
+  text-align:center;
+  font-size:13px;
+  font-weight:bold;
 }
 
 .product-card{
-position:absolute;
-left:20px;
-right:20px;
-bottom:110px;
-background:rgba(20,20,20,.88);
-border-radius:30px;
-padding:22px;
-backdrop-filter:blur(20px);
-box-shadow:0 0 35px rgba(255,0,200,.35);
-z-index:2;
+  position:absolute;
+  left:20px;
+  right:20px;
+  bottom:110px;
+  background:rgba(20,20,20,.88);
+  border-radius:30px;
+  padding:22px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 0 35px rgba(255,0,200,.35);
+  z-index:2;
 }
 
 .product-title{
-font-size:20px;
-font-weight:bold;
-margin-bottom:8px;
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:8px;
 }
 
 .price{
-font-size:36px;
-font-weight:bold;
-margin:15px 0;
+  font-size:36px;
+  font-weight:bold;
+  margin:15px 0;
 }
 
 .buy-btn{
-margin-top:18px;
-width:100%;
-padding:18px;
-border:none;
-border-radius:18px;
-font-size:18px;
-font-weight:bold;
-background:linear-gradient(90deg,#ff2bd6,#45d7ff);
-color:white;
+  margin-top:18px;
+  width:100%;
+  padding:18px;
+  border:none;
+  border-radius:18px;
+  font-size:18px;
+  font-weight:bold;
+  background:linear-gradient(90deg,#ff2bd6,#45d7ff);
+  color:white;
 }
 
-/* LIVE SCREEN */
+/* SAVES */
 
-.live-screen{
-padding:25px;
-background:#090909;
+.saves-screen{
+  padding:25px;
+  background:linear-gradient(180deg,#090009,#050505);
 }
 
 .section-title{
-font-size:30px;
-margin-bottom:20px;
-color:#ff55da;
+  font-size:30px;
+  margin-bottom:8px;
+  color:#ff55da;
+  text-shadow:0 0 18px rgba(255,43,214,.5);
 }
 
-.live-card{
-background:#151515;
-border-radius:25px;
-padding:18px;
-margin-bottom:18px;
-box-shadow:0 0 20px rgba(255,0,180,.15);
+.section-sub{
+  color:#cfcfcf;
+  margin-bottom:22px;
+  line-height:1.4;
 }
 
-.live-thumb{
-height:180px;
-border-radius:20px;
-background:linear-gradient(135deg,#ff2bd6,#45d7ff);
-margin-bottom:15px;
+.folder-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
 }
 
-.join-btn{
-margin-top:12px;
-padding:12px 20px;
-border:none;
-border-radius:15px;
-background:#ff2bd6;
-color:white;
-font-weight:bold;
+.folder-card{
+  min-height:150px;
+  border-radius:24px;
+  padding:18px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 0 25px rgba(255,43,214,.12);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
 }
 
-/* RANK SCREEN */
-
-.rank-screen{
-padding:25px;
-background:#070707;
+.folder-icon{
+  font-size:34px;
 }
 
-.rank-card{
-display:flex;
-align-items:center;
-justify-content:space-between;
-background:#141414;
-padding:18px;
-border-radius:22px;
-margin-bottom:15px;
+.folder-card h3{
+  font-size:17px;
+  margin-top:12px;
 }
 
-.rank-left{
-display:flex;
-align-items:center;
-gap:15px;
+.folder-card p{
+  color:#bdbdbd;
+  font-size:13px;
 }
 
-.avatar{
-width:60px;
-height:60px;
-border-radius:50%;
-background:linear-gradient(135deg,#ff2bd6,#45d7ff);
+.reminder-box{
+  margin-top:22px;
+  padding:20px;
+  border-radius:25px;
+  background:linear-gradient(135deg,rgba(255,43,214,.25),rgba(69,215,255,.18));
+  border:1px solid rgba(255,255,255,.18);
 }
 
-/* STORE */
-
-.store-screen{
-padding:25px;
-background:#050505;
+.reminder-box h2{
+  margin-bottom:8px;
 }
 
-.store-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
-}
-
-.store-item{
-background:#151515;
-border-radius:20px;
-padding:12px;
-}
-
-.store-image{
-height:150px;
-border-radius:15px;
-background:linear-gradient(135deg,#ff2bd6,#45d7ff);
-margin-bottom:10px;
+.reminder-btn{
+  margin-top:15px;
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:16px;
+  font-weight:bold;
+  color:white;
+  background:linear-gradient(90deg,#ff2bd6,#45d7ff);
 }
 
 /* CREATE */
 
 .create-screen{
-padding:30px;
-background:#080808;
+  padding:30px;
+  background:#080808;
 }
 
 .upload-box{
-margin-top:40px;
-border:2px dashed #ff2bd6;
-border-radius:30px;
-padding:60px 20px;
-text-align:center;
-color:#aaa;
+  margin-top:40px;
+  border:2px dashed #ff2bd6;
+  border-radius:30px;
+  padding:60px 20px;
+  text-align:center;
+  color:#aaa;
 }
 
-/* NAVIGATION */
+/* RANK */
+
+.rank-screen{
+  padding:25px;
+  background:#070707;
+}
+
+.rank-card{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#141414;
+  padding:18px;
+  border-radius:22px;
+  margin-bottom:15px;
+}
+
+.rank-left{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.avatar{
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#ff2bd6,#45d7ff);
+}
+
+/* STORE */
+
+.store-screen{
+  padding:25px;
+  background:#050505;
+}
+
+.store-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.store-item{
+  background:#151515;
+  border-radius:20px;
+  padding:12px;
+}
+
+.store-image{
+  height:150px;
+  border-radius:15px;
+  background:linear-gradient(135deg,#ff2bd6,#45d7ff);
+  margin-bottom:10px;
+}
+
+/* NAV */
 
 .bottom-nav{
-position:fixed;
-bottom:0;
-left:50%;
-transform:translateX(-50%);
-width:100%;
-max-width:470px;
-height:85px;
-background:rgba(0,0,0,.95);
-display:flex;
-justify-content:space-around;
-align-items:center;
-z-index:999;
-border-top:1px solid rgba(255,255,255,.1);
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:470px;
+  height:85px;
+  background:rgba(0,0,0,.95);
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:999;
+  border-top:1px solid rgba(255,255,255,.1);
 }
 
 .nav-btn{
-background:none;
-border:none;
-color:white;
-font-size:14px;
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:5px;
+  background:none;
+  border:none;
+  color:white;
+  font-size:14px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
 }
 
 .plus-btn{
-width:70px;
-height:70px;
-border-radius:50%;
-border:none;
-background:linear-gradient(135deg,#ff2bd6,#45d7ff);
-font-size:40px;
-font-weight:bold;
-margin-top:-35px;
-box-shadow:0 0 30px #ff2bd6;
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  border:none;
+  background:linear-gradient(135deg,#ff2bd6,#45d7ff);
+  font-size:40px;
+  font-weight:bold;
+  margin-top:-35px;
+  box-shadow:0 0 30px #ff2bd6;
 }
-
 </style>
 </head>
 
@@ -303,205 +340,230 @@ box-shadow:0 0 30px #ff2bd6;
 <div class="app">
 
 <!-- FEED -->
-
 <div id="feed" class="screen active">
+  <div class="feed-video">
+    <div class="overlay"></div>
 
-<div class="feed-video">
+    <div class="logo">Vella</div>
+    <div class="live-badge">• LIVE</div>
 
-<div class="overlay"></div>
+    <div class="side-icons">
+      <div>
+        <div class="icon-btn">♡</div>
+        <div class="icon-text">2.4K</div>
+      </div>
 
-<div class="logo">Vella</div>
+      <div>
+        <div class="icon-btn">💬</div>
+        <div class="icon-text">386</div>
+      </div>
 
-<div class="live-badge">• LIVE</div>
+      <div>
+        <button class="icon-btn" onclick="showScreen('saves')">💾</button>
+        <div class="icon-text">Save</div>
+      </div>
 
-<div class="side-icons">
+      <div>
+        <div class="icon-btn">↗</div>
+        <div class="icon-text">512</div>
+      </div>
+    </div>
 
-<div>
-<div class="icon-btn">♡</div>
-<div class="icon-text">2.4K</div>
+    <div class="product-card">
+      <div class="product-title">Luxe Collection ✓</div>
+      <div>Live selling now · Sydney NSW</div>
+      <div>Drop: oversized hoodie</div>
+      <div class="price">$79.99</div>
+      <button class="buy-btn">Try On ✨</button>
+    </div>
+  </div>
 </div>
 
-<div>
-<div class="icon-btn">💬</div>
-<div class="icon-text">386</div>
-</div>
+<!-- SAVES -->
+<div id="saves" class="screen saves-screen">
+  <h1 class="section-title">Saved Folders</h1>
+  <p class="section-sub">
+    Keep videos, products, workouts, recipes and ideas organised so you can actually find them again.
+  </p>
 
-<div>
-<div class="icon-btn">💾</div>
-<div class="icon-text">Save</div>
-</div>
+  <div class="folder-grid">
+    <div class="folder-card">
+      <div class="folder-icon">👗</div>
+      <div>
+        <h3>Fashion Finds</h3>
+        <p>24 saved videos</p>
+      </div>
+    </div>
 
-<div>
-<div class="icon-btn">↗</div>
-<div class="icon-text">512</div>
-</div>
+    <div class="folder-card">
+      <div class="folder-icon">🏋️‍♀️</div>
+      <div>
+        <h3>Workout Ideas</h3>
+        <p>12 saved videos</p>
+      </div>
+    </div>
 
-</div>
+    <div class="folder-card">
+      <div class="folder-icon">🍝</div>
+      <div>
+        <h3>Recipes</h3>
+        <p>18 saved videos</p>
+      </div>
+    </div>
 
-<div class="product-card">
+    <div class="folder-card">
+      <div class="folder-icon">🛍</div>
+      <div>
+        <h3>Wishlist</h3>
+        <p>31 saved products</p>
+      </div>
+    </div>
 
-<div class="product-title">Luxe Collection ✓</div>
+    <div class="folder-card">
+      <div class="folder-icon">💡</div>
+      <div>
+        <h3>Business Ideas</h3>
+        <p>9 saved ideas</p>
+      </div>
+    </div>
 
-<div>Live selling now · Sydney NSW</div>
+    <div class="folder-card">
+      <div class="folder-icon">✨</div>
+      <div>
+        <h3>Glow Up</h3>
+        <p>15 saved tips</p>
+      </div>
+    </div>
+  </div>
 
-<div class="price">$79.99</div>
-
-<button class="buy-btn">Try On ✨</button>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- LIVE -->
-
-<div id="live" class="screen live-screen">
-
-<h1 class="section-title">Live Selling</h1>
-
-<div class="live-card">
-<div class="live-thumb"></div>
-<h2>Fashion Drop Live</h2>
-<p>1.2K watching now</p>
-<button class="join-btn">Join Live</button>
-</div>
-
-<div class="live-card">
-<div class="live-thumb"></div>
-<h2>Beauty Creator Event</h2>
-<p>938 watching now</p>
-<button class="join-btn">Join Live</button>
-</div>
-
+  <div class="reminder-box">
+    <h2>Reminder Feature</h2>
+    <p>Set a reminder and Vella will bring this saved video back when you need it.</p>
+    <button class="reminder-btn">Set Reminder ⏰</button>
+  </div>
 </div>
 
 <!-- CREATE -->
-
 <div id="create" class="screen create-screen">
+  <h1 class="section-title">Create</h1>
 
-<h1 class="section-title">Create</h1>
-
-<div class="upload-box">
-<h2>Upload Video or Product</h2>
-<br>
-<p>Drag content here or start creating ✨</p>
-</div>
-
+  <div class="upload-box">
+    <h2>Upload Video or Product</h2>
+    <br>
+    <p>Drag content here or start creating ✨</p>
+  </div>
 </div>
 
 <!-- RANK -->
-
 <div id="rank" class="screen rank-screen">
+  <h1 class="section-title">Top Creators</h1>
 
-<h1 class="section-title">Top Creators</h1>
+  <div class="rank-card">
+    <div class="rank-left">
+      <div class="avatar"></div>
+      <div>
+        <h3>Sarah Luxe</h3>
+        <p>$24K this week</p>
+      </div>
+    </div>
+    <div>#1</div>
+  </div>
 
-<div class="rank-card">
-<div class="rank-left">
-<div class="avatar"></div>
-<div>
-<h3>Sarah Luxe</h3>
-<p>$24K this week</p>
-</div>
-</div>
-<div>#1</div>
-</div>
+  <div class="rank-card">
+    <div class="rank-left">
+      <div class="avatar"></div>
+      <div>
+        <h3>Glow Beauty</h3>
+        <p>$18K this week</p>
+      </div>
+    </div>
+    <div>#2</div>
+  </div>
 
-<div class="rank-card">
-<div class="rank-left">
-<div class="avatar"></div>
-<div>
-<h3>Glow Beauty</h3>
-<p>$18K this week</p>
-</div>
-</div>
-<div>#2</div>
-</div>
-
+  <div class="rank-card">
+    <div class="rank-left">
+      <div class="avatar"></div>
+      <div>
+        <h3>Local Label Co</h3>
+        <p>$11K this week</p>
+      </div>
+    </div>
+    <div>#3</div>
+  </div>
 </div>
 
 <!-- STORE -->
-
 <div id="store" class="screen store-screen">
+  <h1 class="section-title">Store</h1>
 
-<h1 class="section-title">Store</h1>
+  <div class="store-grid">
+    <div class="store-item">
+      <div class="store-image"></div>
+      <h3>Pink Hoodie</h3>
+      <p>$79</p>
+    </div>
 
-<div class="store-grid">
+    <div class="store-item">
+      <div class="store-image"></div>
+      <h3>Glow Set</h3>
+      <p>$49</p>
+    </div>
 
-<div class="store-item">
-<div class="store-image"></div>
-<h3>Pink Hoodie</h3>
-<p>$79</p>
-</div>
+    <div class="store-item">
+      <div class="store-image"></div>
+      <h3>Neon Sneakers</h3>
+      <p>$120</p>
+    </div>
 
-<div class="store-item">
-<div class="store-image"></div>
-<h3>Glow Set</h3>
-<p>$49</p>
-</div>
-
-<div class="store-item">
-<div class="store-image"></div>
-<h3>Neon Sneakers</h3>
-<p>$120</p>
-</div>
-
-<div class="store-item">
-<div class="store-image"></div>
-<h3>Creator Pack</h3>
-<p>$65</p>
-</div>
-
-</div>
-
+    <div class="store-item">
+      <div class="store-image"></div>
+      <h3>Creator Pack</h3>
+      <p>$65</p>
+    </div>
+  </div>
 </div>
 
 <!-- NAV -->
-
 <div class="bottom-nav">
 
-<button class="nav-btn" onclick="showScreen('feed')">
-🏠
-<span>Feed</span>
-</button>
+  <button class="nav-btn" onclick="showScreen('feed')">
+    🏠
+    <span>Feed</span>
+  </button>
 
-<button class="nav-btn" onclick="showScreen('live')">
-📺
-<span>Live</span>
-</button>
+  <button class="nav-btn" onclick="showScreen('saves')">
+    💾
+    <span>Saves</span>
+  </button>
 
-<button class="plus-btn" onclick="showScreen('create')">
-+
-</button>
+  <button class="plus-btn" onclick="showScreen('create')">
+    +
+  </button>
 
-<button class="nav-btn" onclick="showScreen('rank')">
-🏆
-<span>Rank</span>
-</button>
+  <button class="nav-btn" onclick="showScreen('rank')">
+    🏆
+    <span>Rank</span>
+  </button>
 
-<button class="nav-btn" onclick="showScreen('store')">
-🛍
-<span>Store</span>
-</button>
+  <button class="nav-btn" onclick="showScreen('store')">
+    🛍
+    <span>Store</span>
+  </button>
 
 </div>
 
 </div>
 
 <script>
-
 function showScreen(screenId){
+  const screens = document.querySelectorAll('.screen');
 
-const screens = document.querySelectorAll('.screen');
+  screens.forEach(screen=>{
+    screen.classList.remove('active');
+  });
 
-screens.forEach(screen=>{
-screen.classList.remove('active');
-});
-
-document.getElementById(screenId).classList.add('active');
-
+  document.getElementById(screenId).classList.add('active');
 }
-
 </script>
 
 </body>
