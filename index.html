@@ -112,15 +112,28 @@ gap:13px;
 z-index:8;
 }
 
-.icon-btn{ width:58px; height:58px; border-radius:22px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.10); backdrop-filter:blur(18px); color:white; font-size:22px; display:flex; align-items:center; justify-content:center; box-shadow: 0 8px 24px rgba(0,0,0,.35), 0 0 18px rgba(220,200,255,.12); transition:.25s; cursor:pointer; }  .icon-btn:hover{ transform:scale(1.08); background:rgba(255,255,255,.18); box-shadow: 0 0 24px rgba(230,210,255,.35); }  .icon-btn:active{ transform:scale(.95); }
-width:52px;
-height:52px;
-border-radius:50%;
-border:1px solid rgba(255,255,255,.2);
-background:rgba(255,255,255,.14);
-color:white;
-font-size:21px;
+.icon-btn{
+width:62px;
+height:62px;
+border-radius:22px;
+border:none;
+background:rgba(255,255,255,.12);
 backdrop-filter:blur(16px);
+color:white;
+font-size:24px;
+cursor:pointer;
+box-shadow:
+0 8px 30px rgba(0,0,0,.35),
+0 0 18px rgba(255,255,255,.08);
+transition:.3s ease;
+}
+
+.icon-btn:hover{
+transform:scale(1.08);
+background:rgba(255,255,255,.18);
+box-shadow:
+0 0 20px rgba(255,255,255,.2),
+0 0 40px rgba(255,120,220,.25);
 }
 
 .icon-text{
