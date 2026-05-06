@@ -207,14 +207,24 @@ html,body{
   gap:15px;
 }
 
-.folder,.store-item,.rank-card,.create-card{
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:22px;
-  padding:18px;
-  box-shadow:0 0 20px rgba(255,0,180,.12);
-  transition:.25s;
-  cursor:pointer;
+.folder{
+background:rgba(20,20,24,.78);
+border:1px solid rgba(255,255,255,.06);
+border-radius:28px;
+padding:20px;
+backdrop-filter:blur(18px);
+box-shadow:
+0 10px 40px rgba(0,0,0,.45),
+0 0 30px rgba(140,110,255,.12);
+transition:.35s ease;
+cursor:pointer;
+overflow:hidden;
+position:relative;
+}.folder:hover{
+transform:translateY(-6px);
+box-shadow:
+0 16px 45px rgba(0,0,0,.5),
+0 0 40px rgba(120,170,255,.18);
 }
 
 .folder{
