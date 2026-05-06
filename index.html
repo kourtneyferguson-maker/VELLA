@@ -112,7 +112,7 @@ gap:13px;
 z-index:8;
 }
 
-.icon-btn{
+.icon-btn{ width:58px; height:58px; border-radius:22px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.10); backdrop-filter:blur(18px); color:white; font-size:22px; display:flex; align-items:center; justify-content:center; box-shadow: 0 8px 24px rgba(0,0,0,.35), 0 0 18px rgba(220,200,255,.12); transition:.25s; cursor:pointer; }  .icon-btn:hover{ transform:scale(1.08); background:rgba(255,255,255,.18); box-shadow: 0 0 24px rgba(230,210,255,.35); }  .icon-btn:active{ transform:scale(.95); }
 width:52px;
 height:52px;
 border-radius:50%;
@@ -480,6 +480,36 @@ color:#111;
 font-weight:bold;
 }
 
+
+@keyframes floaty{
+  0%{transform:translateY(0px)}
+  50%{transform:translateY(-4px)}
+  100%{transform:translateY(0px)}
+}
+
+.side-icons div{
+  animation:floaty 3s ease-in-out infinite;
+}
+
+.side-icons div:nth-child(2){
+  animation-delay:.4s;
+}
+
+.side-icons div:nth-child(3){
+  animation-delay:.8s;
+}
+
+.side-icons div:nth-child(4){
+  animation-delay:1.2s;
+}
+
+.side-icons div:nth-child(5){
+  animation-delay:1.6s;
+}
+
+  
+
+  
 /* NAV */
 .bottom-nav{
 position:absolute;
@@ -530,11 +560,11 @@ box-shadow:0 0 28px rgba(230,200,255,.45);
     <div class="feed-bg feed-1"></div><div class="overlay"></div>
     <div class="logo">{ Hello Vella! }</div>
     <div class="side-icons">
-      <div><button class="icon-btn">♡</button><div class="icon-text">2.4K</div></div>
-      <div><button class="icon-btn">💬</button><div class="icon-text">386</div></div>
-      <div><button class="icon-btn" onclick="showScreen('saves')">💾</button><div class="icon-text">Save</div></div>
-      <div><button class="icon-btn">↗</button><div class="icon-text">Share</div></div>
-      <div><button class="icon-btn" onclick="openSellerProfile('Mia Luxe Wear')">🏪</button><div class="icon-text">Store</div></div>
+      <div><button class="icon-btn">♥</button><div class="icon-text">2.4K</div></div>
+      <div><button class="icon-btn">✦</button><div class="icon-text">386</div></div>
+      <div><button class="icon-btn" onclick="showScreen('saves')"> ⌁ </button><div class="icon-text">Save</div></div>
+      <div><button class="icon-btn">➜</button><div class="icon-text">Share</div></div>
+      <div><button class="icon-btn" onclick="openSellerProfile('Mia Luxe Wear')">◈</button><div class="icon-text">Store</div></div>
     </div>
     <div class="product-card">
       <div class="product-title">Mia Luxe Wear ✓</div>
@@ -550,9 +580,9 @@ box-shadow:0 0 28px rgba(230,200,255,.45);
     <div class="side-icons">
       <div><button class="icon-btn">♡</button><div class="icon-text">5.1K</div></div>
       <div><button class="icon-btn">💬</button><div class="icon-text">904</div></div>
-      <div><button class="icon-btn" onclick="showScreen('saves')">💾</button><div class="icon-text">Save</div></div>
+      <div><button class="icon-btn" onclick="showScreen('saves')">⌁</button><div class="icon-text">Save</div></div>
       <div><button class="icon-btn">↗</button><div class="icon-text">Share</div></div>
-      <div><button class="icon-btn" onclick="openSellerProfile('Glow Beauty Bar')">🏪</button><div class="icon-text">Store</div></div>
+      <div><button class="icon-btn" onclick="openSellerProfile('Glow Beauty Bar')">◈</button><div class="icon-text">Store</div></div>
     </div>
     <div class="product-card">
       <div class="product-title">Glow Beauty Bar ✓</div>
