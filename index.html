@@ -621,9 +621,9 @@ box-shadow:0 0 28px rgba(230,200,255,.45);
     <div class="lux-board" onclick="openFolder('Luxury Fashion')">
       <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop" class="board-img">
       <div class="board-overlay"><h2>Luxury Fashion</h2><p>Outfits • Brands • Style</p><span>88 saved</span></div>
-    </div>
+    </div><div class="lux-board add-board" onclick="openCreateBoard()">
 
-    <div class="lux-board add-board" onclick="openFolder('Create Board')">
+      
       <div class="add-board-inner">
         <div class="add-plus">+</div>
         <h2>Create Board</h2>
@@ -802,6 +802,32 @@ document.getElementById('popupBody').innerHTML = `
 
   <button class="main-btn">Open Full Board ✨</button>
   <button class="main-btn">Set Reminder ⏰</button>
+`;
+
+document.getElementById('popup').style.display='flex';
+}
+
+
+function openCreateBoard(){
+document.getElementById('popupTitle').innerText = "Create Your Own Board";
+
+document.getElementById('popupBody').innerHTML = `
+  <div class="popup-item">
+    <b>Board Name</b><br>
+    Example: Date Night Outfits, Dinner Ideas, Dream Home, Business Inspo
+  </div>
+
+  <div class="popup-item">
+    <b>Choose A Vibe</b><br>
+    Fashion • Beauty • Fitness • Food • Business • Home • Custom
+  </div>
+
+  <div class="popup-item">
+    <b>How It Works</b><br>
+    Users save videos, products and reminders into their own boards.
+  </div>
+
+  <button class="main-btn">Create Board ✨</button>
 `;
 
 document.getElementById('popup').style.display='flex';
