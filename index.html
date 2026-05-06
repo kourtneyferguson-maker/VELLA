@@ -28,12 +28,15 @@ body{
   overflow:hidden;
   background:black;
 }
-
+.app::-webkit-scrollbar,
+.screen::-webkit-scrollbar{
+  display:none;
+}
  .screen{
   display:none;
   height:100vh;
   overflow-y:auto;
-  padding-bottom:140px;
+  padding:25px 25px 150px 25px;
 }
 
 .active{
@@ -292,7 +295,7 @@ body{
 /* NAV */
 
 .bottom-nav{
-  position:absolute;
+  position:fixed;
   bottom:0;
   left:50%;
   transform:translateX(-50%);
