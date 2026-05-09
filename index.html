@@ -1,597 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Hello Vella!</title>
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-
-html,body{
-width:100%;
-height:100%;
-background:#05030a;
-color:white;
-font-family:Arial,sans-serif;
-overflow:hidden;
-}
-
-.app{
-width:100%;
-max-width:470px;
-height:100vh;
-margin:auto;
-background:radial-gradient(circle at top,#24122f,#05030a 58%);
-position:relative;
-overflow:hidden;
-}
-
-/* SCREENS */
-
-.screen{
-display:none;
-height:100%;
-overflow-y:auto;
-padding-bottom:118px;
-scrollbar-width:none;
-}
-
-.screen::-webkit-scrollbar{display:none}
-.screen.active{display:block}
-
-/* GLOBAL */
-
-.title{
-font-size:38px;
-font-weight:900;
-padding:28px 22px 10px;
-color:#ff65df;
-text-shadow:0 0 18px rgba(255,0,200,.7);
-}
-
-.subtitle{
-padding:0 22px 24px;
-font-size:17px;
-line-height:1.45;
-color:rgba(255,255,255,.82);
-}
-
-.card{
-background:rgba(18,18,24,.86);
-border:1px solid rgba(255,120,240,.15);
-border-radius:28px;
-box-shadow:0 0 22px rgba(255,0,200,.14),0 0 42px rgba(0,220,255,.06);
-backdrop-filter:blur(14px);
-}
-
-/* FEED */
-
-.feed-scroll{
-height:calc(100vh - 92px);
-overflow-y:auto;
-scroll-snap-type:y proximity;
-scrollbar-width:none;
-}
-
-.feed-scroll::-webkit-scrollbar{display:none}
-
-.feed-post{
-height:calc(100vh - 92px);
-scroll-snap-align:start;
-position:relative;
-overflow:hidden;
-background-size:cover;
-background-position:center;
-}
-
-.feed-post.one{
-background-image:url("https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop");
-}
-
-.feed-post.two{
-background-image:url("https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop");
-}
-
-.feed-post.three{
-background-image:url("https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop");
-}
-
-.feed-shade{
-position:absolute;
-inset:0;
-background:linear-gradient(to top,rgba(0,0,0,.82),rgba(0,0,0,.08) 50%,rgba(0,0,0,.35));
-}
-
-.logo{
-position:absolute;
-top:34px;
-left:22px;
-font-size:30px;
-font-weight:900;
-color:#ffd1fb;
-text-shadow:0 0 16px rgba(255,0,200,.85),0 0 36px rgba(0,220,255,.18);
-z-index:3;
-}
-
-.side-actions{
-position:absolute;
-right:14px;
-top:210px;
-display:flex;
-flex-direction:column;
-gap:14px;
-align-items:center;
-z-index:4;
-}
-
-.action-wrap{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:6px;
-font-size:12px;
-font-weight:800;
-}
-
-.action-btn{
-width:58px;
-height:58px;
-border-radius:22px;
-background:rgba(255,255,255,.15);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-backdrop-filter:blur(12px);
-box-shadow:0 0 18px rgba(255,255,255,.10),0 0 28px rgba(255,0,200,.18);
-}
-
-.product-card{
-position:absolute;
-left:18px;
-right:92px;
-bottom:50px;
-padding:18px;
-z-index:4;
-}
-
-.product-card h2{
-font-size:20px;
-margin-bottom:7px;
-}
-
-.product-card p{
-font-size:14px;
-opacity:.82;
-margin-bottom:10px;
-}
-
-.price{
-font-size:29px;
-font-weight:900;
-margin-bottom:14px;
-}
-
-.shop-button{
-width:100%;
-border:0;
-border-radius:18px;
-padding:14px;
-font-size:15px;
-font-weight:900;
-color:#071018;
-background:linear-gradient(90deg,#f3d5ff,#a8ecff);
-box-shadow:0 0 18px rgba(180,230,255,.34);
-cursor:pointer;
-}
-
-/* VAULT */
-
-.folders-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:16px;
-padding:0 20px 220px;
-}
-
-.folder-card{
-height:178px;
-padding:18px;
-position:relative;
-overflow:hidden;
-}
-
-.preview-row{
-display:flex;
-gap:6px;
-margin-bottom:15px;
-}
-
-.preview{
-height:42px;
-flex:1;
-border-radius:13px;
-background-size:cover;
-background-position:center;
-opacity:.88;
-}
-
-.folder-icon{
-font-size:28px;
-filter:drop-shadow(0 0 10px rgba(255,0,200,.55));
-margin-bottom:9px;
-}
-
-.folder-card h3{
-font-size:19px;
-margin-bottom:6px;
-}
-
-.folder-card p{
-font-size:13px;
-opacity:.72;
-}
-
-/* CREATOR */
-
-.creator-grid{
-padding:0 20px 170px;
-display:grid;
-gap:15px;
-}
-
-.stat-row{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:14px;
-}
-
-.stat-card{
-padding:18px;
-}
-
-.stat-card h3{
-font-size:26px;
-color:#a8ecff;
-text-shadow:0 0 14px rgba(0,220,255,.35);
-}
-
-.stat-card p{
-font-size:13px;
-opacity:.75;
-margin-top:5px;
-}
-
-.creator-card{
-padding:22px;
-}
-
-.creator-card h2{
-font-size:22px;
-margin-bottom:8px;
-}
-
-.creator-card p{
-opacity:.76;
-line-height:1.4;
-}
-
-.badge{
-display:inline-block;
-margin-top:12px;
-padding:8px 12px;
-border-radius:999px;
-background:rgba(255,80,220,.15);
-border:1px solid rgba(255,120,240,.25);
-font-size:12px;
-font-weight:900;
-}
-
-/* RANK */
-
-.rank-list{
-padding:0 20px 170px;
-display:grid;
-gap:14px;
-}
-
-.rank-card{
-padding:20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.rank-card h2{
-font-size:20px;
-margin-bottom:5px;
-}
-
-.rank-card p{
-font-size:13px;
-opacity:.72;
-}
-
-.rank-place{
-font-size:32px;
-font-weight:900;
-color:#ff65df;
-text-shadow:0 0 16px rgba(255,0,200,.65);
-}
-
-.points{
-font-size:13px;
-font-weight:900;
-color:#a8ecff;
-}
-
-/* STORE */
-
-.store-grid{
-padding:0 20px 170px;
-display:grid;
-gap:16px;
-}
-
-.store-card{
-overflow:hidden;
-}
-
-.store-img{
-height:180px;
-background-size:cover;
-background-position:center;
-}
-
-.store-info{
-padding:18px;
-}
-
-.store-info h2{
-font-size:22px;
-margin-bottom:6px;
-}
-
-.store-info p{
-font-size:14px;
-opacity:.75;
-line-height:1.4;
-}
-
-.store-bottom{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-top:14px;
-}
-
-.store-price{
-font-size:24px;
-font-weight:900;
-color:#ff65df;
-}
-
-.mini-button{
-border:0;
-border-radius:999px;
-padding:10px 15px;
-font-weight:900;
-background:linear-gradient(90deg,#f3d5ff,#a8ecff);
-color:#071018;
-}
-
-/* NAV */
-
-.bottom-nav{
-position:absolute;
-bottom:0;
-left:0;
-right:0;
-height:92px;
-background:rgba(0,0,0,.94);
-display:grid;
-grid-template-columns:1fr 1fr 88px 1fr 1fr;
-align-items:center;
-z-index:50;
-box-shadow:0 -8px 28px rgba(0,0,0,.75);
-backdrop-filter:blur(16px);
-}
-
-.nav-item{
-text-align:center;
-font-size:12px;
-font-weight:900;
-opacity:.78;
-cursor:pointer;
-}
-
-.nav-item.active{
-opacity:1;
-color:#ffbdf2;
-text-shadow:0 0 12px rgba(255,0,200,.65);
-}
-
-.nav-icon{
-display:block;
-font-size:19px;
-margin-bottom:5px;
-filter:drop-shadow(0 0 8px rgba(255,0,200,.5));
-}
-
-.plus-btn{
-width:76px;
-height:76px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:42px;
-font-weight:900;
-color:#061018;
-margin:auto;
-background:linear-gradient(135deg,#f4d8ff,#a8ecff);
-box-shadow:0 0 24px rgba(255,0,200,.55),0 0 48px rgba(0,220,255,.28);
-cursor:pointer;
-}
-</style>
-</head>
-
-<body>
-
-<div class="app">
-
-<!-- FEED -->
-
-<div id="feed" class="screen active">
-<div class="feed-scroll">
-
-<div class="feed-post one">
-<div class="feed-shade"></div>
-<div class="logo">{ Hello Vella! }</div>
-
-<div class="side-actions">
-<div class="action-wrap"><div class="action-btn">♡</div><span>2.4K</span></div>
-<div class="action-wrap"><div class="action-btn">✦</div><span>386</span></div>
-<div class="action-wrap"><div class="action-btn">⌁</div><span>Vault</span></div>
-<div class="action-wrap"><div class="action-btn">↗</div><span>Share</span></div>
-</div>
-
-<div class="product-card card">
-<h2>Mia Luxe Wear ✓</h2>
-<p>Oversized Hoodie · 949 sold</p>
-<div class="price">$79.99</div>
-<button class="shop-button">Open Seller Profile ✨</button>
-</div>
-</div>
-
-<div class="feed-post two">
-<div class="feed-shade"></div>
-<div class="logo">{ Fashion Drop }</div>
-
-<div class="product-card card">
-<h2>Luna Streetwear ✓</h2>
-<p>Limited Jacket · 213 sold today</p>
-<div class="price">$129.00</div>
-<button class="shop-button">Shop This Look ✨</button>
-</div>
-</div>
-
-<div class="feed-post three">
-<div class="feed-shade"></div>
-<div class="logo">{ Glow Up Live }</div>
-
-<div class="product-card card">
-<h2>Glow Beauty Bar ✓</h2>
-<p>Hydration Set · Live deal</p>
-<div class="price">$49.95</div>
-<button class="shop-button">Open Storefront ✨</button>
-</div>
-</div>
-
-</div>
-</div>
+<!-- REPLACE ONLY YOUR CURRENT VAULT + RANK SECTIONS WITH THESE -->
 
 <!-- VAULT -->
 
 <div id="vault" class="screen">
-<h1 class="title">Saved Folders</h1>
-<p class="subtitle">Organise saved videos, products, recipes and ideas into folders that actually make sense.</p>
+<h1 class="title">Vella Vault</h1>
+
+<p class="subtitle">
+Organise saved videos, products, recipes and ideas into glowing futuristic folders.
+</p>
 
 <div class="folders-grid">
 
 <div class="folder-card card">
+<div class="shine"></div>
+
 <div class="preview-row">
 <div class="preview" style="background-image:url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=400')"></div>
 <div class="preview" style="background-image:url('https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=400')"></div>
 </div>
+
 <div class="folder-icon">👗</div>
 <h3>Fashion Finds</h3>
 <p>24 saved videos</p>
 </div>
 
 <div class="folder-card card">
+<div class="shine"></div>
+
 <div class="preview-row">
 <div class="preview" style="background-image:url('https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=400')"></div>
 <div class="preview" style="background-image:url('https://images.unsplash.com/photo-1549060279-7e168fcee0c2?q=80&w=400')"></div>
 </div>
+
 <div class="folder-icon">🏋️</div>
 <h3>Workout Ideas</h3>
 <p>12 saved videos</p>
 </div>
 
 <div class="folder-card card">
+<div class="shine"></div>
+
 <div class="preview-row">
 <div class="preview" style="background-image:url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=400')"></div>
 <div class="preview" style="background-image:url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=400')"></div>
 </div>
+
 <div class="folder-icon">🍜</div>
 <h3>Recipes</h3>
 <p>18 saved videos</p>
 </div>
 
 <div class="folder-card card">
+<div class="shine"></div>
+
 <div class="preview-row">
 <div class="preview" style="background-image:url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=400')"></div>
 <div class="preview" style="background-image:url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=400')"></div>
 </div>
+
 <div class="folder-icon">🛍️</div>
 <h3>Wishlist</h3>
 <p>31 saved products</p>
-</div>
-
-<div class="folder-card card">
-<div class="preview-row">
-<div class="preview" style="background-image:url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=400')"></div>
-<div class="preview" style="background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=400')"></div>
-</div>
-<div class="folder-icon">💡</div>
-<h3>Business Ideas</h3>
-<p>9 saved ideas</p>
-</div>
-
-<div class="folder-card card">
-<div class="preview-row">
-<div class="preview" style="background-image:url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=400')"></div>
-<div class="preview" style="background-image:url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=400')"></div>
-</div>
-<div class="folder-icon">✨</div>
-<h3>Glow Up</h3>
-<p>15 saved tips</p>
-</div>
-
-</div>
-</div>
-
-<!-- CREATOR -->
-
-<div id="create" class="screen">
-<h1 class="title">Creator Studio</h1>
-<p class="subtitle">A premium creator hub for uploading, selling, going live and tracking growth.</p>
-
-<div class="creator-grid">
-
-<div class="stat-row">
-<div class="stat-card card"><h3>86.2K</h3><p>Support Points</p></div>
-<div class="stat-card card"><h3>$4.8K</h3><p>Sales this week</p></div>
-</div>
-
-<div class="creator-card card">
-<h2>🎥 Upload Content</h2>
-<p>Add creator videos and connect products directly to the content experience.</p>
-<span class="badge">Creator first</span>
-</div>
-
-<div class="creator-card card">
-<h2>🛍️ Build Storefront</h2>
-<p>Manage products, collections, pricing and clean shopping links from one hub.</p>
-<span class="badge">Tap to shop</span>
-</div>
-
-<div class="creator-card card">
-<h2>🔴 Go Live</h2>
-<p>Launch live shopping events, pin products and reward supporters with perks.</p>
-<span class="badge">Live selling</span>
 </div>
 
 </div>
@@ -600,75 +69,89 @@ cursor:pointer;
 <!-- RANK -->
 
 <div id="rank" class="screen">
-<h1 class="title">Vella Rank</h1>
-<p class="subtitle">Creators climb through saves, sales, support points, shares and live engagement.</p>
+
+<h1 class="title">Vella Rankings</h1>
+
+<p class="subtitle">
+Top businesses and creators ranked through saves, sales, support points and live engagement.
+</p>
 
 <div class="rank-list">
 
-<div class="rank-card card">
-<div><h2>Glow Beauty Bar</h2><p>Beauty · Live Seller</p></div>
-<div><div class="rank-place">#1</div><div class="points">98.4K pts</div></div>
-</div>
+<div class="rank-category">
+<h2>👗 Fashion</h2>
 
 <div class="rank-card card">
-<div><h2>Mia Luxe Wear</h2><p>Fashion · Storefront</p></div>
-<div><div class="rank-place">#2</div><div class="points">86.2K pts</div></div>
+<div>
+<h3>#1 Luna Streetwear</h3>
+<p>92.4K Support Points</p>
+</div>
+<span class="rank-badge">TOP</span>
 </div>
 
 <div class="rank-card card">
-<div><h2>Fit Hour</h2><p>Fitness · Creator</p></div>
-<div><div class="rank-place">#3</div><div class="points">74.9K pts</div></div>
-</div>
-
-<div class="creator-card card">
-<h2>🎁 Support Points</h2>
-<p>Support points come from saves, gifts, purchases, shares and live interaction. They help creators unlock better reach, lower commission tiers and award eligibility.</p>
-<span class="badge">Support = growth</span>
-</div>
-
+<div>
+<h3>#2 Mia Luxe Wear</h3>
+<p>81.2K Support Points</p>
 </div>
 </div>
 
-<!-- STORE -->
-
-<div id="store" class="screen">
-<h1 class="title">Vella Store</h1>
-<p class="subtitle">Discover trending products, creator storefronts and live shopping drops.</p>
-
-<div class="store-grid">
-
-<div class="store-card card">
-<div class="store-img" style="background-image:url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200')"></div>
-<div class="store-info">
-<h2>Glow Beauty Bar</h2>
-<p>Hydration Skin Set · Trending from Glow Up Live</p>
-<div class="store-bottom">
-<div class="store-price">$49.95</div>
-<button class="mini-button">Shop</button>
+<div class="rank-card card">
+<div>
+<h3>#3 AfterGlow Fashion</h3>
+<p>73.8K Support Points</p>
 </div>
 </div>
 </div>
 
-<div class="store-card card">
-<div class="store-img" style="background-image:url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200')"></div>
-<div class="store-info">
-<h2>Luna Streetwear</h2>
-<p>Limited Jacket · Fashion Drop seller</p>
-<div class="store-bottom">
-<div class="store-price">$129.00</div>
-<button class="mini-button">Shop</button>
+<div class="rank-category">
+<h2>💄 Beauty</h2>
+
+<div class="rank-card card">
+<div>
+<h3>#1 Glow Beauty Bar</h3>
+<p>98.4K Support Points</p>
+</div>
+<span class="rank-badge">TOP</span>
+</div>
+
+<div class="rank-card card">
+<div>
+<h3>#2 Aura Cosmetics</h3>
+<p>79.7K Support Points</p>
+</div>
+</div>
+
+<div class="rank-card card">
+<div>
+<h3>#3 Skin Theory</h3>
+<p>74.5K Support Points</p>
 </div>
 </div>
 </div>
 
-<div class="store-card card">
-<div class="store-img" style="background-image:url('https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200')"></div>
-<div class="store-info">
-<h2>Mia Luxe Wear</h2>
-<p>Oversized Hoodie · 949 sold</p>
-<div class="store-bottom">
-<div class="store-price">$79.99</div>
-<button class="mini-button">Shop</button>
+<div class="rank-category">
+<h2>🏋️ Fitness</h2>
+
+<div class="rank-card card">
+<div>
+<h3>#1 Fit Hour</h3>
+<p>74.9K Support Points</p>
+</div>
+<span class="rank-badge">TOP</span>
+</div>
+
+<div class="rank-card card">
+<div>
+<h3>#2 CoreLab Studio</h3>
+<p>66.1K Support Points</p>
+</div>
+</div>
+
+<div class="rank-card card">
+<div>
+<h3>#3 MotionFuel</h3>
+<p>61.8K Support Points</p>
 </div>
 </div>
 </div>
@@ -676,35 +159,110 @@ cursor:pointer;
 </div>
 </div>
 
-<!-- NAV -->
+<style>
 
-<div class="bottom-nav">
-<div class="nav-item active" onclick="showScreen('feed',this)"><span class="nav-icon">🏠</span>Feed</div>
-<div class="nav-item" onclick="showScreen('vault',this)"><span class="nav-icon">⌁</span>Vault</div>
-<div class="plus-btn" onclick="showScreen('create',this)">+</div>
-<div class="nav-item" onclick="showScreen('rank',this)"><span class="nav-icon">🏆</span>Rank</div>
-<div class="nav-item" onclick="showScreen('store',this)"><span class="nav-icon">◇</span>Store</div>
-</div>
+/* VAULT ALIVE EFFECT */
 
-</div>
+.folder-card{
+position:relative;
+overflow:hidden;
+transition:.28s ease;
+}
 
-<script>
-function showScreen(id, el){
-document.querySelectorAll('.screen').forEach(screen=>{
-screen.classList.remove('active');
-});
+.folder-card:hover{
+transform:translateY(-6px) scale(1.02);
 
-document.getElementById(id).classList.add('active');
+box-shadow:
+0 0 24px rgba(255,0,200,.22),
+0 0 55px rgba(0,220,255,.10);
+}
 
-document.querySelectorAll('.nav-item').forEach(item=>{
-item.classList.remove('active');
-});
+.folder-card:hover .folder-icon{
+transform:scale(1.08);
 
-if(el && el.classList.contains('nav-item')){
-el.classList.add('active');
+filter:
+drop-shadow(0 0 16px rgba(255,0,200,.9))
+drop-shadow(0 0 26px rgba(0,220,255,.45));
+}
+
+.folder-icon{
+transition:.25s ease;
+}
+
+.shine{
+position:absolute;
+top:-120%;
+left:-40%;
+width:70%;
+height:250%;
+background:linear-gradient(
+to right,
+transparent,
+rgba(255,255,255,.12),
+transparent
+);
+
+transform:rotate(25deg);
+animation:shineMove 6s infinite linear;
+pointer-events:none;
+}
+
+@keyframes shineMove{
+0%{
+left:-60%;
+}
+100%{
+left:130%;
 }
 }
-</script>
 
-</body>
-</html>
+/* RANK */
+
+.rank-category{
+margin-bottom:38px;
+}
+
+.rank-category h2{
+font-size:28px;
+margin-bottom:16px;
+padding-left:6px;
+
+color:#ff78e8;
+
+text-shadow:
+0 0 12px rgba(255,0,200,.6);
+}
+
+.rank-card{
+padding:18px;
+margin-bottom:12px;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.rank-card h3{
+font-size:18px;
+margin-bottom:5px;
+}
+
+.rank-card p{
+font-size:13px;
+opacity:.75;
+}
+
+.rank-badge{
+padding:8px 12px;
+border-radius:999px;
+font-size:12px;
+font-weight:900;
+
+background:linear-gradient(90deg,#ff7be8,#8ee8ff);
+color:black;
+
+box-shadow:
+0 0 14px rgba(255,0,200,.45);
+}
+
+</style>
