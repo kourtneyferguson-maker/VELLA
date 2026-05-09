@@ -35,15 +35,8 @@ padding-bottom:125px;
 scrollbar-width:none;
 }
 
-.screen::-webkit-scrollbar{
-display:none;
-}
-
-.screen.active{
-display:block;
-}
-
-/* TITLES */
+.screen::-webkit-scrollbar{display:none}
+.screen.active{display:block}
 
 .title{
 font-size:40px;
@@ -69,9 +62,7 @@ scroll-snap-type:y mandatory;
 scrollbar-width:none;
 }
 
-.feed-scroll::-webkit-scrollbar{
-display:none;
-}
+.feed-scroll::-webkit-scrollbar{display:none}
 
 .feed-card{
 height:calc(100vh - 98px);
@@ -144,21 +135,9 @@ box-shadow:0 0 30px rgba(0,0,0,.55);
 backdrop-filter:blur(10px);
 }
 
-.product-card h2{
-font-size:21px;
-margin-bottom:8px;
-}
-
-.product-card p{
-opacity:.8;
-margin-bottom:10px;
-}
-
-.price{
-font-size:30px;
-font-weight:900;
-margin-bottom:14px;
-}
+.product-card h2{font-size:21px;margin-bottom:8px}
+.product-card p{opacity:.8;margin-bottom:10px}
+.price{font-size:30px;font-weight:900;margin-bottom:14px}
 
 .seller-btn{
 width:100%;
@@ -178,7 +157,7 @@ cursor:pointer;
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:16px;
-padding:0 20px 160px;
+padding:0 20px 240px;
 }
 
 .folder-card{
@@ -195,22 +174,11 @@ border:1px solid #ff2cc3;
 box-shadow:0 0 30px rgba(255,0,180,.45);
 }
 
-.folder-icon{
-font-size:34px;
-margin-bottom:25px;
-}
+.folder-icon{font-size:34px;margin-bottom:25px}
+.folder-card h3{font-size:21px;margin-bottom:8px}
+.folder-card p{font-size:14px;opacity:.72}
 
-.folder-card h3{
-font-size:21px;
-margin-bottom:8px;
-}
-
-.folder-card p{
-font-size:14px;
-opacity:.72;
-}
-
-/* GENERAL CARDS */
+/* CARDS */
 
 .grid-list{
 padding:0 20px 155px;
@@ -226,16 +194,8 @@ border:1px solid rgba(255,255,255,.08);
 box-shadow:0 0 22px rgba(255,0,180,.08);
 }
 
-.info-card h2{
-font-size:22px;
-margin-bottom:8px;
-}
-
-.info-card p{
-opacity:.78;
-line-height:1.45;
-font-size:15px;
-}
+.info-card h2{font-size:22px;margin-bottom:8px}
+.info-card p{opacity:.78;line-height:1.45;font-size:15px}
 
 .badge{
 display:inline-block;
@@ -329,7 +289,6 @@ cursor:pointer;
 <!-- FEED -->
 
 <div id="feed" class="screen active">
-
 <div class="feed-scroll">
 
 <div class="feed-card one">
@@ -415,37 +374,11 @@ cursor:pointer;
 <p class="subtitle">Upload content, attach products, go live and grow your business profile.</p>
 
 <div class="grid-list">
-
-<div class="info-card">
-<h2>🎥 Upload Video</h2>
-<p>Post videos and attach products directly inside the content so users can tap and shop instantly.</p>
-<span class="badge">Video commerce</span>
-</div>
-
-<div class="info-card">
-<h2>🛍️ Add Product</h2>
-<p>Add product names, stock, prices, sold count, shipping notes and storefront details.</p>
-<span class="badge">Integrated store</span>
-</div>
-
-<div class="info-card">
-<h2>🔴 Start Live Sale</h2>
-<p>Go live, pin products, answer questions and turn livestreams into clean shopping events.</p>
-<span class="badge">Live selling</span>
-</div>
-
-<div class="info-card">
-<h2>📁 Business File</h2>
-<p>Keep seller videos, products, live clips and customer favourites organised in one creator hub.</p>
-<span class="badge">Clean creator hub</span>
-</div>
-
-<div class="info-card">
-<h2>🚀 Push Best Sale</h2>
-<p>Boost top-performing products into the Vella feed and help sellers get discovered faster.</p>
-<span class="badge">Reach booster</span>
-</div>
-
+<div class="info-card"><h2>🎥 Upload Video</h2><p>Post videos and attach products directly inside the content so users can tap and shop instantly.</p><span class="badge">Video commerce</span></div>
+<div class="info-card"><h2>🛍️ Add Product</h2><p>Add product names, stock, prices, sold count, shipping notes and storefront details.</p><span class="badge">Integrated store</span></div>
+<div class="info-card"><h2>🔴 Start Live Sale</h2><p>Go live, pin products, answer questions and turn livestreams into clean shopping events.</p><span class="badge">Live selling</span></div>
+<div class="info-card"><h2>📁 Business File</h2><p>Keep seller videos, products, live clips and customer favourites organised in one creator hub.</p><span class="badge">Clean creator hub</span></div>
+<div class="info-card"><h2>🚀 Push Best Sale</h2><p>Boost top-performing products into the Vella feed and help sellers get discovered faster.</p><span class="badge">Reach booster</span></div>
 </div>
 </div>
 
@@ -456,21 +389,9 @@ cursor:pointer;
 <p class="subtitle">Support Points help creators climb rankings, unlock rewards and qualify for Vella awards.</p>
 
 <div class="grid-list">
-
-<div class="info-card rank-row">
-<div><h2>Glow Beauty Bar</h2><p>Beauty · Live Seller</p></div>
-<div><div class="rank-num">#1</div><div class="points">98.4K pts</div></div>
-</div>
-
-<div class="info-card rank-row">
-<div><h2>Mia Luxe Wear</h2><p>Fashion · Storefront</p></div>
-<div><div class="rank-num">#2</div><div class="points">86.2K pts</div></div>
-</div>
-
-<div class="info-card rank-row">
-<div><h2>Fit Hour</h2><p>Fitness · Creator</p></div>
-<div><div class="rank-num">#3</div><div class="points">74.9K pts</div></div>
-</div>
+<div class="info-card rank-row"><div><h2>Glow Beauty Bar</h2><p>Beauty · Live Seller</p></div><div><div class="rank-num">#1</div><div class="points">98.4K pts</div></div></div>
+<div class="info-card rank-row"><div><h2>Mia Luxe Wear</h2><p>Fashion · Storefront</p></div><div><div class="rank-num">#2</div><div class="points">86.2K pts</div></div></div>
+<div class="info-card rank-row"><div><h2>Fit Hour</h2><p>Fitness · Creator</p></div><div><div class="rank-num">#3</div><div class="points">74.9K pts</div></div></div>
 
 <div class="info-card">
 <h2>🎁 Support Points</h2>
@@ -484,6 +405,11 @@ cursor:pointer;
 <span class="badge">Support = perks</span>
 </div>
 
+<div class="info-card">
+<h2>🎃 Vella Events</h2>
+<p>Seasonal rankings can power Halloween festivals, creator awards, live shopping battles and category winners.</p>
+<span class="badge">Future events</span>
+</div>
 </div>
 </div>
 
@@ -494,62 +420,21 @@ cursor:pointer;
 <p class="subtitle">Tap products directly from videos and checkout fast without leaving the app.</p>
 
 <div class="grid-list">
-
-<div class="info-card">
-<h2>🛒 Tap Product</h2>
-<p>Users tap a product inside content and go straight to the storefront.</p>
-<span class="badge">Instant shop</span>
-</div>
-
-<div class="info-card">
-<h2>⚡ Fast Checkout</h2>
-<p>Quick buying flow inspired by Amazon-level convenience, but built into social content.</p>
-<span class="badge">Low friction</span>
-</div>
-
-<div class="info-card">
-<h2>💎 Creator Storefront</h2>
-<p>Every seller has a clean store connected to their videos, saved products and live events.</p>
-<span class="badge">Seller hub</span>
-</div>
-
-<div class="info-card">
-<h2>🎟️ Support Discounts</h2>
-<p>Supporters can unlock discounts or perks during lives when creators hit support goals.</p>
-<span class="badge">Reward system</span>
-</div>
-
+<div class="info-card"><h2>🛒 Tap Product</h2><p>Users tap a product inside content and go straight to the storefront.</p><span class="badge">Instant shop</span></div>
+<div class="info-card"><h2>⚡ Fast Checkout</h2><p>Quick buying flow inspired by Amazon-level convenience, but built into social content.</p><span class="badge">Low friction</span></div>
+<div class="info-card"><h2>💎 Creator Storefront</h2><p>Every seller has a clean store connected to their videos, saved products and live events.</p><span class="badge">Seller hub</span></div>
+<div class="info-card"><h2>🎟️ Support Discounts</h2><p>Supporters can unlock discounts or perks during lives when creators hit support goals.</p><span class="badge">Reward system</span></div>
 </div>
 </div>
 
 <!-- NAV -->
 
 <div class="bottom-nav">
-
-<div class="nav-item active" onclick="showScreen('feed',this)">
-<span class="nav-icon">🏠</span>
-Feed
-</div>
-
-<div class="nav-item" onclick="showScreen('vault',this)">
-<span class="nav-icon">⌁</span>
-Vault
-</div>
-
-<div class="plus-btn" onclick="showScreen('create',this)">
-+
-</div>
-
-<div class="nav-item" onclick="showScreen('rank',this)">
-<span class="nav-icon">🏆</span>
-Rank
-</div>
-
-<div class="nav-item" onclick="showScreen('store',this)">
-<span class="nav-icon">◇</span>
-Store
-</div>
-
+<div class="nav-item active" onclick="showScreen('feed',this)"><span class="nav-icon">🏠</span>Feed</div>
+<div class="nav-item" onclick="showScreen('vault',this)"><span class="nav-icon">⌁</span>Vault</div>
+<div class="plus-btn" onclick="showScreen('create',this)">+</div>
+<div class="nav-item" onclick="showScreen('rank',this)"><span class="nav-icon">🏆</span>Rank</div>
+<div class="nav-item" onclick="showScreen('store',this)"><span class="nav-icon">◇</span>Store</div>
 </div>
 
 </div>
