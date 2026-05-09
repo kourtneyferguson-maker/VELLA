@@ -767,14 +767,14 @@ Store
 </div>
 
 <script>
-
 function showScreen(id,el){
 
 document.querySelectorAll('.screen').forEach(screen=>{
 screen.classList.remove('active');
 });
 
-document.getElementById(id).classList.add('active');
+const nextScreen = document.getElementById(id);
+nextScreen.classList.add('active');
 
 document.querySelectorAll('.nav-item').forEach(item=>{
 item.classList.remove('active');
@@ -784,9 +784,16 @@ if(el){
 el.classList.add('active');
 }
 
+nextScreen.scrollTo({
+top:0,
+behavior:'smooth'
+});
+
 }
 
+document.querySelectorAll('.screen').forEach(screen=>{
+screen.style.scrollBehavior='smooth';
+});
 </script>
-
 </body>
 </html>
