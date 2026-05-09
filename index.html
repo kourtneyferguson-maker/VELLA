@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Hello Vella!</title>
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box}
 
 html,body{
 width:100%;
 height:100%;
 background:#07040b;
+color:white;
 font-family:Arial,sans-serif;
 overflow:hidden;
-color:white;
 }
 
 .app{
@@ -27,111 +22,25 @@ width:100%;
 max-width:470px;
 height:100vh;
 margin:auto;
-background:radial-gradient(circle at top,#24142e,#07040b 55%);
+background:radial-gradient(circle at top,#25142f,#07040b 58%);
 position:relative;
 overflow:hidden;
 }
-
-/* SCREENS */
 
 .screen{
 display:none;
 height:100%;
 overflow-y:auto;
-padding-bottom:120px;
+padding-bottom:125px;
+scrollbar-width:none;
+}
+
+.screen::-webkit-scrollbar{
+display:none;
 }
 
 .screen.active{
 display:block;
-}
-
-/* FEED */
-
-.feed-card{
-height:calc(100vh - 98px);
-background:url('https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop') center/cover;
-position:relative;
-}
-
-.feed-title{
-position:absolute;
-top:40px;
-left:24px;
-font-size:34px;
-font-weight:900;
-color:#ffd5ff;
-text-shadow:0 0 18px rgba(255,0,200,.6);
-}
-
-.side-actions{
-position:absolute;
-right:16px;
-top:220px;
-display:flex;
-flex-direction:column;
-gap:18px;
-align-items:center;
-}
-
-.action-group{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:6px;
-}
-
-.action-btn{
-width:64px;
-height:64px;
-border-radius:22px;
-background:rgba(255,255,255,.2);
-backdrop-filter:blur(10px);
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:24px;
-}
-
-.action-text{
-font-size:13px;
-font-weight:bold;
-}
-
-.product-card{
-position:absolute;
-left:18px;
-right:78px;
-bottom:110px;
-background:rgba(12,12,14,.88);
-padding:20px;
-border-radius:28px;
-box-shadow:0 0 30px rgba(0,0,0,.45);
-}
-
-.product-card h2{
-font-size:22px;
-margin-bottom:10px;
-}
-
-.product-card p{
-color:rgba(255,255,255,.8);
-margin-bottom:12px;
-}
-
-.price{
-font-size:32px;
-font-weight:900;
-margin-bottom:18px;
-}
-
-.seller-btn{
-width:100%;
-padding:16px;
-border:none;
-border-radius:18px;
-background:linear-gradient(90deg,#f2d6ff,#a8e7ff);
-font-size:16px;
-font-weight:900;
 }
 
 /* TITLES */
@@ -139,16 +48,128 @@ font-weight:900;
 .title{
 font-size:40px;
 font-weight:900;
-color:#ff57dd;
+color:#ff4fd8;
 padding:28px 24px 10px;
-text-shadow:0 0 20px rgba(255,0,200,.5);
+text-shadow:0 0 20px rgba(255,0,200,.55);
 }
 
 .subtitle{
-padding:0 24px 26px;
-line-height:1.5;
+padding:0 24px 24px;
 font-size:18px;
-color:rgba(255,255,255,.85);
+line-height:1.45;
+color:rgba(255,255,255,.86);
+}
+
+/* FEED */
+
+.feed-scroll{
+height:100%;
+overflow-y:auto;
+scroll-snap-type:y mandatory;
+scrollbar-width:none;
+}
+
+.feed-scroll::-webkit-scrollbar{
+display:none;
+}
+
+.feed-card{
+height:calc(100vh - 98px);
+scroll-snap-align:start;
+position:relative;
+overflow:hidden;
+background-size:cover;
+background-position:center;
+}
+
+.feed-card.one{
+background-image:url("https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop");
+}
+
+.feed-card.two{
+background-image:url("https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop");
+}
+
+.feed-card.three{
+background-image:url("https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop");
+}
+
+.feed-title{
+position:absolute;
+top:42px;
+left:26px;
+font-size:34px;
+font-weight:900;
+color:#ffd0ff;
+text-shadow:0 0 22px rgba(255,0,200,.75);
+}
+
+.side-actions{
+position:absolute;
+right:14px;
+top:235px;
+display:flex;
+flex-direction:column;
+gap:14px;
+align-items:center;
+}
+
+.action-btn{
+width:58px;
+height:58px;
+border-radius:21px;
+background:rgba(255,255,255,.18);
+backdrop-filter:blur(12px);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+}
+
+.action-text{
+font-size:12px;
+font-weight:800;
+text-align:center;
+}
+
+.product-card{
+position:absolute;
+left:20px;
+right:95px;
+bottom:55px;
+background:rgba(10,10,14,.88);
+padding:18px;
+border-radius:28px;
+box-shadow:0 0 30px rgba(0,0,0,.55);
+backdrop-filter:blur(10px);
+}
+
+.product-card h2{
+font-size:21px;
+margin-bottom:8px;
+}
+
+.product-card p{
+opacity:.8;
+margin-bottom:10px;
+}
+
+.price{
+font-size:30px;
+font-weight:900;
+margin-bottom:14px;
+}
+
+.seller-btn{
+width:100%;
+padding:14px;
+border:0;
+border-radius:18px;
+background:linear-gradient(90deg,#eed5ff,#a9e7ff);
+font-weight:900;
+font-size:15px;
+color:#111;
+cursor:pointer;
 }
 
 /* VAULT */
@@ -164,7 +185,7 @@ padding:0 20px 160px;
 background:#171717;
 border-radius:28px;
 padding:22px;
-height:170px;
+height:165px;
 border:1px solid rgba(255,255,255,.08);
 box-shadow:0 0 18px rgba(255,0,180,.08);
 }
@@ -176,12 +197,12 @@ box-shadow:0 0 30px rgba(255,0,180,.45);
 
 .folder-icon{
 font-size:34px;
-margin-bottom:26px;
+margin-bottom:25px;
 }
 
 .folder-card h3{
-font-size:22px;
-margin-bottom:10px;
+font-size:21px;
+margin-bottom:8px;
 }
 
 .folder-card p{
@@ -189,25 +210,62 @@ font-size:14px;
 opacity:.72;
 }
 
-/* OTHER PAGES */
+/* GENERAL CARDS */
+
+.grid-list{
+padding:0 20px 155px;
+display:grid;
+gap:14px;
+}
 
 .info-card{
 background:#171717;
-margin:0 20px 20px;
-padding:24px;
-border-radius:28px;
+border-radius:26px;
+padding:22px;
 border:1px solid rgba(255,255,255,.08);
-box-shadow:0 0 24px rgba(255,0,180,.08);
+box-shadow:0 0 22px rgba(255,0,180,.08);
 }
 
 .info-card h2{
-margin-bottom:12px;
-font-size:24px;
+font-size:22px;
+margin-bottom:8px;
 }
 
 .info-card p{
-line-height:1.5;
-opacity:.8;
+opacity:.78;
+line-height:1.45;
+font-size:15px;
+}
+
+.badge{
+display:inline-block;
+margin-top:12px;
+padding:8px 12px;
+border-radius:999px;
+background:rgba(255,79,216,.16);
+border:1px solid rgba(255,79,216,.35);
+font-size:13px;
+font-weight:800;
+}
+
+/* RANK */
+
+.rank-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+}
+
+.rank-num{
+font-size:28px;
+font-weight:900;
+color:#ff4fd8;
+}
+
+.points{
+font-weight:900;
+color:#aee7ff;
 }
 
 /* NAV */
@@ -218,18 +276,26 @@ bottom:0;
 left:0;
 right:0;
 height:98px;
-background:#050505;
+background:rgba(0,0,0,.94);
 display:grid;
 grid-template-columns:1fr 1fr 90px 1fr 1fr;
 align-items:center;
 z-index:50;
+box-shadow:0 -8px 28px rgba(0,0,0,.7);
 }
 
 .nav-item{
 text-align:center;
 font-size:13px;
-font-weight:bold;
+font-weight:800;
 cursor:pointer;
+color:white;
+opacity:.82;
+}
+
+.nav-item.active{
+opacity:1;
+color:#ffbaf2;
 }
 
 .nav-icon{
@@ -239,21 +305,20 @@ margin-bottom:6px;
 }
 
 .plus-btn{
-width:80px;
-height:80px;
+width:78px;
+height:78px;
 border-radius:50%;
-background:linear-gradient(135deg,#f3d5ff,#aae9ff);
+background:linear-gradient(135deg,#efd3ff,#a9e7ff);
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:44px;
+font-size:42px;
 font-weight:900;
-color:black;
+color:#07040b;
 margin:auto;
-box-shadow:0 0 35px rgba(255,0,200,.45);
+box-shadow:0 0 25px rgba(255,0,200,.22);
 cursor:pointer;
 }
-
 </style>
 </head>
 
@@ -265,37 +330,17 @@ cursor:pointer;
 
 <div id="feed" class="screen active">
 
-<div class="feed-card">
+<div class="feed-scroll">
 
+<div class="feed-card one">
 <div class="feed-title">{ Hello Vella! }</div>
 
 <div class="side-actions">
-
-<div class="action-group">
-<div class="action-btn">♥</div>
-<div class="action-text">2.4K</div>
-</div>
-
-<div class="action-group">
-<div class="action-btn">✦</div>
-<div class="action-text">386</div>
-</div>
-
-<div class="action-group">
-<div class="action-btn">⌁</div>
-<div class="action-text">Vault</div>
-</div>
-
-<div class="action-group">
-<div class="action-btn">➜</div>
-<div class="action-text">Share</div>
-</div>
-
-<div class="action-group">
-<div class="action-btn">◇</div>
-<div class="action-text">Store</div>
-</div>
-
+<div><div class="action-btn">♥</div><div class="action-text">2.4K</div></div>
+<div><div class="action-btn">✦</div><div class="action-text">386</div></div>
+<div><div class="action-btn">⌁</div><div class="action-text">Vault</div></div>
+<div><div class="action-btn">➜</div><div class="action-text">Share</div></div>
+<div><div class="action-btn">◇</div><div class="action-text">Store</div></div>
 </div>
 
 <div class="product-card">
@@ -304,144 +349,203 @@ cursor:pointer;
 <div class="price">$79.99</div>
 <button class="seller-btn">Open Seller Profile ✨</button>
 </div>
-
 </div>
 
+<div class="feed-card two">
+<div class="feed-title">{ Fashion Drop }</div>
+
+<div class="side-actions">
+<div><div class="action-btn">♥</div><div class="action-text">8.1K</div></div>
+<div><div class="action-btn">✦</div><div class="action-text">1.2K</div></div>
+<div><div class="action-btn">⌁</div><div class="action-text">Vault</div></div>
+<div><div class="action-btn">➜</div><div class="action-text">Share</div></div>
+<div><div class="action-btn">◇</div><div class="action-text">Store</div></div>
+</div>
+
+<div class="product-card">
+<h2>Luna Streetwear ✓</h2>
+<p>Limited Jacket · 213 sold today</p>
+<div class="price">$129.00</div>
+<button class="seller-btn">Shop This Look ✨</button>
+</div>
+</div>
+
+<div class="feed-card three">
+<div class="feed-title">{ Glow Up Live }</div>
+
+<div class="side-actions">
+<div><div class="action-btn">♥</div><div class="action-text">5.7K</div></div>
+<div><div class="action-btn">✦</div><div class="action-text">940</div></div>
+<div><div class="action-btn">⌁</div><div class="action-text">Vault</div></div>
+<div><div class="action-btn">➜</div><div class="action-text">Share</div></div>
+<div><div class="action-btn">◇</div><div class="action-text">Store</div></div>
+</div>
+
+<div class="product-card">
+<h2>Glow Beauty Bar ✓</h2>
+<p>Hydration Set · Live deal</p>
+<div class="price">$49.95</div>
+<button class="seller-btn">Open Storefront ✨</button>
+</div>
+</div>
+
+</div>
 </div>
 
 <!-- VAULT -->
 
 <div id="vault" class="screen">
-
 <h1 class="title">Saved Folders</h1>
-
-<p class="subtitle">
-Organise saved videos, products, recipes and ideas into folders that actually make sense.
-</p>
+<p class="subtitle">Organise saved videos, products, recipes and ideas into folders that actually make sense.</p>
 
 <div class="folders-grid">
-
-<div class="folder-card">
-<div class="folder-icon">👗</div>
-<h3>Fashion Finds</h3>
-<p>24 saved videos</p>
+<div class="folder-card"><div class="folder-icon">👗</div><h3>Fashion Finds</h3><p>24 saved videos</p></div>
+<div class="folder-card"><div class="folder-icon">🏋️‍♀️</div><h3>Workout Ideas</h3><p>12 saved videos</p></div>
+<div class="folder-card active"><div class="folder-icon">🍜</div><h3>Recipes</h3><p>18 saved videos</p></div>
+<div class="folder-card"><div class="folder-icon">🛍️</div><h3>Wishlist</h3><p>31 saved products</p></div>
+<div class="folder-card"><div class="folder-icon">💡</div><h3>Business Ideas</h3><p>9 saved ideas</p></div>
+<div class="folder-card"><div class="folder-icon">✨</div><h3>Glow Up</h3><p>15 saved tips</p></div>
+</div>
 </div>
 
-<div class="folder-card">
-<div class="folder-icon">🏋️‍♀️</div>
-<h3>Workout Ideas</h3>
-<p>12 saved videos</p>
-</div>
-
-<div class="folder-card active">
-<div class="folder-icon">🍜</div>
-<h3>Recipes</h3>
-<p>18 saved videos</p>
-</div>
-
-<div class="folder-card">
-<div class="folder-icon">🛍️</div>
-<h3>Wishlist</h3>
-<p>31 saved products</p>
-</div>
-
-<div class="folder-card">
-<div class="folder-icon">💡</div>
-<h3>Business Ideas</h3>
-<p>9 saved ideas</p>
-</div>
-
-<div class="folder-card">
-<div class="folder-icon">✨</div>
-<h3>Glow Up</h3>
-<p>15 saved tips</p>
-</div>
-
-</div>
-
-</div>
-
-<!-- CREATE -->
+<!-- CREATOR -->
 
 <div id="create" class="screen">
-
 <h1 class="title">Creator Studio</h1>
+<p class="subtitle">Upload content, attach products, go live and grow your business profile.</p>
 
-<p class="subtitle">
-Upload content, attach products, go live and build your business profile.
-</p>
+<div class="grid-list">
 
 <div class="info-card">
-<h2>✨ Creator Tools</h2>
-<p>
-Creators will eventually upload products directly inside videos and livestreams.
-</p>
+<h2>🎥 Upload Video</h2>
+<p>Post videos and attach products directly inside the content so users can tap and shop instantly.</p>
+<span class="badge">Video commerce</span>
 </div>
 
+<div class="info-card">
+<h2>🛍️ Add Product</h2>
+<p>Add product names, stock, prices, sold count, shipping notes and storefront details.</p>
+<span class="badge">Integrated store</span>
+</div>
+
+<div class="info-card">
+<h2>🔴 Start Live Sale</h2>
+<p>Go live, pin products, answer questions and turn livestreams into clean shopping events.</p>
+<span class="badge">Live selling</span>
+</div>
+
+<div class="info-card">
+<h2>📁 Business File</h2>
+<p>Keep seller videos, products, live clips and customer favourites organised in one creator hub.</p>
+<span class="badge">Clean creator hub</span>
+</div>
+
+<div class="info-card">
+<h2>🚀 Push Best Sale</h2>
+<p>Boost top-performing products into the Vella feed and help sellers get discovered faster.</p>
+<span class="badge">Reach booster</span>
+</div>
+
+</div>
 </div>
 
 <!-- RANK -->
 
 <div id="rank" class="screen">
-
 <h1 class="title">Vella Rank</h1>
+<p class="subtitle">Support Points help creators climb rankings, unlock rewards and qualify for Vella awards.</p>
 
-<p class="subtitle">
-Support Points help creators climb rankings and unlock rewards.
-</p>
+<div class="grid-list">
 
-<div class="info-card">
-<h2>🏆 Weekly Rankings</h2>
-<p>
-Creators rank through saves, support, sales and engagement.
-</p>
+<div class="info-card rank-row">
+<div><h2>Glow Beauty Bar</h2><p>Beauty · Live Seller</p></div>
+<div><div class="rank-num">#1</div><div class="points">98.4K pts</div></div>
 </div>
 
+<div class="info-card rank-row">
+<div><h2>Mia Luxe Wear</h2><p>Fashion · Storefront</p></div>
+<div><div class="rank-num">#2</div><div class="points">86.2K pts</div></div>
+</div>
+
+<div class="info-card rank-row">
+<div><h2>Fit Hour</h2><p>Fitness · Creator</p></div>
+<div><div class="rank-num">#3</div><div class="points">74.9K pts</div></div>
+</div>
+
+<div class="info-card">
+<h2>🎁 Support Points</h2>
+<p>Creators earn Support Points through gifts, saves, shares, purchases, livestream activity and real engagement.</p>
+<span class="badge">Community growth</span>
+</div>
+
+<div class="info-card">
+<h2>✨ Creator Rewards</h2>
+<p>High support can unlock better reach, award eligibility, discount perks for supporters and lower commission tiers.</p>
+<span class="badge">Support = perks</span>
+</div>
+
+</div>
 </div>
 
 <!-- STORE -->
 
 <div id="store" class="screen">
-
 <h1 class="title">Vella Store</h1>
+<p class="subtitle">Tap products directly from videos and checkout fast without leaving the app.</p>
 
-<p class="subtitle">
-Shop directly from creator content without leaving the app.
-</p>
+<div class="grid-list">
 
 <div class="info-card">
-<h2>🛍️ Smooth Shopping</h2>
-<p>
-See it. Tap it. Buy it. Keep scrolling.
-</p>
+<h2>🛒 Tap Product</h2>
+<p>Users tap a product inside content and go straight to the storefront.</p>
+<span class="badge">Instant shop</span>
 </div>
 
+<div class="info-card">
+<h2>⚡ Fast Checkout</h2>
+<p>Quick buying flow inspired by Amazon-level convenience, but built into social content.</p>
+<span class="badge">Low friction</span>
+</div>
+
+<div class="info-card">
+<h2>💎 Creator Storefront</h2>
+<p>Every seller has a clean store connected to their videos, saved products and live events.</p>
+<span class="badge">Seller hub</span>
+</div>
+
+<div class="info-card">
+<h2>🎟️ Support Discounts</h2>
+<p>Supporters can unlock discounts or perks during lives when creators hit support goals.</p>
+<span class="badge">Reward system</span>
+</div>
+
+</div>
 </div>
 
 <!-- NAV -->
 
 <div class="bottom-nav">
 
-<div class="nav-item" onclick="showScreen('feed')">
+<div class="nav-item active" onclick="showScreen('feed',this)">
 <span class="nav-icon">🏠</span>
 Feed
 </div>
 
-<div class="nav-item" onclick="showScreen('vault')">
+<div class="nav-item" onclick="showScreen('vault',this)">
 <span class="nav-icon">⌁</span>
 Vault
 </div>
 
-<div class="plus-btn" onclick="showScreen('create')">
+<div class="plus-btn" onclick="showScreen('create',this)">
 +
 </div>
 
-<div class="nav-item" onclick="showScreen('rank')">
+<div class="nav-item" onclick="showScreen('rank',this)">
 <span class="nav-icon">🏆</span>
 Rank
 </div>
 
-<div class="nav-item" onclick="showScreen('store')">
+<div class="nav-item" onclick="showScreen('store',this)">
 <span class="nav-icon">◇</span>
 Store
 </div>
@@ -451,17 +555,21 @@ Store
 </div>
 
 <script>
-
-function showScreen(id){
-
+function showScreen(id, el){
 document.querySelectorAll('.screen').forEach(screen=>{
 screen.classList.remove('active');
 });
 
 document.getElementById(id).classList.add('active');
 
-}
+document.querySelectorAll('.nav-item').forEach(item=>{
+item.classList.remove('active');
+});
 
+if(el && el.classList.contains('nav-item')){
+el.classList.add('active');
+}
+}
 </script>
 
 </body>
