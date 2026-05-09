@@ -7,7 +7,47 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+.folders-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+padding:20px;
+}
 
+.folder-card{
+background:#161616;
+border-radius:28px;
+padding:22px;
+height:160px;
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 0 20px rgba(255,0,180,0.08);
+transition:0.3s ease;
+}
+
+.folder-card:hover{
+transform:scale(1.03);
+box-shadow:0 0 28px rgba(255,0,180,0.28);
+}
+
+.folder-card.active{
+border:1px solid #ff2cc3;
+box-shadow:0 0 30px rgba(255,0,180,0.45);
+}
+
+.folder-icon{
+font-size:32px;
+margin-bottom:24px;
+}
+
+.folder-card h3{
+font-size:22px;
+margin-bottom:8px;
+}
+
+.folder-card p{
+opacity:0.7;
+font-size:14px;
+}
 html,body{
 width:100%;height:100%;
 font-family:Arial,sans-serif;
@@ -355,11 +395,45 @@ box-shadow:0 0 28px rgba(230,200,255,.45);
     </div>
 
     <div class="vault-card add-vault" onclick="openCreateVault()">
-      <div style="text-align:center">
-        <div class="add-plus">+</div>
-        <h2>Create New Vault</h2>
-        <p class="small-text">Make your own saved collection</p>
-      </div>
+    <div class="folders-grid">
+
+  <div class="folder-card">
+    <div class="folder-icon">👗</div>
+    <h3>Fashion Finds</h3>
+    <p>24 saved videos</p>
+  </div>
+
+  <div class="folder-card">
+    <div class="folder-icon">🏋️‍♀️</div>
+    <h3>Workout Ideas</h3>
+    <p>12 saved videos</p>
+  </div>
+
+  <div class="folder-card active">
+    <div class="folder-icon">🍜</div>
+    <h3>Recipes</h3>
+    <p>18 saved videos</p>
+  </div>
+
+  <div class="folder-card">
+    <div class="folder-icon">🛍️</div>
+    <h3>Wishlist</h3>
+    <p>31 saved products</p>
+  </div>
+
+  <div class="folder-card">
+    <div class="folder-icon">💡</div>
+    <h3>Business Ideas</h3>
+    <p>9 saved ideas</p>
+  </div>
+
+  <div class="folder-card">
+    <div class="folder-icon">✨</div>
+    <h3>Glow Up</h3>
+    <p>15 saved tips</p>
+  </div>
+
+</div>
     </div>
   </div>
 </div>
