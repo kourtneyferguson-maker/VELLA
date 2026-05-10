@@ -102,16 +102,19 @@ html,body{
 }
 
 .logo{
-  position:absolute;
-  top:28px;
-  left:18px;
-  font-size:28px;
-  font-weight:900;
-  color:#ffd1fb;
-  z-index:3;
-  text-shadow:
-    0 0 14px rgba(255,0,200,.9),
-    0 0 32px rgba(0,220,255,.2);
+position:absolute;
+top:28px;
+left:18px;
+font-size:30px;
+font-weight:900;
+color:#ffd8ff;
+z-index:3;
+text-shadow:
+0 0 10px #ff00c8,
+0 0 20px #ff00c8,
+0 0 40px #ff00c8,
+0 0 70px #8f5bff;
+animation:pulseGlow 3s infinite alternate;
 }
 
 .side-actions{
@@ -156,9 +159,10 @@ html,body{
   background:rgba(12,12,18,.76);
   backdrop-filter:blur(16px);
   border:1px solid rgba(255,255,255,.10);
-  box-shadow:
-    0 0 20px rgba(255,0,200,.14),
-    0 0 38px rgba(0,220,255,.08);
+box-shadow:
+0 0 25px rgba(255,0,200,.35),
+0 0 55px rgba(255,0,200,.18),
+0 0 80px rgba(0,220,255,.12);
   z-index:4;
 }
 
@@ -464,13 +468,121 @@ html,body{
     0 0 46px rgba(0,220,255,.25);
   cursor:pointer;
 }
+
+.feed-scroll{
+scroll-snap-type:y mandatory;
+scroll-behavior:smooth;
+}
+
+.feed-post{
+scroll-snap-align:start;
+}
+
+.nav-item.active .nav-icon{
+filter:drop-shadow(0 0 14px #ff00c8);
+}
+
+.nav-item.active{
+color:#ffd1fb;
+text-shadow:0 0 12px #ff00c8;
+}
+
+.side-btn:active,
+.folder-card:active,
+.main-btn:active,
+.small-btn:active{
+transform:scale(.94);
+box-shadow:
+0 0 25px rgba(255,0,200,.6),
+0 0 55px rgba(0,220,255,.22);
+}
+
+.live-badge{
+position:absolute;
+top:72px;
+left:18px;
+z-index:5;
+padding:7px 12px;
+border-radius:999px;
+background:rgba(255,0,90,.9);
+font-size:12px;
+font-weight:900;
+box-shadow:0 0 20px rgba(255,0,100,.8);
+animation:pulseLive 1.4s infinite alternate;
+}
+
+.save-toast{
+position:absolute;
+left:50%;
+bottom:112px;
+transform:translateX(-50%);
+z-index:80;
+padding:12px 18px;
+border-radius:999px;
+background:rgba(10,10,16,.92);
+border:1px solid rgba(255,255,255,.18);
+box-shadow:
+0 0 25px rgba(255,0,200,.4),
+0 0 45px rgba(0,220,255,.18);
+font-weight:900;
+opacity:0;
+pointer-events:none;
+transition:.25s ease;
+}
+
+.save-toast.show{
+opacity:1;
+bottom:130px;
+}
+
+@keyframes pulseLive{
+from{transform:scale(1);opacity:.85;}
+to{transform:scale(1.06);opacity:1;}
+}
+#splash-screen{
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top,#2a1038,#05030a 70%);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:9999;
+animation:fadeSplash 2.8s forwards;
+}
+
+.splash-logo{
+font-size:42px;
+font-weight:900;
+color:#ffd8ff;
+text-shadow:
+0 0 14px #ff00c8,
+0 0 30px #ff00c8,
+0 0 60px #8f5bff;
+animation:pulseGlow 2s infinite alternate;
+}
+
+@keyframes fadeSplash{
+0%{
+opacity:1;
+}
+70%{
+opacity:1;
+}
+100%{
+opacity:0;
+visibility:hidden;
+}
+}
 </style>
 </head>
 
 <body>
 
 <div class="app">
-
+<div id="splash-screen">
+  <div class="splash-logo">Hello Vella!</div>
+</div>
 <div id="feed" class="screen active">
   <div class="feed-scroll">
 
@@ -664,6 +776,35 @@ function showScreen(id,el){
 document.querySelectorAll('.screen').forEach(screen=>{
   screen.style.scrollBehavior='smooth';
 });
+
+const app = document.querySelector('.app');
+
+const toast = document.createElement('div');
+toast.className = 'save-toast';
+toast.innerText = 'Saved to Vault ✨';
+app.appendChild(toast);
+
+document.querySelectorAll('.side-item').forEach(item=>{
+  const text = item.innerText.toLowerCase();
+
+  if(text.includes('save') || text.includes('saved')){
+    item.addEventListener('click',()=>{
+      toast.classList.add('show');
+
+      setTimeout(()=>{
+        toast.classList.remove('show');
+      },1300);
+    });
+  }
+});
+
+const fashionDrop = document.querySelector('.post-drop');
+if(fashionDrop){
+  const badge = document.createElement('div');
+  badge.className = 'live-badge';
+  badge.innerText = 'LIVE NOW';
+  fashionDrop.appendChild(badge);
+}
 </script>
 
 </body>
