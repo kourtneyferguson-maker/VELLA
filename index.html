@@ -1204,10 +1204,19 @@ function saveNewFolder(){
   `;
 
   foldersGrid.insertBefore(newFolder, createCard);
+const savedFolders =
+  JSON.parse(localStorage.getItem('vellaCustomFolders')) || [];
 
+savedFolders.push(folderName);
+
+localStorage.setItem(
+  'vellaCustomFolders',
+  JSON.stringify(savedFolders)
+);
   input.value = "";
   closeCreateFolder();
 }
+
 
 
 function closeCreateFolder(){
@@ -1216,7 +1225,9 @@ function closeCreateFolder(){
 }
 
 function saveNewFolder(){
+
   const input = document.getElementById('folderInput');
+  
   const folderName = input.value.trim();
 
   if(folderName === ""){
