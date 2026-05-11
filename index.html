@@ -1115,6 +1115,28 @@ function openFolder(folderName){
 function closeFolder(){
   document.getElementById('folderModal')
     .classList.remove('show');
+}function createFolder(){
+  const folderName = prompt("Name your new Vella Vault folder:");
+
+  if(!folderName || folderName.trim() === ""){
+    return;
+  }
+
+  const foldersGrid = document.querySelector('.folders-grid');
+
+  const newFolder = document.createElement('div');
+  newFolder.className = 'folder-card card';
+  newFolder.setAttribute('onclick', "openFolder('" + folderName + "')");
+
+  newFolder.innerHTML = `
+    <div class="shine"></div>
+    <div class="folder-icon">📁</div>
+    <h3>${folderName}</h3>
+    <p>0 saved items</p>
+  `;
+
+  const createCard = document.querySelector('.create-folder');
+  foldersGrid.insertBefore(newFolder, createCard);
 }
 
 </script>
