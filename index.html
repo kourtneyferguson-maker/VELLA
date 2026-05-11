@@ -1073,17 +1073,37 @@ if(fashionDrop){
 }
 
 function openFolder(folderName){
+  const folderContent = {
+    "Fashion Finds": [
+      "👗 Pink dress from Mia Luxe",
+      "✨ Hoodie styling routine",
+      "🛍️ Saved outfit inspo"
+    ],
+    "Dinner Ideas": [
+      "🍝 Creamy pasta bake",
+      "🥔 Potato curry bake",
+      "🧅 Sausage onion dinner"
+    ],
+    "Workout Saves": [
+      "💪 20 min full body burn",
+      "⏰ Shared workout alarm",
+      "✅ Friend check-in coming soon"
+    ],
+    "Wishlist": [
+      "🛍️ Oversized hoodie",
+      "💄 Glow serum restock",
+      "👟 White sneakers"
+    ]
+  };
 
-  document.getElementById('folderModal')
-    .classList.add('show');
+  document.getElementById('folderModal').classList.add('show');
+  document.getElementById('modalTitle').innerText = folderName;
+  document.getElementById('modalText').innerText = "Saved inside " + folderName;
 
-  document.getElementById('modalTitle')
-    .innerText = folderName;
-
-  document.getElementById('modalText')
-    .innerText =
-    "Your saved content inside " + folderName + ".";
-
+  document.querySelector('.modal-items').innerHTML =
+    folderContent[folderName]
+      .map(item => `<div class="modal-item">${item}</div>`)
+      .join('');
 }
 
 function closeFolder(){
