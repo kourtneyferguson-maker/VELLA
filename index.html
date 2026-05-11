@@ -738,6 +738,183 @@ html,body{
   70%{opacity:1;}
   100%{opacity:0;visibility:hidden;}
 }
+
+/* === NOVA SAFE UPDATE: feed categories, glowing tabs, plans, folder actions === */
+.feed-categories{
+  position:absolute;
+  top:76px;
+  left:12px;
+  right:12px;
+  z-index:8;
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:4px 4px 8px;
+  scrollbar-width:none;
+}
+
+.feed-categories::-webkit-scrollbar{
+  display:none;
+}
+
+.feed-chip,
+.rank-tab{
+  flex:0 0 auto;
+  padding:9px 13px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.07);
+  color:rgba(255,255,255,0.76);
+  border:1px solid rgba(255,255,255,0.08);
+  font-size:12px;
+  font-weight:900;
+  white-space:nowrap;
+  box-shadow:0 0 12px rgba(255,0,140,0.05);
+  cursor:pointer;
+}
+
+.feed-chip.active,
+.rank-tab.active,
+.store-tab.active{
+  background:linear-gradient(135deg,#ff4fd8,#7d4dff);
+  color:#fff;
+  border-color:rgba(255,255,255,0.18);
+  box-shadow:
+    0 0 16px rgba(255,0,200,0.38),
+    0 0 28px rgba(120,0,255,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+  text-shadow:0 0 8px rgba(255,255,255,0.36);
+}
+
+.rank-tabs{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:4px 16px 18px;
+  scrollbar-width:none;
+}
+
+.rank-tabs::-webkit-scrollbar{
+  display:none;
+}
+
+.rank-category{
+  display:none;
+}
+
+.rank-category.active{
+  display:block;
+}
+
+.plan-options{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+  margin-top:14px;
+}
+
+.plan-option{
+  padding:14px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.045);
+  border:1px solid rgba(255,255,255,0.07);
+  cursor:pointer;
+}
+
+.plan-option.active{
+  border-color:rgba(255,80,210,0.42);
+  box-shadow:
+    0 0 18px rgba(255,0,200,0.18),
+    0 0 30px rgba(120,0,255,0.12);
+  background:rgba(255,255,255,0.075);
+}
+
+.plan-option h3{
+  font-size:16px;
+  margin-bottom:5px;
+}
+
+.plan-option p{
+  font-size:13px;
+  opacity:.72;
+  line-height:1.35;
+}
+
+.plan-select{
+  width:100%;
+  margin-top:12px;
+  padding:14px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,0.08);
+  background:rgba(255,255,255,0.05);
+  color:white;
+  font-size:15px;
+  outline:none;
+}
+
+.plan-select option{
+  color:#111;
+}
+
+.folder-actions{
+  display:flex;
+  gap:8px;
+  margin-top:14px;
+}
+
+.folder-actions .small-btn{
+  flex:1;
+  text-align:center;
+}
+
+.content-card .mini-action-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:10px;
+}
+
+.content-card .mini-action-row .main-btn{
+  margin-top:0;
+  font-size:12px;
+  padding:11px 8px;
+}
+
+.store-card.hidden{
+  display:none;
+}
+
+.plan-preview-card{
+  padding:18px;
+  margin:0 16px 14px;
+}
+
+.plan-preview-card h2{
+  font-size:21px;
+  margin-bottom:7px;
+  color:#ffb7f4;
+  text-shadow:0 0 10px rgba(255,0,200,.25);
+}
+
+.plan-preview-card p{
+  font-size:14px;
+  opacity:.76;
+  line-height:1.45;
+}
+
+@media(max-width:430px){
+  .logo{
+    top:26px;
+  }
+
+  .side-actions{
+    top:170px;
+  }
+
+  .feed-categories{
+    top:76px;
+  }
+}
+
 </style>
 </head>
 
@@ -750,6 +927,16 @@ html,body{
 
   <div id="feed" class="screen active">
     <div class="feed-scroll">
+
+      <div class="feed-categories">
+        <div class="feed-chip active" onclick="selectFeedCategory(this,'All')">All</div>
+        <div class="feed-chip" onclick="selectFeedCategory(this,'Beauty')">Beauty</div>
+        <div class="feed-chip" onclick="selectFeedCategory(this,'Fitness')">Fitness</div>
+        <div class="feed-chip" onclick="selectFeedCategory(this,'Home')">Home</div>
+        <div class="feed-chip" onclick="selectFeedCategory(this,'Food')">Food</div>
+        <div class="feed-chip" onclick="selectFeedCategory(this,'Art')">Art</div>
+        <div class="feed-chip" onclick="selectFeedCategory(this,'Fashion')">Fashion</div>
+      </div>
 
       <div class="feed-post post-fashion">
         <div class="overlay"></div>
@@ -765,7 +952,7 @@ html,body{
           <h2>Mia Luxe Wear ✓</h2>
           <p>Oversized hoodie styling routine ✨</p>
           <div class="price">$79.99</div>
-          <button class="main-btn">View Outfit</button>
+          <button class="main-btn" onclick="openStorefront('Mia Luxe Wear')">View Outfit</button>
         </div>
       </div>
 
@@ -782,7 +969,7 @@ html,body{
         <div class="content-card">
           <h2>Night Reset Routine 🌙</h2>
           <p>Save this routine into your Glow Up Vault.</p>
-          <button class="main-btn">Save To Vault ✨</button>
+          <button class="main-btn" onclick="quickSave('Glow Routine saved to Vault ✨')">Save To Vault ✨</button>
         </div>
       </div>
 
@@ -798,8 +985,11 @@ html,body{
 
         <div class="content-card">
           <h2>5 Minute Core Workout 🖤</h2>
-          <p>Quick beginner reset. Save it for later.</p>
-          <button class="main-btn">Save Workout</button>
+          <p>Quick beginner reset. Save it, then turn it into a Workout Plan for you, a friend or a group.</p>
+          <div class="mini-action-row">
+            <button class="main-btn" onclick="quickSave('Workout saved to Vault 💪')">Save Workout</button>
+            <button class="main-btn" onclick="openWorkoutPlan()">Set Plan</button>
+          </div>
         </div>
       </div>
 
@@ -818,7 +1008,7 @@ html,body{
           <h2>Luna Streetwear ✓</h2>
           <p>Limited oversized collection now live.</p>
           <div class="price">$129</div>
-          <button class="main-btn">Open Storefront</button>
+          <button class="main-btn" onclick="openStorefront('Luna Streetwear')">Open Storefront</button>
         </div>
       </div>
 
@@ -887,6 +1077,18 @@ html,body{
     <h1 class="title">Vella Inbox</h1>
     <p class="subtitle">Your alerts, shared plans, live drops and friend-linked reminders in one glowing inbox.</p>
 
+    <div class="plan-preview-card card">
+      <h2>💪 Vella Workout Plans</h2>
+      <p>Set a reminder to do a saved workout for yourself, with a friend, or with a whole group. Everyone can check in when it is done.</p>
+      <button class="main-btn" onclick="openWorkoutPlan()">Set Workout Plan</button>
+    </div>
+
+    <div class="plan-preview-card card">
+      <h2>⏰ Reminders for anything</h2>
+      <p>Recipes, shopping drops, skincare nights, live events, birthdays, packing lists or workouts — choose me, friend or group.</p>
+      <button class="main-btn" onclick="openGeneralPlan()">Create Reminder</button>
+    </div>
+
     <div class="inbox-list">
       <div class="inbox-card card">
         <div class="inbox-pill">💪 Friend Workout</div>
@@ -915,45 +1117,77 @@ html,body{
     <h1 class="title">Vella Rankings</h1>
     <p class="subtitle">Top creators and businesses ranked through saves, sales, support points and live engagement.</p>
 
+    <div class="rank-tabs">
+      <div class="rank-tab active" onclick="selectRankCategory(this,'rank-fashion')">Fashion</div>
+      <div class="rank-tab" onclick="selectRankCategory(this,'rank-beauty')">Beauty</div>
+      <div class="rank-tab" onclick="selectRankCategory(this,'rank-fitness')">Fitness</div>
+      <div class="rank-tab" onclick="selectRankCategory(this,'rank-home')">Home</div>
+      <div class="rank-tab" onclick="selectRankCategory(this,'rank-food')">Food</div>
+      <div class="rank-tab" onclick="selectRankCategory(this,'rank-art')">Art</div>
+    </div>
+
     <div class="rank-list">
-      <div class="rank-category">
+      <div id="rank-fashion" class="rank-category active">
         <h2>👗 Fashion</h2>
         <div class="rank-card card"><div><h3>Luna Streetwear</h3><p>92.4K Support Points</p></div><div class="rank-number">#1</div></div>
         <div class="rank-card card"><div><h3>Mia Luxe Wear</h3><p>81.2K Support Points</p></div><div class="rank-number">#2</div></div>
         <div class="rank-card card"><div><h3>AfterGlow Fashion</h3><p>73.8K Support Points</p></div><div class="rank-number">#3</div></div>
       </div>
 
-      <div class="rank-category">
+      <div id="rank-beauty" class="rank-category">
         <h2>💄 Beauty</h2>
         <div class="rank-card card"><div><h3>Glow Beauty Bar</h3><p>98.4K Support Points</p></div><div class="rank-number">#1</div></div>
         <div class="rank-card card"><div><h3>Aura Cosmetics</h3><p>79.7K Support Points</p></div><div class="rank-number">#2</div></div>
+        <div class="rank-card card"><div><h3>Glass Skin Lab</h3><p>71.8K Support Points</p></div><div class="rank-number">#3</div></div>
       </div>
 
-      <div class="rank-category">
+      <div id="rank-fitness" class="rank-category">
         <h2>🏋️ Fitness</h2>
         <div class="rank-card card"><div><h3>Fit Hour</h3><p>74.9K Support Points</p></div><div class="rank-number">#1</div></div>
         <div class="rank-card card"><div><h3>CoreLab Studio</h3><p>66.1K Support Points</p></div><div class="rank-number">#2</div></div>
+        <div class="rank-card card"><div><h3>Pilates Glow</h3><p>61.4K Support Points</p></div><div class="rank-number">#3</div></div>
+      </div>
+
+      <div id="rank-home" class="rank-category">
+        <h2>🏡 Home</h2>
+        <div class="rank-card card"><div><h3>Soft Home Studio</h3><p>84.2K Support Points</p></div><div class="rank-number">#1</div></div>
+        <div class="rank-card card"><div><h3>Candle Cloud</h3><p>70.6K Support Points</p></div><div class="rank-number">#2</div></div>
+        <div class="rank-card card"><div><h3>Cosy Corner Co</h3><p>63.1K Support Points</p></div><div class="rank-number">#3</div></div>
+      </div>
+
+      <div id="rank-food" class="rank-category">
+        <h2>🍝 Food</h2>
+        <div class="rank-card card"><div><h3>Dinner Glow</h3><p>88.7K Support Points</p></div><div class="rank-number">#1</div></div>
+        <div class="rank-card card"><div><h3>Lazy Bake Club</h3><p>72.4K Support Points</p></div><div class="rank-number">#2</div></div>
+        <div class="rank-card card"><div><h3>Recipe Vault</h3><p>60.8K Support Points</p></div><div class="rank-number">#3</div></div>
+      </div>
+
+      <div id="rank-art" class="rank-category">
+        <h2>🎨 Art</h2>
+        <div class="rank-card card"><div><h3>Nova Prints</h3><p>80.2K Support Points</p></div><div class="rank-number">#1</div></div>
+        <div class="rank-card card"><div><h3>Dreamy Digital</h3><p>67.5K Support Points</p></div><div class="rank-number">#2</div></div>
+        <div class="rank-card card"><div><h3>Canvas Club</h3><p>59.9K Support Points</p></div><div class="rank-number">#3</div></div>
       </div>
     </div>
   </div>
 
-  <div id="store" class="screen">
+    <div id="store" class="screen">
     <h1 class="title">Vella Store</h1>
 
     <div class="store-tabs">
-      <div class="store-tab active">All</div>
-      <div class="store-tab">Fashion</div>
-      <div class="store-tab">Beauty</div>
-      <div class="store-tab">Fitness</div>
-      <div class="store-tab">Home</div>
-      <div class="store-tab">Food</div>
-      <div class="store-tab">Art</div>
+      <div class="store-tab active" onclick="selectStoreCategory(this,'all')">All</div>
+      <div class="store-tab" onclick="selectStoreCategory(this,'fashion')">Fashion</div>
+      <div class="store-tab" onclick="selectStoreCategory(this,'beauty')">Beauty</div>
+      <div class="store-tab" onclick="selectStoreCategory(this,'fitness')">Fitness</div>
+      <div class="store-tab" onclick="selectStoreCategory(this,'home')">Home</div>
+      <div class="store-tab" onclick="selectStoreCategory(this,'food')">Food</div>
+      <div class="store-tab" onclick="selectStoreCategory(this,'art')">Art</div>
     </div>
 
     <p class="subtitle">Discover creator storefronts, trending products and live shopping drops.</p>
 
     <div class="store-grid">
-      <div class="store-card card">
+      <div class="store-card card" data-store-category="beauty">
         <div class="store-img" style="background-image:url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1000')"></div>
         <div class="store-info">
           <h2>Glow Beauty Bar</h2>
@@ -962,12 +1196,48 @@ html,body{
         </div>
       </div>
 
-      <div class="store-card card">
+      <div class="store-card card" data-store-category="fashion">
         <div class="store-img" style="background-image:url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000')"></div>
         <div class="store-info">
           <h2>Luna Streetwear</h2>
           <p>Limited oversized collection · Fashion Drop seller</p>
           <div class="store-bottom"><div class="store-price">$129</div><button class="small-btn">Shop</button></div>
+        </div>
+      </div>
+
+      <div class="store-card card" data-store-category="fitness">
+        <div class="store-img" style="background-image:url('https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1000')"></div>
+        <div class="store-info">
+          <h2>CoreLab Studio</h2>
+          <p>Workout bands · Saved from Gym Era routines</p>
+          <div class="store-bottom"><div class="store-price">$39</div><button class="small-btn" onclick="openWorkoutPlan()">Plan</button></div>
+        </div>
+      </div>
+
+      <div class="store-card card" data-store-category="home">
+        <div class="store-img" style="background-image:url('https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?q=80&w=1000')"></div>
+        <div class="store-info">
+          <h2>Soft Home Studio</h2>
+          <p>Candles, cosy home finds and live bundles</p>
+          <div class="store-bottom"><div class="store-price">$34</div><button class="small-btn">Shop</button></div>
+        </div>
+      </div>
+
+      <div class="store-card card" data-store-category="food">
+        <div class="store-img" style="background-image:url('https://images.unsplash.com/photo-1495195134817-aeb325a55b65?q=80&w=1000')"></div>
+        <div class="store-info">
+          <h2>Dinner Glow</h2>
+          <p>Recipe kits, saved dinner ideas and kitchen finds</p>
+          <div class="store-bottom"><div class="store-price">$22</div><button class="small-btn" onclick="openGeneralPlan()">Remind</button></div>
+        </div>
+      </div>
+
+      <div class="store-card card" data-store-category="art">
+        <div class="store-img" style="background-image:url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=1000')"></div>
+        <div class="store-info">
+          <h2>Nova Prints</h2>
+          <p>Creator art drops and digital prints</p>
+          <div class="store-bottom"><div class="store-price">$18</div><button class="small-btn">Shop</button></div>
         </div>
       </div>
     </div>
@@ -985,6 +1255,41 @@ html,body{
         <div class="modal-item">🛍️ Saved product link</div>
         <div class="modal-item">📌 Reminder coming soon</div>
       </div>
+    </div>
+  </div>
+
+
+  <div id="planModal" class="folder-modal">
+    <div class="folder-modal-card">
+      <button class="modal-close" onclick="closePlanModal()">×</button>
+      <div class="modal-sparkle">💪</div>
+      <h2 id="planTitle">Set Workout Plan</h2>
+      <p id="planText">Turn a saved workout into a real plan for you, a friend or a group.</p>
+
+      <div class="plan-options">
+        <div class="plan-option active" onclick="selectPlanType(this,'Just me')">
+          <h3>✨ Just me</h3>
+          <p>Remind me to do this workout later.</p>
+        </div>
+        <div class="plan-option" onclick="selectPlanType(this,'Me + friend')">
+          <h3>👯 Me + friend</h3>
+          <p>Share the reminder and both check in when done.</p>
+        </div>
+        <div class="plan-option" onclick="selectPlanType(this,'Group')">
+          <h3>👥 Group</h3>
+          <p>Create a group workout challenge with completion check-ins.</p>
+        </div>
+      </div>
+
+      <select class="plan-select" id="planTime">
+        <option>Tonight · 7:00 PM</option>
+        <option>Tomorrow morning · 8:00 AM</option>
+        <option>This week</option>
+        <option>Every Monday</option>
+        <option>Custom time later</option>
+      </select>
+
+      <button class="main-btn" onclick="savePlan()">Save Workout Plan</button>
     </div>
   </div>
 
@@ -1123,7 +1428,11 @@ function openFolder(folderName){
   document.getElementById('modalText').innerText = "Saved inside " + folderName;
 
   document.querySelector('.modal-items').innerHTML =
-    items.map(item => `<div class="modal-item">${item}</div>`).join('');
+    items.map(item => `<div class="modal-item">${item}</div>`).join('') +
+    `<div class="folder-actions">
+      <button class="small-btn" onclick="openGeneralPlan()">Remind Me</button>
+      <button class="small-btn" onclick="openWorkoutPlan()">Workout Plan</button>
+    </div>`;
 }
 
 function closeFolder(){
@@ -1193,6 +1502,110 @@ const savedFolders =
 savedFolders.forEach(folder=>{
   addFolderToVault(folder);
 });
+
+let currentPlanType = "Just me";
+
+function selectFeedCategory(el,category){
+  document.querySelectorAll('.feed-chip').forEach(chip=>{
+    chip.classList.remove('active');
+  });
+  el.classList.add('active');
+  quickSave('Showing ' + category + ' on Hello Vella ✨');
+}
+
+function selectRankCategory(el,categoryId){
+  document.querySelectorAll('.rank-tab').forEach(tab=>{
+    tab.classList.remove('active');
+  });
+  el.classList.add('active');
+
+  document.querySelectorAll('.rank-category').forEach(category=>{
+    category.classList.remove('active');
+  });
+
+  const selected = document.getElementById(categoryId);
+  if(selected){
+    selected.classList.add('active');
+  }
+}
+
+function selectStoreCategory(el,category){
+  document.querySelectorAll('.store-tab').forEach(tab=>{
+    tab.classList.remove('active');
+  });
+  el.classList.add('active');
+
+  document.querySelectorAll('.store-card[data-store-category]').forEach(card=>{
+    const match = category === 'all' || card.dataset.storeCategory === category;
+    card.classList.toggle('hidden', !match);
+  });
+}
+
+function quickSave(message){
+  toast.innerText = message || 'Saved to Vault ✨';
+  toast.classList.add('show');
+
+  setTimeout(()=>{
+    toast.classList.remove('show');
+    toast.innerText = 'Saved to Vault ✨';
+  },1400);
+}
+
+function openStorefront(name){
+  document.getElementById('folderModal').classList.add('show');
+  document.getElementById('modalTitle').innerText = name + ' Storefront';
+  document.getElementById('modalText').innerText = 'Future store page: browse products, save items, set reminders and buy from this creator.';
+
+  document.querySelector('#folderModal .modal-items').innerHTML = `
+    <div class="modal-item">🛍️ Trending product</div>
+    <div class="modal-item">🔴 Live selling drop</div>
+    <div class="modal-item">✦ Save seller to Vault</div>
+  `;
+}
+
+function openWorkoutPlan(){
+  currentPlanType = "Just me";
+  document.querySelectorAll('.plan-option').forEach(option=>{
+    option.classList.remove('active');
+  });
+  const firstOption = document.querySelector('.plan-option');
+  if(firstOption){
+    firstOption.classList.add('active');
+  }
+
+  document.getElementById('planTitle').innerText = 'Set Workout Plan';
+  document.getElementById('planText').innerText = 'Turn a saved workout into a real reminder for you, a friend or a group.';
+  document.getElementById('planModal').classList.add('show');
+}
+
+function openGeneralPlan(){
+  currentPlanType = "Just me";
+  document.getElementById('planTitle').innerText = 'Create Vella Reminder';
+  document.getElementById('planText').innerText = 'Set a reminder for anything: recipes, live drops, shopping, self care, events or group plans.';
+  document.getElementById('planModal').classList.add('show');
+}
+
+function closePlanModal(){
+  document.getElementById('planModal').classList.remove('show');
+}
+
+function selectPlanType(el,type){
+  currentPlanType = type;
+
+  document.querySelectorAll('.plan-option').forEach(option=>{
+    option.classList.remove('active');
+  });
+
+  el.classList.add('active');
+}
+
+function savePlan(){
+  const time = document.getElementById('planTime').value;
+  closePlanModal();
+  quickSave('Plan saved: ' + currentPlanType + ' · ' + time + ' ⏰');
+  showScreen('inbox', document.querySelector('[onclick*="inbox"]'));
+}
+
 </script>
 
 </body>
