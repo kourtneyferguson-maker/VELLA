@@ -1208,6 +1208,40 @@ function saveNewFolder(){
   input.value = "";
   closeCreateFolder();
 }
+
+
+function closeCreateFolder(){
+  document.getElementById('createFolderModal')
+    .classList.remove('show');
+}
+
+function saveNewFolder(){
+  const input = document.getElementById('folderInput');
+  const folderName = input.value.trim();
+
+  if(folderName === ""){
+    return;
+  }
+
+  const foldersGrid = document.querySelector('.folders-grid');
+  const createCard = document.querySelector('.create-folder');
+
+  const newFolder = document.createElement('div');
+  newFolder.className = 'folder-card card';
+  newFolder.setAttribute('onclick', "openFolder('" + folderName + "')");
+
+  newFolder.innerHTML = `
+    <div class="shine"></div>
+    <div class="folder-icon">📁</div>
+    <h3>${folderName}</h3>
+    <p>0 saved items</p>
+  `;
+
+  foldersGrid.insertBefore(newFolder, createCard);
+
+  input.value = "";
+  closeCreateFolder();
+}
  
 </script>
 
