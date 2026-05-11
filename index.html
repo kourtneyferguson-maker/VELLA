@@ -794,28 +794,28 @@ box-shadow:
 
   <div class="folders-grid">
 
-    <div class="folder-card card">
+    <div class="folder-card card" onclick="openFolder('Fashion Finds')">
   <div class="shine"></div>
   <div class="folder-icon">👗</div>
   <h3>Fashion Finds</h3>
   <p>24 saved videos</p>
 </div>
 
-<div class="folder-card card">
+<div class="folder-card card" onclick="openFolder('Dinner Ideas')">
   <div class="shine"></div>
   <div class="folder-icon">🍝</div>
   <h3>Dinner Ideas</h3>
   <p>18 saved recipes</p>
 </div>
 
-<div class="folder-card card">
+<div class="folder-card card" onclick="openFolder('Workout Saves')">
   <div class="shine"></div>
   <div class="folder-icon">💪</div>
   <h3>Workout Saves</h3>
   <p>12 saved videos</p>
 </div>
 
-<div class="folder-card card">
+<div class="folder-card card" onclick="openFolder('Wishlist')">
   <div class="shine"></div>
   <div class="folder-icon">🛍️</div>
   <h3>Wishlist</h3>
@@ -984,6 +984,13 @@ if(fashionDrop){
   badge.innerText = 'LIVE NOW';
   fashionDrop.appendChild(badge);
 }
+
+function openFolder(folderName){
+  alert(
+    folderName + "\n\n✨ Saved items coming soon in Vella Vault."
+  );
+}
+
 </script>
 
 </body>
