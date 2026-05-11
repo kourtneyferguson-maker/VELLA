@@ -1169,13 +1169,12 @@ function openFolder(folderName){
 function closeFolder(){
   document.getElementById('folderModal')
     .classList.remove('show');
-}function createFolder(){
-  const folderName = prompt("Name your new Vella Vault folder:");
+}
 
-  if(!folderName || folderName.trim() === ""){
-    return;
-  }
-
+function createFolder(){
+  document.getElementById('createFolderModal')
+    .classList.add('show');
+}
   const savedFolders =
     JSON.parse(localStorage.getItem('vellaCustomFolders')) || [];
 
