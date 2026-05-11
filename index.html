@@ -229,7 +229,80 @@ text-shadow:
 }
 
 /* VAULT */
+.folder-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.72);
+  backdrop-filter:blur(10px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:10000;
+  padding:20px;
+}
 
+.folder-modal.show{
+  display:flex;
+}
+
+.folder-modal-card{
+  width:100%;
+  max-width:340px;
+  background:rgba(10,8,20,0.96);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:30px;
+  padding:28px 22px;
+  position:relative;
+
+  box-shadow:
+    0 0 40px rgba(255,0,180,0.18),
+    0 0 90px rgba(120,0,255,0.12);
+
+  animation:modalPop .25s ease;
+}
+
+@keyframes modalPop{
+  from{
+    transform:scale(.92);
+    opacity:0;
+  }
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+.modal-close{
+  position:absolute;
+  top:14px;
+  right:14px;
+  background:none;
+  border:none;
+  color:white;
+  font-size:28px;
+  cursor:pointer;
+}
+
+.modal-sparkle{
+  font-size:32px;
+  margin-bottom:10px;
+  color:#ff4fd8;
+}
+
+.modal-items{
+  margin-top:18px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.modal-item{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:18px;
+  padding:14px;
+  font-size:14px;
+}
 .folders-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -900,6 +973,20 @@ box-shadow:
     </div>
   </div>
 </div>
+<div id="folderModal" class="folder-modal">
+  <div class="folder-modal-card">
+    <button class="modal-close" onclick="closeFolder()">×</button>
+    <div class="modal-sparkle">✦</div>
+    <h2 id="modalTitle">Vella Vault</h2>
+    <p id="modalText">Your saved items will appear here.</p>
+
+    <div class="modal-items">
+      <div class="modal-item">✨ Latest saved video</div>
+      <div class="modal-item">🛍️ Saved product link</div>
+      <div class="modal-item">📌 Reminder coming soon</div>
+    </div>
+  </div>
+</div>
 
 <div class="bottom-nav">
 
@@ -986,9 +1073,22 @@ if(fashionDrop){
 }
 
 function openFolder(folderName){
-  alert(
-    folderName + "\n\n✨ Saved items coming soon in Vella Vault."
-  );
+
+  document.getElementById('folderModal')
+    .classList.add('show');
+
+  document.getElementById('modalTitle')
+    .innerText = folderName;
+
+  document.getElementById('modalText')
+    .innerText =
+    "Your saved content inside " + folderName + ".";
+
+}
+
+function closeFolder(){
+  document.getElementById('folderModal')
+    .classList.remove('show');
 }
 
 </script>
