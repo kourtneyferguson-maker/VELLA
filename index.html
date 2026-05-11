@@ -1253,7 +1253,26 @@ function saveNewFolder(){
   input.value = "";
   closeCreateFolder();
 }
- 
+ const savedFolders =
+  JSON.parse(localStorage.getItem('vellaCustomFolders')) || [];
+
+savedFolders.forEach(folder => {
+  const foldersGrid = document.querySelector('.folders-grid');
+  const createCard = document.querySelector('.create-folder');
+
+  const newFolder = document.createElement('div');
+  newFolder.className = 'folder-card card';
+  newFolder.setAttribute('onclick', "openFolder('" + folder + "')");
+
+  newFolder.innerHTML = `
+    <div class="shine"></div>
+    <div class="folder-icon">📁</div>
+    <h3>${folder}</h3>
+    <p>0 saved items</p>
+  `;
+
+  foldersGrid.insertBefore(newFolder, createCard);
+});
 </script>
 
 </body>
