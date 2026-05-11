@@ -27,8 +27,8 @@ html,body{
   height:100vh;
   margin:0 auto;
   background:
-  radial-gradient(circle at top, rgba(255,0,140,0.18), transparent 45%),
-  radial-gradient(circle at bottom, rgba(120,0,255,0.15), transparent 40%),
+  radial-gradient(circle at top, rgba(255,0,140,0.16), transparent 45%),
+  radial-gradient(circle at bottom, rgba(120,0,255,0.13), transparent 40%),
   linear-gradient(to bottom, #090611, #05030a 70%);
   position:relative;
   overflow:hidden;
@@ -38,7 +38,7 @@ html,body{
   display:none;
   height:100vh;
   overflow-y:auto;
-  padding-bottom:110px;
+  padding-bottom:120px;
   scrollbar-width:none;
 }
 
@@ -107,16 +107,16 @@ html,body{
   color:#ffd8ff;
   z-index:3;
   text-shadow:
-  0 0 10px rgba(255,255,255,.9),
-  0 0 20px rgba(255,0,200,.8),
-  0 0 40px rgba(255,0,200,.6),
-  0 0 70px rgba(140,80,255,.5);
+  0 0 6px rgba(255,255,255,.55),
+  0 0 16px rgba(255,0,200,.55),
+  0 0 30px rgba(255,0,200,.35),
+  0 0 48px rgba(140,80,255,.25);
   animation:pulseGlow 3s infinite alternate;
 }
 
 @keyframes pulseGlow{
   from{filter:brightness(1);}
-  to{filter:brightness(1.25);}
+  to{filter:brightness(1.14);}
 }
 
 .side-actions{
@@ -146,8 +146,8 @@ html,body{
   background:rgba(255,255,255,.14);
   backdrop-filter:blur(12px);
   box-shadow:
-    0 0 14px rgba(255,255,255,.08),
-    0 0 26px rgba(255,0,200,.18);
+    0 0 12px rgba(255,255,255,.06),
+    0 0 22px rgba(255,0,200,.14);
   margin-bottom:4px;
 }
 
@@ -162,16 +162,16 @@ html,body{
   backdrop-filter:blur(16px);
   border:1px solid rgba(255,255,255,.10);
   box-shadow:
-  0 0 25px rgba(255,0,200,.35),
-  0 0 55px rgba(255,0,200,.18),
-  0 0 80px rgba(0,220,255,.12);
+  0 0 18px rgba(255,0,200,.22),
+  0 0 38px rgba(255,0,200,.10),
+  0 0 58px rgba(0,220,255,.08);
   z-index:4;
 }
 
 .content-card h2{
   text-shadow:
-  0 0 12px rgba(255,255,255,.25),
-  0 0 24px rgba(142,21,115,.208);
+  0 0 10px rgba(255,255,255,.18),
+  0 0 20px rgba(142,21,115,.16);
   font-size:20px;
   margin-bottom:6px;
 }
@@ -198,7 +198,7 @@ html,body{
   font-weight:900;
   background:linear-gradient(90deg,#f4d8ff,#a8ecff);
   color:#071018;
-  box-shadow:0 0 16px rgba(180,220,255,.34);
+  box-shadow:0 0 16px rgba(180,220,255,.26);
   cursor:pointer;
 }
 
@@ -208,8 +208,8 @@ html,body{
   padding:28px 20px 10px;
   color:#ff63df;
   text-shadow:
-    0 0 12px rgba(255,0,200,.75),
-    0 0 34px rgba(255,0,200,.25);
+    0 0 10px rgba(255,0,200,.55),
+    0 0 24px rgba(255,0,200,.18);
 }
 
 .subtitle{
@@ -225,8 +225,8 @@ html,body{
   border-radius:26px;
   backdrop-filter:blur(14px);
   box-shadow:
-    0 0 18px rgba(255,0,200,.12),
-    0 0 36px rgba(0,220,255,.06);
+    0 0 14px rgba(255,0,200,.10),
+    0 0 28px rgba(0,220,255,.05);
 }
 
 .folder-modal{
@@ -254,8 +254,8 @@ html,body{
   padding:28px 22px;
   position:relative;
   box-shadow:
-    0 0 40px rgba(255,0,180,0.18),
-    0 0 90px rgba(120,0,255,0.12);
+    0 0 34px rgba(255,0,180,0.14),
+    0 0 70px rgba(120,0,255,0.10);
   animation:modalPop .25s ease;
 }
 
@@ -273,7 +273,7 @@ html,body{
   box-sizing:border-box;
   box-shadow:
     inset 0 0 12px rgba(255,255,255,0.04),
-    0 0 20px rgba(255,0,200,0.08);
+    0 0 18px rgba(255,0,200,0.07);
 }
 
 .folder-input::placeholder{
@@ -281,10 +281,10 @@ html,body{
 }
 
 .folder-input:focus{
-  border:1px solid rgba(255,0,220,0.45);
+  border:1px solid rgba(255,0,220,0.38);
   box-shadow:
-    0 0 25px rgba(255,0,220,0.22),
-    0 0 45px rgba(140,0,255,0.16);
+    0 0 20px rgba(255,0,220,0.16),
+    0 0 34px rgba(140,0,255,0.12);
 }
 
 @keyframes modalPop{
@@ -340,8 +340,8 @@ html,body{
   border:1px solid rgba(255,255,255,0.05);
   border-radius:28px;
   box-shadow:
-  0 0 24px rgba(255,0,140,0.09),
-  0 0 48px rgba(120,0,255,0.05),
+  0 0 20px rgba(255,0,140,0.07),
+  0 0 38px rgba(120,0,255,0.04),
   inset 0 1px 0 rgba(255,255,255,0.04);
   backdrop-filter:blur(12px);
   transition:all .25s ease;
@@ -351,7 +351,7 @@ html,body{
 .folder-icon{
   font-size:30px;
   margin-bottom:12px;
-  filter:drop-shadow(0 0 12px rgba(255,0,200,.65));
+  filter:drop-shadow(0 0 10px rgba(255,0,200,.48));
 }
 
 .folder-card h3{
@@ -367,10 +367,10 @@ html,body{
 .folder-card:hover,
 .folder-card:active{
   transform:translateY(-4px) scale(1.03);
-  border-color:rgba(255,80,210,0.35);
+  border-color:rgba(255,80,210,0.28);
   box-shadow:
-    0 0 28px rgba(255,0,180,0.22),
-    0 0 60px rgba(120,0,255,0.16),
+    0 0 22px rgba(255,0,180,0.16),
+    0 0 44px rgba(120,0,255,0.11),
     inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
@@ -382,7 +382,7 @@ html,body{
   height:240%;
   background:linear-gradient(to right,transparent,rgba(255,255,255,.10),transparent);
   transform:rotate(25deg);
-  animation:shineMove 6s linear infinite;
+  animation:shineMove 7.5s linear infinite;
 }
 
 @keyframes shineMove{
@@ -392,22 +392,26 @@ html,body{
 
 .creator-grid,
 .rank-list,
-.store-grid{
+.store-grid,
+.inbox-list{
   padding:0 16px 150px;
   display:grid;
   gap:14px;
 }
 
-.creator-card{
+.creator-card,
+.inbox-card{
   padding:19px;
 }
 
-.creator-card h2{
+.creator-card h2,
+.inbox-card h2{
   font-size:22px;
   margin-bottom:8px;
 }
 
-.creator-card p{
+.creator-card p,
+.inbox-card p{
   font-size:14px;
   opacity:.76;
   line-height:1.45;
@@ -426,13 +430,32 @@ html,body{
 .stat-card h3{
   font-size:24px;
   color:#a8ecff;
-  text-shadow:0 0 14px rgba(0,220,255,.35);
+  text-shadow:0 0 12px rgba(0,220,255,.28);
 }
 
 .stat-card p{
   font-size:12px;
   opacity:.75;
   margin-top:4px;
+}
+
+.inbox-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:7px 11px;
+  margin-bottom:10px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.07);
+  font-size:12px;
+  color:#ffd8ff;
+}
+
+.inbox-time{
+  font-size:12px;
+  opacity:.55;
+  margin-top:10px;
 }
 
 .rank-category{
@@ -443,7 +466,7 @@ html,body{
   font-size:24px;
   margin:6px 0 12px;
   color:#ff7ce9;
-  text-shadow:0 0 12px rgba(255,0,200,.55);
+  text-shadow:0 0 10px rgba(255,0,200,.40);
 }
 
 .rank-card{
@@ -456,8 +479,8 @@ html,body{
   border:1px solid rgba(255,255,255,0.05);
   border-radius:26px;
   box-shadow:
-  0 0 22px rgba(255,0,140,0.08),
-  0 0 45px rgba(120,0,255,0.05),
+  0 0 18px rgba(255,0,140,0.07),
+  0 0 34px rgba(120,0,255,0.04),
   inset 0 1px 0 rgba(255,255,255,0.04);
   backdrop-filter:blur(12px);
 }
@@ -476,7 +499,7 @@ html,body{
   font-size:28px;
   font-weight:900;
   color:#ff63df;
-  text-shadow:0 0 14px rgba(255,0,200,.6);
+  text-shadow:0 0 12px rgba(255,0,200,.38);
 }
 
 .store-tabs{
@@ -499,7 +522,7 @@ html,body{
   white-space:nowrap;
   font-size:14px;
   border:1px solid rgba(255,255,255,0.06);
-  box-shadow:0 0 15px rgba(255,0,140,0.06);
+  box-shadow:0 0 12px rgba(255,0,140,0.05);
 }
 
 .store-tab.active{
@@ -513,8 +536,8 @@ html,body{
   border:1px solid rgba(255,255,255,0.05);
   border-radius:28px;
   box-shadow:
-  0 0 25px rgba(255,0,140,0.08),
-  0 0 50px rgba(120,0,255,0.06),
+  0 0 20px rgba(255,0,140,0.07),
+  0 0 38px rgba(120,0,255,0.04),
   inset 0 1px 0 rgba(255,255,255,0.05);
   backdrop-filter:blur(14px);
   transition:all .3s ease;
@@ -568,9 +591,9 @@ html,body{
   left:50%;
   bottom:14px;
   transform:translateX(-50%);
-  width:calc(100% - 28px);
+  width:calc(100% - 22px);
   max-width:410px;
-  height:70px;
+  min-height:72px;
   z-index:9999;
   display:flex;
   justify-content:space-between;
@@ -578,18 +601,19 @@ html,body{
   background:rgba(10,6,18,0.92);
   border:1px solid rgba(255,255,255,0.08);
   border-radius:28px;
+  padding:0 6px;
   box-shadow:
-    0 0 28px rgba(255,0,140,0.14),
-    0 0 55px rgba(120,0,255,0.10),
+    0 0 22px rgba(255,0,140,0.11),
+    0 0 40px rgba(120,0,255,0.08),
     inset 0 1px 0 rgba(255,255,255,0.06);
   backdrop-filter:blur(18px);
 }
 
 .nav-item{
   flex:1;
-  min-width:58px;
+  min-width:46px;
   color:rgba(255,255,255,0.72);
-  font-size:11px;
+  font-size:10px;
   text-align:center;
   cursor:pointer;
   transition:all .25s ease;
@@ -603,46 +627,45 @@ html,body{
 
 .nav-icon{
   display:block;
-  font-size:19px;
-  margin-bottom:4px;
-  filter:drop-shadow(0 0 8px rgba(255,0,200,.5));
+  font-size:18px;
+  margin-bottom:3px;
+  filter:drop-shadow(0 0 7px rgba(255,0,200,.38));
 }
 
 .plus-btn{
-  width:72px;
-  height:72px;
+  width:62px;
+  height:62px;
   border-radius:50%;
-  margin:auto;
+  margin:0 3px;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:40px;
+  font-size:36px;
   font-weight:900;
   background:linear-gradient(135deg,#f4d8ff,#a8ecff);
   color:#071018;
   box-shadow:
-    0 0 24px rgba(255,0,200,.58),
-    0 0 46px rgba(0,220,255,.25);
+    0 0 20px rgba(255,0,200,.42),
+    0 0 34px rgba(0,220,255,.18);
   cursor:pointer;
+  flex:0 0 auto;
 }
 
 .nav-item.active .nav-icon{
-  filter:drop-shadow(0 0 14px #ff00c8);
+  filter:drop-shadow(0 0 11px #ff00c8);
 }
 
 .nav-item.active{
   color:#ffd1fb;
-  text-shadow:0 0 12px #ff00c8;
+  text-shadow:0 0 9px #ff00c8;
 }
 
 .side-btn:active,
 .folder-card:active,
 .main-btn:active,
-.small-btn:active{
-  transform:scale(.94);
-  box-shadow:
-  0 0 25px rgba(255,0,200,.6),
-  0 0 55px rgba(0,220,255,.22);
+.small-btn:active,
+.inbox-card:active{
+  transform:scale(.96);
 }
 
 .live-badge{
@@ -655,7 +678,7 @@ html,body{
   background:rgba(255,0,90,.9);
   font-size:12px;
   font-weight:900;
-  box-shadow:0 0 20px rgba(255,0,100,.8);
+  box-shadow:0 0 16px rgba(255,0,100,.58);
   animation:pulseLive 1.4s infinite alternate;
 }
 
@@ -670,8 +693,8 @@ html,body{
   background:rgba(10,10,16,.92);
   border:1px solid rgba(255,255,255,.18);
   box-shadow:
-  0 0 25px rgba(255,0,200,.4),
-  0 0 45px rgba(0,220,255,.18);
+  0 0 20px rgba(255,0,200,.26),
+  0 0 34px rgba(0,220,255,.12);
   font-weight:900;
   opacity:0;
   pointer-events:none;
@@ -696,7 +719,7 @@ html,body{
   align-items:center;
   justify-content:center;
   z-index:10001;
-  animation:fadeSplash 2.8s forwards;
+  animation:fadeSplash 2.4s forwards;
 }
 
 .splash-logo{
@@ -704,9 +727,9 @@ html,body{
   font-weight:900;
   color:#ffd8ff;
   text-shadow:
-  0 0 14px #ff00c8,
-  0 0 30px #ff00c8,
-  0 0 60px #8f5bff;
+  0 0 10px rgba(255,0,200,.65),
+  0 0 24px rgba(255,0,200,.35),
+  0 0 42px rgba(143,91,255,.25);
   animation:pulseGlow 2s infinite alternate;
 }
 
@@ -714,45 +737,6 @@ html,body{
   0%{opacity:1;}
   70%{opacity:1;}
   100%{opacity:0;visibility:hidden;}
-}
-
-.logo,
-.title,
-.splash-logo,
-.content-card h2,
-.rank-number,
-.rank-category h2,
-.store-price{
-  color:#ffd8ff !important;
-  text-shadow:
-  0 0 8px #ffffff,
-  0 0 18px #ff00c8,
-  0 0 36px #ff00c8,
-  0 0 70px #8f5bff !important;
-}
-
-.nav-item.active,
-.nav-item.active .nav-icon{
-  color:#ffd8ff !important;
-  text-shadow:
-  0 0 10px #ff00c8,
-  0 0 25px #ff00c8 !important;
-  filter:drop-shadow(0 0 14px #ff00c8) !important;
-}
-
-.content-card,
-.card{
-  box-shadow:
-  0 0 25px rgba(255,0,200,.35),
-  0 0 55px rgba(255,0,200,.18),
-  0 0 90px rgba(0,220,255,.16) !important;
-}
-
-.side-btn,
-.plus-btn{
-  box-shadow:
-  0 0 22px rgba(255,0,200,.55),
-  0 0 50px rgba(0,220,255,.25) !important;
 }
 </style>
 </head>
@@ -899,6 +883,34 @@ html,body{
     </div>
   </div>
 
+  <div id="inbox" class="screen">
+    <h1 class="title">Vella Inbox</h1>
+    <p class="subtitle">Your alerts, shared plans, live drops and friend-linked reminders in one glowing inbox.</p>
+
+    <div class="inbox-list">
+      <div class="inbox-card card">
+        <div class="inbox-pill">💪 Friend Workout</div>
+        <h2>Rory shared a workout reminder</h2>
+        <p>Core workout planned for tonight. Tap to check in when completed together.</p>
+        <div class="inbox-time">Today · 6:30 PM</div>
+      </div>
+
+      <div class="inbox-card card">
+        <div class="inbox-pill">🔴 Live Drop</div>
+        <h2>Luna Streetwear is live</h2>
+        <p>Your saved seller just started a fashion drop. Open the storefront before items sell out.</p>
+        <div class="inbox-time">12 minutes ago</div>
+      </div>
+
+      <div class="inbox-card card">
+        <div class="inbox-pill">✦ Vault Reminder</div>
+        <h2>Dinner Ideas is ready</h2>
+        <p>Your saved potato curry bake is waiting in Vella Vault for tonight.</p>
+        <div class="inbox-time">Saved reminder</div>
+      </div>
+    </div>
+  </div>
+
   <div id="rank" class="screen">
     <h1 class="title">Vella Rankings</h1>
     <p class="subtitle">Top creators and businesses ranked through saves, sales, support points and live engagement.</p>
@@ -1009,6 +1021,11 @@ html,body{
       +
     </div>
 
+    <div class="nav-item" onclick="showScreen('inbox',this)">
+      <span class="nav-icon">💌</span>
+      Inbox
+    </div>
+
     <div class="nav-item" onclick="showScreen('rank',this)">
       <span class="nav-icon">🏆</span>
       Ranks
@@ -1070,15 +1087,6 @@ document.querySelectorAll('.side-item').forEach(item=>{
     });
   }
 });
-
-const fashionDrop = document.querySelector('.post-drop');
-
-if(fashionDrop && !fashionDrop.querySelector('.live-badge')){
-  const badge = document.createElement('div');
-  badge.className = 'live-badge';
-  badge.innerText = 'LIVE NOW';
-  fashionDrop.appendChild(badge);
-}
 
 function openFolder(folderName){
   const folderContent = {
