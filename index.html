@@ -950,6 +950,65 @@ html,body{
   opacity:.58;
 }
 
+
+/* === NOVA CLEAN VAULT FLOW UPDATE === */
+.saved-item-row{
+  display:grid;
+  grid-template-columns:1fr 44px;
+  align-items:center;
+  gap:10px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:18px;
+  padding:12px;
+  font-size:14px;
+}
+
+.saved-item-title{
+  line-height:1.35;
+}
+
+.saved-item-title small{
+  display:block;
+  margin-top:4px;
+  opacity:.55;
+  font-size:11px;
+}
+
+.saved-plus{
+  width:40px;
+  height:40px;
+  border-radius:15px;
+  border:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  font-weight:900;
+  background:linear-gradient(135deg,#f4d8ff,#a8ecff);
+  color:#071018;
+  box-shadow:0 0 18px rgba(255,0,200,.20),0 0 24px rgba(0,220,255,.12);
+  cursor:pointer;
+}
+
+.saved-back-btn{
+  width:100%;
+  margin-top:14px;
+  padding:12px;
+  border:none;
+  border-radius:16px;
+  font-size:13px;
+  font-weight:900;
+  background:rgba(255,255,255,0.07);
+  color:#ffd8ff;
+  border:1px solid rgba(255,255,255,0.08);
+  cursor:pointer;
+}
+
+.save-choice.folder-choice h3::before{
+  content:'📁 ';
+}
+
 </style>
 </head>
 
@@ -1489,43 +1548,127 @@ document.querySelectorAll('.side-item').forEach(item=>{
 function openFolder(folderName){
   const folderContent = {
     "Fashion Finds": [
-      "👗 Pink dress from Mia Luxe",
-      "✨ Hoodie styling routine",
-      "🛍️ Saved outfit inspo"
+      { title:"👗 Pink dress from Mia Luxe", type:"fashion", note:"Saved outfit video" },
+      { title:"✨ Hoodie styling routine", type:"fashion", note:"Creator styling save" },
+      { title:"🛍️ Saved outfit inspo", type:"product", note:"Shopping wishlist item" }
     ],
     "Dinner Ideas": [
-      "🍝 Creamy pasta bake",
-      "🥔 Potato curry bake",
-      "🧅 Sausage onion dinner"
+      { title:"🍝 Creamy pasta bake", type:"recipe", note:"Saved recipe video" },
+      { title:"🥔 Potato curry bake", type:"recipe", note:"Cook later idea" },
+      { title:"🧅 Sausage onion dinner", type:"recipe", note:"Dinner plan save" }
     ],
     "Workout Saves": [
-      "💪 20 min full body burn",
-      "⏰ Shared workout alarm",
-      "✅ Friend check-in coming soon"
+      { title:"💪 20 min full body burn", type:"workout", note:"Saved workout video" },
+      { title:"🔥 Beginner core reset", type:"workout", note:"Fitness routine save" },
+      { title:"🖤 Gym motivation routine", type:"workout", note:"Creator challenge idea" }
     ],
     "Wishlist": [
-      "🛍️ Oversized hoodie",
-      "💄 Glow serum restock",
-      "👟 White sneakers"
+      { title:"🛍️ Oversized hoodie", type:"product", note:"Product save" },
+      { title:"💄 Glow serum restock", type:"beauty", note:"Beauty product save" },
+      { title:"👟 White sneakers", type:"product", note:"Try-on/wishlist save" }
     ]
   };
 
   const items = folderContent[folderName] || [
-    "✨ New saved item slot",
-    "📌 Add saved videos here soon",
-    "🛍️ Products will appear here"
+    { title:"✨ New saved item slot", type:"product", note:"Saved content will appear here" },
+    { title:"📌 Add saved videos here soon", type:"product", note:"Vault placeholder" },
+    { title:"🛍️ Products will appear here", type:"product", note:"Store save placeholder" }
   ];
 
   document.getElementById('folderModal').classList.add('show');
   document.getElementById('modalTitle').innerText = folderName;
-  document.getElementById('modalText').innerText = "Saved inside " + folderName;
+  document.getElementById('modalText').innerText = "Saved videos, posts and products inside " + folderName;
 
   document.querySelector('.modal-items').innerHTML =
-    items.map(item => `<div class="modal-item">${item}</div>`).join('') +
-    `<div class="folder-actions">
-      <button class="small-btn" onclick="openGeneralPlan()">Remind Me</button>
-      <button class="small-btn" onclick="openInteractiveSave('product')">Save Options</button>
-    </div>`;
+    items.map(item => `
+      <div class="saved-item-row">
+        <div class="saved-item-title">
+          ${item.title}
+          <small>${item.note}</small>
+        </div>
+        <button class="saved-plus" onclick="openSavedItem('${item.title.replace(/'/g,"\'")}','${item.type}','${folderName.replace(/'/g,"\'")}')">+</button>
+      </div>
+    `).join('');
+}
+
+function openSavedItem(title,type,folderName){
+  const actionSets = {
+    fashion: [
+      ["👯 Ask A Friend", "Shared with friend for opinions 👯"],
+      ["👥 Add To Style Group", "Style group started 👥"],
+      ["✨ Vella Try-On", "tryon"],
+      ["⏰ Remind Me", "plan"],
+      ["🛍️ Shop Products", "store"]
+    ],
+    beauty: [
+      ["👯 Glow With Friend", "Beauty save shared with friend 👯"],
+      ["👥 Glow Up Group", "Glow Up group started 👥"],
+      ["⏰ Routine Reminder", "plan"],
+      ["🛍️ Save Products", "Products saved to Wishlist 🛍️"],
+      ["✦ Keep Private", "Kept private in Vault ✨"]
+    ],
+    workout: [
+      ["👯 Do With Friend", "Workout buddy plan created 👯"],
+      ["👥 Start Group Challenge", "Workout group challenge started 👥"],
+      ["🔒 Creator Program", "Creator program preview saved 🔒"],
+      ["⏰ Set Workout Reminder", "plan"],
+      ["✦ Keep Private", "Kept private in Workout Saves 💪"]
+    ],
+    recipe: [
+      ["👯 Cook With Friend", "Friend cooking plan created 👯"],
+      ["👥 Start Dinner Group", "Dinner group started 👥"],
+      ["🛒 Grocery Reminder", "plan"],
+      ["🔒 Creator Recipe Club", "Recipe club preview saved 🔒"],
+      ["✦ Keep Private", "Kept private in Dinner Ideas 🍝"]
+    ],
+    product: [
+      ["👯 Ask A Friend", "Product sent for friend opinions 👯"],
+      ["👥 Shopping Group", "Shopping group board started 👥"],
+      ["✨ Vella Try-On", "tryon"],
+      ["⏰ Remind Me Later", "plan"],
+      ["🛍️ Shop Product", "store"]
+    ],
+    home: [
+      ["👯 Ask A Friend", "Home idea shared with friend 👯"],
+      ["👥 Home Project Group", "Home project group started 👥"],
+      ["⏰ Project Reminder", "plan"],
+      ["✦ Keep Private", "Kept private in Vault ✨"]
+    ],
+    art: [
+      ["👯 Send To Friend", "Art save sent to friend 👯"],
+      ["👥 Creative Group", "Creative group started 👥"],
+      ["🔒 Creator Vault", "Creator vault preview saved 🔒"],
+      ["⏰ Remind Me", "plan"],
+      ["✦ Keep Private", "Kept private in Vault 🎨"]
+    ]
+  };
+
+  const actions = actionSets[type] || actionSets.product;
+
+  document.getElementById('folderModal').classList.add('show');
+  document.getElementById('modalTitle').innerText = title;
+  document.getElementById('modalText').innerText = "This is saved in " + folderName + ". Choose what happens next.";
+
+  document.querySelector('.modal-items').innerHTML =
+    actions.map(action => {
+      const label = action[0];
+      const result = action[1];
+
+      if(result === "plan"){
+        return `<div class="modal-item" onclick="openGeneralPlan()">${label}</div>`;
+      }
+
+      if(result === "tryon"){
+        return `<div class="modal-item" onclick="openTryOn('Vella Try-On')">${label}</div>`;
+      }
+
+      if(result === "store"){
+        return `<div class="modal-item" onclick="openStorefront('Creator Store')">${label}</div>`;
+      }
+
+      return `<div class="modal-item" onclick="quickSave('${result.replace(/'/g,"\'")}')">${label}</div>`;
+    }).join('') +
+    `<button class="saved-back-btn" onclick="openFolder('${folderName.replace(/'/g,"\'")}')">Back to ${folderName}</button>`;
 }
 
 function closeFolder(){
@@ -1606,10 +1749,23 @@ function selectFeedCategory(el,category){
   });
   el.classList.add('active');
 
+  let firstMatch = null;
+
   document.querySelectorAll('.feed-post[data-feed-category]').forEach(post=>{
     const match = category === 'All' || post.dataset.feedCategory === category;
     post.classList.toggle('feed-hidden', !match);
+
+    if(match && !firstMatch){
+      firstMatch = post;
+    }
   });
+
+  if(firstMatch){
+    firstMatch.scrollIntoView({
+      behavior:'smooth',
+      block:'start'
+    });
+  }
 
   quickSave('Showing ' + category + ' on Hello Vella ✨');
 }
@@ -1817,22 +1973,52 @@ const interactiveSaveData = {
 };
 
 function openInteractiveSave(type){
-  const data = interactiveSaveData[type] || interactiveSaveData.product;
+  const saveLabels = {
+    fashion: ["Fashion Save", "Choose a Vault folder first. Later, open the saved look to ask a friend, start a style group, try it on or shop."],
+    beauty: ["Beauty Save", "Choose a Vault folder first. Later, open the saved routine to set reminders, share with a friend or join a glow-up group."],
+    workout: ["Fitness Save", "Choose a Vault folder first. Later, open the saved workout to do it with a friend, group or creator challenge."],
+    recipe: ["Recipe Save", "Choose a Vault folder first. Later, open the recipe to cook with friends, start a dinner group or set a grocery reminder."],
+    live: ["Live Drop Save", "Choose a Vault folder first. Later, open the saved drop to shop, remind yourself or share with a group."],
+    home: ["Home Save", "Choose a Vault folder first. Later, open the saved idea to plan a project or ask a friend."],
+    art: ["Art Save", "Choose a Vault folder first. Later, open the saved art to share, join a creative group or follow the creator."],
+    product: ["Product Save", "Choose a Vault folder first. Later, open the saved item to try it on, ask a friend or shop."]
+  };
 
-  document.getElementById('saveTypeLabel').innerText = data.label;
-  document.getElementById('saveTitle').innerText = data.title;
-  document.getElementById('saveText').innerText = data.text;
+  const data = saveLabels[type] || saveLabels.product;
+  const folders = [
+    ["Fashion Finds", "👗 Outfits, styling videos and try-on ideas"],
+    ["Dinner Ideas", "🍝 Recipes, grocery reminders and dinner plans"],
+    ["Workout Saves", "💪 Workouts, challenges and fitness saves"],
+    ["Wishlist", "🛍️ Products, storefronts and shopping ideas"]
+  ];
 
-  document.getElementById('saveChoices').innerHTML = data.choices.map(choice=>{
-    return `
-      <div class="save-choice" onclick="selectInteractiveSave('${choice[2].replace(/'/g,"\\'")}','${choice[3] || ""}')">
-        <h3>${choice[0]}</h3>
-        <p>${choice[1]}</p>
-      </div>
-    `;
-  }).join('');
+  document.getElementById('saveTypeLabel').innerText = data[0];
+  document.getElementById('saveTitle').innerText = "Save To Folder";
+  document.getElementById('saveText').innerText = data[1];
+
+  document.getElementById('saveChoices').innerHTML = folders.map(folder=>`
+    <div class="save-choice folder-choice" onclick="saveToFolder('${folder[0]}','${type}')">
+      <h3>${folder[0]}</h3>
+      <p>${folder[1]}</p>
+    </div>
+  `).join('') + `
+    <div class="save-choice folder-choice" onclick="createFolderFromSave()">
+      <h3>Create New Folder</h3>
+      <p>Make a new Vault folder for this save.</p>
+    </div>
+  `;
 
   document.getElementById('saveModal').classList.add('show');
+}
+
+function saveToFolder(folderName,type){
+  closeSaveModal();
+  quickSave('Saved to ' + folderName + ' ✨');
+}
+
+function createFolderFromSave(){
+  closeSaveModal();
+  createFolder();
 }
 
 function closeSaveModal(){
