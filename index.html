@@ -1,3 +1,165 @@
+
+
+
+help!
+
+:O
+
+remember this app can we keep it this way and do the same updates do it corretly ill have a shower and go to bed soon i need to finish this for today
+
+
+Pasted code(2).html
+File
+
+YES. That’s the missing piece.
+
+It’s not:
+
+“Workout Plans.”
+
+It’s:
+
+“Interactive Saves.”
+
+The save adapts to the content type.
+
+That’s WAY smarter.
+
+So now:
+
+✦ Save becomes dynamic
+Example: Workout Video
+Save options:
+
+Just Me
+
+Workout Buddy
+
+Join Fitness Group
+
+Creator Challenge
+
+Example: Recipe Video
+Save options:
+
+Save Recipe
+
+Dinner With Friends
+
+Cooking Group
+
+Grocery Reminder
+
+Creator Recipe Club
+
+Example: Fashion Video
+Save options:
+
+Save Outfit
+
+Shopping Wishlist
+
+Style Group
+
+Try-On Later
+
+Friend Opinions
+
+Example: Skincare Routine
+Save options:
+
+Night Routine Reminder
+
+Glow Up Group
+
+Save Products
+
+Before/After Journey
+
+Example: Travel Video
+Save options:
+
+Trip Planning Board
+
+Travel Group
+
+Save For Later
+
+Countdown Reminder
+
+THAT is the real Vella system.
+
+The save isn’t static.
+It intelligently changes depending on:
+
+the content
+
+the creator
+
+the user intention
+
+And THAT is what makes Vella feel alive and futuristic.
+
+Honestly?
+This is much stronger than a normal social media platform now.
+
+
+ok i will send you our last code update and let you add the next step into it
+
+Perfect. Send the last full code and I’ll add the next step into that exact version.
+
+Next step I’ll add:
+
+✦ Interactive Saves
+
+workout save options
+
+recipe save options
+
+fashion save options
+
+beauty save options
+
+store/product save options
+
+friend/group/reminder choices
+
+keep the phone layout exactly the same
+
+Then I’ll send back one full copy-paste index.html.
+
+
+
+Pasted code(3).html
+File
+
+Got it — I’ve got the last working phone-style code. I’m adding the next step as Interactive Saves, meaning the save popup changes depending on the type of content: fashion, beauty, workout, recipe/food, live drop, store product, etc.
+
+Thought for 4s
+I’m applying it to your uploaded version now and keeping the exact mobile shell. This update is not “Workout Plans only” anymore — it’s the proper Vella idea: every Save becomes a choice based on the post type. 
+
+Done — I updated the full code you sent and kept the same phone-app style. 
+
+
+Use this one:
+
+
+This adds the next step:
+
+Interactive Saves
+
+Save options change by topic: fashion, beauty, workout, recipe, live drop, home, art, product
+
+recipe saves can become cooking with friends / dinner group / grocery reminder
+
+workout saves can become buddy/group/creator program
+
+fashion saves include Vella Try-On
+
+feed category chips now actually filter posts
+
+keeps your locked phone layout.
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -915,6 +1077,17 @@ html,body{
   }
 }
 
+/* === NOVA NEXT STEP: INTERACTIVE SAVES === */
+.save-choice-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:16px;}
+.save-choice{padding:14px;border-radius:20px;background:rgba(255,255,255,0.045);border:1px solid rgba(255,255,255,0.07);cursor:pointer;transition:all .22s ease;}
+.save-choice:active,.save-choice:hover{transform:translateY(-2px);border-color:rgba(255,80,210,0.42);box-shadow:0 0 18px rgba(255,0,200,0.18),0 0 30px rgba(120,0,255,0.12);background:rgba(255,255,255,0.075);}
+.save-choice h3{font-size:16px;margin-bottom:5px;}
+.save-choice p{font-size:13px;line-height:1.35;opacity:.72;}
+.save-mini-label{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;margin-bottom:10px;border-radius:999px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.07);color:#ffd8ff;font-size:12px;font-weight:900;}
+.tryon-btn{margin-top:10px;width:100%;padding:12px;border:none;border-radius:16px;font-size:14px;font-weight:900;background:linear-gradient(90deg,#ffd8ff,#d3f7ff);color:#071018;box-shadow:0 0 16px rgba(255,0,200,.18),0 0 24px rgba(0,220,255,.12);cursor:pointer;}
+.feed-post[data-feed-category]{transition:opacity .25s ease,transform .25s ease;}
+.feed-post.feed-hidden{display:none;}
+
 </style>
 </head>
 
@@ -938,13 +1111,13 @@ html,body{
         <div class="feed-chip" onclick="selectFeedCategory(this,'Fashion')">Fashion</div>
       </div>
 
-      <div class="feed-post post-fashion">
+      <div class="feed-post post-fashion" data-feed-category="Fashion">
         <div class="overlay"></div>
         <div class="logo">{ Hello Vella! }</div>
 
         <div class="side-actions">
           <div class="side-item"><div class="side-btn">♡</div><span>2.4K</span></div>
-          <div class="side-item"><div class="side-btn">✦</div><span>Save</span></div>
+          <div class="side-item" onclick="openInteractiveSave('fashion')"><div class="side-btn">✦</div><span>Save</span></div>
           <div class="side-item"><div class="side-btn">↗</div><span>Share</span></div>
         </div>
 
@@ -956,30 +1129,30 @@ html,body{
         </div>
       </div>
 
-      <div class="feed-post post-glow">
+      <div class="feed-post post-glow" data-feed-category="Beauty">
         <div class="overlay"></div>
         <div class="logo">{ Glow Routine }</div>
 
         <div class="side-actions">
           <div class="side-item"><div class="side-btn">♡</div><span>8.1K</span></div>
-          <div class="side-item"><div class="side-btn">✦</div><span>Saved</span></div>
+          <div class="side-item" onclick="openInteractiveSave('beauty')"><div class="side-btn">✦</div><span>Saved</span></div>
           <div class="side-item"><div class="side-btn">↗</div><span>Share</span></div>
         </div>
 
         <div class="content-card">
           <h2>Night Reset Routine 🌙</h2>
           <p>Save this routine into your Glow Up Vault.</p>
-          <button class="main-btn" onclick="quickSave('Glow Routine saved to Vault ✨')">Save To Vault ✨</button>
+          <button class="main-btn" onclick="openInteractiveSave('beauty')">Save Routine ✨</button>
         </div>
       </div>
 
-      <div class="feed-post post-gym">
+      <div class="feed-post post-gym" data-feed-category="Fitness">
         <div class="overlay"></div>
         <div class="logo">{ Gym Era }</div>
 
         <div class="side-actions">
           <div class="side-item"><div class="side-btn">♡</div><span>5.4K</span></div>
-          <div class="side-item"><div class="side-btn">✦</div><span>Save</span></div>
+          <div class="side-item" onclick="openInteractiveSave('workout')"><div class="side-btn">✦</div><span>Save</span></div>
           <div class="side-item"><div class="side-btn">↗</div><span>Share</span></div>
         </div>
 
@@ -987,20 +1160,20 @@ html,body{
           <h2>5 Minute Core Workout 🖤</h2>
           <p>Quick beginner reset. Save it, then turn it into a Workout Plan for you, a friend or a group.</p>
           <div class="mini-action-row">
-            <button class="main-btn" onclick="quickSave('Workout saved to Vault 💪')">Save Workout</button>
-            <button class="main-btn" onclick="openWorkoutPlan()">Set Plan</button>
+            <button class="main-btn" onclick="openInteractiveSave('workout')">Save Workout</button>
+            <button class="main-btn" onclick="openInteractiveSave('workout')">Do With...</button>
           </div>
         </div>
       </div>
 
-      <div class="feed-post post-drop">
+      <div class="feed-post post-drop" data-feed-category="Fashion">
         <div class="live-badge">LIVE NOW • 12.4K WATCHING</div>
         <div class="overlay"></div>
         <div class="logo">{ Fashion Drop }</div>
 
         <div class="side-actions">
           <div class="side-item"><div class="side-btn">♡</div><span>11K</span></div>
-          <div class="side-item"><div class="side-btn">✦</div><span>Save</span></div>
+          <div class="side-item" onclick="openInteractiveSave('live')"><div class="side-btn">✦</div><span>Save</span></div>
           <div class="side-item"><div class="side-btn">↗</div><span>Share</span></div>
         </div>
 
@@ -1078,14 +1251,14 @@ html,body{
     <p class="subtitle">Your alerts, shared plans, live drops and friend-linked reminders in one glowing inbox.</p>
 
     <div class="plan-preview-card card">
-      <h2>💪 Vella Workout Plans</h2>
-      <p>Set a reminder to do a saved workout for yourself, with a friend, or with a whole group. Everyone can check in when it is done.</p>
-      <button class="main-btn" onclick="openWorkoutPlan()">Set Workout Plan</button>
+      <h2>✦ Interactive Saves</h2>
+      <p>Save any post your way: just for you, with a friend, with a group, as a reminder, or inside a creator community.</p>
+      <button class="main-btn" onclick="openInteractiveSave('recipe')">Try A Recipe Save</button>
     </div>
 
     <div class="plan-preview-card card">
       <h2>⏰ Reminders for anything</h2>
-      <p>Recipes, shopping drops, skincare nights, live events, birthdays, packing lists or workouts — choose me, friend or group.</p>
+      <p>Recipes, shopping drops, skincare nights, live events, birthdays, packing lists, workouts or creator challenges — save it your way.</p>
       <button class="main-btn" onclick="openGeneralPlan()">Create Reminder</button>
     </div>
 
@@ -1192,7 +1365,7 @@ html,body{
         <div class="store-info">
           <h2>Glow Beauty Bar</h2>
           <p>Hydration Skin Set · Trending from Glow Up Live</p>
-          <div class="store-bottom"><div class="store-price">$49.95</div><button class="small-btn">Shop</button></div>
+          <div class="store-bottom"><div class="store-price">$49.95</div><button class="small-btn" onclick="openInteractiveSave('beauty')">Save</button></div>
         </div>
       </div>
 
@@ -1201,7 +1374,8 @@ html,body{
         <div class="store-info">
           <h2>Luna Streetwear</h2>
           <p>Limited oversized collection · Fashion Drop seller</p>
-          <div class="store-bottom"><div class="store-price">$129</div><button class="small-btn">Shop</button></div>
+          <div class="store-bottom"><div class="store-price">$129</div><button class="small-btn" onclick="openStorefront('Luna Streetwear')">Shop</button></div>
+          <button class="tryon-btn" onclick="openTryOn('Luna Streetwear')">✨ Vella Try-On</button>
         </div>
       </div>
 
@@ -1219,7 +1393,7 @@ html,body{
         <div class="store-info">
           <h2>Soft Home Studio</h2>
           <p>Candles, cosy home finds and live bundles</p>
-          <div class="store-bottom"><div class="store-price">$34</div><button class="small-btn">Shop</button></div>
+          <div class="store-bottom"><div class="store-price">$34</div><button class="small-btn" onclick="openInteractiveSave('home')">Save</button></div>
         </div>
       </div>
 
@@ -1237,7 +1411,7 @@ html,body{
         <div class="store-info">
           <h2>Nova Prints</h2>
           <p>Creator art drops and digital prints</p>
-          <div class="store-bottom"><div class="store-price">$18</div><button class="small-btn">Shop</button></div>
+          <div class="store-bottom"><div class="store-price">$18</div><button class="small-btn" onclick="openInteractiveSave('art')">Save</button></div>
         </div>
       </div>
     </div>
@@ -1259,25 +1433,37 @@ html,body{
   </div>
 
 
+
+  <div id="saveModal" class="folder-modal">
+    <div class="folder-modal-card">
+      <button class="modal-close" onclick="closeSaveModal()">×</button>
+      <div class="modal-sparkle">✦</div>
+      <div class="save-mini-label" id="saveTypeLabel">Interactive Save</div>
+      <h2 id="saveTitle">Save To...</h2>
+      <p id="saveText">Choose what this save becomes inside Vella.</p>
+      <div class="save-choice-grid" id="saveChoices"></div>
+    </div>
+  </div>
+
   <div id="planModal" class="folder-modal">
     <div class="folder-modal-card">
       <button class="modal-close" onclick="closePlanModal()">×</button>
-      <div class="modal-sparkle">💪</div>
-      <h2 id="planTitle">Set Workout Plan</h2>
-      <p id="planText">Turn a saved workout into a real plan for you, a friend or a group.</p>
+      <div class="modal-sparkle">⏰</div>
+      <h2 id="planTitle">Create Vella Reminder</h2>
+      <p id="planText">Turn a saved post into a real-life reminder, plan or group activity.</p>
 
       <div class="plan-options">
         <div class="plan-option active" onclick="selectPlanType(this,'Just me')">
           <h3>✨ Just me</h3>
-          <p>Remind me to do this workout later.</p>
+          <p>Remind me to do this later.</p>
         </div>
         <div class="plan-option" onclick="selectPlanType(this,'Me + friend')">
           <h3>👯 Me + friend</h3>
-          <p>Share the reminder and both check in when done.</p>
+          <p>Share this save with a friend and check in together.</p>
         </div>
         <div class="plan-option" onclick="selectPlanType(this,'Group')">
           <h3>👥 Group</h3>
-          <p>Create a group workout challenge with completion check-ins.</p>
+          <p>Create a group plan or challenge with completion check-ins.</p>
         </div>
       </div>
 
@@ -1289,7 +1475,7 @@ html,body{
         <option>Custom time later</option>
       </select>
 
-      <button class="main-btn" onclick="savePlan()">Save Workout Plan</button>
+      <button class="main-btn" onclick="savePlan()">Save Vella Plan</button>
     </div>
   </div>
 
@@ -1510,6 +1696,12 @@ function selectFeedCategory(el,category){
     chip.classList.remove('active');
   });
   el.classList.add('active');
+
+  document.querySelectorAll('.feed-post[data-feed-category]').forEach(post=>{
+    const match = category === 'All' || post.dataset.feedCategory === category;
+    post.classList.toggle('feed-hidden', !match);
+  });
+
   quickSave('Showing ' + category + ' on Hello Vella ✨');
 }
 
@@ -1573,8 +1765,8 @@ function openWorkoutPlan(){
     firstOption.classList.add('active');
   }
 
-  document.getElementById('planTitle').innerText = 'Set Workout Plan';
-  document.getElementById('planText').innerText = 'Turn a saved workout into a real reminder for you, a friend or a group.';
+  document.getElementById('planTitle').innerText = 'Create Vella Plan';
+  document.getElementById('planText').innerText = 'Turn a saved post into a reminder, friend plan or group activity.';
   document.getElementById('planModal').classList.add('show');
 }
 
@@ -1602,11 +1794,165 @@ function selectPlanType(el,type){
 function savePlan(){
   const time = document.getElementById('planTime').value;
   closePlanModal();
-  quickSave('Plan saved: ' + currentPlanType + ' · ' + time + ' ⏰');
+  quickSave('Vella save planned: ' + currentPlanType + ' · ' + time + ' ⏰');
   showScreen('inbox', document.querySelector('[onclick*="inbox"]'));
+}
+
+
+const interactiveSaveData = {
+  fashion: {
+    label: "Fashion Save",
+    title: "Save This Look To...",
+    text: "This save can become a private outfit idea, a wishlist, a friend opinion, a style group or a try-on moment.",
+    choices: [
+      ["✦ Just Me", "Save privately into Fashion Finds.", "Saved look to Fashion Finds ✨"],
+      ["👯 Ask A Friend", "Send to a friend for opinions before buying.", "Friend opinion save created 👯"],
+      ["👥 Style Group", "Save into a group style board.", "Style group save started 👥"],
+      ["✨ Vella Try-On", "Preview the outfit before saving or buying.", "Opening Vella Try-On ✨", "tryon"],
+      ["🛍️ Wishlist", "Save product to shopping wishlist.", "Added to Wishlist 🛍️"]
+    ]
+  },
+  beauty: {
+    label: "Beauty Save",
+    title: "Save This Routine To...",
+    text: "Turn skincare, makeup or hair content into a routine, reminder or glow-up journey.",
+    choices: [
+      ["✦ Just Me", "Save privately into Glow Up Vault.", "Saved to Glow Up Vault ✨"],
+      ["⏰ Routine Reminder", "Remind me to do this later.", "Beauty reminder created ⏰", "plan"],
+      ["👯 Glow With Friend", "Share the routine with a friend.", "Shared glow save created 👯"],
+      ["👥 Glow Up Group", "Join a group doing the same routine.", "Glow group save started 👥"],
+      ["🛍️ Save Products", "Save products from this routine.", "Products saved to Wishlist 🛍️"]
+    ]
+  },
+  workout: {
+    label: "Fitness Save",
+    title: "Save This Workout To...",
+    text: "Make this save private, social, group-based or part of a creator challenge.",
+    choices: [
+      ["✦ Just Me", "Save privately into Workout Saves.", "Workout saved to Vault 💪"],
+      ["👯 Workout Buddy", "Invite a friend to do it together.", "Workout buddy save created 👯"],
+      ["👥 Group Challenge", "Join or create a group doing this workout.", "Group challenge save started 👥"],
+      ["🔒 Creator Program", "Save into a paid fitness group concept.", "Creator program preview saved 🔒"],
+      ["⏰ Remind Me", "Set a time to do it later.", "Workout reminder created ⏰", "plan"]
+    ]
+  },
+  recipe: {
+    label: "Recipe Save",
+    title: "Save This Recipe To...",
+    text: "A recipe save can become dinner tonight, a grocery reminder or a cooking plan with friends.",
+    choices: [
+      ["✦ Just Me", "Save privately into Dinner Ideas.", "Recipe saved to Dinner Ideas 🍝"],
+      ["👯 Cook With Friend", "Plan to make it with one friend.", "Friend cooking plan created 👯"],
+      ["👥 Dinner Group", "Make it a group dinner plan.", "Group dinner save started 👥"],
+      ["🛒 Grocery Reminder", "Remind yourself to buy ingredients.", "Grocery reminder created 🛒", "plan"],
+      ["🔒 Creator Recipe Club", "Save into a paid recipe community concept.", "Recipe club preview saved 🔒"]
+    ]
+  },
+  live: {
+    label: "Live Drop Save",
+    title: "Save This Live Drop To...",
+    text: "Save the live seller, remind yourself, share the drop or join the creator community.",
+    choices: [
+      ["✦ Save Seller", "Save this creator/store to your Vault.", "Seller saved to Vault ✨"],
+      ["⏰ Remind Me", "Get reminded before the next live.", "Live reminder created ⏰", "plan"],
+      ["👯 Share Drop", "Send this drop to a friend.", "Drop shared with friend 👯"],
+      ["👥 Join Drop Group", "Join others watching or shopping the drop.", "Drop group save started 👥"],
+      ["🛍️ Wishlist Item", "Save a product from the live.", "Live item saved 🛍️"]
+    ]
+  },
+  home: {
+    label: "Home Save",
+    title: "Save This Home Find To...",
+    text: "Save decor, candles, room ideas and home projects into useful plans.",
+    choices: [
+      ["✦ Just Me", "Save privately into Home Finds.", "Home find saved 🏡"],
+      ["👯 Share With Friend", "Ask a friend what they think.", "Home save shared 👯"],
+      ["👥 Home Project Group", "Plan a room makeover or project with others.", "Home project save started 👥"],
+      ["⏰ Remind Me", "Remember to come back to this item.", "Home reminder created ⏰", "plan"],
+      ["🛍️ Wishlist", "Save product to wishlist.", "Added to Wishlist 🛍️"]
+    ]
+  },
+  art: {
+    label: "Art Save",
+    title: "Save This Art To...",
+    text: "Save art inspiration, creator drops or projects privately or with a community.",
+    choices: [
+      ["✦ Just Me", "Save privately into Art Finds.", "Art saved 🎨"],
+      ["👯 Send To Friend", "Share the art find with a friend.", "Art shared 👯"],
+      ["👥 Creative Group", "Save into a creative group or project board.", "Creative group save started 👥"],
+      ["⏰ Remind Me", "Come back to this creator later.", "Art reminder created ⏰", "plan"],
+      ["🔒 Creator Vault", "Preview paid creator drop/community.", "Creator vault preview saved 🔒"]
+    ]
+  },
+  product: {
+    label: "Product Save",
+    title: "Save Product To...",
+    text: "Save a product privately, ask a friend, try it on or add it to a wishlist.",
+    choices: [
+      ["✦ Just Me", "Save privately into Wishlist.", "Product saved to Wishlist 🛍️"],
+      ["👯 Ask A Friend", "Send product for opinions.", "Friend opinion save created 👯"],
+      ["✨ Vella Try-On", "Preview before saving or buying.", "Opening Vella Try-On ✨", "tryon"],
+      ["⏰ Remind Me", "Come back when ready to buy.", "Product reminder created ⏰", "plan"],
+      ["👥 Shopping Group", "Save into a group shopping board.", "Shopping group save started 👥"]
+    ]
+  }
+};
+
+function openInteractiveSave(type){
+  const data = interactiveSaveData[type] || interactiveSaveData.product;
+
+  document.getElementById('saveTypeLabel').innerText = data.label;
+  document.getElementById('saveTitle').innerText = data.title;
+  document.getElementById('saveText').innerText = data.text;
+
+  document.getElementById('saveChoices').innerHTML = data.choices.map(choice=>{
+    return `
+      <div class="save-choice" onclick="selectInteractiveSave('${choice[2].replace(/'/g,"\\'")}','${choice[3] || ""}')">
+        <h3>${choice[0]}</h3>
+        <p>${choice[1]}</p>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('saveModal').classList.add('show');
+}
+
+function closeSaveModal(){
+  document.getElementById('saveModal').classList.remove('show');
+}
+
+function selectInteractiveSave(message,action){
+  closeSaveModal();
+
+  if(action === "plan"){
+    openGeneralPlan();
+    return;
+  }
+
+  if(action === "tryon"){
+    openTryOn('Vella Try-On');
+    return;
+  }
+
+  quickSave(message);
+}
+
+function openTryOn(itemName){
+  document.getElementById('folderModal').classList.add('show');
+  document.getElementById('modalTitle').innerText = '✨ Vella Try-On';
+  document.getElementById('modalText').innerText = 'Preview clothes, beauty, hair or accessories on yourself before saving, sharing or buying. User consent and privacy controls would be needed in the real app.';
+
+  document.querySelector('#folderModal .modal-items').innerHTML = `
+    <div class="modal-item">📸 Upload/use your own photo</div>
+    <div class="modal-item">🧍 Preview item on your body/avatar</div>
+    <div class="modal-item">✦ Save look to Vault</div>
+    <div class="modal-item">👯 Send to a friend for opinions</div>
+    <div class="modal-item">🛍️ Buy from creator/store</div>
+  `;
 }
 
 </script>
 
 </body>
-</html>a
+</html>
+
