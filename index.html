@@ -926,6 +926,30 @@ html,body{
 .feed-post[data-feed-category]{transition:opacity .25s ease,transform .25s ease;}
 .feed-post.feed-hidden{display:none;}
 
+
+.post-recipe{
+  background-image:url("https://images.unsplash.com/photo-1495195134817-aeb325a55b65?q=80&w=1000&auto=format&fit=crop");
+}
+.post-home{
+  background-image:url("https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?q=80&w=1000&auto=format&fit=crop");
+}
+.post-art{
+  background-image:url("https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=1000&auto=format&fit=crop");
+}
+.save-choice-grid{
+  max-height:56vh;
+  overflow-y:auto;
+  padding-right:2px;
+  scrollbar-width:none;
+}
+.save-choice-grid::-webkit-scrollbar{display:none;}
+.modal-help-text{
+  margin-top:12px;
+  font-size:12px;
+  line-height:1.35;
+  opacity:.58;
+}
+
 </style>
 </head>
 
@@ -984,6 +1008,51 @@ html,body{
         </div>
       </div>
 
+      <div class="feed-post post-recipe" data-feed-category="Food">
+        <div class="overlay"></div>
+        <div class="logo">{ Dinner Ideas }</div>
+        <div class="side-actions">
+          <div class="side-item"><div class="side-btn">♡</div><span>6.7K</span></div>
+          <div class="side-item" onclick="openInteractiveSave('recipe')"><div class="side-btn">✦</div><span>Save</span></div>
+          <div class="side-item"><div class="side-btn">↗</div><span>Share</span></div>
+        </div>
+        <div class="content-card">
+          <h2>Potato Curry Bake 🍝</h2>
+          <p>Save it privately, cook with a friend, start a dinner group, or set a grocery reminder.</p>
+          <button class="main-btn" onclick="openInteractiveSave('recipe')">Save Recipe</button>
+        </div>
+      </div>
+
+      <div class="feed-post post-home" data-feed-category="Home">
+        <div class="overlay"></div>
+        <div class="logo">{ Home Finds }</div>
+        <div class="side-actions">
+          <div class="side-item"><div class="side-btn">♡</div><span>3.9K</span></div>
+          <div class="side-item" onclick="openInteractiveSave('home')"><div class="side-btn">✦</div><span>Save</span></div>
+          <div class="side-item"><div class="side-btn">↗</div><span>Share</span></div>
+        </div>
+        <div class="content-card">
+          <h2>Cosy Room Reset 🏡</h2>
+          <p>Save decor ideas, plan a home project, or ask a friend what they think.</p>
+          <button class="main-btn" onclick="openInteractiveSave('home')">Save Home Idea</button>
+        </div>
+      </div>
+
+      <div class="feed-post post-art" data-feed-category="Art">
+        <div class="overlay"></div>
+        <div class="logo">{ Art Drop }</div>
+        <div class="side-actions">
+          <div class="side-item"><div class="side-btn">♡</div><span>4.2K</span></div>
+          <div class="side-item" onclick="openInteractiveSave('art')"><div class="side-btn">✦</div><span>Save</span></div>
+          <div class="side-item"><div class="side-btn">↗</div><span>Share</span></div>
+        </div>
+        <div class="content-card">
+          <h2>Nova Prints 🎨</h2>
+          <p>Save art inspiration, join a creative group, or follow a creator drop.</p>
+          <button class="main-btn" onclick="openInteractiveSave('art')">Save Art</button>
+        </div>
+      </div>
+
       <div class="feed-post post-gym" data-feed-category="Fitness">
         <div class="overlay"></div>
         <div class="logo">{ Gym Era }</div>
@@ -996,7 +1065,7 @@ html,body{
 
         <div class="content-card">
           <h2>5 Minute Core Workout 🖤</h2>
-          <p>Quick beginner reset. Save it, then turn it into a Workout Plan for you, a friend or a group.</p>
+          <p>Quick beginner reset. Save it for yourself, do it with a friend, or join a group challenge.</p>
           <div class="mini-action-row">
             <button class="main-btn" onclick="openInteractiveSave('workout')">Save Workout</button>
             <button class="main-btn" onclick="openInteractiveSave('workout')">Do With...</button>
@@ -1455,13 +1524,15 @@ function openFolder(folderName){
     items.map(item => `<div class="modal-item">${item}</div>`).join('') +
     `<div class="folder-actions">
       <button class="small-btn" onclick="openGeneralPlan()">Remind Me</button>
-      <button class="small-btn" onclick="openWorkoutPlan()">Workout Plan</button>
+      <button class="small-btn" onclick="openInteractiveSave('product')">Save Options</button>
     </div>`;
 }
 
 function closeFolder(){
-  document.getElementById('folderModal')
-    .classList.remove('show');
+  const modal = document.getElementById('folderModal');
+  if(modal){
+    modal.classList.remove('show');
+  }
 }
 
 function createFolder(){
@@ -1590,10 +1661,17 @@ function openStorefront(name){
     <div class="modal-item">🛍️ Trending product</div>
     <div class="modal-item">🔴 Live selling drop</div>
     <div class="modal-item">✦ Save seller to Vault</div>
+    <div class="modal-item">✨ Vella Try-On available for fashion/beauty items</div>
+    <div class="folder-actions">
+      <button class="small-btn" onclick="openInteractiveSave('product')">Save Product</button>
+      <button class="small-btn" onclick="openTryOn('Vella Try-On')">Try-On</button>
+    </div>
   `;
 }
 
 function openWorkoutPlan(){
+  closeSaveModal();
+  closeFolder();
   currentPlanType = "Just me";
   document.querySelectorAll('.plan-option').forEach(option=>{
     option.classList.remove('active');
@@ -1609,6 +1687,8 @@ function openWorkoutPlan(){
 }
 
 function openGeneralPlan(){
+  closeSaveModal();
+  closeFolder();
   currentPlanType = "Just me";
   document.getElementById('planTitle').innerText = 'Create Vella Reminder';
   document.getElementById('planText').innerText = 'Set a reminder for anything: recipes, live drops, shopping, self care, events or group plans.';
@@ -1756,7 +1836,10 @@ function openInteractiveSave(type){
 }
 
 function closeSaveModal(){
-  document.getElementById('saveModal').classList.remove('show');
+  const modal = document.getElementById('saveModal');
+  if(modal){
+    modal.classList.remove('show');
+  }
 }
 
 function selectInteractiveSave(message,action){
@@ -1786,6 +1869,7 @@ function openTryOn(itemName){
     <div class="modal-item">✦ Save look to Vault</div>
     <div class="modal-item">👯 Send to a friend for opinions</div>
     <div class="modal-item">🛍️ Buy from creator/store</div>
+    <p class="modal-help-text">Real app note: Vella Try-On would need user consent, privacy controls and a delete-photo option.</p>
   `;
 }
 
@@ -1793,4 +1877,3 @@ function openTryOn(itemName){
 
 </body>
 </html>
-
