@@ -4,358 +4,170 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Hello Vella</title>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}html,body{width:100%;height:100%;background:#05030a;color:white;overflow:hidden}.app{width:100%;max-width:430px;height:100vh;margin:0 auto;background:radial-gradient(circle at top,rgba(255,0,170,.18),transparent 44%),radial-gradient(circle at bottom,rgba(90,0,255,.16),transparent 42%),linear-gradient(to bottom,#090611,#05030a 70%);position:relative;overflow:hidden}.screen{display:none;height:100vh;overflow-y:auto;padding-bottom:118px;scrollbar-width:none}.screen::-webkit-scrollbar{display:none}.screen.active{display:block}.feed-scroll{height:calc(100vh - 90px);overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth;scrollbar-width:none}.feed-scroll::-webkit-scrollbar{display:none}.feed-post{height:calc(100vh - 90px);position:relative;scroll-snap-align:start;background-size:cover;background-position:center;overflow:hidden}.post-fashion{background-image:url("https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1000&auto=format&fit=crop")}.post-beauty{background-image:url("https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1000&auto=format&fit=crop")}.post-food{background-image:url("https://images.unsplash.com/photo-1495195134817-aeb325a55b65?q=80&w=1000&auto=format&fit=crop")}.post-home{background-image:url("https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?q=80&w=1000&auto=format&fit=crop")}.post-art{background-image:url("https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=1000&auto=format&fit=crop")}.post-fitness{background-image:url("https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1000&auto=format&fit=crop")}.post-live{background-image:url("https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop")}.overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,.24) 48%,rgba(0,0,0,.42))}.logo{position:absolute;top:28px;left:18px;z-index:3;font-size:30px;font-weight:900;color:#ffd8ff;text-shadow:0 0 6px rgba(255,255,255,.55),0 0 16px rgba(255,0,200,.55),0 0 30px rgba(255,0,200,.35);animation:pulseGlow 3s infinite alternate}@keyframes pulseGlow{from{filter:brightness(1)}to{filter:brightness(1.15)}}.feed-categories{position:absolute;top:76px;left:12px;right:12px;z-index:8;display:flex;gap:8px;overflow-x:auto;padding:4px 4px 8px;scrollbar-width:none}.feed-categories::-webkit-scrollbar{display:none}.feed-chip,.rank-tab,.store-tab{flex:0 0 auto;padding:9px 13px;border-radius:999px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.08);font-size:12px;font-weight:900;white-space:nowrap;cursor:pointer}.feed-chip.active,.rank-tab.active,.store-tab.active{background:linear-gradient(135deg,#ff4fd8,#7d4dff);color:white;border-color:rgba(255,255,255,.18);box-shadow:0 0 16px rgba(255,0,200,.38),0 0 28px rgba(120,0,255,.22)}.side-actions{position:absolute;right:12px;top:180px;display:flex;flex-direction:column;gap:13px;z-index:4}.side-item{text-align:center;font-size:11px;font-weight:900;cursor:pointer}.side-btn{width:52px;height:52px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:22px;background:rgba(255,255,255,.14);backdrop-filter:blur(12px);box-shadow:0 0 12px rgba(255,255,255,.06),0 0 22px rgba(255,0,200,.14);margin-bottom:4px}.content-card{position:absolute;left:16px;right:78px;bottom:28px;z-index:4;padding:17px;border-radius:26px;background:rgba(12,12,18,.78);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.10);box-shadow:0 0 18px rgba(255,0,200,.22),0 0 38px rgba(255,0,200,.10),0 0 58px rgba(0,220,255,.08)}.content-card h2{font-size:20px;margin-bottom:6px;text-shadow:0 0 10px rgba(255,255,255,.18),0 0 20px rgba(142,21,115,.16)}.content-card p{font-size:14px;opacity:.82;line-height:1.35}.price{margin-top:10px;font-size:27px;font-weight:900}.main-btn{width:100%;margin-top:13px;padding:13px;border:none;border-radius:17px;font-size:15px;font-weight:900;background:linear-gradient(90deg,#f4d8ff,#a8ecff);color:#071018;box-shadow:0 0 16px rgba(180,220,255,.26);cursor:pointer}.title{font-size:37px;font-weight:900;padding:28px 20px 10px;color:#ff63df;text-shadow:0 0 10px rgba(255,0,200,.55),0 0 24px rgba(255,0,200,.18)}.subtitle{padding:0 20px 22px;font-size:16px;line-height:1.45;color:rgba(255,255,255,.82)}.card{background:rgba(18,18,24,.88);border:1px solid rgba(255,255,255,.09);border-radius:26px;backdrop-filter:blur(14px);box-shadow:0 0 14px rgba(255,0,200,.10),0 0 28px rgba(0,220,255,.05)}.folders-grid,.creator-grid,.rank-list,.store-grid,.inbox-list{padding:0 16px 150px;display:grid;gap:14px}.folder-card{height:165px;padding:20px;position:relative;overflow:hidden;border-radius:28px;background:rgba(12,8,20,.86);border:1px solid rgba(255,255,255,.05);box-shadow:0 0 20px rgba(255,0,140,.07),0 0 38px rgba(120,0,255,.04),inset 0 1px 0 rgba(255,255,255,.04);backdrop-filter:blur(12px);cursor:pointer;transition:.25s ease}.folder-card:active{transform:scale(.97)}.folder-icon{font-size:30px;margin-bottom:12px;filter:drop-shadow(0 0 10px rgba(255,0,200,.48))}.folder-card h3{font-size:18px;margin-bottom:6px}.folder-card p{font-size:13px;opacity:.72}.shine{position:absolute;top:-110%;left:-70%;width:70%;height:240%;background:linear-gradient(to right,transparent,rgba(255,255,255,.10),transparent);transform:rotate(25deg);animation:shineMove 7.5s linear infinite}@keyframes shineMove{from{left:-80%}to{left:140%}}.creator-card,.inbox-card{padding:19px}.creator-card h2,.inbox-card h2{font-size:22px;margin-bottom:8px}.creator-card p,.inbox-card p{font-size:14px;opacity:.76;line-height:1.45}.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.stat-card{padding:16px}.stat-card h3{font-size:24px;color:#a8ecff;text-shadow:0 0 12px rgba(0,220,255,.28)}.stat-card p{font-size:12px;opacity:.75;margin-top:4px}.inbox-pill{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;margin-bottom:10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);font-size:12px;color:#ffd8ff}.inbox-time{font-size:12px;opacity:.55;margin-top:10px}.rank-tabs,.store-tabs{display:flex;gap:10px;overflow-x:auto;padding:4px 16px 18px;scrollbar-width:none}.store-tabs{padding-top:16px;padding-bottom:20px}.rank-tabs::-webkit-scrollbar,.store-tabs::-webkit-scrollbar{display:none}.rank-category{display:none}.rank-category.active{display:block}.rank-category h2{font-size:24px;margin:6px 0 12px;color:#ff7ce9;text-shadow:0 0 10px rgba(255,0,200,.40)}.rank-card{padding:18px 20px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.rank-number{font-size:28px;font-weight:900;color:#ff63df;text-shadow:0 0 12px rgba(255,0,200,.38)}.store-card{overflow:hidden}.store-card.hidden{display:none}.store-img{height:165px;background-size:cover;background-position:center}.store-info{padding:16px}.store-info h2{font-size:21px;margin-bottom:6px}.store-info p{font-size:14px;opacity:.75;margin-bottom:12px}.store-bottom{display:flex;justify-content:space-between;align-items:center}.store-price{font-size:24px;font-weight:900;color:#ff63df}.small-btn{padding:10px 14px;border:none;border-radius:999px;background:linear-gradient(90deg,#f4d8ff,#a8ecff);font-weight:900;color:#071018;cursor:pointer}.tryon-btn{margin-top:10px;width:100%;padding:12px;border:none;border-radius:16px;font-size:14px;font-weight:900;background:linear-gradient(90deg,#ffd8ff,#d3f7ff);color:#071018;box-shadow:0 0 16px rgba(255,0,200,.18),0 0 24px rgba(0,220,255,.12);cursor:pointer}.live-badge{position:absolute;top:72px;left:18px;z-index:5;padding:7px 12px;border-radius:999px;background:rgba(255,0,90,.9);font-size:12px;font-weight:900;box-shadow:0 0 16px rgba(255,0,100,.58)}.folder-modal{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:10000;padding:20px}.folder-modal.show{display:flex}.folder-modal-card{width:100%;max-width:345px;max-height:86vh;overflow-y:auto;background:rgba(10,8,20,.96);border:1px solid rgba(255,255,255,.08);border-radius:30px;padding:28px 22px;position:relative;box-shadow:0 0 34px rgba(255,0,180,.14),0 0 70px rgba(120,0,255,.10);animation:modalPop .25s ease;scrollbar-width:none}.folder-modal-card::-webkit-scrollbar{display:none}@keyframes modalPop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}.modal-close{position:absolute;top:14px;right:14px;background:none;border:none;color:white;font-size:28px;cursor:pointer}.modal-sparkle{font-size:32px;margin-bottom:10px;color:#ff4fd8}.modal-items{margin-top:18px;display:flex;flex-direction:column;gap:12px}.modal-item,.save-choice,.saved-item-row,.friend-row{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:14px;font-size:14px;cursor:pointer}.save-choice h3{font-size:16px;margin-bottom:5px}.save-choice p{font-size:13px;line-height:1.35;opacity:.72}.save-mini-label{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;margin-bottom:10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);color:#ffd8ff;font-size:12px;font-weight:900}.saved-item-row{display:grid;grid-template-columns:1fr 44px;align-items:center;gap:10px;padding:12px}.saved-item-title{line-height:1.35}.saved-item-title small{display:block;margin-top:4px;opacity:.55;font-size:11px}.saved-plus{width:40px;height:40px;border-radius:15px;border:none;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;background:linear-gradient(135deg,#f4d8ff,#a8ecff);color:#071018;box-shadow:0 0 18px rgba(255,0,200,.20),0 0 24px rgba(0,220,255,.12);cursor:pointer}.saved-back-btn,.folder-input{width:100%;margin-top:14px;padding:13px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.06);color:white;outline:none}.saved-back-btn{font-size:13px;font-weight:900;color:#ffd8ff;cursor:pointer}.folder-input::placeholder{color:rgba(255,255,255,.45)}.friend-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;cursor:default}.friend-row strong{font-size:14px}.friend-row small{display:block;opacity:.55;margin-top:3px;font-size:11px}.friend-btn{border:none;border-radius:999px;padding:9px 11px;font-weight:900;cursor:pointer;background:linear-gradient(90deg,#f4d8ff,#a8ecff);color:#071018}.friend-btn.block{background:rgba(255,80,120,.18);color:#ffd1dc;border:1px solid rgba(255,80,120,.28)}.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.action-btn{min-height:78px;padding:12px;border-radius:18px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.065);cursor:pointer}.action-btn h3{font-size:14px;margin-bottom:5px}.action-btn p{font-size:11px;opacity:.64;line-height:1.3}.friend-note{margin-top:12px;font-size:12px;line-height:1.35;opacity:.62}.save-toast{position:absolute;left:50%;bottom:112px;transform:translateX(-50%);z-index:80;padding:12px 18px;border-radius:999px;background:rgba(10,10,16,.92);border:1px solid rgba(255,255,255,.18);box-shadow:0 0 20px rgba(255,0,200,.26),0 0 34px rgba(0,220,255,.12);font-weight:900;opacity:0;pointer-events:none;transition:.25s ease}.save-toast.show{opacity:1;bottom:130px}.bottom-nav{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:calc(100% - 22px);max-width:410px;min-height:72px;z-index:9999;display:flex;justify-content:space-between;align-items:center;background:rgba(10,6,18,.92);border:1px solid rgba(255,255,255,.08);border-radius:28px;padding:0 6px;box-shadow:0 0 22px rgba(255,0,140,.11),0 0 40px rgba(120,0,255,.08),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(18px)}.nav-item{flex:1;min-width:44px;color:rgba(255,255,255,.72);font-size:9px;text-align:center;cursor:pointer;transition:.25s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;white-space:nowrap}.nav-icon{display:block;font-size:18px;margin-bottom:3px;filter:drop-shadow(0 0 7px rgba(255,0,200,.38))}.plus-btn{width:60px;height:60px;border-radius:50%;margin:0 3px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;background:linear-gradient(135deg,#f4d8ff,#a8ecff);color:#071018;box-shadow:0 0 20px rgba(255,0,200,.42),0 0 34px rgba(0,220,255,.18);cursor:pointer;flex:0 0 auto}.nav-item.active{color:#ffd1fb;text-shadow:0 0 9px #ff00c8}.nav-item.active .nav-icon{filter:drop-shadow(0 0 11px #ff00c8)}#splash-screen{position:fixed;inset:0;background:radial-gradient(circle at top,#2a1038,#05030a 70%);display:flex;align-items:center;justify-content:center;z-index:10001;animation:fadeSplash 1.6s forwards}.splash-logo{font-size:42px;font-weight:900;color:#ffd8ff;text-shadow:0 0 10px rgba(255,0,200,.65),0 0 24px rgba(255,0,200,.35),0 0 42px rgba(143,91,255,.25)}@keyframes fadeSplash{0%{opacity:1}70%{opacity:1}100%{opacity:0;visibility:hidden}}@media(max-width:430px){.logo{top:26px}.side-actions{top:170px}}
-
-/* === NOVA FINAL WEDNESDAY POLISH PASS === */
-.helper-line{
-  margin-top:10px;
-  font-size:12px;
-  line-height:1.35;
-  opacity:.66;
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif}
+html,body{width:100%;height:100%;background:#020104;color:white;overflow:hidden}
+.app{
+  width:100%;max-width:430px;height:100vh;margin:0 auto;position:relative;overflow:hidden;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(255,255,255,.08),transparent 30%),
+    radial-gradient(circle at 15% 12%,rgba(153,71,255,.22),transparent 28%),
+    radial-gradient(circle at 90% 28%,rgba(255,57,178,.16),transparent 24%),
+    linear-gradient(180deg,#08050d 0%,#030207 100%);
 }
-
-.friend-btn:disabled{
-  opacity:.45;
-  cursor:not-allowed;
+.screen{display:none;height:100vh;overflow-y:auto;padding-bottom:104px;scrollbar-width:none}.screen::-webkit-scrollbar{display:none}.screen.active{display:block}
+.logo{
+  position:absolute;top:24px;left:18px;z-index:8;font-size:25px;font-weight:950;letter-spacing:-1px;
+  color:#fff;text-shadow:0 0 16px rgba(255,255,255,.28),0 0 30px rgba(255,57,178,.22)
 }
-
-.modal-item:active,
-.save-choice:active,
-.action-btn:active,
-.friend-btn:active,
-.saved-plus:active{
-  transform:scale(.97);
+.logo::after{content:"";display:block;width:34px;height:3px;border-radius:999px;margin-top:3px;background:linear-gradient(90deg,#ff4fd8,#a8ecff)}
+.feed-scroll,.saved-video-scroll{height:calc(100vh - 90px);overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth;scrollbar-width:none}.feed-scroll::-webkit-scrollbar,.saved-video-scroll::-webkit-scrollbar{display:none}
+.feed-post,.saved-video{height:calc(100vh - 90px);position:relative;scroll-snap-align:start;background-size:cover;background-position:center}
+.post-fashion{background-image:url("https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000&auto=format&fit=crop")}
+.post-beauty{background-image:url("https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1000&auto=format&fit=crop")}
+.post-food{background-image:url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1000&auto=format&fit=crop")}
+.post-fitness{background-image:url("https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1000&auto=format&fit=crop")}
+.post-travel{background-image:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1000&auto=format&fit=crop")}
+.overlay{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(to top,rgba(2,1,4,.96),rgba(2,1,4,.26) 54%,rgba(2,1,4,.58)),
+    linear-gradient(135deg,rgba(255,79,216,.12),transparent 38%,rgba(168,236,255,.08));
 }
-
-.empty-state{
-  padding:16px;
-  border-radius:20px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.06);
+.tabs{
+  position:absolute;top:72px;left:14px;right:14px;z-index:8;display:flex;gap:8px;overflow-x:auto;
+  padding:2px 0 8px;scrollbar-width:none
+}.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:0 0 auto;padding:8px 13px;border-radius:999px;
+  background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08);
+  color:rgba(255,255,255,.72);font-size:11px;font-weight:900;cursor:pointer;backdrop-filter:blur(12px)
 }
-
-.empty-state h3{
-  font-size:16px;
-  margin-bottom:6px;
+.tab.active{color:#05030a;background:linear-gradient(135deg,#fff,#f4d8ff 48%,#a8ecff);box-shadow:0 0 22px rgba(255,255,255,.16)}
+.side-actions{position:absolute;right:13px;top:230px;z-index:6;display:flex;flex-direction:column;gap:14px}
+.side-item{text-align:center;font-size:10px;font-weight:900;color:rgba(255,255,255,.86);cursor:pointer}
+.side-btn{
+  width:53px;height:53px;border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:22px;
+  background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.06));
+  border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(18px);
+  box-shadow:0 10px 30px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.12);
+  margin-bottom:4px;transition:.2s ease
+}.side-btn:active{transform:scale(.94)}
+.big-plus{
+  position:absolute;right:15px;bottom:180px;z-index:9;width:66px;height:66px;border:none;border-radius:26px;
+  background:linear-gradient(135deg,#fff,#f4d8ff 45%,#a8ecff);color:#06030a;font-size:40px;font-weight:950;
+  box-shadow:0 0 30px rgba(255,255,255,.18),0 18px 40px rgba(0,0,0,.4);cursor:pointer
 }
-
-.empty-state p{
-  font-size:13px;
-  opacity:.72;
-  line-height:1.35;
+.content-card{
+  position:absolute;left:15px;right:78px;bottom:34px;z-index:6;padding:15px;border-radius:28px;
+  background:linear-gradient(180deg,rgba(16,13,22,.76),rgba(8,6,12,.72));
+  border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(22px);
+  box-shadow:0 20px 50px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.08)
 }
-
-
-/* === NOVA NEXT UPDATE: LIVE SAVE SYSTEM + GROUP ROOMS === */
-.creator-meta{
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-  margin-bottom:8px;
+.saved-content-card{right:96px}
+.creator-row{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.avatar{
+  width:32px;height:32px;border-radius:14px;background:linear-gradient(135deg,#fff,#f4d8ff,#a8ecff);
+  display:flex;align-items:center;justify-content:center;color:#07030b;font-weight:950;font-size:13px
 }
-.meta-pill{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  padding:5px 8px;
-  border-radius:999px;
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.08);
-  font-size:11px;
-  font-weight:900;
-  color:#ffd8ff;
-}
-.save-count{
-  margin-top:9px;
-  font-size:12px;
-  opacity:.72;
-}
-.saved-pulse{
-  animation:savedPulse .8s ease;
-}
-@keyframes savedPulse{
-  0%{box-shadow:0 0 0 rgba(255,0,200,0);}
-  40%{box-shadow:0 0 28px rgba(255,0,200,.55),0 0 50px rgba(0,220,255,.22);}
-  100%{box-shadow:0 0 0 rgba(255,0,200,0);}
-}
-.room-card{
-  padding:18px;
-}
-.room-card h2{
-  font-size:21px;
-  margin-bottom:7px;
-  color:#ffb7f4;
-}
-.room-card p{
-  font-size:13px;
-  opacity:.74;
-  line-height:1.38;
-}
-.room-row{
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:10px;
-  align-items:center;
-  margin-top:12px;
-}
-.status-dot{
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:#7dffcf;
-  box-shadow:0 0 10px rgba(125,255,207,.72);
-  display:inline-block;
-}
-.vella-action-note{
-  margin-top:10px;
-  padding:10px;
-  border-radius:16px;
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.06);
-  font-size:12px;
-  opacity:.72;
-  line-height:1.35;
-}
-.quick-action-row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-top:10px;
-}
-.quick-action-row .main-btn{
-  margin-top:0;
-  padding:11px 8px;
-  font-size:12px;
-}
-
-
-/* === NOVA UX FUN + EASY PASS === */
-.fun-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  padding:5px 9px;
-  border-radius:999px;
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.08);
-  font-size:11px;
-  font-weight:900;
-  color:#ffd8ff;
-}
-
-.mini-hint{
-  margin-top:8px;
-  font-size:11px;
-  opacity:.62;
-  line-height:1.35;
-}
-
-.feed-tip{
-  margin:12px 16px 0;
-  padding:12px 14px;
-  border-radius:18px;
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.06);
-  font-size:12px;
-  line-height:1.4;
-  opacity:.82;
-}
-
-.store-card{
-  transition:.22s ease;
-}
-
-.store-card:active,
-.folder-card:active,
-.rank-card:active{
-  transform:scale(.98);
-}
-
-.section-divider{
-  margin:4px 16px 16px;
-  height:1px;
-  background:linear-gradient(to right,transparent,rgba(255,255,255,.08),transparent);
-}
-
-.action-btn{
-  transition:.2s ease;
-}
-
-.action-btn:hover{
-  border-color:rgba(255,255,255,.12);
-}
-
-.quick-start-card{
-  padding:18px;
-}
-
-.quick-start-card h2{
-  font-size:22px;
-  margin-bottom:8px;
-  color:#ffd8ff;
-}
-
-.quick-start-card p{
-  font-size:13px;
-  opacity:.75;
-  line-height:1.45;
-}
-
-.fun-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:14px;
-}
-
-.fun-item{
-  padding:12px;
-  border-radius:18px;
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.06);
-  font-size:12px;
-  line-height:1.35;
-}
-
-.nav-label{
-  font-size:10px;
-  opacity:.75;
-}
-
-
-/* === NOVA PRE-LAUNCH POLISH === */
-.launch-pill{
-  position:fixed;
-  top:12px;
-  right:12px;
-  z-index:99999;
-  padding:7px 11px;
-  border-radius:999px;
-  background:rgba(0,0,0,.55);
-  border:1px solid rgba(255,255,255,.1);
-  font-size:11px;
-  font-weight:900;
-  color:#ffd8ff;
-  backdrop-filter:blur(10px);
-}
-.feed-post{
-  transition:transform .18s ease;
-}
+.creator-name{font-size:13px;font-weight:950}.creator-meta{font-size:11px;color:rgba(255,255,255,.58);margin-top:2px}
+.content-card h2{font-size:19px;letter-spacing:-.35px;margin-bottom:5px}.content-card p{font-size:13px;color:rgba(255,255,255,.78);line-height:1.32}
 .main-btn{
-  transition:transform .18s ease, opacity .18s ease;
+  width:100%;margin-top:12px;padding:12px;border:none;border-radius:18px;font-size:13px;font-weight:950;
+  background:linear-gradient(135deg,#fff,#f4d8ff 52%,#a8ecff);color:#05030a;box-shadow:0 12px 28px rgba(0,0,0,.28);cursor:pointer
 }
-.main-btn:active{
-  transform:scale(.98);
+.title{
+  font-size:34px;font-weight:950;letter-spacing:-1.4px;padding:28px 20px 7px;color:#fff;
+  text-shadow:0 0 24px rgba(255,255,255,.15),0 0 34px rgba(255,79,216,.18)
 }
-
+.subtitle{padding:0 20px 16px;color:rgba(255,255,255,.62);line-height:1.36;font-size:14px}
+.folder-tabs{display:flex;gap:8px;overflow-x:auto;padding:0 16px 14px;scrollbar-width:none}.folder-tabs::-webkit-scrollbar{display:none}
+.folder-tab{
+  padding:9px 13px;border-radius:999px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08);
+  font-size:12px;font-weight:900;white-space:nowrap;cursor:pointer;color:rgba(255,255,255,.72)
+}
+.folder-tab.active{background:linear-gradient(135deg,#fff,#f4d8ff,#a8ecff);color:#05030a}
+.grid{padding:0 16px 145px;display:grid;gap:14px}
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));
+  border:1px solid rgba(255,255,255,.1);border-radius:30px;
+  box-shadow:0 20px 44px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.08);backdrop-filter:blur(18px)
+}
+.simple-card{padding:18px}.simple-card h2{font-size:21px;margin-bottom:7px;letter-spacing:-.4px}.simple-card p{font-size:13px;color:rgba(255,255,255,.68);line-height:1.38}
+.inbox-pill{display:inline-flex;padding:7px 10px;margin-bottom:10px;border-radius:999px;background:rgba(255,255,255,.08);color:#f7ddff;font-size:12px;font-weight:900}
+.modal{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.72);backdrop-filter:blur(14px)}.modal.show{display:flex}
+.modal-card{
+  width:100%;max-width:345px;max-height:86vh;overflow-y:auto;padding:27px 21px;position:relative;border-radius:34px;
+  background:linear-gradient(180deg,rgba(16,12,24,.97),rgba(5,4,10,.98));border:1px solid rgba(255,255,255,.11);
+  box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 44px rgba(255,79,216,.12);scrollbar-width:none
+}.modal-card::-webkit-scrollbar{display:none}
+.close{position:absolute;top:12px;right:13px;border:none;background:none;color:white;font-size:28px;cursor:pointer}.sparkle{font-size:31px;color:#fff;margin-bottom:9px;text-shadow:0 0 16px rgba(255,255,255,.25)}
+.modal-card h2{font-size:23px;margin-bottom:7px;letter-spacing:-.5px}.modal-card p{font-size:13px;color:rgba(255,255,255,.66);line-height:1.35}.modal-list{margin-top:16px;display:grid;gap:10px}
+.choice,.action-box,.friend-row{
+  padding:13px;border-radius:20px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08);cursor:pointer
+}
+.choice h3,.action-box h3{font-size:15px;margin-bottom:4px}.choice p,.action-box p{font-size:12px;color:rgba(255,255,255,.62)}.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.action-box{min-height:80px}
+.input{width:100%;margin-top:13px;padding:13px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:white;outline:none}
+.friend-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px}.friend-row strong{font-size:14px}.friend-row small{display:block;font-size:11px;color:rgba(255,255,255,.56);margin-top:3px}
+.small-btn{padding:10px 13px;border-radius:999px;border:none;font-weight:950;background:linear-gradient(135deg,#fff,#f4d8ff,#a8ecff);color:#071018;cursor:pointer}
+.toast{position:absolute;left:50%;bottom:112px;transform:translateX(-50%);z-index:9999;padding:12px 17px;border-radius:999px;background:rgba(255,255,255,.92);color:#05030a;box-shadow:0 0 22px rgba(255,255,255,.18);font-weight:950;opacity:0;transition:.25s ease;pointer-events:none}.toast.show{opacity:1;bottom:130px}
+.bottom-nav{
+  position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:9998;width:calc(100% - 22px);max-width:410px;min-height:72px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 6px;border-radius:30px;
+  background:rgba(6,4,10,.78);border:1px solid rgba(255,255,255,.10);backdrop-filter:blur(22px);
+  box-shadow:0 22px 60px rgba(0,0,0,.44),inset 0 1px 0 rgba(255,255,255,.08)
+}
+.nav-item{flex:1;min-width:44px;text-align:center;font-size:9px;color:rgba(255,255,255,.64);cursor:pointer}.nav-icon{display:block;font-size:18px;margin-bottom:3px}.nav-item.active{color:#fff;text-shadow:0 0 12px rgba(255,255,255,.35)}
+.plus-btn{width:60px;height:60px;border-radius:24px;background:linear-gradient(135deg,#fff,#f4d8ff,#a8ecff);color:#071018;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:950;box-shadow:0 0 26px rgba(255,255,255,.22);cursor:pointer;flex:0 0 auto}
+#splash{position:fixed;inset:0;z-index:10001;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at top,#201129,#020104 70%);animation:fadeSplash 1.1s forwards}.splash-logo{font-size:42px;font-weight:950;color:#fff;letter-spacing:-1.5px;text-shadow:0 0 18px rgba(255,255,255,.28),0 0 34px rgba(255,79,216,.22)}@keyframes fadeSplash{0%{opacity:1}75%{opacity:1}100%{opacity:0;visibility:hidden}}
 </style>
+
 </head>
 <body>
 <div class="app">
-<div id="splash-screen"><div class="splash-logo">Hello Vella!</div></div>
-<div id="feed" class="screen active">
-<div class="feed-tip">
-<strong>✦ How Vella works:</strong><br>
-Save videos into folders first. Later, open them from your Vault to set reminders, invite friends, join groups or shop.
-</div>
-
-<div class="feed-scroll"><div class="feed-categories"><div class="feed-chip active" onclick="selectFeedCategory(this,'All')">All</div><div class="feed-chip" onclick="selectFeedCategory(this,'Beauty')">Beauty</div><div class="feed-chip" onclick="selectFeedCategory(this,'Fitness')">Fitness</div><div class="feed-chip" onclick="selectFeedCategory(this,'Home')">Home</div><div class="feed-chip" onclick="selectFeedCategory(this,'Food')">Food</div><div class="feed-chip" onclick="selectFeedCategory(this,'Art')">Art</div><div class="feed-chip" onclick="selectFeedCategory(this,'Fashion')">Fashion</div></div>
-<div class="feed-post post-fashion" data-feed-category="Fashion"><div class="overlay"></div><div class="logo">{ Hello Vella! }</div><div class="side-actions"><div class="side-item"><div class="side-btn">♡</div><span>2.4K</span></div><div class="side-item" onclick="openSaveModal('fashion','Mia Luxe Wear — Oversized hoodie styling routine','Fashion video save')"><div class="side-btn">✦</div><span>Save</span></div><div class="side-item" onclick="openFeedShare('fashion','Mia Luxe Wear — Oversized hoodie styling routine')"><div class="side-btn">↗</div><span>Share</span></div></div><div class="content-card"><div class="creator-meta"><span class="meta-pill">👗 Fashion</span><span class="meta-pill">✦ 24.8K saves</span></div><h2>Mia Luxe Wear ✓</h2><p>Oversized hoodie styling routine ✨</p><div class="price">$79.99</div><div class="quick-action-row"><button class="main-btn" onclick="openStorefront('Mia Luxe Wear')">View Outfit</button><button class="main-btn" onclick="openSaveModal('fashion','Mia Luxe Wear — Oversized hoodie styling routine','Fashion video save')">Save</button></div></div></div>
-<div class="feed-post post-beauty" data-feed-category="Beauty"><div class="overlay"></div><div class="logo">{ Glow Routine }</div><div class="side-actions"><div class="side-item"><div class="side-btn">♡</div><span>8.1K</span></div><div class="side-item" onclick="openSaveModal('beauty','Night Reset Routine','Beauty routine save')"><div class="side-btn">✦</div><span>Save</span></div><div class="side-item" onclick="openFeedShare('beauty','Night Reset Routine')"><div class="side-btn">↗</div><span>Share</span></div></div><div class="content-card"><div class="creator-meta"><span class="meta-pill">💄 Beauty</span><span class="meta-pill">✦ 18.1K saves</span></div><h2>Night Reset Routine 🌙</h2><p>Save now. Decide reminders, friends or groups later from your Vault.</p><button class="main-btn" onclick="openSaveModal('beauty','Night Reset Routine','Beauty routine save')">Save Routine ✨</button></div></div>
-<div class="feed-post post-food" data-feed-category="Food"><div class="overlay"></div><div class="logo">{ Dinner Ideas }</div><div class="side-actions"><div class="side-item"><div class="side-btn">♡</div><span>6.7K</span></div><div class="side-item" onclick="openSaveModal('recipe','Potato Curry Bake','Recipe video save')"><div class="side-btn">✦</div><span>Save</span></div><div class="side-item" onclick="openFeedShare('recipe','Potato Curry Bake')"><div class="side-btn">↗</div><span>Share</span></div></div><div class="content-card"><div class="creator-meta"><span class="meta-pill">🍝 Food</span><span class="meta-pill">✦ 9.7K saves</span></div><h2>Potato Curry Bake 🍝</h2><p>Save the recipe, then cook with friends or set a grocery reminder from Vault.</p><button class="main-btn" onclick="openSaveModal('recipe','Potato Curry Bake','Recipe video save')">Save Recipe</button></div></div>
-<div class="feed-post post-home" data-feed-category="Home"><div class="overlay"></div><div class="logo">{ Home Finds }</div><div class="side-actions"><div class="side-item"><div class="side-btn">♡</div><span>3.9K</span></div><div class="side-item" onclick="openSaveModal('home','Cosy Room Reset','Home idea save')"><div class="side-btn">✦</div><span>Save</span></div><div class="side-item" onclick="openFeedShare('home','Cosy Room Reset')"><div class="side-btn">↗</div><span>Share</span></div></div><div class="content-card"><h2>Cosy Room Reset 🏡</h2><p>Save decor ideas, then ask a friend or plan a project later.</p><button class="main-btn" onclick="openSaveModal('home','Cosy Room Reset','Home idea save')">Save Home Idea</button></div></div>
-<div class="feed-post post-art" data-feed-category="Art"><div class="overlay"></div><div class="logo">{ Art Drop }</div><div class="side-actions"><div class="side-item"><div class="side-btn">♡</div><span>4.2K</span></div><div class="side-item" onclick="openSaveModal('art','Nova Prints Art Drop','Art creator save')"><div class="side-btn">✦</div><span>Save</span></div><div class="side-item" onclick="openFeedShare('art','Nova Prints Art Drop')"><div class="side-btn">↗</div><span>Share</span></div></div><div class="content-card"><h2>Nova Prints 🎨</h2><p>Save art inspiration, then share or follow creator drops later.</p><button class="main-btn" onclick="openSaveModal('art','Nova Prints Art Drop','Art creator save')">Save Art</button></div></div>
-<div class="feed-post post-fitness" data-feed-category="Fitness"><div class="overlay"></div><div class="logo">{ Gym Era }</div><div class="side-actions"><div class="side-item"><div class="side-btn">♡</div><span>5.4K</span></div><div class="side-item" onclick="openSaveModal('workout','5 Minute Core Workout','Workout video save')"><div class="side-btn">✦</div><span>Save</span></div><div class="side-item" onclick="openFeedShare('workout','5 Minute Core Workout')"><div class="side-btn">↗</div><span>Share</span></div></div><div class="content-card"><div class="creator-meta"><span class="meta-pill">💪 Fitness</span><span class="meta-pill">👥 Group-ready</span></div><h2>5 Minute Core Workout 🖤</h2><p>Save first. Invite a friend or group from your Vault when you’re ready.</p><button class="main-btn" onclick="openSaveModal('workout','5 Minute Core Workout','Workout video save')">Save Workout</button></div></div>
-<div class="feed-post post-live" data-feed-category="Fashion"><div class="live-badge">LIVE NOW • 12.4K WATCHING</div><div class="overlay"></div><div class="logo">{ Fashion Drop }</div><div class="side-actions"><div class="side-item"><div class="side-btn">♡</div><span>11K</span></div><div class="side-item" onclick="openSaveModal('live','Luna Streetwear Live Drop','Live shopping save')"><div class="side-btn">✦</div><span>Save</span></div><div class="side-item" onclick="openFeedShare('live','Luna Streetwear Live Drop')"><div class="side-btn">↗</div><span>Share</span></div></div><div class="content-card"><div class="creator-meta"><span class="meta-pill">🔴 Live</span><span class="meta-pill">12.4K watching</span></div><h2>Luna Streetwear ✓</h2><p>Limited oversized collection now live.</p><div class="price">$129</div><div class="quick-action-row"><button class="main-btn" onclick="openStorefront('Luna Streetwear')">Store</button><button class="main-btn" onclick="openSaveModal('live','Luna Streetwear Live Drop','Live shopping save')">Save Live</button></div></div></div>
+<div id="splash"><div class="splash-logo">Hello Vella!</div></div>
+<div id="feed" class="screen active"><div class="feed-scroll">
+<div class="tabs"><div class="tab active" onclick="filterFeed(this,'All')">All</div><div class="tab" onclick="filterFeed(this,'Fashion')">Fashion</div><div class="tab" onclick="filterFeed(this,'Beauty')">Beauty</div><div class="tab" onclick="filterFeed(this,'Food')">Food</div><div class="tab" onclick="filterFeed(this,'Fitness')">Fitness</div></div>
+<div class="feed-post post-fashion" data-cat="Fashion"><div class="overlay"></div><div class="logo">{ Vella }</div><div class="side-actions"><div class="side-item"><div class="side-btn">♡</div><span>24K</span></div><div class="side-item" onclick="saveVideo('fashion','Oversized hoodie styling','Mia Luxe Wear','Fashion Finds','post-fashion')"><div class="side-btn">✦</div><span>Save</span></div><div class="side-item" onclick="openPlanner('Oversized hoodie styling','fashion')"><div class="side-btn">⏰</div><span>Plan</span></div></div><div class="content-card"><div class="creator-row"><div class="avatar">M</div><div><div class="creator-name">Mia Luxe Wear ✓</div><div class="creator-meta">24K saves</div></div></div><h2>Oversized hoodie styling ✨</h2><p>Save it. Use it later.</p><button class="main-btn" onclick="saveVideo('fashion','Oversized hoodie styling','Mia Luxe Wear','Fashion Finds','post-fashion')">Save to Vault</button></div></div>
+<div class="feed-post post-beauty" data-cat="Beauty"><div class="overlay"></div><div class="logo">{ Glow }</div><div class="side-actions"><div class="side-item"><div class="side-btn">♡</div><span>18K</span></div><div class="side-item" onclick="saveVideo('beauty','Night Reset Routine','Glow Beauty Bar','Glow Up','post-beauty')"><div class="side-btn">✦</div><span>Save</span></div><div class="side-item" onclick="openPlanner('Night Reset Routine','beauty')"><div class="side-btn">⏰</div><span>Plan</span></div></div><div class="content-card"><div class="creator-row"><div class="avatar">G</div><div><div class="creator-name">Glow Beauty Bar ✓</div><div class="creator-meta">night routine</div></div></div><h2>Night reset routine 🌙</h2><p>Save tonight’s routine.</p><button class="main-btn" onclick="saveVideo('beauty','Night Reset Routine','Glow Beauty Bar','Glow Up','post-beauty')">Save to Vault</button></div></div>
+<div class="feed-post post-food" data-cat="Food"><div class="overlay"></div><div class="logo">{ Dinner }</div><div class="side-actions"><div class="side-item"><div class="side-btn">♡</div><span>9K</span></div><div class="side-item" onclick="saveVideo('recipe','Potato Curry Bake','Dinner Glow','Dinner Ideas','post-food')"><div class="side-btn">✦</div><span>Save</span></div><div class="side-item" onclick="openPlanner('Potato Curry Bake','recipe')"><div class="side-btn">⏰</div><span>Plan</span></div></div><div class="content-card"><div class="creator-row"><div class="avatar">D</div><div><div class="creator-name">Dinner Glow</div><div class="creator-meta">recipe save</div></div></div><h2>Potato curry bake 🍝</h2><p>Save it. Cook it later.</p><button class="main-btn" onclick="saveVideo('recipe','Potato Curry Bake','Dinner Glow','Dinner Ideas','post-food')">Save to Vault</button></div></div>
+<div class="feed-post post-fitness" data-cat="Fitness"><div class="overlay"></div><div class="logo">{ Gym }</div><div class="side-actions"><div class="side-item"><div class="side-btn">♡</div><span>31K</span></div><div class="side-item" onclick="saveVideo('workout','5 Minute Core Workout','Fit Hour','Workout Saves','post-fitness')"><div class="side-btn">✦</div><span>Save</span></div><div class="side-item" onclick="openPlanner('5 Minute Core Workout','workout')"><div class="side-btn">⏰</div><span>Plan</span></div></div><div class="content-card"><div class="creator-row"><div class="avatar">F</div><div><div class="creator-name">Fit Hour ✓</div><div class="creator-meta">friend challenge</div></div></div><h2>5 min core workout 🖤</h2><p>Save it. Do it with friends.</p><button class="main-btn" onclick="saveVideo('workout','5 Minute Core Workout','Fit Hour','Workout Saves','post-fitness')">Save to Vault</button></div></div>
 </div></div>
-<div id="vault" class="screen"><h1 class="title">Vella Vault</h1><p class="subtitle">Save videos into folders. Later, tap + on any saved video to plan, shop or share.</p>
-<div class="quick-start-card card">
-<h2>✨ Start Here</h2>
-<p>Vella is built around saved content. Instead of losing videos forever, you save them into folders and decide what to do later.</p>
-
-<div class="fun-grid">
-  <div class="fun-item">✦ Save recipes for later</div>
-  <div class="fun-item">👯 Invite friends</div>
-  <div class="fun-item">⏰ Set reminders</div>
-  <div class="fun-item">🛍️ Shop saved finds</div>
+<div id="saved" class="screen"><h1 class="title">Saved Videos</h1><p class="subtitle">Choose a folder. Scroll videos. Tap + to use one.</p><div class="folder-tabs" id="folderTabs"></div><div class="saved-video-scroll" id="savedScroll"></div></div>
+<div id="inbox" class="screen"><h1 class="title">Plans</h1><p class="subtitle">Reminders, friend plans and group plans.</p><div class="grid" id="inboxList"><div class="simple-card card"><div class="inbox-pill">✦ Simple Vella</div><h2>Save → Saved Videos → +</h2><p>Save anything, scroll your saved videos, then choose reminder, friend or group.</p></div></div></div>
+<div id="profile" class="screen"><h1 class="title">You</h1><p class="subtitle">Your folders and friends.</p><div class="grid"><div class="simple-card card"><h2>📁 Folders</h2><p>Fashion Finds · Dinner Ideas · Workout Saves · Glow Up · Wishlist</p></div><div class="simple-card card"><h2>👯 Friends</h2><p>@brooke · @rory</p><button class="main-btn" onclick="openFriend('friend','a saved video')">Add / Invite Friend</button></div></div></div>
+<div id="modal" class="modal"><div class="modal-card"><button class="close" onclick="closeModal()">×</button><div class="sparkle" id="modalIcon">✦</div><h2 id="modalTitle">Vella</h2><p id="modalText">Choose an option.</p><div class="modal-list" id="modalList"></div></div></div>
+<div class="bottom-nav"><div class="nav-item active" onclick="showScreen('feed',this)"><span class="nav-icon">🏠</span>Feed</div><div class="nav-item" onclick="showScreen('saved',this)"><span class="nav-icon">✦</span>Saved</div><div class="plus-btn" onclick="openQuickSave()">+</div><div class="nav-item" onclick="showScreen('inbox',this)"><span class="nav-icon">⏰</span>Plans</div><div class="nav-item" onclick="showScreen('profile',this)"><span class="nav-icon">☺</span>You</div></div>
 </div>
-
-<div class="mini-hint">Saved content should feel useful, social and fun.</div>
-</div>
-
-<div class="section-divider"></div>
-<div class="folders-grid" id="foldersGrid"><div class="folder-card card" onclick="openFolder('Fashion Finds')"><div class="shine"></div><div class="folder-icon">👗</div><h3>Fashion Finds</h3><p>0 saved items</p></div><div class="folder-card card" onclick="openFolder('Dinner Ideas')"><div class="shine"></div><div class="folder-icon">🍝</div><h3>Dinner Ideas</h3><p>0 saved items</p></div><div class="folder-card card" onclick="openFolder('Workout Saves')"><div class="shine"></div><div class="folder-icon">💪</div><h3>Workout Saves</h3><p>0 saved items</p></div><div class="folder-card card" onclick="openFolder('Wishlist')"><div class="shine"></div><div class="folder-icon">🛍️</div><h3>Wishlist</h3><p>0 saved items</p></div><div class="folder-card card create-folder" onclick="createFolder()"><div class="shine"></div><div class="folder-icon">➕</div><h3>Create Folder</h3><p>Make your own Vault</p></div></div></div>
-<div id="create" class="screen"><h1 class="title">Creator Studio</h1><p class="subtitle">Post content, build storefronts and grow through saves instead of endless scrolling.</p><div class="creator-grid"><div class="stat-row"><div class="stat-card card"><h3>86.2K</h3><p>Support Points</p></div><div class="stat-card card"><h3>$4.8K</h3><p>Sales this week</p></div></div><div class="creator-card card"><h2>🎥 Upload Content</h2><p>Create videos that people save, revisit and shop from naturally.</p></div><div class="creator-card card"><h2>🛍️ Build Storefront</h2><p>Attach products without making the feed feel like ads.</p></div><div class="creator-card card"><h2>🔴 Go Live</h2><p>Launch events, reward supporters and build your creator world.</p></div></div></div>
-<div id="inbox" class="screen"><h1 class="title">Vella Inbox</h1><p class="subtitle">Your saved plans, reminders and friend activity.</p><div class="inbox-list" id="inboxList"><div class="room-card card"><h2>👥 Group Save Rooms</h2><p>Turn saved videos into shared plans: dinner nights, workout challenges, glow routines or shopping boards.</p><div class="room-row"><span><span class="status-dot"></span> Dinner Friday Group</span><button class="small-btn" onclick="openGroupRoom('Dinner Friday Group')">Open</button></div><div class="room-row"><span><span class="status-dot"></span> Gym Era Challenge</span><button class="small-btn" onclick="openGroupRoom('Gym Era Challenge')">Open</button></div></div>
-      <div class="inbox-card card">
-        <div class="inbox-pill">✦ How Vella Saves Work</div>
-        <h2>Save → Vault → +</h2>
-        <p>Save a video to a folder. Later, open it in your Vault and tap + to set a reminder, invite a friend, start a group, try-on or shop.</p>
-        <div class="inbox-time">Quick guide</div>
-      </div><div class="inbox-card card"><div class="inbox-pill">⏰ Reminder</div><h2>Your saved plans appear here</h2><p>When you set a reminder or invite a friend, Vella shows it in your inbox.</p><div class="inbox-time">Prototype preview</div></div></div></div>
-<div id="rank" class="screen"><h1 class="title">Vella Rankings</h1><p class="subtitle">Top creators ranked by saves, shopping and community activity.</p><div class="rank-tabs"><div class="rank-tab active" onclick="selectRankCategory(this,'rank-fashion')">Fashion</div><div class="rank-tab" onclick="selectRankCategory(this,'rank-beauty')">Beauty</div><div class="rank-tab" onclick="selectRankCategory(this,'rank-fitness')">Fitness</div><div class="rank-tab" onclick="selectRankCategory(this,'rank-home')">Home</div><div class="rank-tab" onclick="selectRankCategory(this,'rank-food')">Food</div><div class="rank-tab" onclick="selectRankCategory(this,'rank-art')">Art</div></div><div class="rank-list"><div id="rank-fashion" class="rank-category active"><h2>👗 Fashion</h2><div class="rank-card card"><div><h3>Luna Streetwear</h3><p>92.4K Support Points</p></div><div class="rank-number">#1</div></div><div class="rank-card card"><div><h3>Mia Luxe Wear</h3><p>81.2K Support Points</p></div><div class="rank-number">#2</div></div><div class="rank-card card"><div><h3>AfterGlow Fashion</h3><p>73.8K Support Points</p></div><div class="rank-number">#3</div></div></div><div id="rank-beauty" class="rank-category"><h2>💄 Beauty</h2><div class="rank-card card"><div><h3>Glow Beauty Bar</h3><p>98.4K Support Points</p></div><div class="rank-number">#1</div></div><div class="rank-card card"><div><h3>Aura Cosmetics</h3><p>79.7K Support Points</p></div><div class="rank-number">#2</div></div></div><div id="rank-fitness" class="rank-category"><h2>🏋️ Fitness</h2><div class="rank-card card"><div><h3>Fit Hour</h3><p>74.9K Support Points</p></div><div class="rank-number">#1</div></div></div><div id="rank-home" class="rank-category"><h2>🏡 Home</h2><div class="rank-card card"><div><h3>Soft Home Studio</h3><p>84.2K Support Points</p></div><div class="rank-number">#1</div></div></div><div id="rank-food" class="rank-category"><h2>🍝 Food</h2><div class="rank-card card"><div><h3>Dinner Glow</h3><p>88.7K Support Points</p></div><div class="rank-number">#1</div></div></div><div id="rank-art" class="rank-category"><h2>🎨 Art</h2><div class="rank-card card"><div><h3>Nova Prints</h3><p>80.2K Support Points</p></div><div class="rank-number">#1</div></div></div></div></div>
-<div id="store" class="screen"><h1 class="title">Vella Store</h1><div class="store-tabs"><div class="store-tab active" onclick="selectStoreCategory(this,'all')">All</div><div class="store-tab" onclick="selectStoreCategory(this,'fashion')">Fashion</div><div class="store-tab" onclick="selectStoreCategory(this,'beauty')">Beauty</div><div class="store-tab" onclick="selectStoreCategory(this,'fitness')">Fitness</div><div class="store-tab" onclick="selectStoreCategory(this,'home')">Home</div><div class="store-tab" onclick="selectStoreCategory(this,'food')">Food</div><div class="store-tab" onclick="selectStoreCategory(this,'art')">Art</div></div><p class="subtitle">Shop creator finds, live drops and saved favourites.</p><div class="store-grid"><div class="store-card card" data-store-category="beauty"><div class="store-img" style="background-image:url('https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1000')"></div><div class="store-info"><h2>Glow Beauty Bar</h2><p>Hydration Skin Set · Trending from Glow Up Live</p><div class="store-bottom"><div class="store-price">$49.95</div><button class="small-btn" onclick="openSaveModal('beauty','Glow Beauty Bar Hydration Set','Beauty product save')">Save</button></div></div></div><div class="store-card card" data-store-category="fashion"><div class="store-img" style="background-image:url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000')"></div><div class="store-info"><h2>Luna Streetwear</h2><p>Limited oversized collection · Fashion Drop seller</p><div class="store-bottom"><div class="store-price">$129</div><button class="small-btn" onclick="openStorefront('Luna Streetwear')">Shop</button></div><button class="tryon-btn" onclick="openTryOn()">✨ Try Before Saving or Buying</button></div></div><div class="store-card card" data-store-category="fitness"><div class="store-img" style="background-image:url('https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1000')"></div><div class="store-info"><h2>CoreLab Studio</h2><p>Workout bands · Saved from Gym Era routines</p><div class="store-bottom"><div class="store-price">$39</div><button class="small-btn" onclick="openSaveModal('product','CoreLab Workout Bands','Product save')">Save</button></div></div></div><div class="store-card card" data-store-category="home"><div class="store-img" style="background-image:url('https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?q=80&w=1000')"></div><div class="store-info"><h2>Soft Home Studio</h2><p>Candles, cosy home finds and live bundles</p><div class="store-bottom"><div class="store-price">$34</div><button class="small-btn" onclick="openSaveModal('home','Soft Home Studio Candle Bundle','Home product save')">Save</button></div></div></div><div class="store-card card" data-store-category="food"><div class="store-img" style="background-image:url('https://images.unsplash.com/photo-1495195134817-aeb325a55b65?q=80&w=1000')"></div><div class="store-info"><h2>Dinner Glow</h2><p>Recipe kits, saved dinner ideas and kitchen finds</p><div class="store-bottom"><div class="store-price">$22</div><button class="small-btn" onclick="openSaveModal('recipe','Dinner Glow Recipe Kit','Recipe product save')">Save</button></div></div></div><div class="store-card card" data-store-category="art"><div class="store-img" style="background-image:url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=1000')"></div><div class="store-info"><h2>Nova Prints</h2><p>Creator art drops and digital prints</p><div class="store-bottom"><div class="store-price">$18</div><button class="small-btn" onclick="openSaveModal('art','Nova Prints Digital Art','Art product save')">Save</button></div></div></div></div></div>
-<div id="folderModal" class="folder-modal"><div class="folder-modal-card"><button class="modal-close" onclick="closeFolder()">×</button><div class="modal-sparkle">✦</div><h2 id="modalTitle">Vella Vault</h2><p id="modalText">Your saved items will appear here.</p><div class="modal-items" id="modalItems"></div></div></div>
-<div id="saveModal" class="folder-modal"><div class="folder-modal-card"><button class="modal-close" onclick="closeSaveModal()">×</button><div class="modal-sparkle">✦</div><div class="save-mini-label" id="saveTypeLabel">Save</div><h2 id="saveTitle">Choose Folder</h2><p id="saveText">Pick a Vault folder.</p><div class="modal-items" id="saveChoices"></div></div></div>
-<div id="planModal" class="folder-modal"><div class="folder-modal-card"><button class="modal-close" onclick="closePlanModal()">×</button><div class="modal-sparkle">⏰</div><h2 id="planTitle">Set Reminder</h2><p id="planText">Choose when Vella should remind you.</p><div class="modal-items"><div class="modal-item" onclick="selectPlanType(this,'Just me')">✨ Just me</div><div class="modal-item" onclick="selectPlanType(this,'Me + friend')">👯 Me + friend</div><div class="modal-item" onclick="selectPlanType(this,'Group')">👥 Group</div></div><select class="folder-input" id="planTime"><option>Tonight · 7:00 PM</option><option>Tomorrow morning · 8:00 AM</option><option>This week</option><option>Every Monday</option><option>Custom time later</option></select><button class="main-btn" onclick="savePlan()">Save Reminder</button></div></div>
-<div id="friendModal" class="folder-modal"><div class="folder-modal-card"><button class="modal-close" onclick="closeFriendModal()">×</button><div class="modal-sparkle">👯</div><div class="mini-hint">Add friends to plan things together.</div><h2 id="friendTitle">Add Friend</h2><p id="friendText">Add a username or choose someone already added.</p><input class="folder-input" id="friendInput" placeholder="@username or friend name"><button class="main-btn" onclick="addFriendFromModal()">Add Friend</button><div class="modal-items" id="friendList"></div></div></div>
-<div id="createFolderModal" class="folder-modal"><div class="folder-modal-card"><button class="modal-close" onclick="closeCreateFolder()">×</button><div class="modal-sparkle">✦</div><h2>Create Folder</h2><p class="subtitle" style="padding:0;margin-top:8px;">Make a folder for your saved videos.</p><input type="text" id="folderInput" class="folder-input" placeholder="Folder name"><button class="main-btn" onclick="saveNewFolder()">Create Folder</button></div></div>
-<div class="bottom-nav"><div class="nav-item active" onclick="showScreen('feed',this)"><span class="nav-icon">🏠</span>Feed</div><div class="nav-item" onclick="showScreen('vault',this)"><span class="nav-icon">✦</span>Vault</div><div class="plus-btn" onclick="showScreen('create',this)">+</div><div class="nav-item" onclick="showScreen('inbox',this)"><span class="nav-icon">💌</span>Inbox</div><div class="nav-item" onclick="showScreen('rank',this)"><span class="nav-icon">🏆</span>Ranks</div><div class="nav-item" onclick="showScreen('store',this)"><span class="nav-icon">◇</span>Store</div></div></div>
 <script>
-const app=document.querySelector('.app');const toast=document.createElement('div');toast.className='save-toast';toast.innerText='Saved to Vault ✨';app.appendChild(toast);const defaultFolders=['Fashion Finds','Dinner Ideas','Workout Saves','Wishlist'];let pendingSaveItem=null;let activeSavedItem=null;let currentPlanType='Just me';let activeShareMode='friend';const starterItems={'Fashion Finds':[{title:'👗 Pink dress from Mia Luxe',type:'fashion',note:'Saved outfit video'},{title:'✨ Hoodie styling routine',type:'fashion',note:'Creator styling save'}],'Dinner Ideas':[{title:'🥔 Potato curry bake',type:'recipe',note:'Recipe video'},{title:'🍝 Creamy pasta bake',type:'recipe',note:'Dinner idea'}],'Workout Saves':[{title:'💪 20 min full body burn',type:'workout',note:'Workout video'},{title:'🔥 Beginner core reset',type:'workout',note:'Fitness routine'}],'Wishlist':[{title:'🛍️ Oversized hoodie',type:'product',note:'Product save'},{title:'💄 Glow serum restock',type:'beauty',note:'Beauty product'}]};
-function showScreen(id,el){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const n=document.getElementById(id);if(n){n.classList.add('active');n.scrollTo({top:0,behavior:'smooth'})}document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));if(el&&el.classList.contains('nav-item'))el.classList.add('active')}
-function quickSave(m){toast.innerText=m||'Saved to Vault ✨';toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1500)}function getCustomFolders(){return JSON.parse(localStorage.getItem('vellaCustomFolders'))||[]}function setCustomFolders(f){localStorage.setItem('vellaCustomFolders',JSON.stringify(f))}function getSavedContent(){return JSON.parse(localStorage.getItem('vellaSavedContent'))||{}}function setSavedContent(c){localStorage.setItem('vellaSavedContent',JSON.stringify(c))}function getAllFolders(){return[...new Set([...defaultFolders,...getCustomFolders()])]}function getFolderItems(f){return[...(getSavedContent()[f]||[]),...(starterItems[f]||[])]}function refreshFolderCounts(){document.querySelectorAll('.folder-card').forEach(card=>{const h=card.querySelector('h3'),p=card.querySelector('p');if(!h||!p||card.classList.contains('create-folder'))return;const c=getFolderItems(h.innerText).length;p.innerText=c===1?'1 saved item':c+' saved items'})}
-function addFolderToVault(name){const exists=[...document.querySelectorAll('.folder-card h3')].some(h=>h.innerText===name);if(exists)return;const grid=document.getElementById('foldersGrid'),create=document.querySelector('.create-folder'),card=document.createElement('div');card.className='folder-card card';card.setAttribute('onclick',"openFolder('"+name.replace(/'/g,"\\'")+"')");card.innerHTML=`<div class="shine"></div><div class="folder-icon">📁</div><h3>${name}</h3><p>0 saved items</p>`;grid.insertBefore(card,create)}
-function openSaveModal(type,title,note){pendingSaveItem={type,title,note,savedAt:new Date().toISOString()};document.getElementById('saveTypeLabel').innerText='Save';document.getElementById('saveTitle').innerText='Choose Folder';document.getElementById('saveText').innerText='Save now. Use it later from your Vault.';document.getElementById('saveChoices').innerHTML=getAllFolders().map(f=>`<div class="save-choice" onclick="saveToFolder('${f.replace(/'/g,"\\'")}')"><h3>📁 ${f}</h3><p>Put this video in this folder</p></div>`).join('')+`<div class="save-choice" onclick="createFolderFromSave()"><h3>➕ New Folder</h3><p>Create a folder for this save</p></div>`;document.getElementById('saveModal').classList.add('show')}
-function closeSaveModal(){document.getElementById('saveModal').classList.remove('show')}function saveToFolder(f){if(!pendingSaveItem)return;const c=getSavedContent();if(!c[f])c[f]=[];c[f].unshift(pendingSaveItem);setSavedContent(c);pendingSaveItem=null;closeSaveModal();refreshFolderCounts();pulseVault();quickSave('Saved to '+f+' ✨')}function createFolderFromSave(){closeSaveModal();createFolder()}
-function openFolder(f){const items=getFolderItems(f);document.getElementById('folderModal').classList.add('show');document.getElementById('modalTitle').innerText=f;document.getElementById('modalText').innerText='Tap + beside a saved video to use it.';if(!items.length){document.getElementById('modalItems').innerHTML=`<div class="saved-item-row" style="grid-template-columns:1fr;"><div class="saved-item-title">No saves yet<small>Save a video from the Feed into this folder.</small></div></div>`;return}document.getElementById('modalItems').innerHTML=items.map(item=>`<div class="saved-item-row"><div class="saved-item-title">${item.title}<small>${item.note}</small></div><button class="saved-plus" onclick="openSavedActions('${String(item.title).replace(/'/g,"\\'")}','${item.type}','${f.replace(/'/g,"\\'")}')">+</button></div>`).join('')}
-function closeFolder(){document.getElementById('folderModal').classList.remove('show')}function openSavedActions(title,type,folderName){activeSavedItem={title,type,folderName};document.getElementById('folderModal').classList.add('show');document.getElementById('modalTitle').innerText=title;document.getElementById('modalText').innerText='Choose what to do with this saved video.';const tryOn=['fashion','beauty','product'].includes(type),shop=['fashion','product','live','beauty'].includes(type);document.getElementById('modalItems').innerHTML=`<div class="action-grid"><div class="action-btn" onclick="openGeneralPlan('${title.replace(/'/g,"\\'")}')"><h3>⏰ Remind me</h3><p>Set an alarm.</p></div><div class="action-btn" onclick="openFriendModal('friend')"><h3>👯 Invite Friend</h3><p>Send this save to a friend.</p></div><div class="action-btn" onclick="openFriendModal('group')"><h3>👥 Start Group</h3><p>Create a shared plan.</p></div><div class="action-btn" onclick="quickSave('Kept private ✨')"><h3>✦ Keep Saved</h3><p>Leave it in your Vault.</p></div>${tryOn?`<div class="action-btn" onclick="openTryOn()"><h3>✨ Try-On</h3><p>See it before buying.</p></div>`:''}${shop?`<div class="action-btn" onclick="openStorefront('Creator Store')"><h3>🛍️ Shop</h3><p>Open creator store.</p></div>`:''}</div><button class="saved-back-btn" onclick="openFolder('${folderName.replace(/'/g,"\\'")}')">Back to ${folderName}</button>`}
-
-function openFeedShare(type,title){
-  activeSavedItem={title,type,folderName:'Feed'};
-  openFriendModal('friend');
-}
-function openFriendModal(mode){activeShareMode=mode;document.getElementById('friendModal').classList.add('show');document.getElementById('friendTitle').innerText=mode==='group'?'Invite Group':'Invite Friend';document.getElementById('friendText').innerText='They must accept before it appears in their reminders.';renderFriends()}function closeFriendModal(){document.getElementById('friendModal').classList.remove('show');const input=document.getElementById('friendInput');if(input)input.value=''}function getFriends(){return JSON.parse(localStorage.getItem('vellaFriends'))||[{name:'@brooke',status:'friend'},{name:'@rory',status:'friend'}]}function setFriends(f){localStorage.setItem('vellaFriends',JSON.stringify(f))}function renderFriends(){document.getElementById('friendList').innerHTML=getFriends().map(fr=>{const b=fr.status==='blocked';return`<div class="friend-row"><div><strong>${fr.name}</strong><small>${b?'Blocked':'🟢 Online · accepts invites'}</small></div><div><button class="friend-btn" ${b?'disabled':''} onclick="sendFriendInvite('${fr.name}')">Send</button><button class="friend-btn block" onclick="toggleBlock('${fr.name}')">${b?'Unblock':'Block'}</button></div></div>`}).join('')}function addFriendFromModal(){const input=document.getElementById('friendInput'),value=input.value.trim();if(!value)return;const friends=getFriends(),name=value.startsWith('@')?value:'@'+value;friends.push({name,status:'friend'});setFriends(friends);input.value='';renderFriends();quickSave(name+' added 👯')}function sendFriendInvite(name){const title=activeSavedItem?activeSavedItem.title:'saved video';closeFriendModal();quickSave(name+' invite sent · pending approval 👯');addInboxItem('👯 Invite sent',name+' invited to '+title,'Pending approval')}function toggleBlock(name){setFriends(getFriends().map(f=>f.name===name?{...f,status:f.status==='blocked'?'friend':'blocked'}:f));renderFriends()}
-function addInboxItem(pill,title,time){const inbox=document.getElementById('inboxList'),div=document.createElement('div');div.className='inbox-card card';div.innerHTML=`<div class="inbox-pill">${pill}</div><h2>${title}</h2><p>This would appear as a live notification/reminder in the real app.</p><div class="inbox-time">${time}</div>`;inbox.prepend(div)}function openGeneralPlan(title){closeFolder();currentPlanType='Just me';document.getElementById('planTitle').innerText='Set Reminder';document.getElementById('planText').innerText=title?'Reminder for: '+title:'Choose when Vella should remind you.';document.getElementById('planModal').classList.add('show')}function closePlanModal(){document.getElementById('planModal').classList.remove('show')}function selectPlanType(el,type){currentPlanType=type;document.querySelectorAll('#planModal .modal-item').forEach(i=>i.style.borderColor='rgba(255,255,255,.06)');el.style.borderColor='rgba(255,80,210,.42)'}function savePlan(){const time=document.getElementById('planTime').value;closePlanModal();quickSave('Reminder saved · '+time+' ⏰');addInboxItem('⏰ Reminder',activeSavedItem?activeSavedItem.title:'Saved reminder',currentPlanType+' · '+time)}
-function createFolder(){document.getElementById('createFolderModal').classList.add('show');setTimeout(()=>document.getElementById('folderInput').focus(),100)}function closeCreateFolder(){document.getElementById('createFolderModal').classList.remove('show')}function saveNewFolder(){const input=document.getElementById('folderInput'),name=input.value.trim();if(!name)return;const folders=getCustomFolders();if(!folders.includes(name)){folders.push(name);setCustomFolders(folders);addFolderToVault(name)}input.value='';closeCreateFolder();if(pendingSaveItem)saveToFolder(name);refreshFolderCounts()}
-function openStorefront(name){document.getElementById('folderModal').classList.add('show');document.getElementById('modalTitle').innerText=name+' Storefront';document.getElementById('modalText').innerText='Shop products, save items or try them on.';document.getElementById('modalItems').innerHTML=`<div class="modal-item">🛍️ Trending product</div><div class="modal-item">🔴 Live selling drop</div><div class="modal-item" onclick="openSaveModal('product','Saved Store Product','Product save')">✦ Save product</div><div class="modal-item" onclick="openTryOn()">✨ Vella Try-On</div>`}function openTryOn(){document.getElementById('folderModal').classList.add('show');document.getElementById('modalTitle').innerText='✨ Vella Try-On';document.getElementById('modalText').innerText='Preview fashion, beauty or products before saving, sharing or buying.';document.getElementById('modalItems').innerHTML=`<div class="modal-item">📸 Use your own photo</div><div class="modal-item">🧍 Preview on body/avatar</div><div class="modal-item">✦ Save look to Vault</div><div class="modal-item">👯 Send to friend</div><p class="friend-note">Real app note: this needs clear consent, privacy controls and delete-photo options.</p>`}
-
-function pulseVault(){
-  const vaultNav = document.querySelector('[onclick*="vault"]');
-  if(vaultNav){
-    vaultNav.classList.add('saved-pulse');
-    setTimeout(()=>vaultNav.classList.remove('saved-pulse'),850);
-  }
-}
-
-function openGroupRoom(roomName){
-  document.getElementById('folderModal').classList.add('show');
-  document.getElementById('modalTitle').innerText = roomName;
-  document.getElementById('modalText').innerText = 'Shared room for saved videos, chat, reminders and group decisions.';
-  document.getElementById('modalItems').innerHTML = `
-    <div class="modal-item">✦ Saved videos board</div>
-    <div class="modal-item">💬 Group chat preview</div>
-    <div class="modal-item">🗳️ Vote on what to do next</div>
-    <div class="modal-item">⏰ Shared reminder</div>
-    <div class="vella-action-note">Prototype: real group rooms would let users save videos together, vote, chat and accept reminders.</div>
-  `;
-}
-
-function openLiveSaveRoom(title){
-  document.getElementById('folderModal').classList.add('show');
-  document.getElementById('modalTitle').innerText = 'Live Save Room';
-  document.getElementById('modalText').innerText = title + ' is saved as a live shopping moment.';
-  document.getElementById('modalItems').innerHTML = `
-    <div class="modal-item" onclick="openSaveModal('live','${title}','Live shopping save')">✦ Save live replay</div>
-    <div class="modal-item" onclick="openGeneralPlan('${title}')">⏰ Remind me next live</div>
-    <div class="modal-item" onclick="openFriendModal('group')">👥 Watch with group</div>
-    <div class="modal-item" onclick="openStorefront('Luna Streetwear')">🛍️ Shop the drop</div>
-  `;
-}
-
-
-function selectFeedCategory(el,cat){document.querySelectorAll('.feed-chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');let first=null;document.querySelectorAll('.feed-post[data-feed-category]').forEach(p=>{const m=cat==='All'||p.dataset.feedCategory===cat;p.style.display=m?'block':'none';if(m&&!first)first=p});if(first)first.scrollIntoView({behavior:'smooth',block:'start'})}function selectRankCategory(el,id){document.querySelectorAll('.rank-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.rank-category').forEach(c=>c.classList.remove('active'));document.getElementById(id).classList.add('active')}function selectStoreCategory(el,cat){document.querySelectorAll('.store-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.store-card[data-store-category]').forEach(card=>card.classList.toggle('hidden',!(cat==='all'||card.dataset.storeCategory===cat)))}getCustomFolders().forEach(f=>addFolderToVault(f));refreshFolderCounts();
+const app=document.querySelector(".app");const toast=document.createElement("div");toast.className="toast";app.appendChild(toast);
+const folders=["All","Fashion Finds","Dinner Ideas","Workout Saves","Glow Up","Wishlist"];
+const starter=[{title:"Oversized hoodie styling",type:"fashion",creator:"Mia Luxe Wear",folder:"Fashion Finds",bg:"post-fashion"},{title:"Night Reset Routine",type:"beauty",creator:"Glow Beauty Bar",folder:"Glow Up",bg:"post-beauty"},{title:"Potato Curry Bake",type:"recipe",creator:"Dinner Glow",folder:"Dinner Ideas",bg:"post-food"},{title:"5 Minute Core Workout",type:"workout",creator:"Fit Hour",folder:"Workout Saves",bg:"post-fitness"}];
+let selectedFolder="All";let activePlanType="Just me";
+function showToast(msg){toast.innerText=msg;toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),1400)}
+function showScreen(id,el){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));if(el&&el.classList.contains("nav-item"))el.classList.add("active");if(id==="saved")renderSaved()}
+function filterFeed(el,cat){document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));el.classList.add("active");let first=null;document.querySelectorAll(".feed-post").forEach(p=>{const show=cat==="All"||p.dataset.cat===cat;p.style.display=show?"block":"none";if(show&&!first)first=p});if(first)first.scrollIntoView({behavior:"smooth",block:"start"})}
+function getSaved(){return JSON.parse(localStorage.getItem("vellaSimpleSaves"))||starter}
+function setSaved(saves){localStorage.setItem("vellaSimpleSaves",JSON.stringify(saves))}
+function saveVideo(type,title,creator,folder,bg){const saves=getSaved();if(!saves.some(s=>s.title===title)){saves.unshift({type,title,creator,folder,bg});setSaved(saves)}showToast("Saved ✦");renderSaved()}
+function renderTabs(){document.getElementById("folderTabs").innerHTML=folders.map(f=>`<div class="folder-tab ${f===selectedFolder?"active":""}" onclick="selectFolder('${f}')">${f}</div>`).join("")}
+function selectFolder(folder){selectedFolder=folder;renderSaved()}
+function renderSaved(){renderTabs();const saves=getSaved().filter(s=>selectedFolder==="All"||s.folder===selectedFolder);const wrap=document.getElementById("savedScroll");if(!saves.length){wrap.innerHTML=`<div class="simple-card card" style="margin:16px"><h2>No videos yet</h2><p>Save from your feed first.</p></div>`;return}wrap.innerHTML=saves.map(s=>`<div class="saved-video ${s.bg||"post-fashion"}"><div class="overlay"></div><button class="big-plus" onclick="openPlanner('${s.title.replace(/'/g,"\'")}','${s.type}')">+</button><div class="content-card saved-content-card"><div class="creator-row"><div class="avatar">${(s.creator||"V")[0]}</div><div><div class="creator-name">${s.creator}</div><div class="creator-meta">${s.folder}</div></div></div><h2>${s.title}</h2><p>Choose + to set a reminder, friend plan or group plan.</p></div></div>`).join("")}
+function openModal(icon,title,text,html){document.getElementById("modalIcon").innerText=icon;document.getElementById("modalTitle").innerText=title;document.getElementById("modalText").innerText=text;document.getElementById("modalList").innerHTML=html;document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function openPlanner(title,type){openModal("✦",title,"What do you want to do?",`<div class="action-grid"><div class="action-box" onclick="openReminder('${title.replace(/'/g,"\'")}')"><h3>⏰ Reminder</h3><p>Pick a time.</p></div><div class="action-box" onclick="openFriend('friend','${title.replace(/'/g,"\'")}')"><h3>👯 Friend</h3><p>Invite one friend.</p></div><div class="action-box" onclick="openFriend('group','${title.replace(/'/g,"\'")}')"><h3>👥 Group</h3><p>Invite a group.</p></div><div class="action-box" onclick="showToast('Kept saved ✨');closeModal()"><h3>✦ Keep</h3><p>Leave it saved.</p></div></div>`)}
+function openReminder(title){openModal("⏰","Set Reminder","Reminder for: "+title,`<div class="choice" onclick="activePlanType='Just me';highlightChoice(this)">✨ Just me</div><div class="choice" onclick="activePlanType='Friend';highlightChoice(this)">👯 Friend</div><div class="choice" onclick="activePlanType='Group';highlightChoice(this)">👥 Group</div><select class="input" id="time"><option>Tonight · 7:00 PM</option><option>Tomorrow · 8:00 AM</option><option>This weekend</option><option>Every Monday</option></select><button class="main-btn" onclick="saveReminder('${title.replace(/'/g,"\'")}')">Save Reminder</button>`)}
+function highlightChoice(el){document.querySelectorAll(".choice").forEach(c=>c.style.borderColor="rgba(255,255,255,.065)");el.style.borderColor="rgba(255,80,210,.45)"}
+function saveReminder(title){const time=document.getElementById("time").value;addInbox("⏰ Reminder",title,activePlanType+" · "+time);closeModal();showToast("Reminder saved")}
+function getFriends(){return JSON.parse(localStorage.getItem("vellaFriends"))||[{name:"@brooke"},{name:"@rory"}]}
+function setFriends(f){localStorage.setItem("vellaFriends",JSON.stringify(f))}
+function openFriend(mode,title){const rows=getFriends().map(fr=>`<div class="friend-row"><div><strong>${fr.name}</strong><small>Invite ready</small></div><button class="small-btn" onclick="sendInvite('${fr.name}','${title.replace(/'/g,"\'")}','${mode}')">Send</button></div>`).join("");openModal("👯",mode==="group"?"Invite Group":"Invite Friend","They accept before it appears in their reminders.",`<input class="input" id="friendInput" placeholder="@username"><button class="main-btn" onclick="addFriend('${mode}','${title.replace(/'/g,"\'")}')">Add Friend</button>${rows}`)}
+function addFriend(mode,title){const input=document.getElementById("friendInput");const val=input.value.trim();if(!val)return;const name=val.startsWith("@")?val:"@"+val;const friends=getFriends();if(!friends.some(f=>f.name.toLowerCase()===name.toLowerCase()))friends.push({name});setFriends(friends);openFriend(mode,title);showToast(name+" added")}
+function sendInvite(name,title,mode){addInbox(mode==="group"?"👥 Group invite":"👯 Friend invite",name+" invited to "+title,"Pending approval");closeModal();showToast("Invite sent")}
+function addInbox(pill,title,time){const inbox=document.getElementById("inboxList");const card=document.createElement("div");card.className="simple-card card";card.innerHTML=`<div class="inbox-pill">${pill}</div><h2>${title}</h2><p>${time}</p>`;inbox.prepend(card)}
+function openQuickSave(){showScreen("saved",document.querySelector('[onclick*="saved"]'))}
+renderSaved();
 </script>
 </body>
 </html>
