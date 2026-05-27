@@ -87,14 +87,14 @@ p{font-size:13px;line-height:1.42;color:var(--muted)}
     </div>
     <div class="section-title"><h2>Today’s action cards</h2><button data-screen="plans">View all</button></div>
     <div class="grid" id="todayList"></div>
-    <div class="section-title"><h2>Discover ideas</h2><button data-action="seedMore">Add demo ideas</button></div>
+    <div class="section-title"><h2>Feed pages</h2><button data-action="seedMore">Add demo ideas</button></div>
     <div class="chips" id="discoverChips"></div>
     <div class="feed" id="discoverFeed"></div>
   </section>
 
   <section id="vault" class="screen">
     <div class="topbar"><div class="brand"><span>Vella Vault</span></div><button class="icon-btn" data-action="openCreate">＋</button></div>
-    <input class="search" id="vaultSearch" placeholder="Search saves, creators, folders..." />
+    <input class="search" id="vaultSearch" placeholder="Search this tab, creators, folders..." />
     <div class="chips" id="vaultChips"></div>
     <div class="grid" id="vaultList"></div>
   </section>
@@ -145,14 +145,21 @@ p{font-size:13px;line-height:1.42;color:var(--muted)}
 <script>
 (function(){
 'use strict';
-const STORAGE_KEY='helloVellaActionApp.v1';
-const categories=['All','Style','Beauty','Food','Fitness','Travel','Home','Wishlist'];
+const STORAGE_KEY='helloVellaActionApp.v2.tabsFeeds';
+const categories=['All','Fashion Finds','Dinner Ideas','Workout Saves','Glow Up','Wishlist'];
 const demoPosts=[
- {id:'d1',title:'5-minute glossy morning routine',creator:'Glow Room',category:'Beauty',folder:'Glow Up',kind:'routine',image:'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop',notes:'Cleanser, serum, moisturiser, SPF. Save it as a morning glow plan.',items:['Cleanser','Hydration serum','Moisturiser','SPF'],suggested:'Tomorrow · 8:00 AM'},
- {id:'d2',title:'Cozy oversized hoodie outfit',creator:'Mia Luxe Wear',category:'Style',folder:'Style Boards',kind:'outfit',image:'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1200&auto=format&fit=crop',notes:'A soft everyday outfit board you can actually recreate.',items:['Oversized hoodie','Leggings','White sneakers','Gold hoops'],suggested:'Saturday · 10:00 AM'},
- {id:'d3',title:'Creamy potato curry bake',creator:'Dinner Glow',category:'Food',folder:'Dinner Ideas',kind:'recipe',image:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200&auto=format&fit=crop',notes:'Turn this save into a shopping list and dinner reminder.',items:['Potatoes','Curry powder','Cream','Cheese','Onion'],suggested:'Tonight · 6:30 PM'},
- {id:'d4',title:'Core workout with a friend',creator:'Fit Hour',category:'Fitness',folder:'Workout Saves',kind:'workout',image:'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200&auto=format&fit=crop',notes:'Save this as a friend challenge and tick it off together.',items:['Yoga mat','Water bottle','Timer'],suggested:'Monday · 7:00 AM'},
- {id:'d5',title:'Dream weekend beach plan',creator:'Soft Travel Club',category:'Travel',folder:'Places To Go',kind:'trip',image:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop',notes:'Turn inspo into a tiny trip board with prep steps.',items:['Fuel budget','Snacks','Beach towel','Playlist'],suggested:'This weekend'}
+ {id:'f1',title:'Soft-luxe hoodie outfit formula',creator:'Mia Luxe Wear',category:'Fashion Finds',folder:'Fashion Finds',kind:'outfit',image:'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1200&auto=format&fit=crop',notes:'A scrollable fashion save made for recreating the look later.',items:['Oversized hoodie','Black leggings','White sneakers','Gold hoops'],suggested:'Saturday · 10:00 AM'},
+ {id:'f2',title:'Black dress birthday styling',creator:'Vella Style Desk',category:'Fashion Finds',folder:'Fashion Finds',kind:'outfit',image:'https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop',notes:'Dress, hair, jewellery and makeup notes saved in one fashion feed.',items:['Black dress','Hoop earrings','Soft curls','Mini bag'],suggested:'Friday · 6:00 PM'},
+ {id:'f3',title:'Op-shop outfit glow up',creator:'Budget Muse',category:'Fashion Finds',folder:'Fashion Finds',kind:'style board',image:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop',notes:'Cheap finds turned into a full outfit plan instead of getting lost.',items:['Statement jacket','Basic tee','Denim','Boots'],suggested:'Payday · 11:00 AM'},
+ {id:'d1',title:'Creamy potato curry bake',creator:'Dinner Glow',category:'Dinner Ideas',folder:'Dinner Ideas',kind:'recipe',image:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200&auto=format&fit=crop',notes:'Turn this save into a shopping list and dinner reminder.',items:['Potatoes','Curry powder','Cream','Cheese','Onion'],suggested:'Tonight · 6:30 PM'},
+ {id:'d2',title:'15-minute pasta rescue dinner',creator:'Quick Kitchen',category:'Dinner Ideas',folder:'Dinner Ideas',kind:'recipe',image:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?q=80&w=1200&auto=format&fit=crop',notes:'A fast dinner feed for nights when you need food without the chaos.',items:['Pasta','Tomato sauce','Garlic','Cheese','Frozen veg'],suggested:'Tomorrow · 7:00 PM'},
+ {id:'d3',title:'Budget grocery dinner plan',creator:'Pantry Fairy',category:'Dinner Ideas',folder:'Dinner Ideas',kind:'meal plan',image:'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop',notes:'Save cheap meals and turn them into a weekly list.',items:['Rice','Eggs','Frozen vegetables','Chicken','Sauce'],suggested:'Sunday · 4:00 PM'},
+ {id:'w1',title:'5-minute core workout',creator:'Fit Hour',category:'Workout Saves',folder:'Workout Saves',kind:'workout',image:'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200&auto=format&fit=crop',notes:'A workout feed that can become a reminder, friend challenge or routine.',items:['Yoga mat','Water bottle','Timer'],suggested:'Monday · 7:00 AM'},
+ {id:'w2',title:'Walk and stretch reset',creator:'Soft Fitness Club',category:'Workout Saves',folder:'Workout Saves',kind:'wellness',image:'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=1200&auto=format&fit=crop',notes:'Low-pressure movement you can actually tick off.',items:['Comfortable shoes','Water bottle','Headphones'],suggested:'Tomorrow · 8:00 AM'},
+ {id:'w3',title:'Friend workout challenge',creator:'Vella Challenge',category:'Workout Saves',folder:'Workout Saves',kind:'friend plan',image:'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?q=80&w=1200&auto=format&fit=crop',notes:'Invite a friend and turn a saved workout into a shared plan.',items:['Friend invite','Timer','Mat'],suggested:'Wednesday · 6:00 PM'},
+ {id:'g1',title:'Glossy morning skincare routine',creator:'Glow Room',category:'Glow Up',folder:'Glow Up',kind:'routine',image:'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop',notes:'Cleanser, serum, moisturiser, SPF. Save it as a morning glow plan.',items:['Cleanser','Hydration serum','Moisturiser','SPF'],suggested:'Tomorrow · 8:00 AM'},
+ {id:'g2',title:'Hair and makeup soft glam',creator:'Beauty Board',category:'Glow Up',folder:'Glow Up',kind:'beauty plan',image:'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=1200&auto=format&fit=crop',notes:'Save beauty inspo and make it a step-by-step getting ready card.',items:['Primer','Mascara','Lip gloss','Hair oil'],suggested:'Saturday · 5:00 PM'},
+ {id:'x1',title:'Wishlist: soft luxury room vibe',creator:'Home Dreamer',category:'Wishlist',folder:'Wishlist',kind:'wishlist',image:'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop',notes:'Wishlist saves become shopping lists, not forgotten screenshots.',items:['Throw blanket','Lamp','Vanity tray','Pillow covers'],suggested:'Next payday'}
 ];
 let state=loadState();
 let activeDiscover='All';
@@ -172,14 +179,22 @@ function openModal(title,text,html){$('modalTitle').textContent=title;$('modalTe
 function closeModal(){$('modal').classList.remove('show');$('modalBody').innerHTML=''}
 function categoryChips(active,target,mode){target.innerHTML=categories.map(c=>`<button class="chip ${c===active?'active':''}" data-chip-mode="${mode}" data-category="${escapeHTML(c)}">${escapeHTML(c)}</button>`).join('')}
 function renderStats(){ $('statSaves').textContent=state.saves.length; $('statPlans').textContent=state.plans.length; $('statDone').textContent=state.completed; }
-function renderDiscover(){categoryChips(activeDiscover,$('discoverChips'),'discover');const posts=demoPosts.filter(p=>activeDiscover==='All'||p.category===activeDiscover);$('discoverFeed').innerHTML=posts.map(post=>`
+function renderDiscover(){
+  categoryChips(activeDiscover,$('discoverChips'),'discover');
+  const posts=demoPosts.filter(p=>activeDiscover==='All'||p.category===activeDiscover);
+  const feedName=activeDiscover==='All'?'All Vella feeds':activeDiscover;
+  const feedText=activeDiscover==='All'
+    ? 'Scroll everything, or tap a tab to open its own focused feed page.'
+    : `You are now inside ${feedName}. This feed only shows saves for this tab.`;
+  $('discoverFeed').innerHTML=`<div class="card vault-card"><div class="pill">📌 ${escapeHTML(feedName)}</div><h3>${escapeHTML(feedName)} feed</h3><p>${escapeHTML(feedText)}</p></div>` + (posts.length?posts.map(post=>`
   <article class="card post" style="background-image:url('${escapeHTML(post.image)}')">
     <div class="post-body">
       <div class="row"><div class="avatar">${escapeHTML((post.creator||'V')[0])}</div><div><div class="name">${escapeHTML(post.creator)}</div><div class="meta">${escapeHTML(post.category)} · ${escapeHTML(post.kind)}</div></div></div>
       <h2>${escapeHTML(post.title)}</h2><p>${escapeHTML(post.notes)}</p>
       <div class="post-actions"><button class="mini-btn primary" data-action="saveDemo" data-id="${post.id}">Save</button><button class="mini-btn" data-action="planDemo" data-id="${post.id}">Plan</button><button class="mini-btn" data-action="listDemo" data-id="${post.id}">List</button></div>
     </div>
-  </article>`).join('')}
+  </article>`).join(''):`<div class="card empty"><h3>No posts in this feed yet</h3><p>Add an idea to this tab or switch feeds.</p></div>`)
+}
 function renderVault(){categoryChips(activeVault,$('vaultChips'),'vault');const q=($('vaultSearch')?.value||'').toLowerCase();let saves=state.saves.filter(s=>(activeVault==='All'||s.category===activeVault)&&[s.title,s.creator,s.folder,s.category,s.notes].join(' ').toLowerCase().includes(q));$('vaultList').innerHTML=saves.length?saves.map(s=>`
  <div class="card vault-card">
   <div class="pill">✦ ${escapeHTML(s.folder)}</div><h3>${escapeHTML(s.title)}</h3><p>${escapeHTML(s.notes||'Saved to use later.')}</p>
@@ -214,7 +229,7 @@ function deletePlan(id){state.plans=state.plans.filter(p=>p.id!==id);saveState()
 function viewPlan(id){const p=state.plans.find(x=>x.id===id);if(!p)return;openModal('Plan steps',p.title,`<div class="choices">${p.steps.map((step,i)=>`<div class="choice"><strong>${i+1}. ${escapeHTML(step)}</strong><p>${i===0?'Start with the saved idea.':i===1?'Gather anything you need.':'Then tick it off in Vella.'}</p></div>`).join('')}</div>`)}
 async function copyList(id){const s=findSave(id);if(!s)return;const text=`${s.title}\n`+(s.items||[]).map(i=>`- ${i}`).join('\n');try{await navigator.clipboard.writeText(text);toast('List copied')}catch(e){openModal('Copy list','Clipboard was blocked, copy this manually.',`<textarea class="textarea">${escapeHTML(text)}</textarea>`)} }
 function openCreate(){openModal('Save new inspiration','Add a recipe, outfit, workout, place, wishlist or life idea.',`
- <div class="form"><input id="newTitle" class="input" placeholder="Idea title"><input id="newCreator" class="input" placeholder="Creator or source"><select id="newCategory" class="select">${categories.filter(c=>c!=='All').map(c=>`<option>${c}</option>`).join('')}</select><input id="newFolder" class="input" placeholder="Folder e.g. Glow Up"><textarea id="newNotes" class="textarea" placeholder="Why did you save this? What will future you need?"></textarea><input id="newItems" class="input" placeholder="List items, separated by commas"><button class="btn full" data-action="createSave">Save to Vault</button></div>`)}
+ <div class="form"><input id="newTitle" class="input" placeholder="Idea title"><input id="newCreator" class="input" placeholder="Creator or source"><select id="newCategory" class="select">${categories.filter(c=>c!=='All').map(c=>`<option>${c}</option>`).join('')}</select><input id="newFolder" class="input" placeholder="Folder e.g. Fashion Finds"><textarea id="newNotes" class="textarea" placeholder="Why did you save this? What will future you need?"></textarea><input id="newItems" class="input" placeholder="List items, separated by commas"><button class="btn full" data-action="createSave">Save to Vault</button></div>`)}
 function createSave(){const title=$('newTitle').value.trim();if(!title)return toast('Add a title first');const category=$('newCategory').value;const save={id:uid('save'),sourceId:'custom',title,creator:$('newCreator').value.trim()||'Me',category,folder:$('newFolder').value.trim()||category,kind:'custom',image:demoPosts.find(p=>p.category===category)?.image||demoPosts[0].image,notes:$('newNotes').value.trim()||'Saved to turn into action later.',items:$('newItems').value.split(',').map(x=>x.trim()).filter(Boolean),createdAt:new Date().toISOString()};state.saves.unshift(save);saveState();closeModal();showScreen('vault');toast('Saved to Vault ✦')}
 function openCreatePlan(){if(!state.saves.length){openCreate();return}openModal('Create plan','Choose a saved idea to plan.',`<div class="choices">${state.saves.map(s=>`<button class="choice" data-action="openPlanSave" data-id="${s.id}"><strong>${escapeHTML(s.title)}</strong><p>${escapeHTML(s.folder)}</p></button>`).join('')}</div>`)}
 function openSettings(){openModal('Vella settings','Prototype controls.',`<div class="choices"><button class="choice" data-action="exportData"><strong>Export data</strong><p>Copy your current saves and plans as JSON.</p></button><button class="choice danger" data-action="resetDemo"><strong>Reset demo</strong><p>Clears local browser data and reloads demo content.</p></button></div>`)}
