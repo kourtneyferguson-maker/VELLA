@@ -1,246 +1,714 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Hello Vella! — Turn Inspiration Into Action</title>
-<style>
-:root{
-  --bg:#07040b;
-  --panel:rgba(255,255,255,.075);
-  --panel2:rgba(255,255,255,.045);
-  --line:rgba(255,255,255,.11);
-  --text:#fff;
-  --muted:rgba(255,255,255,.66);
-  --soft:rgba(255,255,255,.84);
-  --pink:#ff67d8;
-  --lav:#b98cff;
-  --blue:#a8ecff;
-  --gold:#ffe8a8;
-  --green:#9df7c6;
-  --shadow:0 24px 70px rgba(0,0,0,.42);
-}
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial,sans-serif;-webkit-tap-highlight-color:transparent}
-html,body{width:100%;height:100%;background:#020104;color:var(--text);overflow:hidden}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer;color:inherit}
-.app{
-  width:100%;max-width:430px;height:100vh;margin:0 auto;position:relative;overflow:hidden;
-  background:
-    radial-gradient(circle at 18% 0%,rgba(255,103,216,.24),transparent 28%),
-    radial-gradient(circle at 88% 20%,rgba(168,236,255,.17),transparent 28%),
-    radial-gradient(circle at 50% 105%,rgba(185,140,255,.16),transparent 30%),
-    linear-gradient(180deg,#0b0712 0%,#050309 56%,#030207 100%);
-}
-.screen{display:none;height:100vh;overflow-y:auto;padding:18px 16px 105px;scrollbar-width:none}.screen::-webkit-scrollbar{display:none}.screen.active{display:block}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:6px 0 16px}
-.brand{font-size:25px;font-weight:950;letter-spacing:-1px;text-shadow:0 0 20px rgba(255,255,255,.20)}
-.brand span{background:linear-gradient(135deg,#fff,#ffd9f8 46%,#a8ecff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.icon-btn{width:42px;height:42px;border-radius:17px;border:1px solid var(--line);background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
-.hero{padding:18px;border-radius:34px;background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.045));border:1px solid var(--line);box-shadow:var(--shadow);position:relative;overflow:hidden}
-.hero:before{content:"";position:absolute;inset:-60px -40px auto auto;width:190px;height:190px;background:radial-gradient(circle,rgba(255,103,216,.18),transparent 70%)}
-.kicker{font-size:11px;font-weight:950;letter-spacing:.8px;text-transform:uppercase;color:#ffd9fb;margin-bottom:8px}
-h1{font-size:32px;line-height:.96;letter-spacing:-1.45px;margin-bottom:10px;position:relative} 
-p{font-size:13px;line-height:1.42;color:var(--muted)}
-.hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
-.btn{border:none;border-radius:19px;padding:13px 14px;font-size:13px;font-weight:950;background:linear-gradient(135deg,#fff,#f8dbff 52%,#a8ecff);color:#06030b;box-shadow:0 14px 32px rgba(0,0,0,.28)}
-.btn.secondary{background:rgba(255,255,255,.07);color:#fff;border:1px solid var(--line);box-shadow:none}
-.btn.full{width:100%;margin-top:12px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
-.stat{padding:13px;border-radius:24px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)}
-.stat strong{display:block;font-size:20px;letter-spacing:-.7px}.stat small{font-size:10px;color:var(--muted);font-weight:850}
-.section-title{display:flex;align-items:flex-end;justify-content:space-between;margin:18px 2px 10px}
-.section-title h2{font-size:19px;letter-spacing:-.45px}.section-title button{border:none;background:transparent;color:#ffd9fb;font-size:12px;font-weight:900}
-.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
-.chip{flex:0 0 auto;padding:9px 13px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:12px;font-weight:900;color:rgba(255,255,255,.72)}
-.chip.active{background:linear-gradient(135deg,#fff,#f5d9ff,#a8ecff);color:#05030a}
-.card{border-radius:30px;background:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.04));border:1px solid var(--line);box-shadow:0 18px 44px rgba(0,0,0,.28);overflow:hidden}
-.feed{display:grid;gap:14px}.post{min-height:310px;position:relative;background-size:cover;background-position:center;display:flex;align-items:flex-end}.post:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(3,2,7,.95),rgba(3,2,7,.18) 58%,rgba(3,2,7,.48))}.post-body{position:relative;z-index:2;padding:16px;width:100%}.row{display:flex;align-items:center;gap:10px}.avatar{width:36px;height:36px;border-radius:15px;background:linear-gradient(135deg,#fff,#ffd9f8,#a8ecff);color:#07030b;font-weight:950;display:flex;align-items:center;justify-content:center}.name{font-size:13px;font-weight:950}.meta{font-size:11px;color:rgba(255,255,255,.62);margin-top:2px}.post h2{font-size:22px;margin:13px 0 6px;letter-spacing:-.6px}.post-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:13px}.mini-btn{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);border-radius:16px;padding:10px 8px;font-size:12px;font-weight:950}.mini-btn.primary{background:linear-gradient(135deg,#fff,#f7dcff,#a8ecff);color:#05030a;border:none}
-.grid{display:grid;gap:12px}.vault-card{padding:15px}.vault-card h3{font-size:18px;letter-spacing:-.4px;margin-bottom:5px}.pill{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.07);font-size:11px;font-weight:900;color:#ffe6fb;margin-bottom:10px}.vault-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.empty{padding:24px;text-align:center;color:var(--muted)}
-.plan-card{padding:15px}.plan-card h3{font-size:17px;letter-spacing:-.35px;margin-bottom:6px}.checkline{display:flex;align-items:center;gap:10px;margin-top:11px}.check{width:34px;height:34px;border-radius:13px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;font-weight:950}.check.done{background:linear-gradient(135deg,#9df7c6,#a8ecff);color:#06100b}.progress{height:9px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden;margin-top:10px}.bar{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--pink),var(--blue));transition:.25s ease}
-.search{width:100%;padding:14px 15px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.07);color:white;outline:none;margin-bottom:12px}.search::placeholder{color:rgba(255,255,255,.42)}
-.form{display:grid;gap:10px}.input,.select,.textarea{width:100%;padding:13px;border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.065);color:white;outline:none}.select option{color:#111}.textarea{min-height:78px;resize:none}.label{font-size:12px;font-weight:900;color:rgba(255,255,255,.72);margin:5px 2px -4px}
-.modal{position:fixed;inset:0;z-index:20000;background:rgba(0,0,0,.72);backdrop-filter:blur(16px);display:none;align-items:center;justify-content:center;padding:18px}.modal.show{display:flex}.modal-card{width:100%;max-width:370px;max-height:88vh;overflow:auto;border-radius:34px;background:linear-gradient(180deg,rgba(20,13,29,.98),rgba(6,4,12,.99));border:1px solid var(--line);box-shadow:0 34px 90px rgba(0,0,0,.6);padding:20px;scrollbar-width:none}.modal-card::-webkit-scrollbar{display:none}.modal-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.modal h2{font-size:24px;letter-spacing:-.65px;margin-bottom:6px}.close{border:none;background:transparent;font-size:30px;line-height:1}.choices{display:grid;gap:10px;margin-top:15px}.choice{padding:14px;border-radius:22px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09)}.choice strong{display:block;font-size:15px;margin-bottom:4px}.choice.selected{border-color:rgba(255,103,216,.65);box-shadow:0 0 20px rgba(255,103,216,.12)}
-.toast{position:absolute;left:50%;bottom:110px;transform:translateX(-50%);z-index:30000;max-width:86%;padding:12px 16px;border-radius:999px;background:rgba(255,255,255,.94);color:#05030a;box-shadow:0 0 24px rgba(255,255,255,.18);font-weight:950;font-size:13px;opacity:0;transition:.25s ease;pointer-events:none;text-align:center}.toast.show{opacity:1;bottom:128px}
-.nav{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:15000;width:calc(100% - 22px);max-width:410px;min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:2px;padding:0 6px;border-radius:31px;background:rgba(8,5,13,.82);border:1px solid rgba(255,255,255,.10);backdrop-filter:blur(24px);box-shadow:0 24px 70px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.08)}
-.nav-item{flex:1;text-align:center;font-size:9px;color:rgba(255,255,255,.60);font-weight:850}.nav-item span{display:block;font-size:19px;margin-bottom:3px}.nav-item.active{color:white;text-shadow:0 0 13px rgba(255,255,255,.34)}.nav-plus{width:60px;height:60px;border:none;border-radius:24px;flex:0 0 60px;background:linear-gradient(135deg,#fff,#f7dcff,#a8ecff);color:#05030a;font-size:35px;font-weight:950;box-shadow:0 0 28px rgba(255,255,255,.22)}
-.splash{position:fixed;inset:0;z-index:50000;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at top,rgba(255,103,216,.18),transparent 32%),linear-gradient(180deg,#12091a,#020104);animation:fade .95s forwards}.splash div{font-size:42px;font-weight:950;letter-spacing:-1.7px;text-shadow:0 0 26px rgba(255,255,255,.25)}@keyframes fade{0%,70%{opacity:1}100%{opacity:0;visibility:hidden}}
-.small-note{font-size:11px;color:rgba(255,255,255,.52);margin-top:8px}.danger{background:rgba(255,100,120,.12)!important;border-color:rgba(255,100,120,.25)!important}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hidden{display:none!important}
-</style>
-</head>
-<body>
-<div class="app" id="app">
-  <div class="splash"><div>Hello Vella!</div></div>
+import React, { useMemo, useState } from "react";
 
-  <section id="home" class="screen active">
-    <div class="topbar"><div class="brand"><span>Hello Vella!</span></div><button class="icon-btn" data-action="openSettings">⚙️</button></div>
-    <div class="hero">
-      <div class="kicker">Inspiration → action</div>
-      <h1>Turn saved ideas into your real life.</h1>
-      <p>Save recipes, outfits, routines, trips and wishlists. Vella organises them into plans, reminders and shopping lists so your saves stop disappearing.</p>
-      <div class="hero-actions"><button class="btn" data-action="openCreate">+ Save idea</button><button class="btn secondary" data-screen="vault">Open Vault</button></div>
-    </div>
-    <div class="stats">
-      <div class="stat"><strong id="statSaves">0</strong><small>Saves</small></div>
-      <div class="stat"><strong id="statPlans">0</strong><small>Plans</small></div>
-      <div class="stat"><strong id="statDone">0</strong><small>Done</small></div>
-    </div>
-    <div class="section-title"><h2>Today’s action cards</h2><button data-screen="plans">View all</button></div>
-    <div class="grid" id="todayList"></div>
-    <div class="section-title"><h2>Feed pages</h2><button data-action="seedMore">Add demo ideas</button></div>
-    <div class="chips" id="discoverChips"></div>
-    <div class="feed" id="discoverFeed"></div>
-  </section>
+const today = "31 May 2026";
 
-  <section id="vault" class="screen">
-    <div class="topbar"><div class="brand"><span>Vella Vault</span></div><button class="icon-btn" data-action="openCreate">＋</button></div>
-    <input class="search" id="vaultSearch" placeholder="Search this tab, creators, folders..." />
-    <div class="chips" id="vaultChips"></div>
-    <div class="grid" id="vaultList"></div>
-  </section>
-
-  <section id="plans" class="screen">
-    <div class="topbar"><div class="brand"><span>Action Plans</span></div><button class="icon-btn" data-action="openCreatePlan">⏰</button></div>
-    <p style="margin-bottom:14px">This is where Vella becomes different: saves become reminders, routines, friend plans and real-life tasks.</p>
-    <div class="grid" id="planList"></div>
-  </section>
-
-  <section id="shopping" class="screen">
-    <div class="topbar"><div class="brand"><span>Lists</span></div><button class="icon-btn" data-action="openCreate">＋</button></div>
-    <p style="margin-bottom:14px">Auto-made shopping and prep lists from your saved ideas.</p>
-    <div class="grid" id="shoppingList"></div>
-  </section>
-
-  <section id="me" class="screen">
-    <div class="topbar"><div class="brand"><span>Your Vella</span></div><button class="icon-btn" data-action="openSettings">⚙️</button></div>
-    <div class="hero">
-      <div class="kicker">Dream-life dashboard</div>
-      <h1>Your saves are becoming a plan.</h1>
-      <p>Keep the app centred on the magic: save inspiration, organise it, then actually use it.</p>
-      <button class="btn full" data-action="exportData">Export my Vella data</button>
-      <button class="btn secondary full" data-action="resetDemo">Reset demo app</button>
-    </div>
-    <div class="section-title"><h2>Folders</h2></div>
-    <div class="grid" id="folderSummary"></div>
-  </section>
-
-  <div class="nav">
-    <button class="nav-item active" data-screen="home"><span>✨</span>Home</button>
-    <button class="nav-item" data-screen="vault"><span>✦</span>Vault</button>
-    <button class="nav-plus" data-action="openCreate">+</button>
-    <button class="nav-item" data-screen="plans"><span>⏰</span>Plans</button>
-    <button class="nav-item" data-screen="shopping"><span>🛍️</span>Lists</button>
-    <button class="nav-item" data-screen="me"><span>☺</span>Me</button>
-  </div>
-  <div class="toast" id="toast"></div>
-</div>
-
-<div class="modal" id="modal" role="dialog" aria-modal="true">
-  <div class="modal-card">
-    <div class="modal-head"><div><h2 id="modalTitle">Vella</h2><p id="modalText">Choose an option.</p></div><button class="close" data-action="closeModal">×</button></div>
-    <div id="modalBody"></div>
-  </div>
-</div>
-
-<script>
-(function(){
-'use strict';
-const STORAGE_KEY='helloVellaActionApp.v2.tabsFeeds';
-const categories=['All','Fashion Finds','Dinner Ideas','Workout Saves','Glow Up','Wishlist'];
-const demoPosts=[
- {id:'f1',title:'Soft-luxe hoodie outfit formula',creator:'Mia Luxe Wear',category:'Fashion Finds',folder:'Fashion Finds',kind:'outfit',image:'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1200&auto=format&fit=crop',notes:'A scrollable fashion save made for recreating the look later.',items:['Oversized hoodie','Black leggings','White sneakers','Gold hoops'],suggested:'Saturday · 10:00 AM'},
- {id:'f2',title:'Black dress birthday styling',creator:'Vella Style Desk',category:'Fashion Finds',folder:'Fashion Finds',kind:'outfit',image:'https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1200&auto=format&fit=crop',notes:'Dress, hair, jewellery and makeup notes saved in one fashion feed.',items:['Black dress','Hoop earrings','Soft curls','Mini bag'],suggested:'Friday · 6:00 PM'},
- {id:'f3',title:'Op-shop outfit glow up',creator:'Budget Muse',category:'Fashion Finds',folder:'Fashion Finds',kind:'style board',image:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop',notes:'Cheap finds turned into a full outfit plan instead of getting lost.',items:['Statement jacket','Basic tee','Denim','Boots'],suggested:'Payday · 11:00 AM'},
- {id:'d1',title:'Creamy potato curry bake',creator:'Dinner Glow',category:'Dinner Ideas',folder:'Dinner Ideas',kind:'recipe',image:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200&auto=format&fit=crop',notes:'Turn this save into a shopping list and dinner reminder.',items:['Potatoes','Curry powder','Cream','Cheese','Onion'],suggested:'Tonight · 6:30 PM'},
- {id:'d2',title:'15-minute pasta rescue dinner',creator:'Quick Kitchen',category:'Dinner Ideas',folder:'Dinner Ideas',kind:'recipe',image:'https://images.unsplash.com/photo-1551183053-bf91a1d81141?q=80&w=1200&auto=format&fit=crop',notes:'A fast dinner feed for nights when you need food without the chaos.',items:['Pasta','Tomato sauce','Garlic','Cheese','Frozen veg'],suggested:'Tomorrow · 7:00 PM'},
- {id:'d3',title:'Budget grocery dinner plan',creator:'Pantry Fairy',category:'Dinner Ideas',folder:'Dinner Ideas',kind:'meal plan',image:'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1200&auto=format&fit=crop',notes:'Save cheap meals and turn them into a weekly list.',items:['Rice','Eggs','Frozen vegetables','Chicken','Sauce'],suggested:'Sunday · 4:00 PM'},
- {id:'w1',title:'5-minute core workout',creator:'Fit Hour',category:'Workout Saves',folder:'Workout Saves',kind:'workout',image:'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200&auto=format&fit=crop',notes:'A workout feed that can become a reminder, friend challenge or routine.',items:['Yoga mat','Water bottle','Timer'],suggested:'Monday · 7:00 AM'},
- {id:'w2',title:'Walk and stretch reset',creator:'Soft Fitness Club',category:'Workout Saves',folder:'Workout Saves',kind:'wellness',image:'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=1200&auto=format&fit=crop',notes:'Low-pressure movement you can actually tick off.',items:['Comfortable shoes','Water bottle','Headphones'],suggested:'Tomorrow · 8:00 AM'},
- {id:'w3',title:'Friend workout challenge',creator:'Vella Challenge',category:'Workout Saves',folder:'Workout Saves',kind:'friend plan',image:'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?q=80&w=1200&auto=format&fit=crop',notes:'Invite a friend and turn a saved workout into a shared plan.',items:['Friend invite','Timer','Mat'],suggested:'Wednesday · 6:00 PM'},
- {id:'g1',title:'Glossy morning skincare routine',creator:'Glow Room',category:'Glow Up',folder:'Glow Up',kind:'routine',image:'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1200&auto=format&fit=crop',notes:'Cleanser, serum, moisturiser, SPF. Save it as a morning glow plan.',items:['Cleanser','Hydration serum','Moisturiser','SPF'],suggested:'Tomorrow · 8:00 AM'},
- {id:'g2',title:'Hair and makeup soft glam',creator:'Beauty Board',category:'Glow Up',folder:'Glow Up',kind:'beauty plan',image:'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=1200&auto=format&fit=crop',notes:'Save beauty inspo and make it a step-by-step getting ready card.',items:['Primer','Mascara','Lip gloss','Hair oil'],suggested:'Saturday · 5:00 PM'},
- {id:'x1',title:'Wishlist: soft luxury room vibe',creator:'Home Dreamer',category:'Wishlist',folder:'Wishlist',kind:'wishlist',image:'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop',notes:'Wishlist saves become shopping lists, not forgotten screenshots.',items:['Throw blanket','Lamp','Vanity tray','Pillow covers'],suggested:'Next payday'}
+const categories = [
+  { id: "fashion", icon: "👗", title: "Fashion", desc: "Outfits, stores, lives and style groups" },
+  { id: "dinner", icon: "🍝", title: "Dinner Ideas", desc: "Recipes, meal plans and grocery saves" },
+  { id: "workouts", icon: "💪", title: "Workouts", desc: "Fitness videos, challenges and reminders" },
+  { id: "shopping", icon: "🛍️", title: "Shopping", desc: "Choose what you want to buy today" },
+  { id: "beauty", icon: "💄", title: "Beauty", desc: "Makeup, skincare, hair and routines" },
+  { id: "home", icon: "🏠", title: "Home Ideas", desc: "Decor, cleaning, organising and cosy spaces" },
+  { id: "fixing", icon: "🔨", title: "DIY & Fixing", desc: "Hardware, repairs, tools and home fixes" },
+  { id: "gifts", icon: "🎁", title: "Gifts", desc: "Birthday, Christmas and surprise ideas" },
 ];
-let state=loadState();
-let activeDiscover='All';
-let activeVault='All';
 
-function defaultState(){return {saves:[],plans:[],completed:0,settings:{name:'Courtney',vibe:'Soft luxury planner'}}}
-function loadState(){try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw){const s=defaultState();s.saves=demoPosts.slice(0,3).map(copySave);s.plans=[makePlan(s.saves[0],'Tomorrow · 8:00 AM','Just me'),makePlan(s.saves[2],'Tonight · 6:30 PM','Just me')];saveState(s);return s}const parsed=JSON.parse(raw);return Object.assign(defaultState(),parsed)}catch(err){console.error('State load failed',err);return defaultState()}}
-function saveState(custom){localStorage.setItem(STORAGE_KEY,JSON.stringify(custom||state))}
-function uid(prefix){return prefix+'_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7)}
-function escapeHTML(value){return String(value||'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
-function copySave(item){return {id:uid('save'),sourceId:item.id||'',title:item.title,creator:item.creator||'Vella',category:item.category||'Wishlist',folder:item.folder||'Wishlist',kind:item.kind||'idea',image:item.image||demoPosts[0].image,notes:item.notes||'',items:Array.isArray(item.items)?item.items:[],createdAt:new Date().toISOString()}}
-function makePlan(save,time,type){return {id:uid('plan'),saveId:save.id,title:save.title,time:time||'Tomorrow · 9:00 AM',type:type||'Just me',done:false,steps:['Open saved idea','Prep what you need','Do it and tick it off'],createdAt:new Date().toISOString()}}
-function $(id){return document.getElementById(id)}
-function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove('show'),1600)}
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active',n.dataset.screen===id));renderAll()}
-function openModal(title,text,html){$('modalTitle').textContent=title;$('modalText').textContent=text;$('modalBody').innerHTML=html;$('modal').classList.add('show')}
-function closeModal(){$('modal').classList.remove('show');$('modalBody').innerHTML=''}
-function categoryChips(active,target,mode){target.innerHTML=categories.map(c=>`<button class="chip ${c===active?'active':''}" data-chip-mode="${mode}" data-category="${escapeHTML(c)}">${escapeHTML(c)}</button>`).join('')}
-function renderStats(){ $('statSaves').textContent=state.saves.length; $('statPlans').textContent=state.plans.length; $('statDone').textContent=state.completed; }
-function renderDiscover(){
-  categoryChips(activeDiscover,$('discoverChips'),'discover');
-  const posts=demoPosts.filter(p=>activeDiscover==='All'||p.category===activeDiscover);
-  const feedName=activeDiscover==='All'?'All Vella feeds':activeDiscover;
-  const feedText=activeDiscover==='All'
-    ? 'Scroll everything, or tap a tab to open its own focused feed page.'
-    : `You are now inside ${feedName}. This feed only shows saves for this tab.`;
-  $('discoverFeed').innerHTML=`<div class="card vault-card"><div class="pill">📌 ${escapeHTML(feedName)}</div><h3>${escapeHTML(feedName)} feed</h3><p>${escapeHTML(feedText)}</p></div>` + (posts.length?posts.map(post=>`
-  <article class="card post" style="background-image:url('${escapeHTML(post.image)}')">
-    <div class="post-body">
-      <div class="row"><div class="avatar">${escapeHTML((post.creator||'V')[0])}</div><div><div class="name">${escapeHTML(post.creator)}</div><div class="meta">${escapeHTML(post.category)} · ${escapeHTML(post.kind)}</div></div></div>
-      <h2>${escapeHTML(post.title)}</h2><p>${escapeHTML(post.notes)}</p>
-      <div class="post-actions"><button class="mini-btn primary" data-action="saveDemo" data-id="${post.id}">Save</button><button class="mini-btn" data-action="planDemo" data-id="${post.id}">Plan</button><button class="mini-btn" data-action="listDemo" data-id="${post.id}">List</button></div>
+const shoppingCategories = [
+  { id: "clothing", icon: "👗", title: "Clothing" },
+  { id: "beauty-shop", icon: "💄", title: "Beauty" },
+  { id: "hardware-shop", icon: "🔨", title: "Hardware" },
+  { id: "home-shop", icon: "🏠", title: "Home" },
+  { id: "tech", icon: "📱", title: "Tech" },
+  { id: "pets", icon: "🐾", title: "Pets" },
+  { id: "gaming", icon: "🎮", title: "Gaming" },
+  { id: "gifts-shop", icon: "🎁", title: "Gifts" },
+];
+
+const content = [
+  {
+    id: 1,
+    category: "fashion",
+    type: "Feed",
+    title: "Black dress outfit idea",
+    creator: "Mia Luxe",
+    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&auto=format&fit=crop",
+    text: "Save this look for your next night out.",
+  },
+  {
+    id: 2,
+    category: "dinner",
+    type: "Recipe",
+    title: "Creamy garlic pasta",
+    creator: "Kitchen Glow",
+    image: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=900&auto=format&fit=crop",
+    text: "A simple dinner idea you can save and find later.",
+  },
+  {
+    id: 3,
+    category: "workouts",
+    type: "Workout",
+    title: "10 minute reset workout",
+    creator: "Soft Fit Club",
+    image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=900&auto=format&fit=crop",
+    text: "Save it, set a reminder, and actually do it.",
+  },
+  {
+    id: 4,
+    category: "beauty",
+    type: "Beauty",
+    title: "Soft glow makeup",
+    creator: "Glow Girl",
+    image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=900&auto=format&fit=crop",
+    text: "Makeup and skincare saves in one easy place.",
+  },
+  {
+    id: 5,
+    category: "home",
+    type: "Home",
+    title: "Cosy room reset",
+    creator: "Home Mood",
+    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=900&auto=format&fit=crop",
+    text: "Save room ideas, cleaning routines and decor finds.",
+  },
+  {
+    id: 6,
+    category: "fixing",
+    type: "DIY",
+    title: "Fix a loose cupboard handle",
+    creator: "Fix It Fast",
+    image: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=900&auto=format&fit=crop",
+    text: "Hardware and fixing tips without random feeds.",
+  },
+];
+
+const moreItems = [
+  "Plans",
+  "Lists",
+  "Groups",
+  "Rankings",
+  "Creator Tools",
+  "Settings",
+  "About Vella",
+  "Invite Friends",
+];
+
+export default function App() {
+  const [page, setPage] = useState("home");
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeShopping, setActiveShopping] = useState(null);
+  const [saved, setSaved] = useState([]);
+  const [saveTarget, setSaveTarget] = useState(null);
+  const [toast, setToast] = useState("");
+  const [selectedFolder, setSelectedFolder] = useState(null);
+
+  const folders = ["Fashion", "Dinner", "Workouts", "Wishlist", "Beauty", "Home", "Fixing"];
+
+  const categoryFeed = useMemo(() => {
+    if (!activeCategory) return [];
+    return content.filter((item) => item.category === activeCategory.id);
+  }, [activeCategory]);
+
+  function showToast(msg) {
+    setToast(msg);
+    setTimeout(() => setToast(""), 1800);
+  }
+
+  function saveItem(folder) {
+    if (!saveTarget) return;
+    const item = { ...saveTarget, folder, savedAt: new Date().toLocaleTimeString() };
+    setSaved([...saved, item]);
+    setSaveTarget(null);
+    showToast(`Saved to ${folder} ✨`);
+  }
+
+  function openCategory(cat) {
+    if (cat.id === "shopping") {
+      setPage("shopping");
+      setActiveCategory(null);
+    } else {
+      setActiveCategory(cat);
+      setPage("category");
+    }
+  }
+
+  return (
+    <div style={s.app}>
+      <div style={s.phone}>
+        <div style={s.glowPink} />
+        <div style={s.glowBlue} />
+
+        <header style={s.header}>
+          <div>
+            <p style={s.smallText}>Hello Vella</p>
+            <h1 style={s.logo}>Vella</h1>
+          </div>
+          <button onClick={() => showToast("Quick save coming soon ✨")} style={s.topBtn}>
+            + Save
+          </button>
+        </header>
+
+        {toast && <div style={s.toast}>{toast}</div>}
+
+        <main style={s.main}>
+          {page === "home" && (
+            <>
+              <section style={s.heroSmall}>
+                <h2 style={s.heroTitle}>Choose your world today</h2>
+                <p style={s.muted}>
+                  No random algorithm. You pick what you want to watch, save, buy or plan.
+                </p>
+              </section>
+
+              {categories.map((cat) => (
+                <button key={cat.id} onClick={() => openCategory(cat)} style={s.categoryCard}>
+                  <span style={s.bigIcon}>{cat.icon}</span>
+                  <span>
+                    <strong style={s.cardTitle}>{cat.title}</strong>
+                    <p style={s.cardDesc}>{cat.desc}</p>
+                  </span>
+                  <span style={s.arrow}>›</span>
+                </button>
+              ))}
+            </>
+          )}
+
+          {page === "category" && activeCategory && (
+            <>
+              <button onClick={() => setPage("home")} style={s.back}>← Back to Home</button>
+
+              <section style={s.heroSmall}>
+                <p style={s.smallText}>{activeCategory.icon} {activeCategory.title}</p>
+                <h2 style={s.heroTitle}>{activeCategory.title} Feed</h2>
+                <p style={s.muted}>Only {activeCategory.title.toLowerCase()} content lives here.</p>
+              </section>
+
+              <div style={s.tabs}>
+                {["Feed", "Stores", "Lives", "Groups"].map((tab) => (
+                  <button key={tab} style={s.tab}>{tab}</button>
+                ))}
+              </div>
+
+              {categoryFeed.length ? categoryFeed.map((item) => (
+                <article key={item.id} style={s.post}>
+                  <img src={item.image} alt={item.title} style={s.image} />
+                  <div style={s.postBody}>
+                    <p style={s.badge}>{item.type}</p>
+                    <h3 style={s.postTitle}>{item.title}</h3>
+                    <p style={s.creator}>@{item.creator}</p>
+                    <p style={s.muted}>{item.text}</p>
+                    <div style={s.actions}>
+                      <button style={s.action}>♡ Like</button>
+                      <button style={s.action}>💬 Chat</button>
+                      <button style={s.action}>↗ Share</button>
+                      <button onClick={() => setSaveTarget(item)} style={s.save}>⭐ Save</button>
+                    </div>
+                  </div>
+                </article>
+              )) : (
+                <section style={s.empty}>More {activeCategory.title} content coming soon.</section>
+              )}
+            </>
+          )}
+
+          {page === "shopping" && (
+            <>
+              <button onClick={() => setPage("home")} style={s.back}>← Back to Home</button>
+
+              <section style={s.heroSmall}>
+                <p style={s.smallText}>🛍️ Shopping World</p>
+                <h2 style={s.heroTitle}>What do you want to buy?</h2>
+                <p style={s.muted}>Choose a shopping category instead of waiting for an algorithm.</p>
+              </section>
+
+              <div style={s.grid}>
+                {shoppingCategories.map((shop) => (
+                  <button
+                    key={shop.id}
+                    onClick={() => setActiveShopping(shop)}
+                    style={s.square}
+                  >
+                    <span style={s.squareIcon}>{shop.icon}</span>
+                    <strong>{shop.title}</strong>
+                  </button>
+                ))}
+              </div>
+
+              {activeShopping && (
+                <section style={s.heroSmall}>
+                  <h2 style={s.heroTitle}>{activeShopping.icon} {activeShopping.title} Feed</h2>
+                  <p style={s.muted}>
+                    This will show only {activeShopping.title.toLowerCase()} products, creators, stores and lives.
+                  </p>
+                  <button
+                    onClick={() =>
+                      setSaveTarget({
+                        id: Date.now(),
+                        title: `${activeShopping.title} shopping idea`,
+                        creator: "Vella Store",
+                        type: "Shopping",
+                        image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&auto=format&fit=crop",
+                        text: `Saved from the ${activeShopping.title} shopping feed.`,
+                      })
+                    }
+                    style={s.bigBtn}
+                  >
+                    Save demo {activeShopping.title} item
+                  </button>
+                </section>
+              )}
+            </>
+          )}
+
+          {page === "vault" && (
+            <>
+              <section style={s.heroSmall}>
+                <h2 style={s.heroTitle}>Vella Vault</h2>
+                <p style={s.muted}>Everything you save goes into folders so you can find it again.</p>
+              </section>
+
+              {!selectedFolder ? (
+                <div style={s.grid}>
+                  {folders.map((folder) => {
+                    const count = saved.filter((x) => x.folder === folder).length;
+                    return (
+                      <button key={folder} onClick={() => setSelectedFolder(folder)} style={s.square}>
+                        <span style={s.squareIcon}>📁</span>
+                        <strong>{folder}</strong>
+                        <small style={s.muted}>{count} saved</small>
+                      </button>
+                    );
+                  })}
+                </div>
+              ) : (
+                <>
+                  <button onClick={() => setSelectedFolder(null)} style={s.back}>← Back to Vault</button>
+                  <h2>{selectedFolder}</h2>
+                  {saved.filter((x) => x.folder === selectedFolder).length === 0 ? (
+                    <section style={s.empty}>Nothing saved here yet.</section>
+                  ) : (
+                    saved.filter((x) => x.folder === selectedFolder).map((item, index) => (
+                      <article key={index} style={s.savedCard}>
+                        <img src={item.image} alt={item.title} style={s.savedImg} />
+                        <div>
+                          <h3>{item.title}</h3>
+                          <p style={s.muted}>{item.text}</p>
+                          <div style={s.actions}>
+                            <button onClick={() => showToast("Reminder set 🔔")} style={s.action}>🔔 Remind</button>
+                            <button onClick={() => showToast("Shared 💌")} style={s.save}>💌 Share</button>
+                          </div>
+                        </div>
+                      </article>
+                    ))
+                  )}
+                </>
+              )}
+            </>
+          )}
+
+          {page === "inbox" && (
+            <section style={s.heroSmall}>
+              <h2 style={s.heroTitle}>Inbox</h2>
+              <p style={s.muted}>Friend shares, group plans and reminders will live here.</p>
+            </section>
+          )}
+
+          {page === "more" && (
+            <>
+              <section style={s.heroSmall}>
+                <h2 style={s.heroTitle}>More</h2>
+                <p style={s.muted}>Extra tools live here so Home stays clean.</p>
+              </section>
+
+              {moreItems.map((item) => (
+                <button
+                  key={item}
+                  onClick={() => showToast(`${item} opening soon ✨`)}
+                  style={s.moreRow}
+                >
+                  <span>{item}</span>
+                  <span>›</span>
+                </button>
+              ))}
+
+              <section style={s.about}>
+                <h3>About Vella</h3>
+                <p style={s.muted}>
+                  Vella helps people choose what they want to see, save ideas into folders,
+                  and turn saved content into reminders, plans, lists, groups and shopping actions.
+                </p>
+                <p style={s.smallText}>Updated: {today}</p>
+              </section>
+            </>
+          )}
+        </main>
+
+        {saveTarget && (
+          <div style={s.modalWrap}>
+            <div style={s.modal}>
+              <h2>Save to Vault</h2>
+              <p style={s.muted}>{saveTarget.title}</p>
+              <div style={s.grid}>
+                {folders.map((folder) => (
+                  <button key={folder} onClick={() => saveItem(folder)} style={s.modalFolder}>
+                    📁 {folder}
+                  </button>
+                ))}
+              </div>
+              <button onClick={() => setSaveTarget(null)} style={s.cancel}>Cancel</button>
+            </div>
+          </div>
+        )}
+
+        <nav style={s.nav}>
+          <button onClick={() => setPage("home")} style={page === "home" ? s.navOn : s.navBtn}>🏠<small>Home</small></button>
+          <button onClick={() => setPage("vault")} style={page === "vault" ? s.navOn : s.navBtn}>📁<small>Vault</small></button>
+          <button onClick={() => showToast("Choose something to save from a feed ✨")} style={s.plus}>+</button>
+          <button onClick={() => setPage("inbox")} style={page === "inbox" ? s.navOn : s.navBtn}>💬<small>Inbox</small></button>
+          <button onClick={() => setPage("more")} style={page === "more" ? s.navOn : s.navBtn}>⋯<small>More</small></button>
+        </nav>
+      </div>
     </div>
-  </article>`).join(''):`<div class="card empty"><h3>No posts in this feed yet</h3><p>Add an idea to this tab or switch feeds.</p></div>`)
+  );
 }
-function renderVault(){categoryChips(activeVault,$('vaultChips'),'vault');const q=($('vaultSearch')?.value||'').toLowerCase();let saves=state.saves.filter(s=>(activeVault==='All'||s.category===activeVault)&&[s.title,s.creator,s.folder,s.category,s.notes].join(' ').toLowerCase().includes(q));$('vaultList').innerHTML=saves.length?saves.map(s=>`
- <div class="card vault-card">
-  <div class="pill">✦ ${escapeHTML(s.folder)}</div><h3>${escapeHTML(s.title)}</h3><p>${escapeHTML(s.notes||'Saved to use later.')}</p>
-  <div class="small-note">${escapeHTML(s.creator)} · ${escapeHTML(s.category)}</div>
-  <div class="vault-actions"><button class="mini-btn primary" data-action="openPlanSave" data-id="${s.id}">Turn into plan</button><button class="mini-btn" data-action="openListSave" data-id="${s.id}">Shopping list</button><button class="mini-btn" data-action="viewSave" data-id="${s.id}">View</button><button class="mini-btn danger" data-action="deleteSave" data-id="${s.id}">Delete</button></div>
- </div>`).join(''):`<div class="card empty"><h3>No saves found</h3><p>Save an idea or change your search/filter.</p></div>`}
-function renderPlans(){const plans=state.plans;$('planList').innerHTML=plans.length?plans.map(p=>`
- <div class="card plan-card">
-  <div class="pill">${p.done?'✅ Done':'⏰ Planned'} · ${escapeHTML(p.type)}</div><h3>${escapeHTML(p.title)}</h3><p>${escapeHTML(p.time)}</p>
-  <div class="progress"><div class="bar" style="width:${p.done?'100':'38'}%"></div></div>
-  <div class="checkline"><button class="check ${p.done?'done':''}" data-action="togglePlan" data-id="${p.id}">${p.done?'✓':'○'}</button><p>${p.done?'Completed. That is the Vella magic.':'Tap the circle when you do it.'}</p></div>
-  <div class="vault-actions"><button class="mini-btn" data-action="viewPlan" data-id="${p.id}">View steps</button><button class="mini-btn danger" data-action="deletePlan" data-id="${p.id}">Delete</button></div>
- </div>`).join(''):`<div class="card empty"><h3>No plans yet</h3><p>Open your Vault and turn a save into a real action.</p></div>`}
-function renderToday(){const today=state.plans.slice(0,2);$('todayList').innerHTML=today.length?today.map(p=>`
- <div class="card plan-card"><div class="pill">${p.done?'✅ Done':'✨ Next action'}</div><h3>${escapeHTML(p.title)}</h3><p>${escapeHTML(p.time)} · ${escapeHTML(p.type)}</p><button class="btn full" data-action="togglePlan" data-id="${p.id}">${p.done?'Mark not done':'Tick off'}</button></div>`).join(''):`<div class="card empty"><h3>No action cards yet</h3><p>Create a plan from a save and it will appear here.</p></div>`}
-function renderShopping(){const savesWithItems=state.saves.filter(s=>s.items&&s.items.length);$('shoppingList').innerHTML=savesWithItems.length?savesWithItems.map(s=>`
- <div class="card vault-card"><div class="pill">🛍️ ${escapeHTML(s.folder)}</div><h3>${escapeHTML(s.title)}</h3><p>${s.items.map(i=>'• '+escapeHTML(i)).join('<br>')}</p><button class="btn full" data-action="copyList" data-id="${s.id}">Copy list</button></div>`).join(''):`<div class="card empty"><h3>No lists yet</h3><p>Save ideas that include products, ingredients or prep items.</p></div>`}
-function renderFolders(){const counts={};state.saves.forEach(s=>counts[s.folder]=(counts[s.folder]||0)+1);$('folderSummary').innerHTML=Object.keys(counts).length?Object.entries(counts).map(([folder,count])=>`<div class="card vault-card"><div class="pill">📁 Folder</div><h3>${escapeHTML(folder)}</h3><p>${count} saved idea${count===1?'':'s'}</p></div>`).join(''):`<div class="card empty"><h3>No folders yet</h3><p>Your folders appear as you save ideas.</p></div>`}
-function renderAll(){renderStats();renderDiscover();renderVault();renderPlans();renderToday();renderShopping();renderFolders()}
-function saveDemo(id){const post=demoPosts.find(p=>p.id===id);if(!post)return;let existing=state.saves.find(s=>s.sourceId===post.id);if(existing){toast('Already in your Vault ✦');return existing}const save=copySave(post);state.saves.unshift(save);saveState();renderAll();toast('Saved to Vella Vault ✦');return save}
-function planDemo(id){const save=saveDemo(id);openPlanSave(save.id)}
-function listDemo(id){const save=saveDemo(id);openListSave(save.id)}
-function findSave(id){return state.saves.find(s=>s.id===id)}
-function openPlanSave(id){const s=findSave(id);if(!s)return toast('Save not found');openModal('Turn into action','Choose how this save becomes real life.',`
- <div class="form"><div class="label">When?</div><select id="planTime" class="select"><option>${escapeHTML(s.suggested||'Tonight · 7:00 PM')}</option><option>Tomorrow · 8:00 AM</option><option>This weekend</option><option>Every Monday</option><option>Next payday</option></select><div class="label">Plan type</div><select id="planType" class="select"><option>Just me</option><option>Friend plan</option><option>Group plan</option><option>Glow-up routine</option></select><button class="btn full" data-action="savePlanFromModal" data-id="${s.id}">Create action plan</button></div>`)}
-function savePlanFromModal(id){const s=findSave(id);if(!s)return;const p=makePlan(s,$('planTime').value,$('planType').value);state.plans.unshift(p);saveState();closeModal();renderAll();toast('Action plan created ✨')}
-function openListSave(id){const s=findSave(id);if(!s)return;openModal('Shopping / prep list',s.title,`<div class="card vault-card"><p>${(s.items&&s.items.length?s.items:['No items yet. Add your own notes to this save.']).map(i=>'• '+escapeHTML(i)).join('<br>')}</p></div><button class="btn full" data-action="copyList" data-id="${s.id}">Copy list</button>`)}
-function viewSave(id){const s=findSave(id);if(!s)return;openModal(s.title,`${s.creator} · ${s.category}`,`<div class="card vault-card"><div class="pill">✦ ${escapeHTML(s.folder)}</div><p>${escapeHTML(s.notes)}</p><div class="small-note">Created: ${new Date(s.createdAt).toLocaleDateString()}</div><button class="btn full" data-action="openPlanSave" data-id="${s.id}">Turn into plan</button></div>`)}
-function deleteSave(id){state.saves=state.saves.filter(s=>s.id!==id);state.plans=state.plans.filter(p=>p.saveId!==id);saveState();renderAll();toast('Deleted')}
-function togglePlan(id){const p=state.plans.find(x=>x.id===id);if(!p)return;p.done=!p.done;if(p.done)state.completed+=1;else state.completed=Math.max(0,state.completed-1);saveState();renderAll();toast(p.done?'Yesss, ticked off ✨':'Marked not done')}
-function deletePlan(id){state.plans=state.plans.filter(p=>p.id!==id);saveState();renderAll();toast('Plan deleted')}
-function viewPlan(id){const p=state.plans.find(x=>x.id===id);if(!p)return;openModal('Plan steps',p.title,`<div class="choices">${p.steps.map((step,i)=>`<div class="choice"><strong>${i+1}. ${escapeHTML(step)}</strong><p>${i===0?'Start with the saved idea.':i===1?'Gather anything you need.':'Then tick it off in Vella.'}</p></div>`).join('')}</div>`)}
-async function copyList(id){const s=findSave(id);if(!s)return;const text=`${s.title}\n`+(s.items||[]).map(i=>`- ${i}`).join('\n');try{await navigator.clipboard.writeText(text);toast('List copied')}catch(e){openModal('Copy list','Clipboard was blocked, copy this manually.',`<textarea class="textarea">${escapeHTML(text)}</textarea>`)} }
-function openCreate(){openModal('Save new inspiration','Add a recipe, outfit, workout, place, wishlist or life idea.',`
- <div class="form"><input id="newTitle" class="input" placeholder="Idea title"><input id="newCreator" class="input" placeholder="Creator or source"><select id="newCategory" class="select">${categories.filter(c=>c!=='All').map(c=>`<option>${c}</option>`).join('')}</select><input id="newFolder" class="input" placeholder="Folder e.g. Fashion Finds"><textarea id="newNotes" class="textarea" placeholder="Why did you save this? What will future you need?"></textarea><input id="newItems" class="input" placeholder="List items, separated by commas"><button class="btn full" data-action="createSave">Save to Vault</button></div>`)}
-function createSave(){const title=$('newTitle').value.trim();if(!title)return toast('Add a title first');const category=$('newCategory').value;const save={id:uid('save'),sourceId:'custom',title,creator:$('newCreator').value.trim()||'Me',category,folder:$('newFolder').value.trim()||category,kind:'custom',image:demoPosts.find(p=>p.category===category)?.image||demoPosts[0].image,notes:$('newNotes').value.trim()||'Saved to turn into action later.',items:$('newItems').value.split(',').map(x=>x.trim()).filter(Boolean),createdAt:new Date().toISOString()};state.saves.unshift(save);saveState();closeModal();showScreen('vault');toast('Saved to Vault ✦')}
-function openCreatePlan(){if(!state.saves.length){openCreate();return}openModal('Create plan','Choose a saved idea to plan.',`<div class="choices">${state.saves.map(s=>`<button class="choice" data-action="openPlanSave" data-id="${s.id}"><strong>${escapeHTML(s.title)}</strong><p>${escapeHTML(s.folder)}</p></button>`).join('')}</div>`)}
-function openSettings(){openModal('Vella settings','Prototype controls.',`<div class="choices"><button class="choice" data-action="exportData"><strong>Export data</strong><p>Copy your current saves and plans as JSON.</p></button><button class="choice danger" data-action="resetDemo"><strong>Reset demo</strong><p>Clears local browser data and reloads demo content.</p></button></div>`)}
-function exportData(){const text=JSON.stringify(state,null,2);openModal('Your Vella data','Copy this for backup or testing.',`<textarea class="textarea" style="min-height:260px">${escapeHTML(text)}</textarea>`)}
-function resetDemo(){if(!confirm('Reset Vella demo data?'))return;localStorage.removeItem(STORAGE_KEY);state=loadState();closeModal();renderAll();toast('Demo reset')}
-function seedMore(){let added=0;demoPosts.forEach(p=>{if(!state.saves.some(s=>s.sourceId===p.id)){state.saves.push(copySave(p));added++}});saveState();renderAll();toast(added?`Added ${added} demo ideas`:'All demo ideas already saved')}
-function handleClick(e){const el=e.target.closest('[data-action],[data-screen],[data-chip-mode]');if(!el)return;if(el.dataset.screen){showScreen(el.dataset.screen);return}if(el.dataset.chipMode){if(el.dataset.chipMode==='discover')activeDiscover=el.dataset.category;else activeVault=el.dataset.category;renderAll();return}const a=el.dataset.action;const id=el.dataset.id;const actions={closeModal,openCreate,openCreatePlan,openSettings,exportData,resetDemo,seedMore,saveDemo:()=>saveDemo(id),planDemo:()=>planDemo(id),listDemo:()=>listDemo(id),openPlanSave:()=>openPlanSave(id),savePlanFromModal:()=>savePlanFromModal(id),openListSave:()=>openListSave(id),viewSave:()=>viewSave(id),deleteSave:()=>deleteSave(id),togglePlan:()=>togglePlan(id),deletePlan:()=>deletePlan(id),viewPlan:()=>viewPlan(id),copyList:()=>copyList(id),createSave};if(actions[a])actions[a]();}
-document.addEventListener('click',handleClick);
-$('vaultSearch').addEventListener('input',renderVault);
-renderAll();
-})();
-</script>
-</body>
-</html>
+
+const s = {
+  app: {
+    minHeight: "100vh",
+    background: "#020005",
+    color: "white",
+    display: "flex",
+    justifyContent: "center",
+    fontFamily: "Arial, sans-serif",
+  },
+  phone: {
+    width: "100%",
+    maxWidth: 460,
+    minHeight: "100vh",
+    position: "relative",
+    overflow: "hidden",
+    background: "linear-gradient(180deg,#170022,#07000d,#020005)",
+    borderLeft: "1px solid rgba(255,255,255,.08)",
+    borderRight: "1px solid rgba(255,255,255,.08)",
+  },
+  glowPink: {
+    position: "absolute",
+    top: -90,
+    left: -80,
+    width: 260,
+    height: 260,
+    borderRadius: "50%",
+    background: "rgba(217,70,239,.25)",
+    filter: "blur(70px)",
+  },
+  glowBlue: {
+    position: "absolute",
+    top: 120,
+    right: -90,
+    width: 240,
+    height: 240,
+    borderRadius: "50%",
+    background: "rgba(125,211,252,.18)",
+    filter: "blur(70px)",
+  },
+  header: {
+    position: "relative",
+    zIndex: 2,
+    padding: "22px 18px 10px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  smallText: {
+    color: "#f0abfc",
+    fontSize: 12,
+    fontWeight: 900,
+    textTransform: "uppercase",
+    letterSpacing: 1,
+    margin: 0,
+  },
+  logo: {
+    margin: 0,
+    fontSize: 38,
+    fontWeight: 950,
+    textShadow: "0 0 25px rgba(217,70,239,.9)",
+  },
+  topBtn: {
+    border: "1px solid rgba(255,255,255,.15)",
+    background: "rgba(255,255,255,.1)",
+    color: "white",
+    borderRadius: 999,
+    padding: "10px 14px",
+    fontWeight: 900,
+  },
+  main: {
+    position: "relative",
+    zIndex: 2,
+    padding: "10px 16px 105px",
+    height: "calc(100vh - 72px)",
+    overflowY: "auto",
+  },
+  heroSmall: {
+    border: "1px solid rgba(255,255,255,.12)",
+    background: "rgba(255,255,255,.07)",
+    borderRadius: 30,
+    padding: 18,
+    marginBottom: 14,
+  },
+  heroTitle: {
+    margin: "3px 0 8px",
+    fontSize: 26,
+    lineHeight: 1,
+    letterSpacing: -1,
+  },
+  muted: {
+    color: "#d8b4fe",
+    fontSize: 14,
+    lineHeight: 1.45,
+  },
+  categoryCard: {
+    width: "100%",
+    border: "1px solid rgba(255,255,255,.13)",
+    background: "linear-gradient(135deg,rgba(255,255,255,.11),rgba(255,255,255,.05))",
+    color: "white",
+    borderRadius: 28,
+    padding: 18,
+    marginBottom: 12,
+    display: "grid",
+    gridTemplateColumns: "48px 1fr 20px",
+    gap: 12,
+    alignItems: "center",
+    textAlign: "left",
+    boxShadow: "0 18px 40px rgba(0,0,0,.28)",
+  },
+  bigIcon: { fontSize: 34 },
+  cardTitle: { fontSize: 20 },
+  cardDesc: { margin: "5px 0 0", color: "#d8b4fe", fontSize: 13 },
+  arrow: { fontSize: 34, color: "#f0abfc" },
+  back: {
+    background: "transparent",
+    border: 0,
+    color: "#f5d0fe",
+    fontWeight: 900,
+    marginBottom: 10,
+  },
+  tabs: {
+    display: "flex",
+    gap: 8,
+    overflowX: "auto",
+    marginBottom: 14,
+  },
+  tab: {
+    border: "1px solid rgba(255,255,255,.14)",
+    background: "rgba(255,255,255,.08)",
+    color: "white",
+    borderRadius: 999,
+    padding: "10px 14px",
+    fontWeight: 900,
+  },
+  post: {
+    border: "1px solid rgba(255,255,255,.13)",
+    background: "rgba(255,255,255,.07)",
+    borderRadius: 30,
+    overflow: "hidden",
+    marginBottom: 16,
+  },
+  image: {
+    width: "100%",
+    height: 360,
+    objectFit: "cover",
+  },
+  postBody: { padding: 16 },
+  badge: {
+    display: "inline-block",
+    background: "rgba(217,70,239,.22)",
+    border: "1px solid rgba(240,171,252,.25)",
+    borderRadius: 999,
+    padding: "7px 10px",
+    fontSize: 12,
+    fontWeight: 900,
+    color: "#f5d0fe",
+  },
+  postTitle: { margin: "10px 0 4px", fontSize: 23 },
+  creator: { color: "#f0abfc", fontSize: 13, fontWeight: 900 },
+  actions: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: 10,
+    marginTop: 14,
+  },
+  action: {
+    border: "1px solid rgba(255,255,255,.14)",
+    background: "rgba(255,255,255,.08)",
+    color: "white",
+    borderRadius: 18,
+    padding: 13,
+    fontWeight: 900,
+  },
+  save: {
+    border: "1px solid rgba(240,171,252,.35)",
+    background: "rgba(217,70,239,.28)",
+    color: "white",
+    borderRadius: 18,
+    padding: 13,
+    fontWeight: 950,
+  },
+  grid: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: 12,
+  },
+  square: {
+    minHeight: 130,
+    border: "1px solid rgba(255,255,255,.13)",
+    background: "rgba(255,255,255,.08)",
+    color: "white",
+    borderRadius: 26,
+    padding: 16,
+    display: "grid",
+    gap: 8,
+    justifyItems: "start",
+    textAlign: "left",
+  },
+  squareIcon: { fontSize: 32 },
+  bigBtn: {
+    width: "100%",
+    border: 0,
+    borderRadius: 20,
+    padding: 14,
+    background: "linear-gradient(135deg,#fce7f3,#bae6fd)",
+    color: "#170022",
+    fontWeight: 950,
+  },
+  empty: {
+    border: "1px dashed rgba(255,255,255,.2)",
+    borderRadius: 24,
+    padding: 22,
+    color: "#d8b4fe",
+    textAlign: "center",
+  },
+  savedCard: {
+    border: "1px solid rgba(255,255,255,.13)",
+    background: "rgba(255,255,255,.07)",
+    borderRadius: 26,
+    overflow: "hidden",
+    marginBottom: 14,
+  },
+  savedImg: {
+    width: "100%",
+    height: 190,
+    objectFit: "cover",
+  },
+  moreRow: {
+    width: "100%",
+    border: "1px solid rgba(255,255,255,.13)",
+    background: "rgba(255,255,255,.08)",
+    color: "white",
+    borderRadius: 22,
+    padding: 16,
+    marginBottom: 10,
+    display: "flex",
+    justifyContent: "space-between",
+    fontWeight: 900,
+  },
+  about: {
+    border: "1px solid rgba(255,255,255,.12)",
+    background: "rgba(255,255,255,.06)",
+    borderRadius: 26,
+    padding: 16,
+    marginTop: 14,
+  },
+  toast: {
+    position: "fixed",
+    top: 14,
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: 50,
+    background: "rgba(217,70,239,.95)",
+    padding: "12px 18px",
+    borderRadius: 999,
+    fontWeight: 950,
+  },
+  modalWrap: {
+    position: "fixed",
+    inset: 0,
+    background: "rgba(0,0,0,.75)",
+    zIndex: 40,
+    display: "flex",
+    alignItems: "flex-end",
+    justifyContent: "center",
+  },
+  modal: {
+    width: "100%",
+    maxWidth: 460,
+    background: "#15001f",
+    borderRadius: "30px 30px 0 0",
+    padding: 18,
+    borderTop: "1px solid rgba(240,171,252,.3)",
+  },
+  modalFolder: {
+    border: "1px solid rgba(255,255,255,.13)",
+    background: "rgba(255,255,255,.08)",
+    color: "white",
+    borderRadius: 20,
+    padding: 15,
+    fontWeight: 900,
+    textAlign: "left",
+  },
+  cancel: {
+    width: "100%",
+    marginTop: 12,
+    border: "1px solid rgba(255,255,255,.12)",
+    background: "rgba(255,255,255,.08)",
+    color: "white",
+    borderRadius: 20,
+    padding: 14,
+    fontWeight: 900,
+  },
+  nav: {
+    position: "fixed",
+    bottom: 0,
+    left: "50%",
+    transform: "translateX(-50%)",
+    width: "100%",
+    maxWidth: 460,
+    zIndex: 30,
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr 64px 1fr 1fr",
+    gap: 7,
+    padding: "10px 10px 12px",
+    background: "rgba(8,0,14,.92)",
+    backdropFilter: "blur(18px)",
+    borderTop: "1px solid rgba(255,255,255,.12)",
+  },
+  navBtn: {
+    border: "1px solid rgba(255,255,255,.1)",
+    background: "rgba(255,255,255,.07)",
+    color: "#e9d5ff",
+    borderRadius: 18,
+    padding: "8px 2px",
+    display: "grid",
+    justifyItems: "center",
+    gap: 2,
+    fontWeight: 900,
+  },
+  navOn: {
+    border: "1px solid rgba(255,255,255,.1)",
+    background: "linear-gradient(135deg,#fce7f3,#bae6fd)",
+    color: "#16001f",
+    borderRadius: 18,
+    padding: "8px 2px",
+    display: "grid",
+    justifyItems: "center",
+    gap: 2,
+    fontWeight: 950,
+  },
+  plus: {
+    border: 0,
+    background: "linear-gradient(135deg,#d946ef,#7dd3fc)",
+    color: "white",
+    borderRadius: 999,
+    fontSize: 32,
+    fontWeight: 950,
+    boxShadow: "0 0 28px rgba(217,70,239,.7)",
+  },
+};
