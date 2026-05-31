@@ -1,5 +1,12 @@
 {
-  "routes": [
-    { "src": "/", "dest": "/index.html" }
-  ]
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "@fal-ai/client": "latest"
+  },
+  "devDependencies": {
+    "vercel": "latest"
+  }
 }
