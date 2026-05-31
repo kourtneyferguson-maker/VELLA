@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello Vella</title>
+  <title>Hello Vella Marketplace</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -11,337 +11,399 @@
 </head>
 
 <body class="bg-black text-white">
-  <div id="root"></div>
+<div id="root"></div>
 
-  <script type="text/babel">
-    const { useState } = React;
+<script type="text/babel">
+const { useState } = React;
 
-    const worlds = ["Fashion", "Beauty", "Food", "Fitness", "Cleaning", "Tech"];
+const worlds = ["Fashion", "Beauty", "Food", "Fitness", "Cleaning", "Tech"];
 
-    const posts = [
+const sellerPosts = [
+  {
+    id: 1,
+    world: "Fashion",
+    store: "Luna Winter Co.",
+    seller: "Mila Styles",
+    title: "Soft Winter Outfit",
+    cover: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=900",
+    description: "Full winter outfit package. Every item is sold through Vella checkout.",
+    products: [
       {
-        id: 1,
-        world: "Fashion",
-        store: "Luna Winter Co.",
-        creator: "Mila Styles",
-        title: "Soft Winter Outfit",
-        emoji: "🧥",
-        items: [
-          ["Cream Coat", 89],
-          ["Scarf", 25],
-          ["Gloves", 18],
-          ["Beanie", 22]
-        ]
+        id: "coat",
+        name: "Cream Winter Coat",
+        photo: "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=900",
+        price: 89,
+        sizes: ["XS", "S", "M", "L", "XL"],
+        measurements: "Bust 96cm · Length 82cm · Sleeve 60cm",
+        stock: 14,
+        shipping: "$9.95 standard shipping",
+        returns: "14-day return"
       },
       {
-        id: 2,
-        world: "Fashion",
-        store: "Nova Streetwear",
-        creator: "Jade Fits",
-        title: "Streetwear Set",
-        emoji: "👟",
-        items: [
-          ["Oversized Tee", 45],
-          ["Cargo Pants", 65],
-          ["Sneakers", 120]
-        ]
+        id: "scarf",
+        name: "Soft Beige Scarf",
+        photo: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=900",
+        price: 25,
+        sizes: ["One size"],
+        measurements: "180cm x 35cm",
+        stock: 32,
+        shipping: "$6.95 standard shipping",
+        returns: "14-day return"
       },
       {
-        id: 3,
-        world: "Beauty",
-        store: "Glow Lab",
-        creator: "Skin Babe",
-        title: "Night Glow Routine",
-        emoji: "🧴",
-        items: [
-          ["Cleanser", 18],
-          ["Serum", 32],
-          ["Moisturiser", 24]
-        ]
-      },
-      {
-        id: 4,
-        world: "Food",
-        store: "Dinner Girl",
-        creator: "Ava Eats",
-        title: "Garlic Pasta Night",
-        emoji: "🍝",
-        items: [
-          ["Pasta", 2.5],
-          ["Garlic", 1.2],
-          ["Butter", 3],
-          ["Parmesan", 4.5]
-        ]
-      },
-      {
-        id: 5,
-        world: "Fitness",
-        store: "FitKit",
-        creator: "Gym Ava",
-        title: "Leg Day Pack",
-        emoji: "🏋️",
-        items: [
-          ["Resistance Band", 12],
-          ["Gym Mat", 24],
-          ["Leggings", 49]
-        ]
-      },
-      {
-        id: 6,
-        world: "Cleaning",
-        store: "Clean Queen",
-        creator: "Mum Hacks",
-        title: "Bathroom Deep Clean",
-        emoji: "🧽",
-        items: [
-          ["Spray Cleaner", 6],
-          ["Scrub Brush", 5],
-          ["Cloths", 8]
-        ]
-      },
-      {
-        id: 7,
-        world: "Tech",
-        store: "Desk Glow",
-        creator: "Tech Babe",
-        title: "Creator Desk Setup",
-        emoji: "💻",
-        items: [
-          ["LED Keyboard", 55],
-          ["Desk Light", 39],
-          ["Laptop Stand", 28]
-        ]
+        id: "beanie",
+        name: "Cream Knit Beanie",
+        photo: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=900",
+        price: 22,
+        sizes: ["One size"],
+        measurements: "Stretch fit",
+        stock: 21,
+        shipping: "$6.95 standard shipping",
+        returns: "14-day return"
       }
-    ];
+    ]
+  },
+  {
+    id: 2,
+    world: "Fashion",
+    store: "Nova Streetwear",
+    seller: "Jade Fits",
+    title: "Streetwear Drop",
+    cover: "https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=900",
+    description: "Seller uploaded drop with product photos, stock, sizing and checkout.",
+    products: [
+      {
+        id: "tee",
+        name: "Oversized Graphic Tee",
+        photo: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=900",
+        price: 45,
+        sizes: ["S", "M", "L", "XL"],
+        measurements: "Chest 112cm · Length 74cm",
+        stock: 40,
+        shipping: "$8.95 standard shipping",
+        returns: "14-day return"
+      },
+      {
+        id: "cargo",
+        name: "Black Cargo Pants",
+        photo: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=900",
+        price: 65,
+        sizes: ["6", "8", "10", "12", "14", "16"],
+        measurements: "High waist · Wide leg · Inseam 78cm",
+        stock: 19,
+        shipping: "$9.95 standard shipping",
+        returns: "14-day return"
+      }
+    ]
+  }
+];
 
-    function App() {
-      const [page, setPage] = useState("Home");
-      const [world, setWorld] = useState("Fashion");
-      const [vault, setVault] = useState([]);
-      const [sharedUsers, setSharedUsers] = useState([]);
-      const [blockedUsers, setBlockedUsers] = useState([]);
+function App() {
+  const [page, setPage] = useState("Home");
+  const [world, setWorld] = useState("Fashion");
+  const [vault, setVault] = useState([]);
+  const [cart, setCart] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-      const currentPosts = posts.filter(p => p.world === world);
+  const worldPosts = sellerPosts.filter(p => p.world === world);
 
-      const savePost = post => {
-        if (!vault.find(v => v.id === post.id)) setVault([...vault, post]);
-      };
+  const addToCart = product => setCart([...cart, product]);
 
-      const total = items => items.reduce((s, i) => s + i[1], 0).toFixed(2);
+  const savePrivate = post => {
+    if (!vault.find(v => v.id === post.id)) setVault([...vault, post]);
+  };
 
-      return (
-        <div className="min-h-screen bg-gradient-to-b from-black via-[#190024] to-black flex justify-center">
-          <div className="w-full max-w-md min-h-screen border-x border-purple-900/40 pb-24">
+  const cartTotal = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
 
-            <header className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl p-4 border-b border-purple-800/50">
-              <h1 className="text-center text-3xl font-black text-purple-100 drop-shadow-[0_0_15px_#d946ef]">
-                Hello Vella
-              </h1>
-              <p className="text-center text-xs text-purple-300">
-                Choose your world. Save it privately. Share only when you choose.
-              </p>
-            </header>
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-black via-[#180022] to-black flex justify-center">
+      <div className="w-full max-w-md min-h-screen border-x border-purple-900/50 pb-24">
 
-            {page === "Home" && (
-              <main className="p-4">
-                <h2 className="text-xl font-bold mb-3">Choose your world</h2>
+        <header className="sticky top-0 z-30 bg-black/85 backdrop-blur-xl p-4 border-b border-purple-800/50">
+          <h1 className="text-center text-3xl font-black text-purple-100 drop-shadow-[0_0_15px_#d946ef]">
+            Hello Vella
+          </h1>
+          <p className="text-center text-xs text-purple-300">
+            Creator feeds. Seller stores. Vella checkout.
+          </p>
+        </header>
 
-                <div className="grid grid-cols-2 gap-3">
-                  {worlds.map(w => (
-                    <button
-                      key={w}
-                      onClick={() => {
-                        setWorld(w);
-                        setPage("World");
-                      }}
-                      className="rounded-3xl bg-white/10 border border-purple-500/30 p-5 text-left hover:bg-fuchsia-600/30"
-                    >
-                      <div className="text-4xl mb-3">
-                        {w === "Fashion" && "🧥"}
-                        {w === "Beauty" && "💄"}
-                        {w === "Food" && "🍝"}
-                        {w === "Fitness" && "🏋️"}
-                        {w === "Cleaning" && "🧽"}
-                        {w === "Tech" && "💻"}
-                      </div>
-                      <h3 className="font-black">{w}</h3>
-                      <p className="text-xs text-purple-300 mt-1">
-                        Watch stores, creators, products and packages.
-                      </p>
-                    </button>
-                  ))}
-                </div>
-              </main>
-            )}
-
-            {page === "World" && (
-              <>
-                <div className="sticky top-[88px] z-20 bg-black/80 backdrop-blur-xl p-3 border-b border-purple-900/40">
-                  <div className="flex gap-2 overflow-x-auto">
-                    {worlds.map(w => (
-                      <button
-                        key={w}
-                        onClick={() => setWorld(w)}
-                        className={`px-4 py-2 rounded-full text-sm whitespace-nowrap ${
-                          world === w ? "bg-fuchsia-600" : "bg-white/10 text-purple-200"
-                        }`}
-                      >
-                        {w}
-                      </button>
-                    ))}
+        {page === "Home" && (
+          <main className="p-4">
+            <h2 className="text-xl font-black mb-3">Choose your world</h2>
+            <div className="grid grid-cols-2 gap-3">
+              {worlds.map(w => (
+                <button
+                  key={w}
+                  onClick={() => {
+                    setWorld(w);
+                    setPage("World");
+                  }}
+                  className="rounded-3xl bg-white/10 border border-purple-500/30 p-5 text-left"
+                >
+                  <div className="text-4xl mb-2">
+                    {w === "Fashion" && "🧥"}
+                    {w === "Beauty" && "💄"}
+                    {w === "Food" && "🍝"}
+                    {w === "Fitness" && "🏋️"}
+                    {w === "Cleaning" && "🧽"}
+                    {w === "Tech" && "💻"}
                   </div>
-                </div>
-
-                <main className="p-4 space-y-5">
-                  <h2 className="text-2xl font-black">{world} Feed</h2>
-
-                  {currentPosts.map(post => (
-                    <section key={post.id} className="rounded-3xl bg-white/10 border border-purple-500/30 p-4">
-                      <div className="text-7xl text-center bg-black/40 rounded-3xl p-8">
-                        {post.emoji}
-                      </div>
-
-                      <div className="mt-4">
-                        <p className="text-xs text-fuchsia-300">{post.store}</p>
-                        <h3 className="text-xl font-black">{post.title}</h3>
-                        <p className="text-sm text-purple-300">Posted by {post.creator}</p>
-
-                        <div className="mt-3 bg-black/40 rounded-2xl p-3">
-                          <div className="flex justify-between font-bold mb-2">
-                            <span>Package items</span>
-                            <span className="text-green-300">${total(post.items)}</span>
-                          </div>
-
-                          {post.items.map((item, index) => (
-                            <div key={index} className="flex justify-between text-sm border-b border-white/10 py-2">
-                              <span>{item[0]}</span>
-                              <span>${item[1].toFixed(2)}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-2 mt-4">
-                          <button onClick={() => savePost(post)} className="bg-fuchsia-600 rounded-2xl p-3 font-bold">
-                            Save Private
-                          </button>
-                          <button className="bg-purple-700 rounded-2xl p-3 font-bold">
-                            Buy Package
-                          </button>
-                          <button className="bg-white/10 rounded-2xl p-3 font-bold">
-                            Hire Creator
-                          </button>
-                          <button className="bg-white/10 rounded-2xl p-3 font-bold">
-                            Visit Store
-                          </button>
-                        </div>
-                      </div>
-                    </section>
-                  ))}
-                </main>
-              </>
-            )}
-
-            {page === "Vault" && (
-              <main className="p-4">
-                <h2 className="text-2xl font-black mb-2">Private Portfolio</h2>
-                <p className="text-sm text-purple-300 mb-4">
-                  Your saves are private unless you share them.
-                </p>
-
-                {vault.length === 0 ? (
-                  <Empty text="Nothing saved yet." />
-                ) : (
-                  vault.map(item => (
-                    <div key={item.id} className="bg-white/10 rounded-3xl p-4 mb-3 border border-purple-500/30">
-                      <div className="text-4xl">{item.emoji}</div>
-                      <h3 className="font-black mt-2">{item.title}</h3>
-                      <p className="text-sm text-purple-300">{item.world} · {item.store}</p>
-
-                      <div className="grid grid-cols-2 gap-2 mt-3">
-                        <button
-                          onClick={() => setSharedUsers([...sharedUsers, "Friend added to " + item.title])}
-                          className="bg-fuchsia-600 rounded-2xl p-2 text-sm font-bold"
-                        >
-                          Share / Add
-                        </button>
-                        <button
-                          onClick={() => setSharedUsers(sharedUsers.filter(u => !u.includes(item.title)))}
-                          className="bg-white/10 rounded-2xl p-2 text-sm font-bold"
-                        >
-                          Remove Person
-                        </button>
-                      </div>
-                    </div>
-                  ))
-                )}
-              </main>
-            )}
-
-            {page === "Safety" && (
-              <main className="p-4 space-y-3">
-                <h2 className="text-2xl font-black">AI Safety Centre</h2>
-
-                <SafetyCard title="Private by default" text="Saved portfolios are hidden unless the user chooses to share." />
-                <SafetyCard title="Remove access" text="Users can delete someone from a shared save, folder or plan." />
-                <SafetyCard title="Block users" text="Blocking stops messages, sharing and access to private content." />
-                <SafetyCard title="AI monitoring" text="AI checks for scams, threats, abuse, unsafe behaviour, grooming, harassment and red flags." />
-                <SafetyCard title="Creator protection" text="Stores, creators and users can report suspicious activity." />
-
-                <button
-                  onClick={() => setBlockedUsers([...blockedUsers, "Blocked user example"])}
-                  className="w-full bg-red-600 rounded-2xl p-3 font-bold"
-                >
-                  Test Block User
-                </button>
-
-                <p className="text-sm text-purple-300">
-                  Blocked users: {blockedUsers.length}
-                </p>
-              </main>
-            )}
-
-            <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-black/90 backdrop-blur-xl border-t border-purple-900/60 grid grid-cols-4 p-2">
-              {[
-                ["Home", "🏠"],
-                ["World", "🌍"],
-                ["Vault", "🔒"],
-                ["Safety", "🛡️"]
-              ].map(([name, icon]) => (
-                <button
-                  key={name}
-                  onClick={() => setPage(name)}
-                  className={`rounded-2xl py-2 text-xs ${
-                    page === name ? "bg-fuchsia-600 text-white" : "text-purple-300"
-                  }`}
-                >
-                  <div className="text-xl">{icon}</div>
-                  {name}
+                  <h3 className="font-black">{w}</h3>
+                  <p className="text-xs text-purple-300">Open {w} feed</p>
                 </button>
               ))}
-            </nav>
+            </div>
+          </main>
+        )}
+
+        {page === "World" && (
+          <>
+            <div className="sticky top-[88px] z-20 bg-black/85 backdrop-blur-xl p-3 border-b border-purple-900/40">
+              <div className="flex gap-2 overflow-x-auto">
+                {worlds.map(w => (
+                  <button
+                    key={w}
+                    onClick={() => setWorld(w)}
+                    className={`px-4 py-2 rounded-full text-sm whitespace-nowrap ${
+                      world === w ? "bg-fuchsia-600" : "bg-white/10 text-purple-200"
+                    }`}
+                  >
+                    {w}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <main className="p-4 space-y-5">
+              <h2 className="text-2xl font-black">{world} Seller Feed</h2>
+
+              {world !== "Fashion" && (
+                <div className="bg-white/10 rounded-3xl p-5 text-purple-200">
+                  This world is ready for its own seller feed structure.
+                </div>
+              )}
+
+              {worldPosts.map(post => (
+                <section key={post.id} className="rounded-3xl bg-white/10 border border-purple-500/30 overflow-hidden">
+                  <img src={post.cover} className="w-full h-64 object-cover" />
+
+                  <div className="p-4">
+                    <p className="text-xs text-fuchsia-300">{post.store}</p>
+                    <h3 className="text-xl font-black">{post.title}</h3>
+                    <p className="text-sm text-purple-300">Seller: {post.seller}</p>
+                    <p className="text-sm text-purple-100 mt-2">{post.description}</p>
+
+                    <div className="mt-4 space-y-3">
+                      {post.products.map(product => (
+                        <div key={product.id} className="bg-black/40 rounded-3xl overflow-hidden border border-white/10">
+                          <img src={product.photo} className="w-full h-56 object-cover" />
+
+                          <div className="p-3">
+                            <div className="flex justify-between gap-3">
+                              <div>
+                                <h4 className="font-black">{product.name}</h4>
+                                <p className="text-xs text-purple-300">
+                                  Sizes: {product.sizes.join(", ")}
+                                </p>
+                              </div>
+                              <p className="font-black text-green-300">${product.price.toFixed(2)}</p>
+                            </div>
+
+                            <p className="text-xs text-purple-200 mt-2">{product.measurements}</p>
+                            <p className="text-xs text-purple-300 mt-1">Stock: {product.stock}</p>
+
+                            <div className="grid grid-cols-2 gap-2 mt-3">
+                              <button
+                                onClick={() => setSelectedProduct(product)}
+                                className="bg-white/10 rounded-2xl p-2 text-sm font-bold"
+                              >
+                                View Details
+                              </button>
+                              <button
+                                onClick={() => addToCart(product)}
+                                className="bg-fuchsia-600 rounded-2xl p-2 text-sm font-bold"
+                              >
+                                Add to Cart
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 mt-4">
+                      <button onClick={() => savePrivate(post)} className="bg-purple-700 rounded-2xl p-3 font-bold">
+                        Save Private
+                      </button>
+                      <button className="bg-white/10 rounded-2xl p-3 font-bold">
+                        Hire Creator
+                      </button>
+                      <button className="bg-white/10 rounded-2xl p-3 font-bold">
+                        Visit Store
+                      </button>
+                      <button className="bg-white/10 rounded-2xl p-3 font-bold">
+                        Share
+                      </button>
+                    </div>
+                  </div>
+                </section>
+              ))}
+            </main>
+          </>
+        )}
+
+        {page === "Vault" && (
+          <main className="p-4">
+            <h2 className="text-2xl font-black">Private Portfolio</h2>
+            <p className="text-sm text-purple-300 mb-4">
+              Your saves stay private unless you share them.
+            </p>
+
+            {vault.length === 0 ? (
+              <Empty text="Nothing saved yet." />
+            ) : vault.map(item => (
+              <div key={item.id} className="bg-white/10 rounded-3xl p-4 mb-3">
+                <h3 className="font-black">{item.title}</h3>
+                <p className="text-sm text-purple-300">{item.store}</p>
+              </div>
+            ))}
+          </main>
+        )}
+
+        {page === "Cart" && (
+          <main className="p-4">
+            <h2 className="text-2xl font-black mb-3">Vella Checkout</h2>
+
+            {cart.length === 0 ? (
+              <Empty text="Your cart is empty." />
+            ) : (
+              <>
+                {cart.map((item, index) => (
+                  <div key={index} className="flex gap-3 bg-white/10 rounded-3xl p-3 mb-3">
+                    <img src={item.photo} className="w-20 h-20 object-cover rounded-2xl" />
+                    <div className="flex-1">
+                      <h3 className="font-black">{item.name}</h3>
+                      <p className="text-xs text-purple-300">{item.shipping}</p>
+                      <p className="font-bold text-green-300">${item.price.toFixed(2)}</p>
+                    </div>
+                  </div>
+                ))}
+
+                <div className="bg-black/50 rounded-3xl p-4 mt-4 border border-purple-500/30">
+                  <div className="flex justify-between text-lg font-black">
+                    <span>Total</span>
+                    <span>${cartTotal}</span>
+                  </div>
+
+                  <button className="w-full bg-fuchsia-600 rounded-2xl p-4 mt-4 font-black">
+                    Pay Securely Through Vella
+                  </button>
+
+                  <p className="text-xs text-purple-300 mt-3">
+                    In a real launch, this connects to a legal payment processor like Stripe Connect so Vella can take commission, pay sellers, manage refunds, track orders and keep transaction records.
+                  </p>
+                </div>
+              </>
+            )}
+          </main>
+        )}
+
+        {page === "Seller" && (
+          <main className="p-4 space-y-3">
+            <h2 className="text-2xl font-black">Seller Upload Centre</h2>
+
+            <SellerField label="Product name" value="Cream Winter Coat" />
+            <SellerField label="Price" value="$89.00" />
+            <SellerField label="Sizes" value="XS, S, M, L, XL" />
+            <SellerField label="Measurements" value="Bust, waist, length, sleeve" />
+            <SellerField label="Stock quantity" value="14 available" />
+            <SellerField label="Shipping" value="$9.95 standard" />
+            <SellerField label="Returns" value="14-day return policy" />
+
+            <button className="w-full bg-fuchsia-600 rounded-2xl p-4 font-black">
+              Upload Product to Vella Store
+            </button>
+
+            <button className="w-full bg-white/10 rounded-2xl p-4 font-black">
+              Hire Content Creator
+            </button>
+          </main>
+        )}
+
+        {selectedProduct && (
+          <div className="fixed inset-0 bg-black/80 z-50 flex items-end justify-center">
+            <div className="w-full max-w-md bg-[#17001f] rounded-t-3xl p-4 border-t border-purple-500/40">
+              <img src={selectedProduct.photo} className="w-full h-72 object-cover rounded-3xl" />
+              <h2 className="text-2xl font-black mt-4">{selectedProduct.name}</h2>
+              <p className="text-green-300 font-black">${selectedProduct.price.toFixed(2)}</p>
+              <p className="text-sm text-purple-200 mt-2">{selectedProduct.measurements}</p>
+              <p className="text-sm text-purple-300 mt-1">Sizes: {selectedProduct.sizes.join(", ")}</p>
+              <p className="text-sm text-purple-300">Stock: {selectedProduct.stock}</p>
+              <p className="text-sm text-purple-300">{selectedProduct.shipping}</p>
+              <p className="text-sm text-purple-300">{selectedProduct.returns}</p>
+
+              <div className="grid grid-cols-2 gap-2 mt-4">
+                <button onClick={() => setSelectedProduct(null)} className="bg-white/10 rounded-2xl p-3 font-bold">
+                  Close
+                </button>
+                <button
+                  onClick={() => {
+                    addToCart(selectedProduct);
+                    setSelectedProduct(null);
+                  }}
+                  className="bg-fuchsia-600 rounded-2xl p-3 font-bold"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      );
-    }
+        )}
 
-    function Empty({ text }) {
-      return (
-        <div className="bg-white/10 rounded-3xl p-8 text-center text-purple-300">
-          {text}
-        </div>
-      );
-    }
+        <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-black/90 backdrop-blur-xl border-t border-purple-900/60 grid grid-cols-5 p-2">
+          {[
+            ["Home", "🏠"],
+            ["World", "🌍"],
+            ["Vault", "🔒"],
+            ["Cart", "🛒"],
+            ["Seller", "➕"]
+          ].map(([name, icon]) => (
+            <button
+              key={name}
+              onClick={() => setPage(name)}
+              className={`rounded-2xl py-2 text-xs ${
+                page === name ? "bg-fuchsia-600 text-white" : "text-purple-300"
+              }`}
+            >
+              <div className="text-xl">{icon}</div>
+              {name}
+            </button>
+          ))}
+        </nav>
+      </div>
+    </div>
+  );
+}
 
-    function SafetyCard({ title, text }) {
-      return (
-        <div className="bg-white/10 border border-purple-500/30 rounded-3xl p-4">
-          <h3 className="font-black">{title}</h3>
-          <p className="text-sm text-purple-300 mt-1">{text}</p>
-        </div>
-      );
-    }
+function Empty({ text }) {
+  return (
+    <div className="bg-white/10 rounded-3xl p-8 text-center text-purple-300">
+      {text}
+    </div>
+  );
+}
 
-    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
-  </script>
+function SellerField({ label, value }) {
+  return (
+    <div className="bg-white/10 rounded-2xl p-3 border border-purple-500/30">
+      <p className="text-xs text-purple-300">{label}</p>
+      <p className="font-bold">{value}</p>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
 </body>
 </html>
