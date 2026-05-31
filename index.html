@@ -16,193 +16,222 @@
   <script type="text/babel">
     const { useState } = React;
 
+    const worlds = ["Fashion", "Beauty", "Food", "Fitness", "Cleaning", "Tech"];
+
     const posts = [
       {
         id: 1,
-        type: "Fashion",
-        title: "Winter Soft Girl Outfit",
+        world: "Fashion",
+        store: "Luna Winter Co.",
         creator: "Mila Styles",
-        image: "🧥",
-        description: "A full cosy outfit package with matching winter accessories.",
+        title: "Soft Winter Outfit",
+        emoji: "🧥",
         items: [
-          { name: "Cream coat", price: 89 },
-          { name: "Beige scarf", price: 25 },
-          { name: "Gloves", price: 18 },
-          { name: "Beanie", price: 22 },
-          { name: "Brown boots", price: 120 }
+          ["Cream Coat", 89],
+          ["Scarf", 25],
+          ["Gloves", 18],
+          ["Beanie", 22]
         ]
       },
       {
         id: 2,
-        type: "Food",
-        title: "Garlic Butter Pasta Night",
-        creator: "Dinner Babe",
-        image: "🍝",
-        description: "Save the full recipe, ingredients, and meal cost.",
+        world: "Fashion",
+        store: "Nova Streetwear",
+        creator: "Jade Fits",
+        title: "Streetwear Set",
+        emoji: "👟",
         items: [
-          { name: "Pasta", price: 2.5 },
-          { name: "Garlic", price: 1.2 },
-          { name: "Butter", price: 3 },
-          { name: "Parmesan", price: 4.5 },
-          { name: "Parsley", price: 2 }
+          ["Oversized Tee", 45],
+          ["Cargo Pants", 65],
+          ["Sneakers", 120]
         ]
       },
       {
         id: 3,
-        type: "Workout",
-        title: "Leg Day Routine",
-        creator: "Fit With Ava",
-        image: "🏋️",
-        description: "Workout routine with outfit and equipment suggestions.",
+        world: "Beauty",
+        store: "Glow Lab",
+        creator: "Skin Babe",
+        title: "Night Glow Routine",
+        emoji: "🧴",
         items: [
-          { name: "Resistance band", price: 12 },
-          { name: "Gym mat", price: 24 },
-          { name: "Leggings", price: 49 },
-          { name: "Sports bra", price: 35 },
-          { name: "Training shoes", price: 110 }
+          ["Cleanser", 18],
+          ["Serum", 32],
+          ["Moisturiser", 24]
         ]
       },
       {
         id: 4,
-        type: "Cleaning",
-        title: "Bathroom Deep Clean Kit",
-        creator: "Clean Queen",
-        image: "🧽",
-        description: "Everything used in the cleaning hack, priced and saveable.",
+        world: "Food",
+        store: "Dinner Girl",
+        creator: "Ava Eats",
+        title: "Garlic Pasta Night",
+        emoji: "🍝",
         items: [
-          { name: "Spray cleaner", price: 6 },
-          { name: "Scrub brush", price: 5 },
-          { name: "Microfiber cloths", price: 8 },
-          { name: "Toilet gel", price: 4 },
-          { name: "Glass cleaner", price: 5 }
+          ["Pasta", 2.5],
+          ["Garlic", 1.2],
+          ["Butter", 3],
+          ["Parmesan", 4.5]
+        ]
+      },
+      {
+        id: 5,
+        world: "Fitness",
+        store: "FitKit",
+        creator: "Gym Ava",
+        title: "Leg Day Pack",
+        emoji: "🏋️",
+        items: [
+          ["Resistance Band", 12],
+          ["Gym Mat", 24],
+          ["Leggings", 49]
+        ]
+      },
+      {
+        id: 6,
+        world: "Cleaning",
+        store: "Clean Queen",
+        creator: "Mum Hacks",
+        title: "Bathroom Deep Clean",
+        emoji: "🧽",
+        items: [
+          ["Spray Cleaner", 6],
+          ["Scrub Brush", 5],
+          ["Cloths", 8]
+        ]
+      },
+      {
+        id: 7,
+        world: "Tech",
+        store: "Desk Glow",
+        creator: "Tech Babe",
+        title: "Creator Desk Setup",
+        emoji: "💻",
+        items: [
+          ["LED Keyboard", 55],
+          ["Desk Light", 39],
+          ["Laptop Stand", 28]
         ]
       }
     ];
 
     function App() {
-      const [tab, setTab] = useState("All");
-      const [page, setPage] = useState("Feed");
+      const [page, setPage] = useState("Home");
+      const [world, setWorld] = useState("Fashion");
       const [vault, setVault] = useState([]);
-      const [shoppingList, setShoppingList] = useState([]);
-      const [reminders, setReminders] = useState([]);
+      const [sharedUsers, setSharedUsers] = useState([]);
+      const [blockedUsers, setBlockedUsers] = useState([]);
 
-      const tabs = ["All", "Fashion", "Food", "Workout", "Cleaning"];
+      const currentPosts = posts.filter(p => p.world === world);
 
-      const filteredPosts =
-        tab === "All" ? posts : posts.filter(post => post.type === tab);
-
-      const saveToVault = (post) => {
-        if (!vault.find(item => item.id === post.id)) {
-          setVault([...vault, post]);
-        }
+      const savePost = post => {
+        if (!vault.find(v => v.id === post.id)) setVault([...vault, post]);
       };
 
-      const addToShoppingList = (post) => {
-        const newItems = post.items.map(item => ({
-          ...item,
-          source: post.title
-        }));
-        setShoppingList([...shoppingList, ...newItems]);
-      };
-
-      const addReminder = (post) => {
-        setReminders([
-          ...reminders,
-          {
-            title: post.title,
-            text: `Reminder saved for ${post.type}: ${post.title}`
-          }
-        ]);
-      };
-
-      const total = (items) =>
-        items.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+      const total = items => items.reduce((s, i) => s + i[1], 0).toFixed(2);
 
       return (
-        <div className="min-h-screen bg-gradient-to-b from-black via-[#160022] to-black flex justify-center">
-          <div className="w-full max-w-md min-h-screen border-x border-purple-900/40 relative pb-24">
+        <div className="min-h-screen bg-gradient-to-b from-black via-[#190024] to-black flex justify-center">
+          <div className="w-full max-w-md min-h-screen border-x border-purple-900/40 pb-24">
 
-            <header className="sticky top-0 z-20 bg-black/70 backdrop-blur-xl border-b border-purple-800/40 p-4">
-              <h1 className="text-3xl font-black text-center text-purple-200 drop-shadow-[0_0_14px_#d946ef]">
+            <header className="sticky top-0 z-30 bg-black/80 backdrop-blur-xl p-4 border-b border-purple-800/50">
+              <h1 className="text-center text-3xl font-black text-purple-100 drop-shadow-[0_0_15px_#d946ef]">
                 Hello Vella
               </h1>
-              <p className="text-center text-xs text-purple-300 mt-1">
-                Watch it. Save it. Buy it. Plan it.
+              <p className="text-center text-xs text-purple-300">
+                Choose your world. Save it privately. Share only when you choose.
               </p>
             </header>
 
-            {page === "Feed" && (
-              <>
-                <div className="flex gap-2 overflow-x-auto p-3">
-                  {tabs.map(item => (
+            {page === "Home" && (
+              <main className="p-4">
+                <h2 className="text-xl font-bold mb-3">Choose your world</h2>
+
+                <div className="grid grid-cols-2 gap-3">
+                  {worlds.map(w => (
                     <button
-                      key={item}
-                      onClick={() => setTab(item)}
-                      className={`px-4 py-2 rounded-full text-sm whitespace-nowrap ${
-                        tab === item
-                          ? "bg-fuchsia-500 text-white shadow-[0_0_18px_#d946ef]"
-                          : "bg-white/10 text-purple-200"
-                      }`}
+                      key={w}
+                      onClick={() => {
+                        setWorld(w);
+                        setPage("World");
+                      }}
+                      className="rounded-3xl bg-white/10 border border-purple-500/30 p-5 text-left hover:bg-fuchsia-600/30"
                     >
-                      {item}
+                      <div className="text-4xl mb-3">
+                        {w === "Fashion" && "🧥"}
+                        {w === "Beauty" && "💄"}
+                        {w === "Food" && "🍝"}
+                        {w === "Fitness" && "🏋️"}
+                        {w === "Cleaning" && "🧽"}
+                        {w === "Tech" && "💻"}
+                      </div>
+                      <h3 className="font-black">{w}</h3>
+                      <p className="text-xs text-purple-300 mt-1">
+                        Watch stores, creators, products and packages.
+                      </p>
                     </button>
                   ))}
                 </div>
+              </main>
+            )}
+
+            {page === "World" && (
+              <>
+                <div className="sticky top-[88px] z-20 bg-black/80 backdrop-blur-xl p-3 border-b border-purple-900/40">
+                  <div className="flex gap-2 overflow-x-auto">
+                    {worlds.map(w => (
+                      <button
+                        key={w}
+                        onClick={() => setWorld(w)}
+                        className={`px-4 py-2 rounded-full text-sm whitespace-nowrap ${
+                          world === w ? "bg-fuchsia-600" : "bg-white/10 text-purple-200"
+                        }`}
+                      >
+                        {w}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
                 <main className="p-4 space-y-5">
-                  {filteredPosts.map(post => (
-                    <section
-                      key={post.id}
-                      className="rounded-3xl bg-white/10 border border-purple-500/30 p-4 shadow-xl"
-                    >
-                      <div className="text-6xl text-center py-6 bg-black/40 rounded-3xl">
-                        {post.image}
+                  <h2 className="text-2xl font-black">{world} Feed</h2>
+
+                  {currentPosts.map(post => (
+                    <section key={post.id} className="rounded-3xl bg-white/10 border border-purple-500/30 p-4">
+                      <div className="text-7xl text-center bg-black/40 rounded-3xl p-8">
+                        {post.emoji}
                       </div>
 
                       <div className="mt-4">
-                        <div className="flex justify-between items-start gap-3">
-                          <div>
-                            <p className="text-xs text-fuchsia-300">{post.type}</p>
-                            <h2 className="text-xl font-bold">{post.title}</h2>
-                            <p className="text-sm text-purple-200">by {post.creator}</p>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-xs text-purple-300">Package total</p>
-                            <p className="text-lg font-black text-green-300">
-                              ${total(post.items)}
-                            </p>
-                          </div>
-                        </div>
+                        <p className="text-xs text-fuchsia-300">{post.store}</p>
+                        <h3 className="text-xl font-black">{post.title}</h3>
+                        <p className="text-sm text-purple-300">Posted by {post.creator}</p>
 
-                        <p className="text-sm text-purple-100 mt-3">
-                          {post.description}
-                        </p>
+                        <div className="mt-3 bg-black/40 rounded-2xl p-3">
+                          <div className="flex justify-between font-bold mb-2">
+                            <span>Package items</span>
+                            <span className="text-green-300">${total(post.items)}</span>
+                          </div>
 
-                        <div className="mt-4 bg-black/40 rounded-2xl p-3">
-                          <p className="font-bold mb-2 text-sm">Included items</p>
                           {post.items.map((item, index) => (
-                            <div
-                              key={index}
-                              className="flex justify-between text-sm border-b border-white/10 py-2"
-                            >
-                              <span>{item.name}</span>
-                              <span>${item.price.toFixed(2)}</span>
+                            <div key={index} className="flex justify-between text-sm border-b border-white/10 py-2">
+                              <span>{item[0]}</span>
+                              <span>${item[1].toFixed(2)}</span>
                             </div>
                           ))}
                         </div>
 
                         <div className="grid grid-cols-2 gap-2 mt-4">
-                          <button onClick={() => saveToVault(post)} className="bg-fuchsia-600 rounded-2xl p-3 font-bold">
-                            Save to Vault
+                          <button onClick={() => savePost(post)} className="bg-fuchsia-600 rounded-2xl p-3 font-bold">
+                            Save Private
                           </button>
-                          <button onClick={() => addToShoppingList(post)} className="bg-purple-700 rounded-2xl p-3 font-bold">
-                            Shopping List
-                          </button>
-                          <button onClick={() => addReminder(post)} className="bg-white/10 rounded-2xl p-3 font-bold">
-                            Remind Me
+                          <button className="bg-purple-700 rounded-2xl p-3 font-bold">
+                            Buy Package
                           </button>
                           <button className="bg-white/10 rounded-2xl p-3 font-bold">
-                            Share
+                            Hire Creator
+                          </button>
+                          <button className="bg-white/10 rounded-2xl p-3 font-bold">
+                            Visit Store
                           </button>
                         </div>
                       </div>
@@ -213,67 +242,75 @@
             )}
 
             {page === "Vault" && (
-              <Page title="Vella Vault">
+              <main className="p-4">
+                <h2 className="text-2xl font-black mb-2">Private Portfolio</h2>
+                <p className="text-sm text-purple-300 mb-4">
+                  Your saves are private unless you share them.
+                </p>
+
                 {vault.length === 0 ? (
-                  <Empty text="Saved packages will appear here." />
+                  <Empty text="Nothing saved yet." />
                 ) : (
                   vault.map(item => (
-                    <Card key={item.id} emoji={item.image} title={item.title} text={`${item.type} package saved`} />
-                  ))
-                )}
-              </Page>
-            )}
+                    <div key={item.id} className="bg-white/10 rounded-3xl p-4 mb-3 border border-purple-500/30">
+                      <div className="text-4xl">{item.emoji}</div>
+                      <h3 className="font-black mt-2">{item.title}</h3>
+                      <p className="text-sm text-purple-300">{item.world} · {item.store}</p>
 
-            {page === "List" && (
-              <Page title="Shopping List">
-                {shoppingList.length === 0 ? (
-                  <Empty text="Add items from outfits, recipes, workouts, or cleaning posts." />
-                ) : (
-                  shoppingList.map((item, index) => (
-                    <div key={index} className="flex justify-between bg-white/10 rounded-2xl p-3 mb-2">
-                      <div>
-                        <p className="font-bold">{item.name}</p>
-                        <p className="text-xs text-purple-300">{item.source}</p>
+                      <div className="grid grid-cols-2 gap-2 mt-3">
+                        <button
+                          onClick={() => setSharedUsers([...sharedUsers, "Friend added to " + item.title])}
+                          className="bg-fuchsia-600 rounded-2xl p-2 text-sm font-bold"
+                        >
+                          Share / Add
+                        </button>
+                        <button
+                          onClick={() => setSharedUsers(sharedUsers.filter(u => !u.includes(item.title)))}
+                          className="bg-white/10 rounded-2xl p-2 text-sm font-bold"
+                        >
+                          Remove Person
+                        </button>
                       </div>
-                      <p>${item.price.toFixed(2)}</p>
                     </div>
                   ))
                 )}
-              </Page>
+              </main>
             )}
 
-            {page === "Inbox" && (
-              <Page title="Inbox & Reminders">
-                {reminders.length === 0 ? (
-                  <Empty text="Reminders and shared plans will appear here." />
-                ) : (
-                  reminders.map((item, index) => (
-                    <Card key={index} emoji="🔔" title={item.title} text={item.text} />
-                  ))
-                )}
-              </Page>
+            {page === "Safety" && (
+              <main className="p-4 space-y-3">
+                <h2 className="text-2xl font-black">AI Safety Centre</h2>
+
+                <SafetyCard title="Private by default" text="Saved portfolios are hidden unless the user chooses to share." />
+                <SafetyCard title="Remove access" text="Users can delete someone from a shared save, folder or plan." />
+                <SafetyCard title="Block users" text="Blocking stops messages, sharing and access to private content." />
+                <SafetyCard title="AI monitoring" text="AI checks for scams, threats, abuse, unsafe behaviour, grooming, harassment and red flags." />
+                <SafetyCard title="Creator protection" text="Stores, creators and users can report suspicious activity." />
+
+                <button
+                  onClick={() => setBlockedUsers([...blockedUsers, "Blocked user example"])}
+                  className="w-full bg-red-600 rounded-2xl p-3 font-bold"
+                >
+                  Test Block User
+                </button>
+
+                <p className="text-sm text-purple-300">
+                  Blocked users: {blockedUsers.length}
+                </p>
+              </main>
             )}
 
-            {page === "Store" && (
-              <Page title="Vella Store">
-                <Card emoji="🛍️" title="Creator Storefronts" text="Every post can become a shopable package." />
-                <Card emoji="💰" title="Full Package Pricing" text="Users can buy one item or the entire look, meal, kit, or routine." />
-                <Card emoji="📦" title="Save for Payday" text="Users can save and come back when they are ready to buy." />
-              </Page>
-            )}
-
-            <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-black/90 backdrop-blur-xl border-t border-purple-800/50 grid grid-cols-5 p-2">
+            <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-black/90 backdrop-blur-xl border-t border-purple-900/60 grid grid-cols-4 p-2">
               {[
-                ["Feed", "🏠"],
-                ["Vault", "💜"],
-                ["List", "🛒"],
-                ["Inbox", "💬"],
-                ["Store", "🛍️"]
+                ["Home", "🏠"],
+                ["World", "🌍"],
+                ["Vault", "🔒"],
+                ["Safety", "🛡️"]
               ].map(([name, icon]) => (
                 <button
                   key={name}
                   onClick={() => setPage(name)}
-                  className={`py-2 rounded-2xl text-xs ${
+                  className={`rounded-2xl py-2 text-xs ${
                     page === name ? "bg-fuchsia-600 text-white" : "text-purple-300"
                   }`}
                 >
@@ -287,29 +324,19 @@
       );
     }
 
-    function Page({ title, children }) {
+    function Empty({ text }) {
       return (
-        <main className="p-4">
-          <h2 className="text-2xl font-black mb-4 text-purple-100">{title}</h2>
-          {children}
-        </main>
-      );
-    }
-
-    function Card({ emoji, title, text }) {
-      return (
-        <div className="bg-white/10 border border-purple-500/30 rounded-3xl p-4 mb-3">
-          <div className="text-4xl mb-2">{emoji}</div>
-          <h3 className="font-bold text-lg">{title}</h3>
-          <p className="text-sm text-purple-200">{text}</p>
+        <div className="bg-white/10 rounded-3xl p-8 text-center text-purple-300">
+          {text}
         </div>
       );
     }
 
-    function Empty({ text }) {
+    function SafetyCard({ title, text }) {
       return (
-        <div className="text-center text-purple-300 bg-white/10 rounded-3xl p-8 mt-10">
-          {text}
+        <div className="bg-white/10 border border-purple-500/30 rounded-3xl p-4">
+          <h3 className="font-black">{title}</h3>
+          <p className="text-sm text-purple-300 mt-1">{text}</p>
         </div>
       );
     }
