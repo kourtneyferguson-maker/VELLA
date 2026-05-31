@@ -10,7 +10,7 @@ module.exports = async function handler(req, res) {
 
     if (!humanImage || !garmentImage) {
       return res.status(400).json({
-        error: "Missing humanImage or garmentImage"
+        error: "Missing body template or clothing image."
       });
     }
 
@@ -32,19 +32,14 @@ module.exports = async function handler(req, res) {
 
     if (!imageUrl) {
       return res.status(500).json({
-        error: "No image returned from AI try-on",
-        raw: result
+        error: "No AI image was returned."
       });
     }
 
-    return res.status(200).json({
-      image: imageUrl
-    });
+    return res.status(200).json({ image: imageUrl });
   } catch (error) {
-    console.error("AI TRY-ON ERROR:", error);
-
     return res.status(500).json({
-      error: "AI try-on failed",
+      error: "AI try-on failed.",
       details: error.message
     });
   }
