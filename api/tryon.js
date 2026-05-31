@@ -1,16 +1,26 @@
 const { fal } = require("@fal-ai/client");
 
+fal.config({
+  credentials: process.env.FAL_KEY
+});
+
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Only POST requests are allowed" });
+    return res.status(405).json({ error: "Only POST requests are allowed." });
   }
 
   try {
+    if (!process.env.FAL_KEY) {
+      return res.status(500).json({
+        error: "FAL_KEY is missing in Vercel Environment Variables."
+      });
+    }
+
     const { humanImage, garmentImage } = req.body || {};
 
     if (!humanImage || !garmentImage) {
       return res.status(400).json({
-        error: "Missing body template or clothing image."
+        error: "Missing saved try-on template or clothing image."
       });
     }
 
