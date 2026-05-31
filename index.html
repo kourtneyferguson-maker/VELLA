@@ -5,7 +5,794 @@ const today = "31 May 2026";
 const categories = [
   { id: "fashion", icon: "👗", title: "Fashion", desc: "Outfits, stores, lives and style groups" },
   { id: "dinner", icon: "🍝", title: "Dinner Ideas", desc: "Recipes, meal plans and grocery saves" },
-  { id: "workouts", icon: "💪", title: "Workouts", desc: "Fitness videos, challenges and reminders" },
+  { id: "workouts", icon: "💪", title: "Workouts", desc: <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello Vella</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #020005;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    .app {
+      max-width: 460px;
+      min-height: 100vh;
+      margin: 0 auto;
+      background: linear-gradient(180deg, #180022, #07000d, #020005);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .app::before {
+      content: "";
+      position: fixed;
+      width: 280px;
+      height: 280px;
+      background: rgba(217, 70, 239, 0.25);
+      filter: blur(80px);
+      border-radius: 50%;
+      top: -100px;
+      left: calc(50% - 270px);
+      pointer-events: none;
+    }
+
+    header {
+      padding: 22px 18px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .kicker {
+      color: #f0abfc;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 40px;
+      text-shadow: 0 0 24px rgba(217, 70, 239, 0.9);
+    }
+
+    main {
+      padding: 10px 16px 105px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .top-btn,
+    button {
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .top-btn {
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.1);
+      color: white;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 900;
+    }
+
+    .hero {
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255,255,255,.07);
+      border-radius: 30px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.3);
+    }
+
+    .hero h2 {
+      margin: 4px 0 8px;
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .muted {
+      color: #d8b4fe;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .category-card {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.13);
+      background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.05));
+      color: white;
+      border-radius: 28px;
+      padding: 18px;
+      margin-bottom: 12px;
+      display: grid;
+      grid-template-columns: 50px 1fr 20px;
+      gap: 12px;
+      align-items: center;
+      text-align: left;
+    }
+
+    .big-icon {
+      font-size: 34px;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 950;
+      display: block;
+    }
+
+    .card-desc {
+      margin: 5px 0 0;
+      color: #d8b4fe;
+      font-size: 13px;
+    }
+
+    .arrow {
+      font-size: 34px;
+      color: #f0abfc;
+    }
+
+    .back {
+      background: none;
+      border: 0;
+      color: #f5d0fe;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      margin-bottom: 14px;
+    }
+
+    .tab {
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      color: white;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .post {
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255,255,255,.07);
+      border-radius: 30px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .post img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .post-body {
+      padding: 16px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(217,70,239,.22);
+      border: 1px solid rgba(240,171,252,.25);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 900;
+      color: #f5d0fe;
+    }
+
+    .post h3 {
+      margin: 10px 0 4px;
+      font-size: 23px;
+    }
+
+    .creator {
+      color: #f0abfc;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .action-btn {
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.08);
+      color: white;
+      border-radius: 18px;
+      padding: 13px;
+      font-weight: 900;
+    }
+
+    .save-btn {
+      border: 1px solid rgba(240,171,252,.35);
+      background: rgba(217,70,239,.28);
+      color: white;
+      border-radius: 18px;
+      padding: 13px;
+      font-weight: 950;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .square {
+      min-height: 130px;
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255,255,255,.08);
+      color: white;
+      border-radius: 26px;
+      padding: 16px;
+      display: grid;
+      gap: 8px;
+      justify-items: start;
+      text-align: left;
+      font-weight: 900;
+    }
+
+    .square span {
+      font-size: 32px;
+    }
+
+    .empty {
+      border: 1px dashed rgba(255,255,255,.2);
+      border-radius: 24px;
+      padding: 22px;
+      color: #d8b4fe;
+      text-align: center;
+    }
+
+    .more-row {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255,255,255,.08);
+      color: white;
+      border-radius: 22px;
+      padding: 16px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 900;
+    }
+
+    .toast {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      background: rgba(217,70,239,.95);
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: 950;
+      box-shadow: 0 0 28px rgba(217,70,239,.7);
+    }
+
+    .modal-wrap {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.75);
+      z-index: 80;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 460px;
+      background: #15001f;
+      border-radius: 30px 30px 0 0;
+      padding: 18px;
+      border-top: 1px solid rgba(240,171,252,.3);
+    }
+
+    .modal-folder {
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(255,255,255,.08);
+      color: white;
+      border-radius: 20px;
+      padding: 15px;
+      font-weight: 900;
+      text-align: left;
+    }
+
+    .cancel {
+      width: 100%;
+      margin-top: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.08);
+      color: white;
+      border-radius: 20px;
+      padding: 14px;
+      font-weight: 900;
+    }
+
+    nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 460px;
+      z-index: 50;
+      display: grid;
+      grid-template-columns: 1fr 1fr 64px 1fr 1fr;
+      gap: 7px;
+      padding: 10px 10px 12px;
+      background: rgba(8,0,14,.92);
+      backdrop-filter: blur(18px);
+      border-top: 1px solid rgba(255,255,255,.12);
+    }
+
+    .nav-btn {
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.07);
+      color: #e9d5ff;
+      border-radius: 18px;
+      padding: 8px 2px;
+      display: grid;
+      justify-items: center;
+      gap: 2px;
+      font-weight: 900;
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg,#fce7f3,#bae6fd);
+      color: #16001f;
+    }
+
+    .plus {
+      border: 0;
+      background: linear-gradient(135deg,#d946ef,#7dd3fc);
+      color: white;
+      border-radius: 999px;
+      font-size: 32px;
+      font-weight: 950;
+      box-shadow: 0 0 28px rgba(217,70,239,.7);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header>
+      <div>
+        <p class="kicker">Hello Vella</p>
+        <h1>Vella</h1>
+      </div>
+      <button class="top-btn" onclick="toast('Quick save coming soon ✨')">+ Save</button>
+    </header>
+
+    <main id="main"></main>
+
+    <nav>
+      <button class="nav-btn active" id="nav-home" onclick="goHome()">🏠<small>Home</small></button>
+      <button class="nav-btn" id="nav-vault" onclick="showVault()">📁<small>Vault</small></button>
+      <button class="plus" onclick="toast('Choose something from a feed to save ✨')">+</button>
+      <button class="nav-btn" id="nav-inbox" onclick="showInbox()">💬<small>Inbox</small></button>
+      <button class="nav-btn" id="nav-more" onclick="showMore()">⋯<small>More</small></button>
+    </nav>
+  </div>
+
+  <script>
+    const main = document.getElementById("main");
+
+    const folders = ["Fashion", "Dinner", "Workouts", "Wishlist", "Beauty", "Home", "Fixing"];
+
+    let saved = JSON.parse(localStorage.getItem("vellaSaved") || "[]");
+    let saveTarget = null;
+
+    const categories = [
+      { id: "fashion", icon: "👗", title: "Fashion", desc: "Outfits, stores, lives and style groups" },
+      { id: "dinner", icon: "🍝", title: "Dinner Ideas", desc: "Recipes, meal plans and grocery saves" },
+      { id: "workouts", icon: "💪", title: "Workouts", desc: "Fitness videos, challenges and reminders" },
+      { id: "shopping", icon: "🛍️", title: "Shopping", desc: "Choose what you want to buy today" },
+      { id: "beauty", icon: "💄", title: "Beauty", desc: "Makeup, skincare, hair and routines" },
+      { id: "home", icon: "🏠", title: "Home Ideas", desc: "Decor, cleaning, organising and cosy spaces" },
+      { id: "fixing", icon: "🔨", title: "DIY & Fixing", desc: "Hardware, repairs, tools and home fixes" },
+      { id: "gifts", icon: "🎁", title: "Gifts", desc: "Birthday, Christmas and surprise ideas" }
+    ];
+
+    const shoppingCategories = [
+      { id: "clothing", icon: "👗", title: "Clothing" },
+      { id: "beauty-shop", icon: "💄", title: "Beauty" },
+      { id: "hardware-shop", icon: "🔨", title: "Hardware" },
+      { id: "home-shop", icon: "🏠", title: "Home" },
+      { id: "tech", icon: "📱", title: "Tech" },
+      { id: "pets", icon: "🐾", title: "Pets" },
+      { id: "gaming", icon: "🎮", title: "Gaming" },
+      { id: "gifts-shop", icon: "🎁", title: "Gifts" }
+    ];
+
+    const posts = [
+      {
+        id: 1,
+        category: "fashion",
+        type: "Fashion Feed",
+        title: "Black dress outfit idea",
+        creator: "Mia Luxe",
+        image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&auto=format&fit=crop",
+        text: "Save this look for your next night out."
+      },
+      {
+        id: 2,
+        category: "dinner",
+        type: "Dinner Feed",
+        title: "Creamy garlic pasta",
+        creator: "Kitchen Glow",
+        image: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=900&auto=format&fit=crop",
+        text: "A simple dinner idea you can save and find later."
+      },
+      {
+        id: 3,
+        category: "workouts",
+        type: "Workout Feed",
+        title: "10 minute reset workout",
+        creator: "Soft Fit Club",
+        image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=900&auto=format&fit=crop",
+        text: "Save it, set a reminder, and actually do it."
+      },
+      {
+        id: 4,
+        category: "beauty",
+        type: "Beauty Feed",
+        title: "Soft glow makeup",
+        creator: "Glow Girl",
+        image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=900&auto=format&fit=crop",
+        text: "Makeup and skincare saves in one easy place."
+      },
+      {
+        id: 5,
+        category: "home",
+        type: "Home Feed",
+        title: "Cosy room reset",
+        creator: "Home Mood",
+        image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=900&auto=format&fit=crop",
+        text: "Save room ideas, cleaning routines and decor finds."
+      },
+      {
+        id: 6,
+        category: "fixing",
+        type: "DIY Feed",
+        title: "Fix a loose cupboard handle",
+        creator: "Fix It Fast",
+        image: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=900&auto=format&fit=crop",
+        text: "Hardware and fixing tips without random feeds."
+      }
+    ];
+
+    function setNav(active) {
+      document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
+      const nav = document.getElementById("nav-" + active);
+      if (nav) nav.classList.add("active");
+    }
+
+    function toast(message) {
+      const old = document.querySelector(".toast");
+      if (old) old.remove();
+
+      const box = document.createElement("div");
+      box.className = "toast";
+      box.textContent = message;
+      document.body.appendChild(box);
+
+      setTimeout(() => box.remove(), 1800);
+    }
+
+    function saveState() {
+      localStorage.setItem("vellaSaved", JSON.stringify(saved));
+    }
+
+    function goHome() {
+      setNav("home");
+      main.innerHTML = `
+        <section class="hero">
+          <p class="kicker">Your choice feed</p>
+          <h2>Choose your world today</h2>
+          <p class="muted">No random algorithm. You pick what you want to watch, save, buy or plan.</p>
+        </section>
+
+        ${categories.map(cat => `
+          <button class="category-card" onclick="openCategory('${cat.id}')">
+            <span class="big-icon">${cat.icon}</span>
+            <span>
+              <span class="card-title">${cat.title}</span>
+              <p class="card-desc">${cat.desc}</p>
+            </span>
+            <span class="arrow">›</span>
+          </button>
+        `).join("")}
+      `;
+    }
+
+    function openCategory(id) {
+      const cat = categories.find(c => c.id === id);
+
+      if (id === "shopping") {
+        showShopping();
+        return;
+      }
+
+      setNav("home");
+      const feed = posts.filter(post => post.category === id);
+
+      main.innerHTML = `
+        <button class="back" onclick="goHome()">← Back to Home</button>
+
+        <section class="hero">
+          <p class="kicker">${cat.icon} ${cat.title}</p>
+          <h2>${cat.title} Feed</h2>
+          <p class="muted">Only ${cat.title.toLowerCase()} content lives here. You choose the world, not the algorithm.</p>
+        </section>
+
+        <div class="tabs">
+          <button class="tab">Feed</button>
+          <button class="tab">Stores</button>
+          <button class="tab">Lives</button>
+          <button class="tab">Groups</button>
+        </div>
+
+        ${
+          feed.length
+            ? feed.map(postCard).join("")
+            : `<section class="empty">More ${cat.title} content coming soon.</section>`
+        }
+      `;
+    }
+
+    function postCard(post) {
+      return `
+        <article class="post">
+          <img src="${post.image}" alt="${post.title}">
+          <div class="post-body">
+            <span class="badge">${post.type}</span>
+            <h3>${post.title}</h3>
+            <p class="creator">@${post.creator}</p>
+            <p class="muted">${post.text}</p>
+
+            <div class="actions">
+              <button class="action-btn" onclick="toast('Liked ♡')">♡ Like</button>
+              <button class="action-btn" onclick="toast('Comments coming soon 💬')">💬 Chat</button>
+              <button class="action-btn" onclick="toast('Share coming soon ↗')">↗ Share</button>
+              <button class="save-btn" onclick="openSave(${post.id})">⭐ Save</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function showShopping() {
+      setNav("home");
+
+      main.innerHTML = `
+        <button class="back" onclick="goHome()">← Back to Home</button>
+
+        <section class="hero">
+          <p class="kicker">🛍️ Shopping World</p>
+          <h2>What do you want to buy?</h2>
+          <p class="muted">Choose a shopping category instead of waiting for an algorithm.</p>
+        </section>
+
+        <div class="grid">
+          ${shoppingCategories.map(shop => `
+            <button class="square" onclick="openShoppingFeed('${shop.id}')">
+              <span>${shop.icon}</span>
+              ${shop.title}
+            </button>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function openShoppingFeed(id) {
+      const shop = shoppingCategories.find(s => s.id === id);
+
+      const demo = {
+        id: Date.now(),
+        category: "shopping",
+        type: "Shopping Feed",
+        title: shop.title + " shopping idea",
+        creator: "Vella Store",
+        image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&auto=format&fit=crop",
+        text: "Saved from the " + shop.title + " shopping feed."
+      };
+
+      main.innerHTML = `
+        <button class="back" onclick="showShopping()">← Back to Shopping</button>
+
+        <section class="hero">
+          <p class="kicker">${shop.icon} ${shop.title}</p>
+          <h2>${shop.title} Feed</h2>
+          <p class="muted">Only ${shop.title.toLowerCase()} products, creators, stores and lives show here.</p>
+        </section>
+
+        ${postCard(demo)}
+      `;
+    }
+
+    function openSave(id) {
+      saveTarget = posts.find(p => p.id === id) || {
+        id,
+        type: "Shopping Feed",
+        title: "Shopping idea",
+        creator: "Vella Store",
+        image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&auto=format&fit=crop",
+        text: "Saved shopping idea."
+      };
+
+      const modal = document.createElement("div");
+      modal.className = "modal-wrap";
+      modal.innerHTML = `
+        <div class="modal">
+          <h2>Save to Vault</h2>
+          <p class="muted">${saveTarget.title}</p>
+
+          <div class="grid">
+            ${folders.map(folder => `
+              <button class="modal-folder" onclick="saveToFolder('${folder}')">📁 ${folder}</button>
+            `).join("")}
+          </div>
+
+          <button class="cancel" onclick="closeModal()">Cancel</button>
+        </div>
+      `;
+
+      document.body.appendChild(modal);
+    }
+
+    function closeModal() {
+      const modal = document.querySelector(".modal-wrap");
+      if (modal) modal.remove();
+    }
+
+    function saveToFolder(folder) {
+      saved.push({
+        ...saveTarget,
+        folder,
+        savedAt: new Date().toLocaleTimeString()
+      });
+
+      saveState();
+      closeModal();
+      toast("Saved to " + folder + " ✨");
+    }
+
+    function showVault() {
+      setNav("vault");
+
+      main.innerHTML = `
+        <section class="hero">
+          <p class="kicker">Vella Vault</p>
+          <h2>Your saved ideas</h2>
+          <p class="muted">Everything you save goes into folders so you can find it again.</p>
+        </section>
+
+        <div class="grid">
+          ${folders.map(folder => {
+            const count = saved.filter(item => item.folder === folder).length;
+            return `
+              <button class="square" onclick="openFolder('${folder}')">
+                <span>📁</span>
+                ${folder}
+                <small class="muted">${count} saved</small>
+              </button>
+            `;
+          }).join("")}
+        </div>
+      `;
+    }
+
+    function openFolder(folder) {
+      const items = saved.filter(item => item.folder === folder);
+
+      main.innerHTML = `
+        <button class="back" onclick="showVault()">← Back to Vault</button>
+
+        <section class="hero">
+          <p class="kicker">📁 ${folder}</p>
+          <h2>${folder}</h2>
+          <p class="muted">${items.length} saved item${items.length === 1 ? "" : "s"}</p>
+        </section>
+
+        ${
+          items.length
+            ? items.map(item => `
+              <article class="post">
+                <img src="${item.image}" alt="${item.title}">
+                <div class="post-body">
+                  <span class="badge">${item.type}</span>
+                  <h3>${item.title}</h3>
+                  <p class="creator">@${item.creator}</p>
+                  <p class="muted">${item.text}</p>
+                  <div class="actions">
+                    <button class="action-btn" onclick="toast('Reminder set 🔔')">🔔 Remind</button>
+                    <button class="action-btn" onclick="toast('Added to plan 🗓️')">🗓️ Plan</button>
+                    <button class="action-btn" onclick="toast('Added to list 🛍️')">🛍️ List</button>
+                    <button class="save-btn" onclick="toast('Shared with friend 💌')">💌 Share</button>
+                  </div>
+                </div>
+              </article>
+            `).join("")
+            : `<section class="empty">Nothing saved here yet.</section>`
+        }
+      `;
+    }
+
+    function showInbox() {
+      setNav("inbox");
+
+      main.innerHTML = `
+        <section class="hero">
+          <p class="kicker">💬 Inbox</p>
+          <h2>Inbox</h2>
+          <p class="muted">Friend shares, group plans and reminders will live here.</p>
+        </section>
+
+        <section class="empty">No messages yet.</section>
+      `;
+    }
+
+    function showMore() {
+      setNav("more");
+
+      const more = ["Plans", "Lists", "Groups", "Rankings", "Creator Tools", "Settings", "About Vella", "Invite Friends"];
+
+      main.innerHTML = `
+        <section class="hero">
+          <p class="kicker">⋯ More</p>
+          <h2>More tools</h2>
+          <p class="muted">Extra features live here so Home stays clean.</p>
+        </section>
+
+        ${more.map(item => `
+          <button class="more-row" onclick="toast('${item} opening soon ✨')">
+            <span>${item}</span>
+            <span>›</span>
+          </button>
+        `).join("")}
+
+        <section class="hero">
+          <p class="kicker">About Vella</p>
+          <h2>Save it. Find it. Use it.</h2>
+          <p class="muted">Vella helps people choose what they want to see, save ideas into folders, and turn saved content into reminders, plans, lists, groups and shopping actions.</p>
+        </section>
+      `;
+    }
+
+    goHome();
+  </script>
+</body>
+</html>"Fitness videos, challenges and reminders" },
   { id: "shopping", icon: "🛍️", title: "Shopping", desc: "Choose what you want to buy today" },
   { id: "beauty", icon: "💄", title: "Beauty", desc: "Makeup, skincare, hair and routines" },
   { id: "home", icon: "🏠", title: "Home Ideas", desc: "Decor, cleaning, organising and cosy spaces" },
