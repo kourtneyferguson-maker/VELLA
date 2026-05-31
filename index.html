@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello Vella Marketplace</title>
+  <title>Hello Vella AI Try-On</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -26,7 +26,7 @@ const sellerPosts = [
     seller: "Mila Styles",
     title: "Soft Winter Outfit",
     cover: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=900",
-    description: "Full winter outfit package. Every item is sold through Vella checkout.",
+    description: "Full winter outfit package with AI try-on, sizing, stock and Vella checkout.",
     products: [
       {
         id: "coat",
@@ -104,8 +104,12 @@ function App() {
   const [vault, setVault] = useState([]);
   const [cart, setCart] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [tryOnProduct, setTryOnProduct] = useState(null);
+  const [userPhoto, setUserPhoto] = useState(null);
+  const [savedTryOns, setSavedTryOns] = useState([]);
 
   const worldPosts = sellerPosts.filter(p => p.world === world);
+  const cartTotal = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
 
   const addToCart = product => setCart([...cart, product]);
 
@@ -113,7 +117,23 @@ function App() {
     if (!vault.find(v => v.id === post.id)) setVault([...vault, post]);
   };
 
-  const cartTotal = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+  const saveTryOn = product => {
+    setSavedTryOns([
+      ...savedTryOns,
+      {
+        id: Date.now(),
+        product,
+        userPhoto
+      }
+    ]);
+  };
+
+  const uploadUserPhoto = event => {
+    const file = event.target.files[0];
+    if (file) {
+      setUserPhoto(URL.createObjectURL(file));
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black via-[#180022] to-black flex justify-center">
@@ -124,7 +144,7 @@ function App() {
             Hello Vella
           </h1>
           <p className="text-center text-xs text-purple-300">
-            Creator feeds. Seller stores. Vella checkout.
+            Seller stores. AI try-on. Vella checkout.
           </p>
         </header>
 
@@ -215,16 +235,28 @@ function App() {
 
                             <div className="grid grid-cols-2 gap-2 mt-3">
                               <button
+                                onClick={() => setTryOnProduct(product)}
+                                className="bg-fuchsia-600 rounded-2xl p-2 text-sm font-bold"
+                              >
+                                AI Try-On
+                              </button>
+                              <button
                                 onClick={() => setSelectedProduct(product)}
                                 className="bg-white/10 rounded-2xl p-2 text-sm font-bold"
                               >
-                                View Details
+                                Size Guide
                               </button>
                               <button
                                 onClick={() => addToCart(product)}
-                                className="bg-fuchsia-600 rounded-2xl p-2 text-sm font-bold"
+                                className="bg-purple-700 rounded-2xl p-2 text-sm font-bold"
                               >
                                 Add to Cart
+                              </button>
+                              <button
+                                onClick={() => setSelectedProduct(product)}
+                                className="bg-white/10 rounded-2xl p-2 text-sm font-bold"
+                              >
+                                Details
                               </button>
                             </div>
                           </div>
@@ -239,12 +271,6 @@ function App() {
                       <button className="bg-white/10 rounded-2xl p-3 font-bold">
                         Hire Creator
                       </button>
-                      <button className="bg-white/10 rounded-2xl p-3 font-bold">
-                        Visit Store
-                      </button>
-                      <button className="bg-white/10 rounded-2xl p-3 font-bold">
-                        Share
-                      </button>
                     </div>
                   </div>
                 </section>
@@ -257,17 +283,33 @@ function App() {
           <main className="p-4">
             <h2 className="text-2xl font-black">Private Portfolio</h2>
             <p className="text-sm text-purple-300 mb-4">
-              Your saves stay private unless you share them.
+              Saves and AI try-ons stay private unless you share them.
             </p>
 
-            {vault.length === 0 ? (
+            {vault.length === 0 && savedTryOns.length === 0 ? (
               <Empty text="Nothing saved yet." />
-            ) : vault.map(item => (
-              <div key={item.id} className="bg-white/10 rounded-3xl p-4 mb-3">
-                <h3 className="font-black">{item.title}</h3>
-                <p className="text-sm text-purple-300">{item.store}</p>
-              </div>
-            ))}
+            ) : (
+              <>
+                {vault.map(item => (
+                  <div key={item.id} className="bg-white/10 rounded-3xl p-4 mb-3">
+                    <h3 className="font-black">{item.title}</h3>
+                    <p className="text-sm text-purple-300">{item.store}</p>
+                  </div>
+                ))}
+
+                {savedTryOns.map(item => (
+                  <div key={item.id} className="bg-white/10 rounded-3xl p-4 mb-3 border border-fuchsia-500/30">
+                    <h3 className="font-black">Saved AI Try-On</h3>
+                    <p className="text-sm text-purple-300">{item.product.name}</p>
+
+                    <div className="grid grid-cols-2 gap-2 mt-3">
+                      {item.userPhoto && <img src={item.userPhoto} className="h-32 w-full object-cover rounded-2xl" />}
+                      <img src={item.product.photo} className="h-32 w-full object-cover rounded-2xl" />
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
           </main>
         )}
 
@@ -301,7 +343,7 @@ function App() {
                   </button>
 
                   <p className="text-xs text-purple-300 mt-3">
-                    In a real launch, this connects to a legal payment processor like Stripe Connect so Vella can take commission, pay sellers, manage refunds, track orders and keep transaction records.
+                    Real launch needs seller verification, Stripe Connect-style payouts, refunds, tax records and legal terms.
                   </p>
                 </div>
               </>
@@ -313,10 +355,12 @@ function App() {
           <main className="p-4 space-y-3">
             <h2 className="text-2xl font-black">Seller Upload Centre</h2>
 
+            <SellerField label="Product photos" value="Upload clear front, side, back and detail photos" />
             <SellerField label="Product name" value="Cream Winter Coat" />
             <SellerField label="Price" value="$89.00" />
             <SellerField label="Sizes" value="XS, S, M, L, XL" />
             <SellerField label="Measurements" value="Bust, waist, length, sleeve" />
+            <SellerField label="AI Try-On image" value="Upload clean product image for try-on preview" />
             <SellerField label="Stock quantity" value="14 available" />
             <SellerField label="Shipping" value="$9.95 standard" />
             <SellerField label="Returns" value="14-day return policy" />
@@ -355,6 +399,91 @@ function App() {
                   className="bg-fuchsia-600 rounded-2xl p-3 font-bold"
                 >
                   Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {tryOnProduct && (
+          <div className="fixed inset-0 bg-black/90 z-50 flex items-end justify-center">
+            <div className="w-full max-w-md bg-[#17001f] rounded-t-3xl p-4 border-t border-fuchsia-500/40 max-h-[92vh] overflow-y-auto">
+              <h2 className="text-2xl font-black">AI Try-On</h2>
+              <p className="text-sm text-purple-300 mb-4">
+                Preview how {tryOnProduct.name} may look on you before buying.
+              </p>
+
+              <div className="bg-black/40 rounded-3xl p-3 border border-purple-500/30">
+                <p className="text-xs text-purple-300 mb-2">1. Upload your photo</p>
+                <label className="block bg-white/10 rounded-2xl p-4 text-center font-bold cursor-pointer">
+                  Choose Photo
+                  <input type="file" accept="image/*" onChange={uploadUserPhoto} className="hidden" />
+                </label>
+
+                {userPhoto ? (
+                  <img src={userPhoto} className="w-full h-64 object-cover rounded-3xl mt-3" />
+                ) : (
+                  <div className="h-64 rounded-3xl bg-white/5 mt-3 flex items-center justify-center text-purple-300">
+                    Your photo preview
+                  </div>
+                )}
+              </div>
+
+              <div className="bg-black/40 rounded-3xl p-3 border border-purple-500/30 mt-3">
+                <p className="text-xs text-purple-300 mb-2">2. Selected clothing item</p>
+                <img src={tryOnProduct.photo} className="w-full h-56 object-cover rounded-3xl" />
+                <h3 className="font-black mt-2">{tryOnProduct.name}</h3>
+                <p className="text-sm text-green-300">${tryOnProduct.price.toFixed(2)}</p>
+              </div>
+
+              <div className="bg-fuchsia-950/40 rounded-3xl p-4 border border-fuchsia-500/40 mt-3">
+                <p className="text-xs text-fuchsia-300 mb-2">3. AI preview mockup</p>
+
+                <div className="relative h-72 rounded-3xl overflow-hidden bg-black/50 flex items-center justify-center">
+                  {userPhoto ? (
+                    <img src={userPhoto} className="absolute inset-0 w-full h-full object-cover opacity-70" />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center text-purple-300">
+                      Upload photo first
+                    </div>
+                  )}
+
+                  <div className="absolute bottom-4 left-4 right-4 bg-black/70 backdrop-blur-xl rounded-2xl p-3 border border-white/10">
+                    <p className="font-black">{tryOnProduct.name}</p>
+                    <p className="text-xs text-purple-200">
+                      AI generated try-on preview will appear here in the real app.
+                    </p>
+                  </div>
+                </div>
+
+                <p className="text-xs text-purple-300 mt-3">
+                  AI preview only. Fit may vary by body shape, fabric, lighting, stretch and sizing. Always check the size guide before buying.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 mt-4">
+                <button
+                  onClick={() => setTryOnProduct(null)}
+                  className="bg-white/10 rounded-2xl p-3 font-bold"
+                >
+                  Close
+                </button>
+
+                <button
+                  onClick={() => saveTryOn(tryOnProduct)}
+                  className="bg-purple-700 rounded-2xl p-3 font-bold"
+                >
+                  Save Try-On
+                </button>
+
+                <button
+                  onClick={() => {
+                    addToCart(tryOnProduct);
+                    setTryOnProduct(null);
+                  }}
+                  className="bg-fuchsia-600 rounded-2xl p-3 font-bold col-span-2"
+                >
+                  Add to Cart Through Vella
                 </button>
               </div>
             </div>
