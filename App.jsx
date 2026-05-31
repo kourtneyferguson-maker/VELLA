@@ -1,261 +1,300 @@
 import React, { useMemo, useState } from "react";
 
-const posts = [
+const today = "31 May 2026";
+
+const categories = [
+  { id: "fashion", icon: "👗", title: "Fashion", desc: "Outfits, stores, lives and style groups" },
+  { id: "dinner", icon: "🍝", title: "Dinner Ideas", desc: "Recipes, meal plans and grocery saves" },
+  { id: "workouts", icon: "💪", title: "Workouts", desc: "Fitness videos, challenges and reminders" },
+  { id: "shopping", icon: "🛍️", title: "Shopping", desc: "Choose what you want to buy today" },
+  { id: "beauty", icon: "💄", title: "Beauty", desc: "Makeup, skincare, hair and routines" },
+  { id: "home", icon: "🏠", title: "Home Ideas", desc: "Decor, cleaning, organising and cosy spaces" },
+  { id: "fixing", icon: "🔨", title: "DIY & Fixing", desc: "Hardware, repairs, tools and home fixes" },
+  { id: "gifts", icon: "🎁", title: "Gifts", desc: "Birthday, Christmas and surprise ideas" },
+];
+
+const shoppingCategories = [
+  { id: "clothing", icon: "👗", title: "Clothing" },
+  { id: "beauty-shop", icon: "💄", title: "Beauty" },
+  { id: "hardware-shop", icon: "🔨", title: "Hardware" },
+  { id: "home-shop", icon: "🏠", title: "Home" },
+  { id: "tech", icon: "📱", title: "Tech" },
+  { id: "pets", icon: "🐾", title: "Pets" },
+  { id: "gaming", icon: "🎮", title: "Gaming" },
+  { id: "gifts-shop", icon: "🎁", title: "Gifts" },
+];
+
+const content = [
   {
     id: 1,
-    tab: "Fashion Finds",
-    creator: "Mia Luxe Wear",
-    title: "Op-shop outfit glow up",
-    caption: "Save this outfit, add it to a list, or plan a shopping day.",
-    image:
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&auto=format&fit=crop",
+    category: "fashion",
+    type: "Feed",
+    title: "Black dress outfit idea",
+    creator: "Mia Luxe",
+    image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&auto=format&fit=crop",
+    text: "Save this look for your next night out.",
   },
   {
     id: 2,
-    tab: "Dinner Ideas",
+    category: "dinner",
+    type: "Recipe",
+    title: "Creamy garlic pasta",
     creator: "Kitchen Glow",
-    title: "Creamy garlic pasta night",
-    caption: "Save the recipe so you can actually find it later.",
-    image:
-      "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=900&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=900&auto=format&fit=crop",
+    text: "A simple dinner idea you can save and find later.",
   },
   {
     id: 3,
-    tab: "Workout Saves",
-    creator: "Soft Fit Club",
+    category: "workouts",
+    type: "Workout",
     title: "10 minute reset workout",
-    caption: "Save it, set a reminder, and tick it off when done.",
-    image:
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=900&auto=format&fit=crop",
+    creator: "Soft Fit Club",
+    image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=900&auto=format&fit=crop",
+    text: "Save it, set a reminder, and actually do it.",
+  },
+  {
+    id: 4,
+    category: "beauty",
+    type: "Beauty",
+    title: "Soft glow makeup",
+    creator: "Glow Girl",
+    image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=900&auto=format&fit=crop",
+    text: "Makeup and skincare saves in one easy place.",
+  },
+  {
+    id: 5,
+    category: "home",
+    type: "Home",
+    title: "Cosy room reset",
+    creator: "Home Mood",
+    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=900&auto=format&fit=crop",
+    text: "Save room ideas, cleaning routines and decor finds.",
+  },
+  {
+    id: 6,
+    category: "fixing",
+    type: "DIY",
+    title: "Fix a loose cupboard handle",
+    creator: "Fix It Fast",
+    image: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=900&auto=format&fit=crop",
+    text: "Hardware and fixing tips without random feeds.",
   },
 ];
 
-const startingFolders = ["Fashion Finds", "Dinner Ideas", "Workout Saves", "Wishlist"];
+const moreItems = [
+  "Plans",
+  "Lists",
+  "Groups",
+  "Rankings",
+  "Creator Tools",
+  "Settings",
+  "About Vella",
+  "Invite Friends",
+];
 
 export default function App() {
   const [page, setPage] = useState("home");
-  const [activeTab, setActiveTab] = useState("All");
-  const [folders, setFolders] = useState(startingFolders);
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeShopping, setActiveShopping] = useState(null);
   const [saved, setSaved] = useState([]);
-  const [selectedFolder, setSelectedFolder] = useState(null);
-  const [savePost, setSavePost] = useState(null);
+  const [saveTarget, setSaveTarget] = useState(null);
   const [toast, setToast] = useState("");
-  const [newFolder, setNewFolder] = useState("");
+  const [selectedFolder, setSelectedFolder] = useState(null);
 
-  const filteredPosts = useMemo(() => {
-    if (activeTab === "All") return posts;
-    return posts.filter((post) => post.tab === activeTab);
-  }, [activeTab]);
+  const folders = ["Fashion", "Dinner", "Workouts", "Wishlist", "Beauty", "Home", "Fixing"];
 
-  function showToast(message) {
-    setToast(message);
-    setTimeout(() => setToast(""), 2200);
+  const categoryFeed = useMemo(() => {
+    if (!activeCategory) return [];
+    return content.filter((item) => item.category === activeCategory.id);
+  }, [activeCategory]);
+
+  function showToast(msg) {
+    setToast(msg);
+    setTimeout(() => setToast(""), 1800);
   }
 
-  function saveToFolder(folder) {
-    if (!savePost) return;
-
-    const alreadySaved = saved.some(
-      (item) => item.id === savePost.id && item.folder === folder
-    );
-
-    if (!alreadySaved) {
-      setSaved([
-        ...saved,
-        {
-          ...savePost,
-          folder,
-          savedAt: new Date().toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
-        },
-      ]);
-    }
-
-    setSavePost(null);
+  function saveItem(folder) {
+    if (!saveTarget) return;
+    const item = { ...saveTarget, folder, savedAt: new Date().toLocaleTimeString() };
+    setSaved([...saved, item]);
+    setSaveTarget(null);
     showToast(`Saved to ${folder} ✨`);
   }
 
-  function addFolder() {
-    const clean = newFolder.trim();
-    if (!clean) return;
-
-    if (!folders.includes(clean)) {
-      setFolders([...folders, clean]);
-      showToast(`${clean} folder created 📁`);
+  function openCategory(cat) {
+    if (cat.id === "shopping") {
+      setPage("shopping");
+      setActiveCategory(null);
+    } else {
+      setActiveCategory(cat);
+      setPage("category");
     }
-
-    setNewFolder("");
   }
 
-  const folderItems = saved.filter((item) => item.folder === selectedFolder);
-
   return (
-    <div style={styles.page}>
-      <div style={styles.phone}>
-        <div style={styles.glowOne} />
-        <div style={styles.glowTwo} />
+    <div style={s.app}>
+      <div style={s.phone}>
+        <div style={s.glowPink} />
+        <div style={s.glowBlue} />
 
-        <header style={styles.header}>
+        <header style={s.header}>
           <div>
-            <p style={styles.kicker}>Hello Vella</p>
-            <h1 style={styles.logo}>Vella</h1>
+            <p style={s.smallText}>Hello Vella</p>
+            <h1 style={s.logo}>Vella</h1>
           </div>
-          <button style={styles.smallPill}>+ Save</button>
+          <button onClick={() => showToast("Quick save coming soon ✨")} style={s.topBtn}>
+            + Save
+          </button>
         </header>
 
-        {toast && <div style={styles.toast}>{toast}</div>}
+        {toast && <div style={s.toast}>{toast}</div>}
 
-        <main style={styles.main}>
+        <main style={s.main}>
           {page === "home" && (
             <>
-              <section style={styles.hero}>
-                <p style={styles.badge}>✨ Today’s Vella Flow</p>
-                <h2 style={styles.heroTitle}>Save it. Find it. Actually use it.</h2>
-                <p style={styles.heroText}>
-                  Vella turns saved videos, outfits, recipes and workouts into folders,
-                  reminders, lists and plans.
+              <section style={s.heroSmall}>
+                <h2 style={s.heroTitle}>Choose your world today</h2>
+                <p style={s.muted}>
+                  No random algorithm. You pick what you want to watch, save, buy or plan.
                 </p>
               </section>
 
-              <section style={styles.card}>
-                <div style={styles.rowBetween}>
-                  <h2 style={styles.sectionTitle}>Feed pages</h2>
-                  <button onClick={() => showToast("Demo ideas added ✨")} style={styles.linkBtn}>
-                    Add demo ideas
-                  </button>
-                </div>
+              {categories.map((cat) => (
+                <button key={cat.id} onClick={() => openCategory(cat)} style={s.categoryCard}>
+                  <span style={s.bigIcon}>{cat.icon}</span>
+                  <span>
+                    <strong style={s.cardTitle}>{cat.title}</strong>
+                    <p style={s.cardDesc}>{cat.desc}</p>
+                  </span>
+                  <span style={s.arrow}>›</span>
+                </button>
+              ))}
+            </>
+          )}
 
-                <div style={styles.tabs}>
-                  {["All", "Fashion Finds", "Dinner Ideas", "Workout Saves"].map((tab) => (
-                    <button
-                      key={tab}
-                      onClick={() => setActiveTab(tab)}
-                      style={{
-                        ...styles.tab,
-                        ...(activeTab === tab ? styles.activeTab : {}),
-                      }}
-                    >
-                      {tab}
-                    </button>
-                  ))}
-                </div>
+          {page === "category" && activeCategory && (
+            <>
+              <button onClick={() => setPage("home")} style={s.back}>← Back to Home</button>
+
+              <section style={s.heroSmall}>
+                <p style={s.smallText}>{activeCategory.icon} {activeCategory.title}</p>
+                <h2 style={s.heroTitle}>{activeCategory.title} Feed</h2>
+                <p style={s.muted}>Only {activeCategory.title.toLowerCase()} content lives here.</p>
               </section>
 
-              {filteredPosts.map((post) => (
-                <article key={post.id} style={styles.postCard}>
-                  <img src={post.image} alt={post.title} style={styles.postImage} />
+              <div style={s.tabs}>
+                {["Feed", "Stores", "Lives", "Groups"].map((tab) => (
+                  <button key={tab} style={s.tab}>{tab}</button>
+                ))}
+              </div>
 
-                  <div style={styles.postContent}>
-                    <p style={styles.badge}>📌 {post.tab}</p>
-                    <h3 style={styles.postTitle}>{post.title}</h3>
-                    <p style={styles.creator}>@{post.creator}</p>
-                    <p style={styles.caption}>{post.caption}</p>
-
-                    <div style={styles.actionGrid}>
-                      <button style={styles.actionBtn}>♡ Like</button>
-                      <button style={styles.actionBtn}>💬 Chat</button>
-                      <button style={styles.actionBtn}>↗ Share</button>
-                      <button onClick={() => setSavePost(post)} style={styles.saveBtn}>
-                        ⭐ Save
-                      </button>
+              {categoryFeed.length ? categoryFeed.map((item) => (
+                <article key={item.id} style={s.post}>
+                  <img src={item.image} alt={item.title} style={s.image} />
+                  <div style={s.postBody}>
+                    <p style={s.badge}>{item.type}</p>
+                    <h3 style={s.postTitle}>{item.title}</h3>
+                    <p style={s.creator}>@{item.creator}</p>
+                    <p style={s.muted}>{item.text}</p>
+                    <div style={s.actions}>
+                      <button style={s.action}>♡ Like</button>
+                      <button style={s.action}>💬 Chat</button>
+                      <button style={s.action}>↗ Share</button>
+                      <button onClick={() => setSaveTarget(item)} style={s.save}>⭐ Save</button>
                     </div>
                   </div>
                 </article>
-              ))}
+              )) : (
+                <section style={s.empty}>More {activeCategory.title} content coming soon.</section>
+              )}
+            </>
+          )}
+
+          {page === "shopping" && (
+            <>
+              <button onClick={() => setPage("home")} style={s.back}>← Back to Home</button>
+
+              <section style={s.heroSmall}>
+                <p style={s.smallText}>🛍️ Shopping World</p>
+                <h2 style={s.heroTitle}>What do you want to buy?</h2>
+                <p style={s.muted}>Choose a shopping category instead of waiting for an algorithm.</p>
+              </section>
+
+              <div style={s.grid}>
+                {shoppingCategories.map((shop) => (
+                  <button
+                    key={shop.id}
+                    onClick={() => setActiveShopping(shop)}
+                    style={s.square}
+                  >
+                    <span style={s.squareIcon}>{shop.icon}</span>
+                    <strong>{shop.title}</strong>
+                  </button>
+                ))}
+              </div>
+
+              {activeShopping && (
+                <section style={s.heroSmall}>
+                  <h2 style={s.heroTitle}>{activeShopping.icon} {activeShopping.title} Feed</h2>
+                  <p style={s.muted}>
+                    This will show only {activeShopping.title.toLowerCase()} products, creators, stores and lives.
+                  </p>
+                  <button
+                    onClick={() =>
+                      setSaveTarget({
+                        id: Date.now(),
+                        title: `${activeShopping.title} shopping idea`,
+                        creator: "Vella Store",
+                        type: "Shopping",
+                        image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&auto=format&fit=crop",
+                        text: `Saved from the ${activeShopping.title} shopping feed.`,
+                      })
+                    }
+                    style={s.bigBtn}
+                  >
+                    Save demo {activeShopping.title} item
+                  </button>
+                </section>
+              )}
             </>
           )}
 
           {page === "vault" && (
             <>
+              <section style={s.heroSmall}>
+                <h2 style={s.heroTitle}>Vella Vault</h2>
+                <p style={s.muted}>Everything you save goes into folders so you can find it again.</p>
+              </section>
+
               {!selectedFolder ? (
-                <>
-                  <section style={styles.card}>
-                    <h2 style={styles.sectionTitle}>Vella Vault</h2>
-                    <p style={styles.muted}>
-                      Your saved ideas live here in folders so they don’t disappear.
-                    </p>
-
-                    <div style={styles.inputRow}>
-                      <input
-                        value={newFolder}
-                        onChange={(e) => setNewFolder(e.target.value)}
-                        placeholder="New folder name"
-                        style={styles.input}
-                      />
-                      <button onClick={addFolder} style={styles.addBtn}>
-                        +
+                <div style={s.grid}>
+                  {folders.map((folder) => {
+                    const count = saved.filter((x) => x.folder === folder).length;
+                    return (
+                      <button key={folder} onClick={() => setSelectedFolder(folder)} style={s.square}>
+                        <span style={s.squareIcon}>📁</span>
+                        <strong>{folder}</strong>
+                        <small style={s.muted}>{count} saved</small>
                       </button>
-                    </div>
-                  </section>
-
-                  <div style={styles.folderGrid}>
-                    {folders.map((folder) => {
-                      const count = saved.filter((item) => item.folder === folder).length;
-
-                      return (
-                        <button
-                          key={folder}
-                          onClick={() => setSelectedFolder(folder)}
-                          style={styles.folderCard}
-                        >
-                          <span style={styles.folderIcon}>📁</span>
-                          <strong>{folder}</strong>
-                          <small style={styles.muted}>{count} saved</small>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </>
+                    );
+                  })}
+                </div>
               ) : (
                 <>
-                  <button onClick={() => setSelectedFolder(null)} style={styles.backBtn}>
-                    ← Back to Vault
-                  </button>
-
-                  <section style={styles.card}>
-                    <h2 style={styles.sectionTitle}>{selectedFolder}</h2>
-                    <p style={styles.muted}>{folderItems.length} saved items</p>
-                  </section>
-
-                  {folderItems.length === 0 ? (
-                    <section style={styles.empty}>
-                      Nothing saved here yet. Go to Home and press ⭐ Save.
-                    </section>
+                  <button onClick={() => setSelectedFolder(null)} style={s.back}>← Back to Vault</button>
+                  <h2>{selectedFolder}</h2>
+                  {saved.filter((x) => x.folder === selectedFolder).length === 0 ? (
+                    <section style={s.empty}>Nothing saved here yet.</section>
                   ) : (
-                    folderItems.map((item) => (
-                      <article key={`${item.id}-${item.folder}`} style={styles.postCard}>
-                        <img src={item.image} alt={item.title} style={styles.postImageSmall} />
-                        <div style={styles.postContent}>
-                          <h3 style={styles.postTitle}>{item.title}</h3>
-                          <p style={styles.caption}>{item.caption}</p>
-
-                          <div style={styles.actionGrid}>
-                            <button
-                              onClick={() => showToast("Reminder created 🔔")}
-                              style={styles.actionBtn}
-                            >
-                              🔔 Remind
-                            </button>
-                            <button
-                              onClick={() => showToast("Added to plan 🗓️")}
-                              style={styles.actionBtn}
-                            >
-                              🗓️ Plan
-                            </button>
-                            <button
-                              onClick={() => showToast("Added to list 🛍️")}
-                              style={styles.actionBtn}
-                            >
-                              🛍️ List
-                            </button>
-                            <button
-                              onClick={() => showToast("Shared with friend 💌")}
-                              style={styles.saveBtn}
-                            >
-                              💌 Share
-                            </button>
+                    saved.filter((x) => x.folder === selectedFolder).map((item, index) => (
+                      <article key={index} style={s.savedCard}>
+                        <img src={item.image} alt={item.title} style={s.savedImg} />
+                        <div>
+                          <h3>{item.title}</h3>
+                          <p style={s.muted}>{item.text}</p>
+                          <div style={s.actions}>
+                            <button onClick={() => showToast("Reminder set 🔔")} style={s.action}>🔔 Remind</button>
+                            <button onClick={() => showToast("Shared 💌")} style={s.save}>💌 Share</button>
                           </div>
                         </div>
                       </article>
@@ -266,158 +305,110 @@ export default function App() {
             </>
           )}
 
-          {page === "plans" && (
-            <section style={styles.card}>
-              <p style={styles.badge}>⏰ Plans</p>
-              <h2 style={styles.sectionTitle}>Next action</h2>
-              <div style={styles.planCard}>
-                <strong>Op-shop outfit glow up</strong>
-                <span>Tonight · 6:30 PM · Just me</span>
-                <button onClick={() => showToast("Ticked off 🎉")} style={styles.bigBtn}>
-                  Tick off
-                </button>
-              </div>
-              <div style={styles.planCard}>
-                <strong>10 minute reset workout</strong>
-                <span>Tomorrow · 9:00 AM · With friend</span>
-                <button onClick={() => showToast("Reminder ready 🔔")} style={styles.bigBtn}>
-                  Remind me
-                </button>
-              </div>
+          {page === "inbox" && (
+            <section style={s.heroSmall}>
+              <h2 style={s.heroTitle}>Inbox</h2>
+              <p style={s.muted}>Friend shares, group plans and reminders will live here.</p>
             </section>
           )}
 
-          {page === "lists" && (
-            <section style={styles.card}>
-              <p style={styles.badge}>🛍️ Lists</p>
-              <h2 style={styles.sectionTitle}>Shopping and idea lists</h2>
-              <div style={styles.listItem}>Birthday outfit ideas</div>
-              <div style={styles.listItem}>Easy dinners</div>
-              <div style={styles.listItem}>Glow up saves</div>
-              <div style={styles.listItem}>Workout reset plan</div>
-            </section>
-          )}
+          {page === "more" && (
+            <>
+              <section style={s.heroSmall}>
+                <h2 style={s.heroTitle}>More</h2>
+                <p style={s.muted}>Extra tools live here so Home stays clean.</p>
+              </section>
 
-          {page === "me" && (
-            <section style={styles.card}>
-              <p style={styles.badge}>👤 Profile</p>
-              <h2 style={styles.sectionTitle}>Courtney’s Vella</h2>
-              <p style={styles.muted}>
-                Your vault, your saves, your reminders and your next actions.
-              </p>
+              {moreItems.map((item) => (
+                <button
+                  key={item}
+                  onClick={() => showToast(`${item} opening soon ✨`)}
+                  style={s.moreRow}
+                >
+                  <span>{item}</span>
+                  <span>›</span>
+                </button>
+              ))}
 
-              <div style={styles.stats}>
-                <div style={styles.statBox}>
-                  <strong>{saved.length}</strong>
-                  <span>Saves</span>
-                </div>
-                <div style={styles.statBox}>
-                  <strong>{folders.length}</strong>
-                  <span>Folders</span>
-                </div>
-                <div style={styles.statBox}>
-                  <strong>2</strong>
-                  <span>Plans</span>
-                </div>
-              </div>
-            </section>
+              <section style={s.about}>
+                <h3>About Vella</h3>
+                <p style={s.muted}>
+                  Vella helps people choose what they want to see, save ideas into folders,
+                  and turn saved content into reminders, plans, lists, groups and shopping actions.
+                </p>
+                <p style={s.smallText}>Updated: {today}</p>
+              </section>
+            </>
           )}
         </main>
 
-        {savePost && (
-          <div style={styles.modalOverlay}>
-            <div style={styles.modal}>
-              <h2 style={styles.sectionTitle}>Save to Vault</h2>
-              <p style={styles.muted}>{savePost.title}</p>
-
-              <div style={styles.folderGridModal}>
+        {saveTarget && (
+          <div style={s.modalWrap}>
+            <div style={s.modal}>
+              <h2>Save to Vault</h2>
+              <p style={s.muted}>{saveTarget.title}</p>
+              <div style={s.grid}>
                 {folders.map((folder) => (
-                  <button
-                    key={folder}
-                    onClick={() => saveToFolder(folder)}
-                    style={styles.modalFolder}
-                  >
+                  <button key={folder} onClick={() => saveItem(folder)} style={s.modalFolder}>
                     📁 {folder}
                   </button>
                 ))}
               </div>
-
-              <button onClick={() => setSavePost(null)} style={styles.cancelBtn}>
-                Cancel
-              </button>
+              <button onClick={() => setSaveTarget(null)} style={s.cancel}>Cancel</button>
             </div>
           </div>
         )}
 
-        <nav style={styles.nav}>
-          {[
-            ["home", "✨", "Home"],
-            ["vault", "🤍", "Vault"],
-            ["plans", "⏰", "Plans"],
-            ["lists", "🛍️", "Lists"],
-            ["me", "♡", "Me"],
-          ].map(([key, icon, label]) => (
-            <button
-              key={key}
-              onClick={() => {
-                setPage(key);
-                setSelectedFolder(null);
-              }}
-              style={{
-                ...styles.navBtn,
-                ...(page === key ? styles.navActive : {}),
-              }}
-            >
-              <span>{icon}</span>
-              <small>{label}</small>
-            </button>
-          ))}
+        <nav style={s.nav}>
+          <button onClick={() => setPage("home")} style={page === "home" ? s.navOn : s.navBtn}>🏠<small>Home</small></button>
+          <button onClick={() => setPage("vault")} style={page === "vault" ? s.navOn : s.navBtn}>📁<small>Vault</small></button>
+          <button onClick={() => showToast("Choose something to save from a feed ✨")} style={s.plus}>+</button>
+          <button onClick={() => setPage("inbox")} style={page === "inbox" ? s.navOn : s.navBtn}>💬<small>Inbox</small></button>
+          <button onClick={() => setPage("more")} style={page === "more" ? s.navOn : s.navBtn}>⋯<small>More</small></button>
         </nav>
       </div>
     </div>
   );
 }
 
-const styles = {
-  page: {
+const s = {
+  app: {
     minHeight: "100vh",
     background: "#020005",
     color: "white",
     display: "flex",
     justifyContent: "center",
-    fontFamily:
-      "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+    fontFamily: "Arial, sans-serif",
   },
   phone: {
     width: "100%",
     maxWidth: 460,
     minHeight: "100vh",
-    background:
-      "linear-gradient(180deg, #16001f 0%, #09000f 45%, #030006 100%)",
     position: "relative",
     overflow: "hidden",
+    background: "linear-gradient(180deg,#170022,#07000d,#020005)",
     borderLeft: "1px solid rgba(255,255,255,.08)",
     borderRight: "1px solid rgba(255,255,255,.08)",
   },
-  glowOne: {
+  glowPink: {
     position: "absolute",
-    width: 300,
-    height: 300,
-    borderRadius: "50%",
-    background: "rgba(217,70,239,.22)",
-    filter: "blur(70px)",
-    top: -120,
-    left: -90,
-  },
-  glowTwo: {
-    position: "absolute",
+    top: -90,
+    left: -80,
     width: 260,
     height: 260,
     borderRadius: "50%",
-    background: "rgba(125,211,252,.18)",
-    filter: "blur(80px)",
+    background: "rgba(217,70,239,.25)",
+    filter: "blur(70px)",
+  },
+  glowBlue: {
+    position: "absolute",
     top: 120,
-    right: -120,
+    right: -90,
+    width: 240,
+    height: 240,
+    borderRadius: "50%",
+    background: "rgba(125,211,252,.18)",
+    filter: "blur(70px)",
   },
   header: {
     position: "relative",
@@ -427,295 +418,221 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
   },
-  kicker: {
-    margin: 0,
+  smallText: {
     color: "#f0abfc",
     fontSize: 12,
-    fontWeight: 800,
-    letterSpacing: 1,
+    fontWeight: 900,
     textTransform: "uppercase",
+    letterSpacing: 1,
+    margin: 0,
   },
   logo: {
     margin: 0,
     fontSize: 38,
-    lineHeight: 1,
     fontWeight: 950,
-    letterSpacing: -1,
-    textShadow: "0 0 24px rgba(217,70,239,.9)",
+    textShadow: "0 0 25px rgba(217,70,239,.9)",
   },
-  smallPill: {
-    border: "1px solid rgba(255,255,255,.18)",
+  topBtn: {
+    border: "1px solid rgba(255,255,255,.15)",
     background: "rgba(255,255,255,.1)",
     color: "white",
     borderRadius: 999,
     padding: "10px 14px",
-    fontWeight: 800,
-  },
-  toast: {
-    position: "fixed",
-    top: 16,
-    left: "50%",
-    transform: "translateX(-50%)",
-    zIndex: 20,
-    background: "rgba(217,70,239,.95)",
-    color: "white",
-    padding: "12px 18px",
-    borderRadius: 999,
     fontWeight: 900,
-    boxShadow: "0 0 30px rgba(217,70,239,.65)",
   },
   main: {
     position: "relative",
     zIndex: 2,
-    padding: "8px 16px 110px",
-    height: "calc(100vh - 70px)",
+    padding: "10px 16px 105px",
+    height: "calc(100vh - 72px)",
     overflowY: "auto",
   },
-  hero: {
-    border: "1px solid rgba(255,255,255,.14)",
-    background:
-      "linear-gradient(135deg, rgba(217,70,239,.23), rgba(125,211,252,.12))",
-    borderRadius: 32,
-    padding: 20,
-    marginBottom: 14,
-    boxShadow: "0 20px 60px rgba(0,0,0,.35)",
-  },
-  badge: {
-    display: "inline-block",
-    margin: "0 0 10px",
-    fontSize: 12,
-    fontWeight: 900,
-    color: "#f5d0fe",
-    background: "rgba(255,255,255,.1)",
-    border: "1px solid rgba(255,255,255,.1)",
-    padding: "7px 10px",
-    borderRadius: 999,
-  },
-  heroTitle: {
-    margin: 0,
-    fontSize: 28,
-    lineHeight: 1,
-    letterSpacing: -1,
-  },
-  heroText: {
-    color: "#ead5ff",
-    fontSize: 14,
-    lineHeight: 1.5,
-  },
-  card: {
+  heroSmall: {
     border: "1px solid rgba(255,255,255,.12)",
     background: "rgba(255,255,255,.07)",
-    borderRadius: 28,
-    padding: 16,
+    borderRadius: 30,
+    padding: 18,
     marginBottom: 14,
-    boxShadow: "0 18px 40px rgba(0,0,0,.28)",
   },
-  rowBetween: {
-    display: "flex",
-    justifyContent: "space-between",
-    gap: 12,
-    alignItems: "center",
-  },
-  sectionTitle: {
-    margin: 0,
-    fontSize: 22,
-    letterSpacing: -0.5,
+  heroTitle: {
+    margin: "3px 0 8px",
+    fontSize: 26,
+    lineHeight: 1,
+    letterSpacing: -1,
   },
   muted: {
     color: "#d8b4fe",
     fontSize: 14,
     lineHeight: 1.45,
   },
-  linkBtn: {
+  categoryCard: {
+    width: "100%",
+    border: "1px solid rgba(255,255,255,.13)",
+    background: "linear-gradient(135deg,rgba(255,255,255,.11),rgba(255,255,255,.05))",
+    color: "white",
+    borderRadius: 28,
+    padding: 18,
+    marginBottom: 12,
+    display: "grid",
+    gridTemplateColumns: "48px 1fr 20px",
+    gap: 12,
+    alignItems: "center",
+    textAlign: "left",
+    boxShadow: "0 18px 40px rgba(0,0,0,.28)",
+  },
+  bigIcon: { fontSize: 34 },
+  cardTitle: { fontSize: 20 },
+  cardDesc: { margin: "5px 0 0", color: "#d8b4fe", fontSize: 13 },
+  arrow: { fontSize: 34, color: "#f0abfc" },
+  back: {
     background: "transparent",
     border: 0,
     color: "#f5d0fe",
     fontWeight: 900,
+    marginBottom: 10,
   },
   tabs: {
     display: "flex",
     gap: 8,
     overflowX: "auto",
-    paddingTop: 14,
+    marginBottom: 14,
   },
   tab: {
-    flex: "0 0 auto",
     border: "1px solid rgba(255,255,255,.14)",
-    background: "rgba(255,255,255,.07)",
-    color: "#ede9fe",
+    background: "rgba(255,255,255,.08)",
+    color: "white",
     borderRadius: 999,
-    padding: "11px 14px",
+    padding: "10px 14px",
     fontWeight: 900,
   },
-  activeTab: {
-    background: "linear-gradient(135deg,#fce7f3,#bae6fd)",
-    color: "#15001f",
-  },
-  postCard: {
+  post: {
     border: "1px solid rgba(255,255,255,.13)",
     background: "rgba(255,255,255,.07)",
-    borderRadius: 32,
+    borderRadius: 30,
     overflow: "hidden",
-    marginBottom: 18,
-    boxShadow: "0 24px 55px rgba(0,0,0,.42)",
+    marginBottom: 16,
   },
-  postImage: {
+  image: {
     width: "100%",
-    height: 380,
+    height: 360,
     objectFit: "cover",
-    display: "block",
   },
-  postImageSmall: {
-    width: "100%",
-    height: 220,
-    objectFit: "cover",
-    display: "block",
+  postBody: { padding: 16 },
+  badge: {
+    display: "inline-block",
+    background: "rgba(217,70,239,.22)",
+    border: "1px solid rgba(240,171,252,.25)",
+    borderRadius: 999,
+    padding: "7px 10px",
+    fontSize: 12,
+    fontWeight: 900,
+    color: "#f5d0fe",
   },
-  postContent: {
-    padding: 16,
-  },
-  postTitle: {
-    margin: "0 0 4px",
-    fontSize: 22,
-    letterSpacing: -0.5,
-  },
-  creator: {
-    margin: "0 0 8px",
-    color: "#f0abfc",
-    fontSize: 13,
-    fontWeight: 800,
-  },
-  caption: {
-    color: "#e9d5ff",
-    fontSize: 14,
-    lineHeight: 1.45,
-  },
-  actionGrid: {
+  postTitle: { margin: "10px 0 4px", fontSize: 23 },
+  creator: { color: "#f0abfc", fontSize: 13, fontWeight: 900 },
+  actions: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
     gap: 10,
     marginTop: 14,
   },
-  actionBtn: {
-    border: "1px solid rgba(255,255,255,.13)",
+  action: {
+    border: "1px solid rgba(255,255,255,.14)",
     background: "rgba(255,255,255,.08)",
     color: "white",
     borderRadius: 18,
-    padding: "13px 10px",
+    padding: 13,
     fontWeight: 900,
   },
-  saveBtn: {
+  save: {
     border: "1px solid rgba(240,171,252,.35)",
     background: "rgba(217,70,239,.28)",
     color: "white",
     borderRadius: 18,
-    padding: "13px 10px",
+    padding: 13,
     fontWeight: 950,
   },
-  inputRow: {
-    display: "flex",
-    gap: 8,
-    marginTop: 14,
-  },
-  input: {
-    flex: 1,
-    border: "1px solid rgba(255,255,255,.12)",
-    background: "rgba(0,0,0,.25)",
-    color: "white",
-    borderRadius: 18,
-    padding: "13px 14px",
-    outline: "none",
-  },
-  addBtn: {
-    width: 50,
-    border: 0,
-    borderRadius: 18,
-    background: "linear-gradient(135deg,#d946ef,#7dd3fc)",
-    fontSize: 24,
-    fontWeight: 950,
-    color: "white",
-  },
-  folderGrid: {
+  grid: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
     gap: 12,
   },
-  folderCard: {
-    minHeight: 145,
-    border: "1px solid rgba(255,255,255,.12)",
+  square: {
+    minHeight: 130,
+    border: "1px solid rgba(255,255,255,.13)",
     background: "rgba(255,255,255,.08)",
     color: "white",
-    borderRadius: 28,
+    borderRadius: 26,
     padding: 16,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "space-between",
+    display: "grid",
+    gap: 8,
+    justifyItems: "start",
     textAlign: "left",
   },
-  folderIcon: {
-    fontSize: 32,
-  },
-  backBtn: {
+  squareIcon: { fontSize: 32 },
+  bigBtn: {
+    width: "100%",
     border: 0,
-    background: "transparent",
-    color: "#f5d0fe",
-    fontWeight: 900,
-    marginBottom: 12,
+    borderRadius: 20,
+    padding: 14,
+    background: "linear-gradient(135deg,#fce7f3,#bae6fd)",
+    color: "#170022",
+    fontWeight: 950,
   },
   empty: {
     border: "1px dashed rgba(255,255,255,.2)",
-    color: "#d8b4fe",
-    borderRadius: 26,
+    borderRadius: 24,
     padding: 22,
+    color: "#d8b4fe",
     textAlign: "center",
   },
-  planCard: {
+  savedCard: {
     border: "1px solid rgba(255,255,255,.13)",
-    background: "rgba(0,0,0,.24)",
-    borderRadius: 24,
-    padding: 14,
-    marginTop: 12,
-    display: "grid",
-    gap: 7,
+    background: "rgba(255,255,255,.07)",
+    borderRadius: 26,
+    overflow: "hidden",
+    marginBottom: 14,
   },
-  bigBtn: {
-    marginTop: 8,
-    border: 0,
-    borderRadius: 18,
-    padding: "13px 14px",
-    background: "linear-gradient(135deg,#fce7f3,#bae6fd)",
-    color: "#16001f",
+  savedImg: {
+    width: "100%",
+    height: 190,
+    objectFit: "cover",
+  },
+  moreRow: {
+    width: "100%",
+    border: "1px solid rgba(255,255,255,.13)",
+    background: "rgba(255,255,255,.08)",
+    color: "white",
+    borderRadius: 22,
+    padding: 16,
+    marginBottom: 10,
+    display: "flex",
+    justifyContent: "space-between",
+    fontWeight: 900,
+  },
+  about: {
+    border: "1px solid rgba(255,255,255,.12)",
+    background: "rgba(255,255,255,.06)",
+    borderRadius: 26,
+    padding: 16,
+    marginTop: 14,
+  },
+  toast: {
+    position: "fixed",
+    top: 14,
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: 50,
+    background: "rgba(217,70,239,.95)",
+    padding: "12px 18px",
+    borderRadius: 999,
     fontWeight: 950,
   },
-  listItem: {
-    border: "1px solid rgba(255,255,255,.12)",
-    background: "rgba(255,255,255,.08)",
-    padding: 15,
-    borderRadius: 20,
-    marginTop: 10,
-    fontWeight: 850,
-  },
-  stats: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr 1fr",
-    gap: 10,
-    marginTop: 16,
-  },
-  statBox: {
-    border: "1px solid rgba(255,255,255,.12)",
-    background: "rgba(255,255,255,.08)",
-    borderRadius: 22,
-    padding: 14,
-    display: "grid",
-    gap: 4,
-    textAlign: "center",
-  },
-  modalOverlay: {
+  modalWrap: {
     position: "fixed",
     inset: 0,
-    zIndex: 30,
-    background: "rgba(0,0,0,.74)",
+    background: "rgba(0,0,0,.75)",
+    zIndex: 40,
     display: "flex",
     alignItems: "flex-end",
     justifyContent: "center",
@@ -723,50 +640,43 @@ const styles = {
   modal: {
     width: "100%",
     maxWidth: 460,
-    background: "#14001d",
-    borderTop: "1px solid rgba(240,171,252,.35)",
+    background: "#15001f",
     borderRadius: "30px 30px 0 0",
     padding: 18,
-    boxShadow: "0 -20px 50px rgba(0,0,0,.5)",
-  },
-  folderGridModal: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: 10,
-    marginTop: 14,
+    borderTop: "1px solid rgba(240,171,252,.3)",
   },
   modalFolder: {
     border: "1px solid rgba(255,255,255,.13)",
     background: "rgba(255,255,255,.08)",
     color: "white",
     borderRadius: 20,
-    padding: 16,
+    padding: 15,
     fontWeight: 900,
     textAlign: "left",
   },
-  cancelBtn: {
+  cancel: {
     width: "100%",
+    marginTop: 12,
     border: "1px solid rgba(255,255,255,.12)",
     background: "rgba(255,255,255,.08)",
-    color: "#e9d5ff",
+    color: "white",
     borderRadius: 20,
     padding: 14,
-    marginTop: 12,
     fontWeight: 900,
   },
   nav: {
     position: "fixed",
-    left: "50%",
     bottom: 0,
+    left: "50%",
     transform: "translateX(-50%)",
     width: "100%",
     maxWidth: 460,
-    zIndex: 25,
+    zIndex: 30,
     display: "grid",
-    gridTemplateColumns: "repeat(5, 1fr)",
-    gap: 6,
+    gridTemplateColumns: "1fr 1fr 64px 1fr 1fr",
+    gap: 7,
     padding: "10px 10px 12px",
-    background: "rgba(10,0,16,.88)",
+    background: "rgba(8,0,14,.92)",
     backdropFilter: "blur(18px)",
     borderTop: "1px solid rgba(255,255,255,.12)",
   },
@@ -775,14 +685,30 @@ const styles = {
     background: "rgba(255,255,255,.07)",
     color: "#e9d5ff",
     borderRadius: 18,
-    padding: "9px 4px",
+    padding: "8px 2px",
     display: "grid",
-    gap: 2,
     justifyItems: "center",
-    fontWeight: 800,
+    gap: 2,
+    fontWeight: 900,
   },
-  navActive: {
+  navOn: {
+    border: "1px solid rgba(255,255,255,.1)",
     background: "linear-gradient(135deg,#fce7f3,#bae6fd)",
     color: "#16001f",
+    borderRadius: 18,
+    padding: "8px 2px",
+    display: "grid",
+    justifyItems: "center",
+    gap: 2,
+    fontWeight: 950,
+  },
+  plus: {
+    border: 0,
+    background: "linear-gradient(135deg,#d946ef,#7dd3fc)",
+    color: "white",
+    borderRadius: 999,
+    fontSize: 32,
+    fontWeight: 950,
+    boxShadow: "0 0 28px rgba(217,70,239,.7)",
   },
 };
