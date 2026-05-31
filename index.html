@@ -4,566 +4,137 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hello Vella</title>
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: #020005;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
-
-    .app {
-      max-width: 460px;
-      min-height: 100vh;
-      margin: 0 auto;
-      background: linear-gradient(180deg, #180022, #07000d, #020005);
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    .app::before {
-      content: "";
-      position: fixed;
-      width: 280px;
-      height: 280px;
-      background: rgba(217, 70, 239, 0.25);
-      filter: blur(80px);
-      border-radius: 50%;
-      top: -100px;
-      left: calc(50% - 270px);
-      pointer-events: none;
-    }
-
-    header {
-      padding: 22px 18px 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-      z-index: 2;
-    }
-
-    .kicker {
-      color: #f0abfc;
-      font-size: 12px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin: 0;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 40px;
-      text-shadow: 0 0 24px rgba(217, 70, 239, 0.9);
-    }
-
-    main {
-      padding: 10px 16px 105px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .top-btn,
-    button {
-      cursor: pointer;
-      font-family: inherit;
-    }
-
-    .top-btn {
-      border: 1px solid rgba(255,255,255,.15);
-      background: rgba(255,255,255,.1);
-      color: white;
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-weight: 900;
-    }
-
-    .hero {
-      border: 1px solid rgba(255,255,255,.13);
-      background: rgba(255,255,255,.07);
-      border-radius: 30px;
-      padding: 18px;
-      margin-bottom: 14px;
-      box-shadow: 0 20px 50px rgba(0,0,0,.3);
-    }
-
-    .hero h2 {
-      margin: 4px 0 8px;
-      font-size: 28px;
-      line-height: 1;
-    }
-
-    .muted {
-      color: #d8b4fe;
-      font-size: 14px;
-      line-height: 1.45;
-    }
-
-    .category-card {
-      width: 100%;
-      border: 1px solid rgba(255,255,255,.13);
-      background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(255,255,255,.05));
-      color: white;
-      border-radius: 28px;
-      padding: 18px;
-      margin-bottom: 12px;
-      display: grid;
-      grid-template-columns: 50px 1fr 20px;
-      gap: 12px;
-      align-items: center;
-      text-align: left;
-    }
-
-    .big-icon {
-      font-size: 34px;
-    }
-
-    .card-title {
-      font-size: 20px;
-      font-weight: 950;
-      display: block;
-    }
-
-    .card-desc {
-      margin: 5px 0 0;
-      color: #d8b4fe;
-      font-size: 13px;
-    }
-
-    .arrow {
-      font-size: 34px;
-      color: #f0abfc;
-    }
-
-    .back {
-      background: none;
-      border: 0;
-      color: #f5d0fe;
-      font-weight: 900;
-      margin-bottom: 10px;
-    }
-
-    .tabs {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      margin-bottom: 14px;
-    }
-
-    .tab {
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.08);
-      color: white;
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-weight: 900;
-      white-space: nowrap;
-    }
-
-    .post {
-      border: 1px solid rgba(255,255,255,.13);
-      background: rgba(255,255,255,.07);
-      border-radius: 30px;
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-
-    .post img {
-      width: 100%;
-      height: 350px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .post-body {
-      padding: 16px;
-    }
-
-    .badge {
-      display: inline-block;
-      background: rgba(217,70,239,.22);
-      border: 1px solid rgba(240,171,252,.25);
-      border-radius: 999px;
-      padding: 7px 10px;
-      font-size: 12px;
-      font-weight: 900;
-      color: #f5d0fe;
-    }
-
-    .post h3 {
-      margin: 10px 0 4px;
-      font-size: 23px;
-    }
-
-    .creator {
-      color: #f0abfc;
-      font-size: 13px;
-      font-weight: 900;
-    }
-
-    .actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .action-btn {
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.08);
-      color: white;
-      border-radius: 18px;
-      padding: 13px;
-      font-weight: 900;
-    }
-
-    .save-btn {
-      border: 1px solid rgba(240,171,252,.35);
-      background: rgba(217,70,239,.28);
-      color: white;
-      border-radius: 18px;
-      padding: 13px;
-      font-weight: 950;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .square {
-      min-height: 130px;
-      border: 1px solid rgba(255,255,255,.13);
-      background: rgba(255,255,255,.08);
-      color: white;
-      border-radius: 26px;
-      padding: 16px;
-      display: grid;
-      gap: 8px;
-      justify-items: start;
-      text-align: left;
-      font-weight: 900;
-    }
-
-    .square span {
-      font-size: 32px;
-    }
-
-    .empty {
-      border: 1px dashed rgba(255,255,255,.2);
-      border-radius: 24px;
-      padding: 22px;
-      color: #d8b4fe;
-      text-align: center;
-    }
-
-    .more-row {
-      width: 100%;
-      border: 1px solid rgba(255,255,255,.13);
-      background: rgba(255,255,255,.08);
-      color: white;
-      border-radius: 22px;
-      padding: 16px;
-      margin-bottom: 10px;
-      display: flex;
-      justify-content: space-between;
-      font-weight: 900;
-    }
-
-    .toast {
-      position: fixed;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      background: rgba(217,70,239,.95);
-      padding: 12px 18px;
-      border-radius: 999px;
-      font-weight: 950;
-      box-shadow: 0 0 28px rgba(217,70,239,.7);
-    }
-
-    .modal-wrap {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.75);
-      z-index: 80;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-    }
-
-    .modal {
-      width: 100%;
-      max-width: 460px;
-      background: #15001f;
-      border-radius: 30px 30px 0 0;
-      padding: 18px;
-      border-top: 1px solid rgba(240,171,252,.3);
-    }
-
-    .modal-folder {
-      border: 1px solid rgba(255,255,255,.13);
-      background: rgba(255,255,255,.08);
-      color: white;
-      border-radius: 20px;
-      padding: 15px;
-      font-weight: 900;
-      text-align: left;
-    }
-
-    .cancel {
-      width: 100%;
-      margin-top: 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.08);
-      color: white;
-      border-radius: 20px;
-      padding: 14px;
-      font-weight: 900;
-    }
-
-    nav {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 460px;
-      z-index: 50;
-      display: grid;
-      grid-template-columns: 1fr 1fr 64px 1fr 1fr;
-      gap: 7px;
-      padding: 10px 10px 12px;
-      background: rgba(8,0,14,.92);
-      backdrop-filter: blur(18px);
-      border-top: 1px solid rgba(255,255,255,.12);
-    }
-
-    .nav-btn {
-      border: 1px solid rgba(255,255,255,.1);
-      background: rgba(255,255,255,.07);
-      color: #e9d5ff;
-      border-radius: 18px;
-      padding: 8px 2px;
-      display: grid;
-      justify-items: center;
-      gap: 2px;
-      font-weight: 900;
-    }
-
-    .nav-btn.active {
-      background: linear-gradient(135deg,#fce7f3,#bae6fd);
-      color: #16001f;
-    }
-
-    .plus {
-      border: 0;
-      background: linear-gradient(135deg,#d946ef,#7dd3fc);
-      color: white;
-      border-radius: 999px;
-      font-size: 32px;
-      font-weight: 950;
-      box-shadow: 0 0 28px rgba(217,70,239,.7);
-    }
+    *{box-sizing:border-box}
+    body{margin:0;background:#020005;color:white;font-family:Arial,sans-serif}
+    .app{max-width:460px;min-height:100vh;margin:0 auto;background:linear-gradient(180deg,#180022,#07000d,#020005);position:relative;overflow-x:hidden}
+    .app:before{content:"";position:fixed;width:280px;height:280px;background:rgba(217,70,239,.25);filter:blur(80px);border-radius:50%;top:-100px;left:calc(50% - 270px);pointer-events:none}
+    header{padding:22px 18px 8px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
+    .kicker{color:#f0abfc;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin:0}
+    h1{margin:0;font-size:40px;text-shadow:0 0 24px rgba(217,70,239,.9)}
+    main{padding:10px 16px 105px;position:relative;z-index:2}
+    button{cursor:pointer;font-family:inherit}
+    .top-btn{border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.1);color:white;border-radius:999px;padding:10px 14px;font-weight:900}
+    .hero,.card{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);border-radius:30px;padding:18px;margin-bottom:14px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+    .hero h2{margin:4px 0 8px;font-size:28px;line-height:1}
+    .muted{color:#d8b4fe;font-size:14px;line-height:1.45}
+    .category-card{width:100%;border:1px solid rgba(255,255,255,.13);background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.05));color:white;border-radius:28px;padding:18px;margin-bottom:12px;display:grid;grid-template-columns:50px 1fr 20px;gap:12px;align-items:center;text-align:left}
+    .big-icon{font-size:34px}.card-title{font-size:20px;font-weight:950;display:block}.card-desc{margin:5px 0 0;color:#d8b4fe;font-size:13px}.arrow{font-size:34px;color:#f0abfc}
+    .back{background:none;border:0;color:#f5d0fe;font-weight:900;margin-bottom:10px}
+    .tabs{display:flex;gap:8px;overflow-x:auto;margin-bottom:14px}.tab{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:white;border-radius:999px;padding:10px 14px;font-weight:900;white-space:nowrap}
+    .post{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);border-radius:30px;overflow:hidden;margin-bottom:16px}
+    .post img{width:100%;height:310px;object-fit:cover;display:block}.post-body{padding:16px}
+    .badge{display:inline-block;background:rgba(217,70,239,.22);border:1px solid rgba(240,171,252,.25);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:900;color:#f5d0fe}
+    .post h3{margin:10px 0 4px;font-size:23px}.creator{color:#f0abfc;font-size:13px;font-weight:900}
+    .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    .action-btn,.save-btn{border-radius:18px;padding:13px;font-weight:900;color:white}
+    .action-btn{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08)}
+    .save-btn{border:1px solid rgba(240,171,252,.35);background:rgba(217,70,239,.28)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .square{min-height:130px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.08);color:white;border-radius:26px;padding:16px;display:grid;gap:8px;justify-items:start;text-align:left;font-weight:900}
+    .square span{font-size:32px}
+    input,select,textarea{width:100%;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.25);color:white;border-radius:18px;padding:13px;margin:7px 0;outline:none}
+    textarea{min-height:90px;resize:vertical}
+    option{color:#111}
+    .empty{border:1px dashed rgba(255,255,255,.2);border-radius:24px;padding:22px;color:#d8b4fe;text-align:center}
+    .more-row{width:100%;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.08);color:white;border-radius:22px;padding:16px;margin-bottom:10px;display:flex;justify-content:space-between;font-weight:900}
+    .toast{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:100;background:rgba(217,70,239,.95);padding:12px 18px;border-radius:999px;font-weight:950;box-shadow:0 0 28px rgba(217,70,239,.7)}
+    .modal-wrap{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:80;display:flex;align-items:flex-end;justify-content:center}
+    .modal{width:100%;max-width:460px;background:#15001f;border-radius:30px 30px 0 0;padding:18px;border-top:1px solid rgba(240,171,252,.3);max-height:85vh;overflow:auto}
+    .modal-folder{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.08);color:white;border-radius:20px;padding:15px;font-weight:900;text-align:left}
+    .cancel{width:100%;margin-top:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.08);color:white;border-radius:20px;padding:14px;font-weight:900}
+    nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:460px;z-index:50;display:grid;grid-template-columns:1fr 1fr 64px 1fr 1fr;gap:7px;padding:10px 10px 12px;background:rgba(8,0,14,.92);backdrop-filter:blur(18px);border-top:1px solid rgba(255,255,255,.12)}
+    .nav-btn{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.07);color:#e9d5ff;border-radius:18px;padding:8px 2px;display:grid;justify-items:center;gap:2px;font-weight:900}
+    .nav-btn.active{background:linear-gradient(135deg,#fce7f3,#bae6fd);color:#16001f}.plus{border:0;background:linear-gradient(135deg,#d946ef,#7dd3fc);color:white;border-radius:999px;font-size:32px;font-weight:950;box-shadow:0 0 28px rgba(217,70,239,.7)}
   </style>
 </head>
 
 <body>
   <div class="app">
     <header>
-      <div>
-        <p class="kicker">Hello Vella</p>
-        <h1>Vella</h1>
-      </div>
-      <button class="top-btn" onclick="toast('Quick save coming soon ✨')">+ Save</button>
+      <div><p class="kicker">Hello Vella</p><h1>Vella</h1></div>
+      <button class="top-btn" onclick="showPostForm()">+ Post</button>
     </header>
-
     <main id="main"></main>
-
     <nav>
       <button class="nav-btn active" id="nav-home" onclick="goHome()">🏠<small>Home</small></button>
       <button class="nav-btn" id="nav-vault" onclick="showVault()">📁<small>Vault</small></button>
-      <button class="plus" onclick="toast('Choose something from a feed to save ✨')">+</button>
+      <button class="plus" onclick="showPostForm()">+</button>
       <button class="nav-btn" id="nav-inbox" onclick="showInbox()">💬<small>Inbox</small></button>
       <button class="nav-btn" id="nav-more" onclick="showMore()">⋯<small>More</small></button>
     </nav>
   </div>
 
   <script>
-    const main = document.getElementById("main");
-
-    const folders = ["Fashion", "Dinner", "Workouts", "Wishlist", "Beauty", "Home", "Fixing"];
-
-    let saved = JSON.parse(localStorage.getItem("vellaSaved") || "[]");
-    let saveTarget = null;
-
-    const categories = [
-      { id: "fashion", icon: "👗", title: "Fashion", desc: "Outfits, stores, lives and style groups" },
-      { id: "dinner", icon: "🍝", title: "Dinner Ideas", desc: "Recipes, meal plans and grocery saves" },
-      { id: "workouts", icon: "💪", title: "Workouts", desc: "Fitness videos, challenges and reminders" },
-      { id: "shopping", icon: "🛍️", title: "Shopping", desc: "Choose what you want to buy today" },
-      { id: "beauty", icon: "💄", title: "Beauty", desc: "Makeup, skincare, hair and routines" },
-      { id: "home", icon: "🏠", title: "Home Ideas", desc: "Decor, cleaning, organising and cosy spaces" },
-      { id: "fixing", icon: "🔨", title: "DIY & Fixing", desc: "Hardware, repairs, tools and home fixes" },
-      { id: "gifts", icon: "🎁", title: "Gifts", desc: "Birthday, Christmas and surprise ideas" }
+    const main=document.getElementById("main");
+    const categories=[
+      {id:"fashion",icon:"👗",title:"Fashion",desc:"Outfits, stores, lives and style groups"},
+      {id:"food",icon:"🍝",title:"Food & Recipes",desc:"Recipes, ingredients and meal plans"},
+      {id:"workouts",icon:"💪",title:"Workouts",desc:"Alarms, friends and accountability checklists"},
+      {id:"shopping",icon:"🛍️",title:"Shopping",desc:"Clothes, hardware, beauty, gifts and stores"},
+      {id:"beauty",icon:"💄",title:"Beauty",desc:"Makeup, skincare, hair and routines"},
+      {id:"home",icon:"🏠",title:"Home Ideas",desc:"Decor, cleaning, organising and cosy spaces"},
+      {id:"fixing",icon:"🔨",title:"DIY & Fixing",desc:"Tools, hardware, repairs and how-to videos"},
+      {id:"events",icon:"🎁",title:"Events & Birthdays",desc:"Prep lists, gifts, reminders and group plans"}
     ];
 
-    const shoppingCategories = [
-      { id: "clothing", icon: "👗", title: "Clothing" },
-      { id: "beauty-shop", icon: "💄", title: "Beauty" },
-      { id: "hardware-shop", icon: "🔨", title: "Hardware" },
-      { id: "home-shop", icon: "🏠", title: "Home" },
-      { id: "tech", icon: "📱", title: "Tech" },
-      { id: "pets", icon: "🐾", title: "Pets" },
-      { id: "gaming", icon: "🎮", title: "Gaming" },
-      { id: "gifts-shop", icon: "🎁", title: "Gifts" }
+    let posts=JSON.parse(localStorage.getItem("vellaPosts")||"null")||[
+      {id:1,category:"fashion",type:"Fashion Feed",title:"Black dress outfit idea",creator:"Mia Luxe",image:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&auto=format&fit=crop",text:"Save this look for your next night out.",list:["Black dress","Gold hoops","Small bag"]},
+      {id:2,category:"food",type:"Recipe Feed",title:"Creamy garlic pasta",creator:"Kitchen Glow",image:"https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=900&auto=format&fit=crop",text:"Tap ingredients to add the shop list.",list:["Pasta","Cream","Garlic","Parmesan","Butter"]},
+      {id:3,category:"workouts",type:"Workout Feed",title:"10 minute reset workout",creator:"Soft Fit Club",image:"https://images.unsplash.com/photo-1518611012118-696072aa579a?w=900&auto=format&fit=crop",text:"Set an alarm with a friend and both tick it off.",list:["Squats","Wall push ups","Stretch","Water"]},
+      {id:4,category:"fixing",type:"DIY Feed",title:"Fix a loose cupboard handle",creator:"Fix It Fast",image:"https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=900&auto=format&fit=crop",text:"Save tools and steps before you start.",list:["Screwdriver","Replacement screw","Tape measure"]},
+      {id:5,category:"events",type:"Birthday Prep",title:"Birthday picnic plan",creator:"Party Folder",image:"https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=900&auto=format&fit=crop",text:"Turn this into a shared prep list.",list:["Cake","Candles","Gift","Drinks","Picnic rug"]}
     ];
 
-    const posts = [
-      {
-        id: 1,
-        category: "fashion",
-        type: "Fashion Feed",
-        title: "Black dress outfit idea",
-        creator: "Mia Luxe",
-        image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&auto=format&fit=crop",
-        text: "Save this look for your next night out."
-      },
-      {
-        id: 2,
-        category: "dinner",
-        type: "Dinner Feed",
-        title: "Creamy garlic pasta",
-        creator: "Kitchen Glow",
-        image: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=900&auto=format&fit=crop",
-        text: "A simple dinner idea you can save and find later."
-      },
-      {
-        id: 3,
-        category: "workouts",
-        type: "Workout Feed",
-        title: "10 minute reset workout",
-        creator: "Soft Fit Club",
-        image: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=900&auto=format&fit=crop",
-        text: "Save it, set a reminder, and actually do it."
-      },
-      {
-        id: 4,
-        category: "beauty",
-        type: "Beauty Feed",
-        title: "Soft glow makeup",
-        creator: "Glow Girl",
-        image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=900&auto=format&fit=crop",
-        text: "Makeup and skincare saves in one easy place."
-      },
-      {
-        id: 5,
-        category: "home",
-        type: "Home Feed",
-        title: "Cosy room reset",
-        creator: "Home Mood",
-        image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=900&auto=format&fit=crop",
-        text: "Save room ideas, cleaning routines and decor finds."
-      },
-      {
-        id: 6,
-        category: "fixing",
-        type: "DIY Feed",
-        title: "Fix a loose cupboard handle",
-        creator: "Fix It Fast",
-        image: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?w=900&auto=format&fit=crop",
-        text: "Hardware and fixing tips without random feeds."
-      }
-    ];
+    let saved=JSON.parse(localStorage.getItem("vellaSaved")||"[]");
+    let activities=JSON.parse(localStorage.getItem("vellaActivities")||"[]");
+    let shoppingList=JSON.parse(localStorage.getItem("vellaShoppingList")||"[]");
+    let saveTarget=null;
 
-    function setNav(active) {
-      document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
-      const nav = document.getElementById("nav-" + active);
-      if (nav) nav.classList.add("active");
-    }
+    function store(){localStorage.setItem("vellaPosts",JSON.stringify(posts));localStorage.setItem("vellaSaved",JSON.stringify(saved));localStorage.setItem("vellaActivities",JSON.stringify(activities));localStorage.setItem("vellaShoppingList",JSON.stringify(shoppingList))}
+    function setNav(active){document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));let n=document.getElementById("nav-"+active);if(n)n.classList.add("active")}
+    function toast(msg){let old=document.querySelector(".toast");if(old)old.remove();let box=document.createElement("div");box.className="toast";box.textContent=msg;document.body.appendChild(box);setTimeout(()=>box.remove(),1800)}
+    function closeModal(){let m=document.querySelector(".modal-wrap");if(m)m.remove()}
 
-    function toast(message) {
-      const old = document.querySelector(".toast");
-      if (old) old.remove();
-
-      const box = document.createElement("div");
-      box.className = "toast";
-      box.textContent = message;
-      document.body.appendChild(box);
-
-      setTimeout(() => box.remove(), 1800);
-    }
-
-    function saveState() {
-      localStorage.setItem("vellaSaved", JSON.stringify(saved));
-    }
-
-    function goHome() {
+    function goHome(){
       setNav("home");
-      main.innerHTML = `
+      main.innerHTML=`
         <section class="hero">
           <p class="kicker">Your choice feed</p>
           <h2>Choose your world today</h2>
-          <p class="muted">No random algorithm. You pick what you want to watch, save, buy or plan.</p>
+          <p class="muted">Vella is not random algorithm chaos. You pick the category, post to that feed, save ideas, set alarms, make lists and do it with friends.</p>
         </section>
-
-        ${categories.map(cat => `
-          <button class="category-card" onclick="openCategory('${cat.id}')">
-            <span class="big-icon">${cat.icon}</span>
-            <span>
-              <span class="card-title">${cat.title}</span>
-              <p class="card-desc">${cat.desc}</p>
-            </span>
+        ${categories.map(c=>`
+          <button class="category-card" onclick="openCategory('${c.id}')">
+            <span class="big-icon">${c.icon}</span>
+            <span><span class="card-title">${c.title}</span><p class="card-desc">${c.desc}</p></span>
             <span class="arrow">›</span>
-          </button>
-        `).join("")}
-      `;
+          </button>`).join("")}`;
     }
 
-    function openCategory(id) {
-      const cat = categories.find(c => c.id === id);
-
-      if (id === "shopping") {
-        showShopping();
-        return;
-      }
-
+    function openCategory(id){
+      const cat=categories.find(c=>c.id===id);
+      const feed=posts.filter(p=>p.category===id);
       setNav("home");
-      const feed = posts.filter(post => post.category === id);
-
-      main.innerHTML = `
+      main.innerHTML=`
         <button class="back" onclick="goHome()">← Back to Home</button>
-
         <section class="hero">
           <p class="kicker">${cat.icon} ${cat.title}</p>
           <h2>${cat.title} Feed</h2>
-          <p class="muted">Only ${cat.title.toLowerCase()} content lives here. You choose the world, not the algorithm.</p>
+          <p class="muted">People post directly into this feed. Only ${cat.title.toLowerCase()} content shows here.</p>
         </section>
-
         <div class="tabs">
-          <button class="tab">Feed</button>
-          <button class="tab">Stores</button>
-          <button class="tab">Lives</button>
-          <button class="tab">Groups</button>
+          <button class="tab" onclick="showPostForm('${id}')">+ Post here</button>
+          <button class="tab" onclick="toast('Stores opening soon 🛍️')">Stores</button>
+          <button class="tab" onclick="toast('Lives opening soon 🔴')">Lives</button>
+          <button class="tab" onclick="toast('Groups opening soon 👯')">Groups</button>
         </div>
-
-        ${
-          feed.length
-            ? feed.map(postCard).join("")
-            : `<section class="empty">More ${cat.title} content coming soon.</section>`
-        }
-      `;
+        ${feed.length?feed.map(postCard).join(""):`<section class="empty">No posts yet. Be the first to post here.</section>`}`;
     }
 
-    function postCard(post) {
+    function postCard(post){
+      const isFood=post.category==="food";
+      const isWorkout=post.category==="workouts";
       return `
         <article class="post">
           <img src="${post.image}" alt="${post.title}">
@@ -572,216 +143,144 @@
             <h3>${post.title}</h3>
             <p class="creator">@${post.creator}</p>
             <p class="muted">${post.text}</p>
-
             <div class="actions">
-              <button class="action-btn" onclick="toast('Liked ♡')">♡ Like</button>
-              <button class="action-btn" onclick="toast('Comments coming soon 💬')">💬 Chat</button>
-              <button class="action-btn" onclick="toast('Share coming soon ↗')">↗ Share</button>
               <button class="save-btn" onclick="openSave(${post.id})">⭐ Save</button>
+              <button class="action-btn" onclick="createActivity(${post.id})">⏰ Alarm</button>
+              <button class="action-btn" onclick="createActivity(${post.id},true)">👯 Friend</button>
+              <button class="action-btn" onclick="addChecklist(${post.id})">✅ Checklist</button>
+              ${isFood?`<button class="save-btn" onclick="addIngredients(${post.id})">🛒 Ingredients</button>`:""}
+              ${isWorkout?`<button class="save-btn" onclick="createActivity(${post.id},true)">🔥 Accountability</button>`:""}
             </div>
           </div>
-        </article>
-      `;
+        </article>`;
     }
 
-    function showShopping() {
-      setNav("home");
-
-      main.innerHTML = `
-        <button class="back" onclick="goHome()">← Back to Home</button>
-
-        <section class="hero">
-          <p class="kicker">🛍️ Shopping World</p>
-          <h2>What do you want to buy?</h2>
-          <p class="muted">Choose a shopping category instead of waiting for an algorithm.</p>
-        </section>
-
-        <div class="grid">
-          ${shoppingCategories.map(shop => `
-            <button class="square" onclick="openShoppingFeed('${shop.id}')">
-              <span>${shop.icon}</span>
-              ${shop.title}
-            </button>
-          `).join("")}
-        </div>
-      `;
-    }
-
-    function openShoppingFeed(id) {
-      const shop = shoppingCategories.find(s => s.id === id);
-
-      const demo = {
-        id: Date.now(),
-        category: "shopping",
-        type: "Shopping Feed",
-        title: shop.title + " shopping idea",
-        creator: "Vella Store",
-        image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&auto=format&fit=crop",
-        text: "Saved from the " + shop.title + " shopping feed."
-      };
-
-      main.innerHTML = `
-        <button class="back" onclick="showShopping()">← Back to Shopping</button>
-
-        <section class="hero">
-          <p class="kicker">${shop.icon} ${shop.title}</p>
-          <h2>${shop.title} Feed</h2>
-          <p class="muted">Only ${shop.title.toLowerCase()} products, creators, stores and lives show here.</p>
-        </section>
-
-        ${postCard(demo)}
-      `;
-    }
-
-    function openSave(id) {
-      saveTarget = posts.find(p => p.id === id) || {
-        id,
-        type: "Shopping Feed",
-        title: "Shopping idea",
-        creator: "Vella Store",
-        image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&auto=format&fit=crop",
-        text: "Saved shopping idea."
-      };
-
-      const modal = document.createElement("div");
-      modal.className = "modal-wrap";
-      modal.innerHTML = `
+    function showPostForm(prefill=""){
+      const modal=document.createElement("div");
+      modal.className="modal-wrap";
+      modal.innerHTML=`
         <div class="modal">
-          <h2>Save to Vault</h2>
-          <p class="muted">${saveTarget.title}</p>
-
-          <div class="grid">
-            ${folders.map(folder => `
-              <button class="modal-folder" onclick="saveToFolder('${folder}')">📁 ${folder}</button>
-            `).join("")}
-          </div>
-
+          <h2>Post to a Vella feed</h2>
+          <p class="muted">Choose the category first so the post lands in the right world.</p>
+          <select id="postCat">
+            ${categories.map(c=>`<option value="${c.id}" ${prefill===c.id?"selected":""}>${c.icon} ${c.title}</option>`).join("")}
+          </select>
+          <input id="postTitle" placeholder="Post title e.g. Birthday gift prep" />
+          <input id="postCreator" placeholder="Creator name" value="Courtney" />
+          <textarea id="postText" placeholder="What is this post about?"></textarea>
+          <textarea id="postList" placeholder="List items separated by commas e.g. Pasta, Cream, Garlic"></textarea>
+          <input id="postImage" placeholder="Image URL optional" />
+          <button class="save-btn" style="width:100%;margin-top:8px" onclick="addPost()">Post to feed</button>
           <button class="cancel" onclick="closeModal()">Cancel</button>
-        </div>
-      `;
-
+        </div>`;
       document.body.appendChild(modal);
     }
 
-    function closeModal() {
-      const modal = document.querySelector(".modal-wrap");
-      if (modal) modal.remove();
+    function addPost(){
+      const cat=document.getElementById("postCat").value;
+      const title=document.getElementById("postTitle").value.trim()||"New Vella idea";
+      const creator=document.getElementById("postCreator").value.trim()||"Vella User";
+      const text=document.getElementById("postText").value.trim()||"Saved idea ready to turn into action.";
+      const list=document.getElementById("postList").value.split(",").map(x=>x.trim()).filter(Boolean);
+      const image=document.getElementById("postImage").value.trim()||"https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=900&auto=format&fit=crop";
+      const catObj=categories.find(c=>c.id===cat);
+      posts.unshift({id:Date.now(),category:cat,type:catObj.title+" Feed",title,creator,image,text,list});
+      store();closeModal();toast("Posted to "+catObj.title+" ✨");openCategory(cat);
     }
 
-    function saveToFolder(folder) {
-      saved.push({
-        ...saveTarget,
-        folder,
-        savedAt: new Date().toLocaleTimeString()
-      });
-
-      saveState();
-      closeModal();
-      toast("Saved to " + folder + " ✨");
+    function openSave(id){
+      saveTarget=posts.find(p=>p.id===id);
+      const modal=document.createElement("div");
+      modal.className="modal-wrap";
+      modal.innerHTML=`
+        <div class="modal">
+          <h2>Save to Vault</h2>
+          <p class="muted">${saveTarget.title}</p>
+          <div class="grid">
+            ${categories.map(c=>`<button class="modal-folder" onclick="saveToFolder('${c.title}')">${c.icon} ${c.title}</button>`).join("")}
+            <button class="modal-folder" onclick="saveToFolder('Wishlist')">💜 Wishlist</button>
+          </div>
+          <button class="cancel" onclick="closeModal()">Cancel</button>
+        </div>`;
+      document.body.appendChild(modal);
     }
 
-    function showVault() {
+    function saveToFolder(folder){saved.push({...saveTarget,folder,savedAt:new Date().toLocaleString()});store();closeModal();toast("Saved to "+folder+" ✨")}
+
+    function createActivity(id,friend=false){
+      const p=posts.find(x=>x.id===id);
+      activities.unshift({id:Date.now(),title:p.title,friend,doneMe:false,doneFriend:false,time:"Tonight 7:00 PM",list:p.list||[]});
+      store();toast(friend?"Friend accountability alarm created 👯":"Alarm created ⏰");
+    }
+
+    function addChecklist(id){
+      const p=posts.find(x=>x.id===id);
+      activities.unshift({id:Date.now(),title:p.title,friend:false,doneMe:false,doneFriend:false,time:"Checklist",list:p.list||["Step one","Step two"]});
+      store();toast("Checklist added ✅");
+    }
+
+    function addIngredients(id){
+      const p=posts.find(x=>x.id===id);
+      shoppingList=[...new Set([...shoppingList,...(p.list||[])])];
+      store();toast("Ingredients added to shopping list 🛒");
+    }
+
+    function showVault(){
       setNav("vault");
-
-      main.innerHTML = `
-        <section class="hero">
-          <p class="kicker">Vella Vault</p>
-          <h2>Your saved ideas</h2>
-          <p class="muted">Everything you save goes into folders so you can find it again.</p>
-        </section>
-
-        <div class="grid">
-          ${folders.map(folder => {
-            const count = saved.filter(item => item.folder === folder).length;
-            return `
-              <button class="square" onclick="openFolder('${folder}')">
-                <span>📁</span>
-                ${folder}
-                <small class="muted">${count} saved</small>
-              </button>
-            `;
-          }).join("")}
-        </div>
-      `;
+      const folderNames=[...new Set(saved.map(x=>x.folder))];
+      main.innerHTML=`
+        <section class="hero"><p class="kicker">Vella Vault</p><h2>Your saved ideas</h2><p class="muted">Open a folder, then turn a save into an alarm, list, plan or friend activity.</p></section>
+        ${folderNames.length?`<div class="grid">${folderNames.map(f=>`<button class="square" onclick="openFolder('${f}')"><span>📁</span>${f}<small class="muted">${saved.filter(x=>x.folder===f).length} saved</small></button>`).join("")}</div>`:`<section class="empty">Nothing saved yet.</section>`}`;
     }
 
-    function openFolder(folder) {
-      const items = saved.filter(item => item.folder === folder);
-
-      main.innerHTML = `
+    function openFolder(folder){
+      const items=saved.filter(x=>x.folder===folder);
+      main.innerHTML=`
         <button class="back" onclick="showVault()">← Back to Vault</button>
-
-        <section class="hero">
-          <p class="kicker">📁 ${folder}</p>
-          <h2>${folder}</h2>
-          <p class="muted">${items.length} saved item${items.length === 1 ? "" : "s"}</p>
-        </section>
-
-        ${
-          items.length
-            ? items.map(item => `
-              <article class="post">
-                <img src="${item.image}" alt="${item.title}">
-                <div class="post-body">
-                  <span class="badge">${item.type}</span>
-                  <h3>${item.title}</h3>
-                  <p class="creator">@${item.creator}</p>
-                  <p class="muted">${item.text}</p>
-                  <div class="actions">
-                    <button class="action-btn" onclick="toast('Reminder set 🔔')">🔔 Remind</button>
-                    <button class="action-btn" onclick="toast('Added to plan 🗓️')">🗓️ Plan</button>
-                    <button class="action-btn" onclick="toast('Added to list 🛍️')">🛍️ List</button>
-                    <button class="save-btn" onclick="toast('Shared with friend 💌')">💌 Share</button>
-                  </div>
-                </div>
-              </article>
-            `).join("")
-            : `<section class="empty">Nothing saved here yet.</section>`
-        }
-      `;
+        <section class="hero"><p class="kicker">📁 ${folder}</p><h2>${folder}</h2><p class="muted">${items.length} saved items</p></section>
+        ${items.map(postCard).join("")}`;
     }
 
-    function showInbox() {
+    function showInbox(){
       setNav("inbox");
-
-      main.innerHTML = `
-        <section class="hero">
-          <p class="kicker">💬 Inbox</p>
-          <h2>Inbox</h2>
-          <p class="muted">Friend shares, group plans and reminders will live here.</p>
-        </section>
-
-        <section class="empty">No messages yet.</section>
-      `;
+      main.innerHTML=`
+        <section class="hero"><p class="kicker">💬 Community</p><h2>Accountability & plans</h2><p class="muted">Alarms, friend check-ins, birthday prep and shared activity plans live here.</p></section>
+        ${activities.length?activities.map(a=>`
+          <section class="card">
+            <span class="badge">${a.friend?"Friend accountability":"Activity"}</span>
+            <h3>${a.title}</h3>
+            <p class="muted">Alarm: ${a.time}</p>
+            ${a.list.length?`<p class="muted"><b>Checklist:</b> ${a.list.join(", ")}</p>`:""}
+            <div class="actions">
+              <button class="save-btn" onclick="tickMe(${a.id})">${a.doneMe?"✅ You done":"Tick me done"}</button>
+              <button class="action-btn" onclick="tickFriend(${a.id})">${a.doneFriend?"✅ Friend done":"Friend done"}</button>
+            </div>
+          </section>`).join(""):`<section class="empty">No alarms or accountability plans yet.</section>`}`;
     }
 
-    function showMore() {
+    function tickMe(id){activities=activities.map(a=>a.id===id?{...a,doneMe:true}:a);store();showInbox();toast("You ticked it off ✅")}
+    function tickFriend(id){activities=activities.map(a=>a.id===id?{...a,doneFriend:true}:a);store();showInbox();toast("Friend ticked it off 👯")}
+
+    function showMore(){
       setNav("more");
-
-      const more = ["Plans", "Lists", "Groups", "Rankings", "Creator Tools", "Settings", "About Vella", "Invite Friends"];
-
-      main.innerHTML = `
-        <section class="hero">
-          <p class="kicker">⋯ More</p>
-          <h2>More tools</h2>
-          <p class="muted">Extra features live here so Home stays clean.</p>
-        </section>
-
-        ${more.map(item => `
-          <button class="more-row" onclick="toast('${item} opening soon ✨')">
-            <span>${item}</span>
-            <span>›</span>
-          </button>
-        `).join("")}
-
-        <section class="hero">
-          <p class="kicker">About Vella</p>
-          <h2>Save it. Find it. Use it.</h2>
-          <p class="muted">Vella helps people choose what they want to see, save ideas into folders, and turn saved content into reminders, plans, lists, groups and shopping actions.</p>
-        </section>
-      `;
+      main.innerHTML=`
+        <section class="hero"><p class="kicker">⋯ More</p><h2>Vella tools</h2><p class="muted">Extra features live here so Home stays clean.</p></section>
+        <button class="more-row" onclick="showShoppingList()"><span>🛒 Shopping / Ingredients List</span><span>›</span></button>
+        <button class="more-row" onclick="showInbox()"><span>⏰ Alarms & Accountability</span><span>›</span></button>
+        <button class="more-row" onclick="toast('Groups opening soon 👯')"><span>Groups</span><span>›</span></button>
+        <button class="more-row" onclick="toast('Creator tools opening soon ✨')"><span>Creator Tools</span><span>›</span></button>
+        <section class="hero"><p class="kicker">About Vella</p><h2>Save it. Plan it. Do it together.</h2><p class="muted">Vella helps people post into chosen feeds, save ideas, make ingredient lists, set alarms, invite friends and tick off real-life activities.</p></section>`;
     }
 
+    function showShoppingList(){
+      setNav("more");
+      main.innerHTML=`
+        <button class="back" onclick="showMore()">← Back to More</button>
+        <section class="hero"><p class="kicker">🛒 List</p><h2>Shopping & Ingredients</h2><p class="muted">Recipe ingredients, birthday prep and activity items collect here.</p></section>
+        ${shoppingList.length?shoppingList.map((x,i)=>`<button class="more-row" onclick="removeListItem(${i})"><span>${x}</span><span>✓</span></button>`).join(""):`<section class="empty">No list items yet. Open a food post and tap Ingredients.</section>`}`;
+    }
+
+    function removeListItem(i){shoppingList.splice(i,1);store();showShoppingList();toast("Removed from list ✓")}
     goHome();
   </script>
 </body>
