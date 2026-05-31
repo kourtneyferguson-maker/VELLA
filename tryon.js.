@@ -1,0 +1,39 @@
+import { fal } from "@fal-ai/client";
+
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Only POST allowed" });
+  }
+
+  try {
+    const { humanImage, garmentImage } = req.body;
+
+    if (!humanImage || !garmentImage) {
+      return res.status(400).json({
+        error: "Missing humanImage or garmentImage"
+      });
+    }
+
+    const result = await fal.subscribe(
+      "fal-ai/kling/v1-5/kolors-virtual-try-on",
+      {
+        input: {
+          human_image_url: humanImage,
+          garment_image_url: garmentImage,
+          sync_mode: true
+        },
+        logs: true
+      }
+    );
+
+    return res.status(200).json({
+      image: result.data.image.url
+    });
+  } catch (error) {
+    console.error("AI TRY ON ERROR:", error);
+    return res.status(500).json({
+      error: "AI try-on failed",
+      details: error.message
+    });
+  }
+}
