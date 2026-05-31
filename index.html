@@ -3,113 +3,404 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Hello Vella</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      background: #050008;
+      overscroll-behavior: none;
+    }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
 </head>
 
 <body class="bg-black text-white">
 <div id="root"></div>
 
 <script type="text/babel">
-const { useState, useEffect } = React;
+const { useEffect, useMemo, useState } = React;
 
-const worlds = ["Fashion", "Beauty", "Food", "Fitness", "Cleaning", "Tech"];
+const STORAGE_KEYS = {
+  template: "vella_try_on_template_v1",
+  vault: "vella_vault_v1",
+  cart: "vella_cart_v1",
+  reminders: "vella_reminders_v1",
+  accepted: "vella_terms_accepted_v1"
+};
 
-const sellerPosts = [
+const worlds = [
+  { name: "Fashion", emoji: "🧥", tabs: ["For You", "Stores", "Shoes", "Accessories", "Creator Looks"] },
+  { name: "Beauty", emoji: "💄", tabs: ["For You", "Skincare", "Makeup", "Hair", "Creator Picks"] },
+  { name: "Food", emoji: "🍝", tabs: ["For You", "Dinner", "Budget Meals", "Shopping Lists", "Creator Recipes"] },
+  { name: "Fitness", emoji: "🏋️", tabs: ["For You", "Workouts", "Gym Fits", "Equipment", "Plans"] },
+  { name: "Cleaning", emoji: "🧽", tabs: ["For You", "Bathroom", "Kitchen", "Products", "Routines"] },
+  { name: "Tech", emoji: "💻", tabs: ["For You", "Setups", "Creator Tools", "Gadgets", "Desk Finds"] }
+];
+
+const posts = [
   {
-    id: 1,
+    id: "fashion-1",
     world: "Fashion",
+    tab: "For You",
     store: "Luna Winter Co.",
     seller: "Mila Styles",
     title: "Soft Winter Outfit",
-    cover: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=900",
-    description: "Full winter outfit package with saved Vella try-on template.",
+    cover: "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=1200",
+    description: "A full winter look with AI try-on, sizing, stock and Vella checkout.",
     products: [
       {
-        id: "coat",
+        id: "cream-coat",
         name: "Cream Winter Coat",
-        photo: "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=900",
+        photo: "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=1200",
         price: 89,
         sizes: ["XS", "S", "M", "L", "XL"],
         measurements: "Bust 96cm · Length 82cm · Sleeve 60cm",
         stock: 14,
-        shipping: "$9.95 standard shipping"
+        shipping: "$9.95 standard shipping",
+        category: "Clothing"
       },
       {
-        id: "scarf",
+        id: "beige-scarf",
         name: "Soft Beige Scarf",
-        photo: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=900",
+        photo: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=1200",
         price: 25,
         sizes: ["One size"],
         measurements: "180cm x 35cm",
         stock: 32,
-        shipping: "$6.95 standard shipping"
+        shipping: "$6.95 standard shipping",
+        category: "Accessories"
+      },
+      {
+        id: "knit-beanie",
+        name: "Cream Knit Beanie",
+        photo: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=1200",
+        price: 22,
+        sizes: ["One size"],
+        measurements: "Stretch fit",
+        stock: 21,
+        shipping: "$6.95 standard shipping",
+        category: "Accessories"
+      }
+    ]
+  },
+  {
+    id: "fashion-2",
+    world: "Fashion",
+    tab: "Stores",
+    store: "Nova Streetwear",
+    seller: "Jade Fits",
+    title: "Streetwear Drop",
+    cover: "https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=1200",
+    description: "Seller drop with clear product photos, sizes, prices and creator hire option.",
+    products: [
+      {
+        id: "oversized-tee",
+        name: "Oversized Graphic Tee",
+        photo: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1200",
+        price: 45,
+        sizes: ["S", "M", "L", "XL"],
+        measurements: "Chest 112cm · Length 74cm",
+        stock: 40,
+        shipping: "$8.95 standard shipping",
+        category: "Clothing"
+      },
+      {
+        id: "black-cargo",
+        name: "Black Cargo Pants",
+        photo: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=1200",
+        price: 65,
+        sizes: ["6", "8", "10", "12", "14", "16"],
+        measurements: "High waist · Inseam 78cm",
+        stock: 19,
+        shipping: "$9.95 standard shipping",
+        category: "Clothing"
+      }
+    ]
+  },
+  {
+    id: "beauty-1",
+    world: "Beauty",
+    tab: "For You",
+    store: "Glow Lab",
+    seller: "Skin Babe",
+    title: "Night Glow Routine",
+    cover: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1200",
+    description: "Save the full skincare routine, products and order list.",
+    products: [
+      {
+        id: "cleanser",
+        name: "Gentle Cleanser",
+        photo: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=1200",
+        price: 18,
+        sizes: ["150ml"],
+        measurements: "Sensitive skin friendly",
+        stock: 50,
+        shipping: "$7.95 standard shipping",
+        category: "Skincare"
+      }
+    ]
+  },
+  {
+    id: "food-1",
+    world: "Food",
+    tab: "Dinner",
+    store: "Dinner Girl",
+    seller: "Ava Eats",
+    title: "Garlic Butter Pasta Night",
+    cover: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=1200",
+    description: "Save recipe, ingredients, shopping list and reminder.",
+    products: [
+      {
+        id: "pasta-pack",
+        name: "Pasta Night Ingredient Pack",
+        photo: "https://images.unsplash.com/photo-1556761223-4c4282c73f77?w=1200",
+        price: 14,
+        sizes: ["2 serves", "4 serves"],
+        measurements: "Pasta · Garlic · Butter · Parmesan",
+        stock: 80,
+        shipping: "Pickup or grocery partner",
+        category: "Food"
+      }
+    ]
+  },
+  {
+    id: "fitness-1",
+    world: "Fitness",
+    tab: "Workouts",
+    store: "FitKit",
+    seller: "Gym Ava",
+    title: "Leg Day Routine",
+    cover: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200",
+    description: "Workout plan, gym outfit and equipment bundle.",
+    products: [
+      {
+        id: "resistance-band",
+        name: "Resistance Band Set",
+        photo: "https://images.unsplash.com/photo-1598289431512-b97b0917affc?w=1200",
+        price: 24,
+        sizes: ["Light", "Medium", "Heavy"],
+        measurements: "3 band set",
+        stock: 45,
+        shipping: "$8.95 standard shipping",
+        category: "Fitness"
+      }
+    ]
+  },
+  {
+    id: "cleaning-1",
+    world: "Cleaning",
+    tab: "Bathroom",
+    store: "Clean Queen",
+    seller: "Mum Hacks",
+    title: "Bathroom Deep Clean",
+    cover: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200",
+    description: "Save the cleaning routine, product list and restock reminder.",
+    products: [
+      {
+        id: "clean-kit",
+        name: "Bathroom Cleaning Kit",
+        photo: "https://images.unsplash.com/photo-1563453392212-326f5e854473?w=1200",
+        price: 28,
+        sizes: ["Starter Kit"],
+        measurements: "Spray · Brush · Cloths · Glass cleaner",
+        stock: 38,
+        shipping: "$8.95 standard shipping",
+        category: "Cleaning"
+      }
+    ]
+  },
+  {
+    id: "tech-1",
+    world: "Tech",
+    tab: "Setups",
+    store: "Desk Glow",
+    seller: "Tech Babe",
+    title: "Creator Desk Setup",
+    cover: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200",
+    description: "Creator desk items with save, cart and planning.",
+    products: [
+      {
+        id: "desk-light",
+        name: "LED Desk Light",
+        photo: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=1200",
+        price: 39,
+        sizes: ["One size"],
+        measurements: "USB powered · adjustable",
+        stock: 26,
+        shipping: "$7.95 standard shipping",
+        category: "Tech"
       }
     ]
   }
 ];
 
+function safeLoad(key, fallback) {
+  try {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function safeSave(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {}
+}
+
 function App() {
+  const [accepted, setAccepted] = useState(() => localStorage.getItem(STORAGE_KEYS.accepted) === "yes");
   const [page, setPage] = useState("Home");
   const [world, setWorld] = useState("Fashion");
-  const [templatePhoto, setTemplatePhoto] = useState(null);
+  const [worldTab, setWorldTab] = useState("For You");
+  const [templatePhoto, setTemplatePhoto] = useState(() => safeLoad(STORAGE_KEYS.template, null));
+  const [vault, setVault] = useState(() => safeLoad(STORAGE_KEYS.vault, []));
+  const [cart, setCart] = useState(() => safeLoad(STORAGE_KEYS.cart, []));
+  const [reminders, setReminders] = useState(() => safeLoad(STORAGE_KEYS.reminders, []));
+  const [message, setMessage] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [tryOnResult, setTryOnResult] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-  const [cart, setCart] = useState([]);
-  const [vault, setVault] = useState([]);
+  const [tryOnLoading, setTryOnLoading] = useState(false);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("vellaTryOnTemplate");
-    if (saved) setTemplatePhoto(saved);
-  }, []);
+  useEffect(() => safeSave(STORAGE_KEYS.template, templatePhoto), [templatePhoto]);
+  useEffect(() => safeSave(STORAGE_KEYS.vault, vault), [vault]);
+  useEffect(() => safeSave(STORAGE_KEYS.cart, cart), [cart]);
+  useEffect(() => safeSave(STORAGE_KEYS.reminders, reminders), [reminders]);
 
-  const worldPosts = sellerPosts.filter(p => p.world === world);
+  const selectedWorld = worlds.find(w => w.name === world) || worlds[0];
 
-  function fileToBase64(file) {
+  const visiblePosts = useMemo(() => {
+    return posts.filter(post => {
+      if (post.world !== world) return false;
+      if (worldTab === "For You") return true;
+      return post.tab === worldTab || post.products.some(p => p.category === worldTab);
+    });
+  }, [world, worldTab]);
+
+  const cartTotal = cart.reduce((sum, item) => sum + Number(item.price || 0), 0);
+
+  function showMessage(text) {
+    setMessage(text);
+    window.setTimeout(() => setMessage(""), 4500);
+  }
+
+  function acceptTerms() {
+    localStorage.setItem(STORAGE_KEYS.accepted, "yes");
+    setAccepted(true);
+    showMessage("Welcome to Vella. Your saves are private unless you choose to share.");
+  }
+
+  function compressImage(file, maxWidth = 1000, quality = 0.78) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
+
+      reader.onload = () => {
+        const image = new Image();
+
+        image.onload = () => {
+          const scale = Math.min(1, maxWidth / image.width);
+          const canvas = document.createElement("canvas");
+          canvas.width = Math.round(image.width * scale);
+          canvas.height = Math.round(image.height * scale);
+
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+          resolve(canvas.toDataURL("image/jpeg", quality));
+        };
+
+        image.onerror = reject;
+        image.src = reader.result;
+      };
+
       reader.onerror = reject;
       reader.readAsDataURL(file);
     });
   }
 
-  async function saveTemplate(event) {
-    const file = event.target.files[0];
+  async function handleTemplateUpload(event) {
+    const file = event.target.files?.[0];
     if (!file) return;
 
-    const base64 = await fileToBase64(file);
-    setTemplatePhoto(base64);
-    localStorage.setItem("vellaTryOnTemplate", base64);
-    setMessage("Try-On Template saved. You can now use it on clothing items.");
+    try {
+      const compressed = await compressImage(file);
+      setTemplatePhoto(compressed);
+      setTryOnResult(null);
+      showMessage("Try-On Template saved. You can reuse it on every clothing item.");
+    } catch {
+      showMessage("Could not save photo. Try another image.");
+    }
   }
 
-  function deleteTemplate() {
-    localStorage.removeItem("vellaTryOnTemplate");
+  function removeTemplate() {
     setTemplatePhoto(null);
     setTryOnResult(null);
-    setMessage("Try-On Template removed. Add a new one anytime.");
+    showMessage("Try-On Template removed. Add a new one anytime.");
+  }
+
+  function saveToVault(item, type = "post") {
+    const save = {
+      id: `${type}-${item.id || Date.now()}-${Date.now()}`,
+      type,
+      title: item.title || item.name,
+      subtitle: item.store || item.category || "Saved item",
+      image: item.cover || item.photo || null,
+      createdAt: new Date().toLocaleString()
+    };
+
+    setVault([save, ...vault]);
+    showMessage("Saved privately to your Vella Vault.");
+  }
+
+  function addToCart(product) {
+    setCart([{ ...product, cartId: Date.now() }, ...cart]);
+    showMessage(`${product.name} added to Vella Cart.`);
+  }
+
+  function addReminder(title) {
+    const reminder = {
+      id: Date.now(),
+      title,
+      date: "Tonight",
+      note: "Vella reminder saved."
+    };
+
+    setReminders([reminder, ...reminders]);
+    showMessage("Reminder saved.");
   }
 
   async function runTryOn(product) {
-    setMessage("");
+    setSelectedProduct(product);
     setTryOnResult(null);
 
     if (!templatePhoto) {
-      setSelectedProduct(product);
       setPage("Template");
-      setMessage("Create your Try-On Template first, then Vella can use it on any clothing item.");
+      showMessage("Create your Try-On Template once, then use it across Vella.");
       return;
     }
 
-    setSelectedProduct(product);
-    setLoading(true);
     setPage("TryOn");
+    setTryOnLoading(true);
 
     try {
       const response = await fetch("/api/tryon", {
@@ -128,372 +419,520 @@ function App() {
       }
 
       setTryOnResult(data.image);
-      setMessage("AI Try-On complete.");
+      showMessage("AI Try-On complete.");
     } catch (error) {
-      setMessage("AI Try-On could not finish. Check your API key and try again.");
+      showMessage(error.message || "AI Try-On could not finish. Check your API key.");
     } finally {
-      setLoading(false);
+      setTryOnLoading(false);
     }
   }
 
+  if (!accepted) {
+    return (
+      <Shell>
+        <main className="p-4 min-h-screen flex items-center">
+          <section className="w-full bg-white/10 border border-fuchsia-500/40 rounded-[2rem] p-5 shadow-2xl">
+            <div className="text-6xl text-center mb-4">💜</div>
+            <h1 className="text-3xl font-black text-center text-purple-100 drop-shadow-[0_0_16px_#d946ef]">
+              Welcome to Vella
+            </h1>
+            <p className="text-center text-purple-300 text-sm mt-2">
+              Save inspiration, shop creator stores, plan with friends and use AI Try-On with your private template.
+            </p>
+
+            <div className="bg-black/40 rounded-3xl p-4 mt-5 max-h-56 overflow-y-auto text-sm text-purple-200">
+              <p className="font-bold text-white mb-2">Demo Terms & Privacy Notice</p>
+              <p>
+                By entering this demo, you agree that Vella can store your app saves, cart, reminders and try-on template locally in this browser. Real launch requires full legal Terms, Privacy Policy, AI consent, seller terms, refund rules and payment policies.
+              </p>
+              <p className="mt-3">
+                Try-On images are private by default. You choose what to save or share.
+              </p>
+            </div>
+
+            <button
+              onClick={acceptTerms}
+              className="w-full bg-fuchsia-600 rounded-3xl p-4 font-black mt-5 active:scale-95 transition"
+            >
+              Accept & Enter Vella
+            </button>
+          </section>
+        </main>
+      </Shell>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-[#190021] to-black flex justify-center">
-      <div className="w-full max-w-md min-h-screen border-x border-purple-900/50 pb-24">
+    <Shell>
+      <Header templatePhoto={templatePhoto} />
 
-        <header className="sticky top-0 z-30 bg-black/90 backdrop-blur-xl p-4 border-b border-purple-800/50">
-          <h1 className="text-center text-3xl font-black text-purple-100 drop-shadow-[0_0_15px_#d946ef]">
-            Hello Vella
-          </h1>
-          <p className="text-center text-xs text-purple-300">
-            Discovery · Vault · AI Try-On · Creator Stores
-          </p>
-        </header>
+      {message && (
+        <div className="mx-3 mt-3 bg-purple-900/80 border border-fuchsia-500/40 rounded-2xl p-3 text-sm text-purple-100">
+          {message}
+        </div>
+      )}
 
-        {message && (
-          <div className="m-3 bg-purple-900/70 border border-fuchsia-500/40 rounded-2xl p-3 text-sm text-purple-100">
-            {message}
+      {page === "Home" && (
+        <main className="p-4">
+          <div className="bg-white/10 border border-purple-500/30 rounded-[2rem] p-5">
+            <p className="text-xs text-fuchsia-300 font-bold">TODAY ON VELLA</p>
+            <h2 className="text-2xl font-black mt-1">Choose your world</h2>
+            <p className="text-sm text-purple-300 mt-1">
+              Open a category feed, save what you love, shop the products and plan it later.
+            </p>
           </div>
-        )}
 
-        {page === "Home" && (
-          <main className="p-4">
-            <h2 className="text-xl font-black mb-3">Choose your world</h2>
+          <div className="grid grid-cols-2 gap-3 mt-4">
+            {worlds.map(w => (
+              <button
+                key={w.name}
+                onClick={() => {
+                  setWorld(w.name);
+                  setWorldTab("For You");
+                  setPage("World");
+                }}
+                className="rounded-[1.7rem] bg-white/10 border border-purple-500/30 p-5 text-left active:scale-95 transition"
+              >
+                <div className="text-4xl mb-2">{w.emoji}</div>
+                <h3 className="font-black">{w.name}</h3>
+                <p className="text-xs text-purple-300 mt-1">Open feed</p>
+              </button>
+            ))}
+          </div>
 
-            <div className="grid grid-cols-2 gap-3">
+          <button
+            onClick={() => setPage("Template")}
+            className="w-full bg-fuchsia-600 rounded-3xl p-4 font-black mt-4 active:scale-95 transition"
+          >
+            {templatePhoto ? "View My Try-On Template" : "Create My Try-On Template"}
+          </button>
+        </main>
+      )}
+
+      {page === "World" && (
+        <>
+          <section className="sticky top-[84px] z-20 bg-black/90 backdrop-blur-xl border-b border-purple-900/40">
+            <div className="flex gap-2 overflow-x-auto hide-scrollbar p-3">
               {worlds.map(w => (
                 <button
-                  key={w}
+                  key={w.name}
                   onClick={() => {
-                    setWorld(w);
-                    setPage("World");
+                    setWorld(w.name);
+                    setWorldTab("For You");
                   }}
-                  className="rounded-3xl bg-white/10 border border-purple-500/30 p-5 text-left active:scale-95 transition"
+                  className={`px-4 py-2 rounded-full text-sm whitespace-nowrap ${
+                    world === w.name ? "bg-fuchsia-600" : "bg-white/10 text-purple-200"
+                  }`}
                 >
-                  <div className="text-4xl mb-2">
-                    {w === "Fashion" && "🧥"}
-                    {w === "Beauty" && "💄"}
-                    {w === "Food" && "🍝"}
-                    {w === "Fitness" && "🏋️"}
-                    {w === "Cleaning" && "🧽"}
-                    {w === "Tech" && "💻"}
-                  </div>
-                  <h3 className="font-black">{w}</h3>
-                  <p className="text-xs text-purple-300">Open {w} feed</p>
+                  {w.emoji} {w.name}
                 </button>
               ))}
             </div>
 
-            <button
-              onClick={() => setPage("Template")}
-              className="w-full bg-fuchsia-600 rounded-3xl p-4 font-black mt-5"
-            >
-              {templatePhoto ? "View My Try-On Template" : "Create My Try-On Template"}
-            </button>
-          </main>
-        )}
-
-        {page === "World" && (
-          <>
-            <div className="sticky top-[88px] z-20 bg-black/90 backdrop-blur-xl p-3 border-b border-purple-900/40">
-              <div className="flex gap-2 overflow-x-auto">
-                {worlds.map(w => (
-                  <button
-                    key={w}
-                    onClick={() => setWorld(w)}
-                    className={`px-4 py-2 rounded-full text-sm whitespace-nowrap ${
-                      world === w ? "bg-fuchsia-600" : "bg-white/10 text-purple-200"
-                    }`}
-                  >
-                    {w}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <main className="p-4 space-y-5">
-              <h2 className="text-2xl font-black">{world} Feed</h2>
-
-              {world !== "Fashion" && (
-                <div className="bg-white/10 rounded-3xl p-5 text-purple-200">
-                  This world is planned but not built yet.
-                </div>
-              )}
-
-              {worldPosts.map(post => (
-                <section key={post.id} className="rounded-3xl bg-white/10 border border-purple-500/30 overflow-hidden">
-                  <img src={post.cover} className="w-full h-64 object-cover" />
-
-                  <div className="p-4">
-                    <p className="text-xs text-fuchsia-300">{post.store}</p>
-                    <h3 className="text-xl font-black">{post.title}</h3>
-                    <p className="text-sm text-purple-300">Seller: {post.seller}</p>
-                    <p className="text-sm text-purple-100 mt-2">{post.description}</p>
-
-                    <div className="mt-4 space-y-3">
-                      {post.products.map(product => (
-                        <div key={product.id} className="bg-black/40 rounded-3xl overflow-hidden border border-white/10">
-                          <img src={product.photo} className="w-full h-56 object-cover" />
-
-                          <div className="p-3">
-                            <div className="flex justify-between gap-3">
-                              <div>
-                                <h4 className="font-black">{product.name}</h4>
-                                <p className="text-xs text-purple-300">
-                                  Sizes: {product.sizes.join(", ")}
-                                </p>
-                              </div>
-                              <p className="font-black text-green-300">${product.price.toFixed(2)}</p>
-                            </div>
-
-                            <p className="text-xs text-purple-200 mt-2">{product.measurements}</p>
-                            <p className="text-xs text-purple-300 mt-1">Stock: {product.stock}</p>
-
-                            <div className="grid grid-cols-2 gap-2 mt-3">
-                              <button
-                                onClick={() => runTryOn(product)}
-                                className="bg-fuchsia-600 rounded-2xl p-3 text-sm font-bold"
-                              >
-                                Try On
-                              </button>
-
-                              <button className="bg-white/10 rounded-2xl p-3 text-sm font-bold">
-                                Size Guide
-                              </button>
-
-                              <button
-                                onClick={() => setCart([...cart, product])}
-                                className="bg-purple-700 rounded-2xl p-3 text-sm font-bold"
-                              >
-                                Add to Cart
-                              </button>
-
-                              <button className="bg-white/10 rounded-2xl p-3 text-sm font-bold">
-                                Details
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2 mt-4">
-                      <button
-                        onClick={() => setVault([...vault, post])}
-                        className="bg-purple-700 rounded-2xl p-3 font-bold"
-                      >
-                        Save Private
-                      </button>
-
-                      <button className="bg-white/10 rounded-2xl p-3 font-bold">
-                        Hire Creator
-                      </button>
-                    </div>
-                  </div>
-                </section>
+            <div className="flex gap-2 overflow-x-auto hide-scrollbar px-3 pb-3">
+              {selectedWorld.tabs.map(tab => (
+                <button
+                  key={tab}
+                  onClick={() => setWorldTab(tab)}
+                  className={`px-4 py-2 rounded-full text-xs whitespace-nowrap ${
+                    worldTab === tab ? "bg-purple-700" : "bg-white/10 text-purple-300"
+                  }`}
+                >
+                  {tab}
+                </button>
               ))}
-            </main>
-          </>
-        )}
+            </div>
+          </section>
 
-        {page === "Template" && (
-          <main className="p-4">
-            <h2 className="text-2xl font-black">My Try-On Template</h2>
-            <p className="text-sm text-purple-300 mt-1 mb-4">
-              Save one private body photo. Vella will use it when you try on clothes.
-            </p>
+          <main className="p-4 space-y-5">
+            <h2 className="text-2xl font-black">
+              {selectedWorld.emoji} {world} · {worldTab}
+            </h2>
 
+            {visiblePosts.length === 0 && (
+              <Empty text="No posts in this section yet. Seller uploads will appear here." />
+            )}
+
+            {visiblePosts.map(post => (
+              <PostCard
+                key={post.id}
+                post={post}
+                onTryOn={runTryOn}
+                onCart={addToCart}
+                onVault={saveToVault}
+                onReminder={addReminder}
+                onMessage={showMessage}
+              />
+            ))}
+          </main>
+        </>
+      )}
+
+      {page === "Template" && (
+        <main className="p-4">
+          <h2 className="text-2xl font-black">My Try-On Template</h2>
+          <p className="text-sm text-purple-300 mt-1">
+            Add one private body photo. Vella reuses it every time you try on clothing.
+          </p>
+
+          <section className="bg-white/10 border border-purple-500/30 rounded-[2rem] p-4 mt-4">
             {templatePhoto ? (
-              <div className="bg-white/10 border border-purple-500/30 rounded-3xl p-4">
-                <img src={templatePhoto} className="w-full h-96 object-cover rounded-3xl" />
-                <p className="text-sm text-green-300 mt-3 font-bold">Template active</p>
+              <>
+                <img src={templatePhoto} className="w-full h-[28rem] object-cover rounded-[1.5rem]" />
+                <p className="text-green-300 font-bold text-sm mt-3">Template active</p>
 
                 <div className="grid grid-cols-2 gap-2 mt-4">
                   <label className="bg-fuchsia-600 rounded-2xl p-3 text-center font-bold cursor-pointer">
-                    Update Photo
-                    <input type="file" accept="image/*" capture="user" onChange={saveTemplate} className="hidden" />
+                    Update
+                    <input
+                      type="file"
+                      accept="image/*"
+                      capture="user"
+                      onChange={handleTemplateUpload}
+                      className="hidden"
+                    />
                   </label>
 
-                  <button onClick={deleteTemplate} className="bg-red-700 rounded-2xl p-3 font-bold">
+                  <button
+                    onClick={removeTemplate}
+                    className="bg-red-700 rounded-2xl p-3 font-bold"
+                  >
                     Remove
                   </button>
                 </div>
-              </div>
+              </>
             ) : (
-              <div className="bg-white/10 border border-purple-500/30 rounded-3xl p-4">
-                <div className="h-96 bg-black/40 rounded-3xl flex items-center justify-center text-purple-300 text-center p-6">
-                  Add your Try-On Template once, then use it across Vella.
+              <>
+                <div className="h-[28rem] bg-black/40 rounded-[1.5rem] flex items-center justify-center text-center text-purple-300 p-6">
+                  Take or upload one full-body photo to create your reusable try-on template.
                 </div>
 
                 <label className="block bg-fuchsia-600 rounded-2xl p-4 text-center font-black cursor-pointer mt-4">
                   Take or Upload Template Photo
-                  <input type="file" accept="image/*" capture="user" onChange={saveTemplate} className="hidden" />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    capture="user"
+                    onChange={handleTemplateUpload}
+                    className="hidden"
+                  />
                 </label>
-              </div>
+              </>
             )}
+          </section>
 
-            <p className="text-xs text-purple-400 mt-4">
-              Privacy note: this demo saves the photo only in this browser. Real Vella needs secure account storage, consent, deletion controls and privacy terms.
-            </p>
-          </main>
-        )}
+          <p className="text-xs text-purple-400 mt-4">
+            Demo note: this saves locally in this browser. Real launch needs secure account storage, delete controls and full privacy consent.
+          </p>
+        </main>
+      )}
 
-        {page === "TryOn" && selectedProduct && (
-          <main className="p-4">
-            <h2 className="text-2xl font-black">AI Try-On</h2>
-            <p className="text-sm text-purple-300 mb-4">
-              Using your saved template with {selectedProduct.name}.
-            </p>
+      {page === "TryOn" && selectedProduct && (
+        <main className="p-4">
+          <h2 className="text-2xl font-black">AI Try-On</h2>
+          <p className="text-sm text-purple-300 mb-4">
+            Using your saved template with {selectedProduct.name}.
+          </p>
 
-            <div className="grid grid-cols-2 gap-2">
-              <div className="bg-white/10 rounded-3xl p-2">
-                <p className="text-xs text-purple-300 mb-1">Your template</p>
-                <img src={templatePhoto} className="h-52 w-full object-cover rounded-2xl" />
-              </div>
+          <div className="grid grid-cols-2 gap-2">
+            <ImagePanel title="Your template" src={templatePhoto} />
+            <ImagePanel title="Item" src={selectedProduct.photo} />
+          </div>
 
-              <div className="bg-white/10 rounded-3xl p-2">
-                <p className="text-xs text-purple-300 mb-1">Item</p>
-                <img src={selectedProduct.photo} className="h-52 w-full object-cover rounded-2xl" />
-              </div>
+          {tryOnLoading && (
+            <div className="bg-fuchsia-900/40 border border-fuchsia-500/40 rounded-[2rem] p-6 text-center mt-4">
+              <div className="text-5xl mb-2">✨</div>
+              <p className="font-black">Generating AI Try-On</p>
+              <p className="text-xs text-purple-300 mt-1">This can take a moment.</p>
             </div>
+          )}
 
-            {loading && (
-              <div className="bg-fuchsia-900/40 border border-fuchsia-500/40 rounded-3xl p-6 text-center mt-4">
-                <div className="text-4xl mb-2">✨</div>
-                <p className="font-black">Generating your AI try-on...</p>
-                <p className="text-xs text-purple-300 mt-1">This may take a moment.</p>
-              </div>
-            )}
+          {tryOnResult && (
+            <section className="bg-white/10 border border-fuchsia-500/40 rounded-[2rem] p-3 mt-4">
+              <p className="font-bold mb-2">Your result</p>
+              <img src={tryOnResult} className="w-full rounded-[1.5rem]" />
 
-            {tryOnResult && (
-              <div className="bg-white/10 border border-fuchsia-500/40 rounded-3xl p-3 mt-4">
-                <p className="font-bold mb-2">Your result</p>
-                <img src={tryOnResult} className="w-full rounded-3xl" />
-
-                <button
-                  onClick={() => setVault([...vault, { title: "AI Try-On", store: selectedProduct.name }])}
-                  className="w-full bg-purple-700 rounded-2xl p-3 font-bold mt-3"
-                >
-                  Save Result Privately
-                </button>
-              </div>
-            )}
-
-            {!loading && !tryOnResult && (
               <button
-                onClick={() => runTryOn(selectedProduct)}
-                className="w-full bg-fuchsia-600 rounded-2xl p-4 font-black mt-4"
+                onClick={() => saveToVault({ title: "AI Try-On Result", cover: tryOnResult, store: selectedProduct.name }, "tryon")}
+                className="w-full bg-purple-700 rounded-2xl p-3 font-bold mt-3"
               >
-                Try Again
+                Save Result Privately
               </button>
-            )}
+            </section>
+          )}
 
+          {!tryOnLoading && !tryOnResult && (
             <button
-              onClick={() => setCart([...cart, selectedProduct])}
-              className="w-full bg-purple-700 rounded-2xl p-4 font-black mt-3"
+              onClick={() => runTryOn(selectedProduct)}
+              className="w-full bg-fuchsia-600 rounded-2xl p-4 font-black mt-4"
             >
-              Add Item to Cart
+              Try Again
             </button>
-          </main>
-        )}
+          )}
 
-        {page === "Vault" && (
-          <main className="p-4">
-            <h2 className="text-2xl font-black">Private Vault</h2>
-            <p className="text-sm text-purple-300 mb-4">
-              Your saves stay private unless you choose to share.
-            </p>
+          <button
+            onClick={() => addToCart(selectedProduct)}
+            className="w-full bg-purple-700 rounded-2xl p-4 font-black mt-3"
+          >
+            Add Item to Cart
+          </button>
+        </main>
+      )}
 
-            {vault.length === 0 ? (
-              <Empty text="Nothing saved yet." />
-            ) : (
-              vault.map((item, index) => (
-                <div key={index} className="bg-white/10 rounded-3xl p-4 mb-3">
-                  <h3 className="font-black">{item.title}</h3>
-                  <p className="text-sm text-purple-300">{item.store}</p>
+      {page === "Vault" && (
+        <main className="p-4">
+          <h2 className="text-2xl font-black">Private Vault</h2>
+          <p className="text-sm text-purple-300 mb-4">
+            Your saves stay private unless you choose to share.
+          </p>
+
+          {vault.length === 0 ? (
+            <Empty text="Nothing saved yet." />
+          ) : (
+            <div className="space-y-3">
+              {vault.map(item => (
+                <div key={item.id} className="bg-white/10 border border-purple-500/30 rounded-[1.7rem] p-3 flex gap-3">
+                  {item.image && <img src={item.image} className="w-20 h-20 object-cover rounded-2xl" />}
+                  <div className="flex-1">
+                    <p className="font-black">{item.title}</p>
+                    <p className="text-xs text-purple-300">{item.subtitle}</p>
+                    <p className="text-[10px] text-purple-500 mt-1">{item.createdAt}</p>
+                    <div className="grid grid-cols-2 gap-2 mt-2">
+                      <button onClick={() => showMessage("Share flow planned for next build.")} className="bg-white/10 rounded-xl p-2 text-xs font-bold">Share</button>
+                      <button onClick={() => setVault(vault.filter(v => v.id !== item.id))} className="bg-red-800 rounded-xl p-2 text-xs font-bold">Remove</button>
+                    </div>
+                  </div>
                 </div>
-              ))
-            )}
-          </main>
-        )}
+              ))}
+            </div>
+          )}
+        </main>
+      )}
 
-        {page === "Cart" && (
-          <main className="p-4">
-            <h2 className="text-2xl font-black mb-3">Vella Checkout</h2>
+      {page === "Cart" && (
+        <main className="p-4">
+          <h2 className="text-2xl font-black mb-3">Vella Cart</h2>
 
-            {cart.length === 0 ? (
-              <Empty text="Your cart is empty." />
-            ) : (
-              <>
-                {cart.map((item, index) => (
-                  <div key={index} className="flex gap-3 bg-white/10 rounded-3xl p-3 mb-3">
+          {cart.length === 0 ? (
+            <Empty text="Your cart is empty." />
+          ) : (
+            <>
+              <div className="space-y-3">
+                {cart.map(item => (
+                  <div key={item.cartId} className="flex gap-3 bg-white/10 border border-purple-500/30 rounded-[1.7rem] p-3">
                     <img src={item.photo} className="w-20 h-20 object-cover rounded-2xl" />
                     <div className="flex-1">
                       <h3 className="font-black">{item.name}</h3>
                       <p className="text-xs text-purple-300">{item.shipping}</p>
-                      <p className="font-bold text-green-300">${item.price.toFixed(2)}</p>
+                      <p className="font-bold text-green-300">${Number(item.price).toFixed(2)}</p>
                     </div>
+                    <button onClick={() => setCart(cart.filter(c => c.cartId !== item.cartId))} className="text-red-300 text-sm">✕</button>
                   </div>
                 ))}
+              </div>
 
-                <button className="w-full bg-fuchsia-600 rounded-2xl p-4 mt-4 font-black">
+              <div className="bg-black/50 border border-fuchsia-500/30 rounded-[1.7rem] p-4 mt-4">
+                <div className="flex justify-between font-black text-lg">
+                  <span>Total</span>
+                  <span>${cartTotal.toFixed(2)}</span>
+                </div>
+
+                <button
+                  onClick={() => showMessage("Checkout needs Stripe/Vella payment setup before real launch.")}
+                  className="w-full bg-fuchsia-600 rounded-2xl p-4 mt-4 font-black"
+                >
                   Pay Securely Through Vella
                 </button>
-              </>
-            )}
-          </main>
-        )}
+              </div>
+            </>
+          )}
+        </main>
+      )}
 
-        {page === "Seller" && (
-          <main className="p-4 space-y-3">
-            <h2 className="text-2xl font-black">Seller Centre</h2>
-            <SellerField label="Product photos" value="Front, back, side and detail photos" />
-            <SellerField label="Product name" value="Cream Winter Coat" />
-            <SellerField label="Price" value="$89.00" />
-            <SellerField label="Sizes" value="XS, S, M, L, XL" />
-            <SellerField label="Measurements" value="Bust, waist, sleeve, length" />
-            <SellerField label="AI Try-On image" value="Clean product image for try-on" />
-            <SellerField label="Stock" value="14 available" />
-            <SellerField label="Shipping" value="$9.95 standard" />
+      {page === "Plans" && (
+        <main className="p-4">
+          <h2 className="text-2xl font-black">Friend Reminders</h2>
+          <p className="text-sm text-purple-300 mb-4">Plan recipes, workouts, shopping and events.</p>
 
-            <button className="w-full bg-fuchsia-600 rounded-2xl p-4 font-black">
-              Upload Product to Vella Store
-            </button>
+          <button
+            onClick={() => addReminder("Check saved Vella plans")}
+            className="w-full bg-fuchsia-600 rounded-2xl p-4 font-black mb-4"
+          >
+            Add Test Reminder
+          </button>
 
-            <button className="w-full bg-white/10 rounded-2xl p-4 font-black">
-              Hire Content Creator
-            </button>
-          </main>
-        )}
+          {reminders.length === 0 ? (
+            <Empty text="No reminders yet." />
+          ) : (
+            reminders.map(item => (
+              <div key={item.id} className="bg-white/10 border border-purple-500/30 rounded-[1.7rem] p-4 mb-3">
+                <p className="font-black">{item.title}</p>
+                <p className="text-xs text-purple-300">{item.date}</p>
+                <p className="text-sm text-purple-200 mt-1">{item.note}</p>
+              </div>
+            ))
+          )}
+        </main>
+      )}
 
-        <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-black/90 backdrop-blur-xl border-t border-purple-900/60 grid grid-cols-5 p-2">
-          {[
-            ["Home", "🏠"],
-            ["World", "🌍"],
-            ["Vault", "🔒"],
-            ["Cart", "🛒"],
-            ["Seller", "➕"]
-          ].map(([name, icon]) => (
-            <button
-              key={name}
-              onClick={() => setPage(name)}
-              className={`rounded-2xl py-2 text-xs ${
-                page === name ? "bg-fuchsia-600 text-white" : "text-purple-300"
-              }`}
-            >
-              <div className="text-xl">{icon}</div>
-              {name}
-            </button>
-          ))}
-        </nav>
+      {page === "Seller" && (
+        <main className="p-4 space-y-3">
+          <h2 className="text-2xl font-black">Seller Centre</h2>
+          <p className="text-sm text-purple-300">Mock seller dashboard for launch demo.</p>
 
+          <SellerField label="Product photos" value="Front, back, side and detail photos" />
+          <SellerField label="Product name" value="Cream Winter Coat" />
+          <SellerField label="Price" value="$89.00" />
+          <SellerField label="Sizes" value="XS, S, M, L, XL" />
+          <SellerField label="Measurements" value="Bust, waist, sleeve, length" />
+          <SellerField label="AI Try-On Image" value="Clean clothing image for AI try-on" />
+          <SellerField label="Stock" value="14 available" />
+          <SellerField label="Shipping" value="$9.95 standard" />
+
+          <button onClick={() => showMessage("Real seller upload needs database storage next.")} className="w-full bg-fuchsia-600 rounded-2xl p-4 font-black">
+            Upload Product to Vella Store
+          </button>
+
+          <button onClick={() => showMessage("Creator hire request saved as a planned flow.")} className="w-full bg-white/10 rounded-2xl p-4 font-black">
+            Hire Content Creator
+          </button>
+        </main>
+      )}
+
+      <Nav page={page} setPage={setPage} />
+    </Shell>
+  );
+}
+
+function Shell({ children }) {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-black via-[#190021] to-black flex justify-center">
+      <div className="w-full max-w-md min-h-screen border-x border-purple-900/50 pb-24">
+        {children}
       </div>
+    </div>
+  );
+}
+
+function Header({ templatePhoto }) {
+  return (
+    <header className="sticky top-0 z-30 bg-black/90 backdrop-blur-xl p-4 border-b border-purple-800/50">
+      <h1 className="text-center text-3xl font-black text-purple-100 drop-shadow-[0_0_15px_#d946ef]">
+        Hello Vella
+      </h1>
+      <p className="text-center text-xs text-purple-300">
+        Discovery · Vault · AI Try-On · Creator Stores
+      </p>
+      <p className={`text-center text-[11px] mt-1 ${templatePhoto ? "text-green-300" : "text-fuchsia-300"}`}>
+        {templatePhoto ? "Try-On Template active" : "Create Try-On Template for AI clothing previews"}
+      </p>
+    </header>
+  );
+}
+
+function PostCard({ post, onTryOn, onCart, onVault, onReminder, onMessage }) {
+  const packageTotal = post.products.reduce((sum, p) => sum + Number(p.price || 0), 0);
+
+  return (
+    <section className="rounded-[2rem] bg-white/10 border border-purple-500/30 overflow-hidden shadow-xl">
+      <img src={post.cover} className="w-full h-64 object-cover" />
+
+      <div className="p-4">
+        <p className="text-xs text-fuchsia-300 font-bold">{post.store}</p>
+        <h3 className="text-xl font-black">{post.title}</h3>
+        <p className="text-sm text-purple-300">Seller: {post.seller}</p>
+        <p className="text-sm text-purple-100 mt-2">{post.description}</p>
+
+        <div className="flex justify-between items-center bg-black/40 rounded-2xl p-3 mt-3">
+          <span className="text-sm text-purple-300">Package total</span>
+          <span className="font-black text-green-300">${packageTotal.toFixed(2)}</span>
+        </div>
+
+        <div className="mt-4 space-y-3">
+          {post.products.map(product => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onTryOn={onTryOn}
+              onCart={onCart}
+              onVault={onVault}
+            />
+          ))}
+        </div>
+
+        <div className="grid grid-cols-2 gap-2 mt-4">
+          <button onClick={() => onVault(post, "post")} className="bg-purple-700 rounded-2xl p-3 font-bold">
+            Save Private
+          </button>
+
+          <button onClick={() => onMessage("Creator hire flow planned for seller launch.")} className="bg-white/10 rounded-2xl p-3 font-bold">
+            Hire Creator
+          </button>
+
+          <button onClick={() => onReminder(post.title)} className="bg-white/10 rounded-2xl p-3 font-bold">
+            Remind Me
+          </button>
+
+          <button onClick={() => onMessage("Share flow planned after accounts are added.")} className="bg-white/10 rounded-2xl p-3 font-bold">
+            Share
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProductCard({ product, onTryOn, onCart, onVault }) {
+  return (
+    <div className="bg-black/40 rounded-[1.7rem] overflow-hidden border border-white/10">
+      <img src={product.photo} className="w-full h-56 object-cover" />
+
+      <div className="p-3">
+        <div className="flex justify-between gap-3">
+          <div>
+            <h4 className="font-black">{product.name}</h4>
+            <p className="text-xs text-purple-300">Sizes: {product.sizes.join(", ")}</p>
+          </div>
+          <p className="font-black text-green-300">${Number(product.price).toFixed(2)}</p>
+        </div>
+
+        <p className="text-xs text-purple-200 mt-2">{product.measurements}</p>
+        <p className="text-xs text-purple-300 mt-1">Stock: {product.stock}</p>
+
+        <div className="grid grid-cols-2 gap-2 mt-3">
+          <button onClick={() => onTryOn(product)} className="bg-fuchsia-600 rounded-2xl p-3 text-sm font-bold">
+            Try On
+          </button>
+
+          <button onClick={() => onVault(product, "product")} className="bg-white/10 rounded-2xl p-3 text-sm font-bold">
+            Save
+          </button>
+
+          <button onClick={() => onCart(product)} className="bg-purple-700 rounded-2xl p-3 text-sm font-bold">
+            Add Cart
+          </button>
+
+          <button className="bg-white/10 rounded-2xl p-3 text-sm font-bold">
+            Details
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ImagePanel({ title, src }) {
+  return (
+    <div className="bg-white/10 rounded-[1.5rem] p-2">
+      <p className="text-xs text-purple-300 mb-1">{title}</p>
+      <img src={src} className="h-52 w-full object-cover rounded-2xl" />
     </div>
   );
 }
 
 function Empty({ text }) {
   return (
-    <div className="bg-white/10 rounded-3xl p-8 text-center text-purple-300">
+    <div className="bg-white/10 rounded-[2rem] p-8 text-center text-purple-300">
       {text}
     </div>
   );
@@ -505,6 +944,34 @@ function SellerField({ label, value }) {
       <p className="text-xs text-purple-300">{label}</p>
       <p className="font-bold">{value}</p>
     </div>
+  );
+}
+
+function Nav({ page, setPage }) {
+  const items = [
+    ["Home", "🏠"],
+    ["World", "🌍"],
+    ["Vault", "🔒"],
+    ["Plans", "🔔"],
+    ["Cart", "🛒"],
+    ["Seller", "➕"]
+  ];
+
+  return (
+    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-black/90 backdrop-blur-xl border-t border-purple-900/60 grid grid-cols-6 p-2">
+      {items.map(([name, icon]) => (
+        <button
+          key={name}
+          onClick={() => setPage(name)}
+          className={`rounded-2xl py-2 text-[10px] ${
+            page === name ? "bg-fuchsia-600 text-white" : "text-purple-300"
+          }`}
+        >
+          <div className="text-lg">{icon}</div>
+          {name}
+        </button>
+      ))}
+    </nav>
   );
 }
 
