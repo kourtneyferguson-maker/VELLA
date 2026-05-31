@@ -14,7 +14,7 @@
 <div id="root"></div>
 
 <script type="text/babel">
-const { useState } = React;
+const { useState, useRef } = React;
 
 const worlds = ["Fashion", "Beauty", "Food", "Fitness", "Cleaning", "Tech"];
 
@@ -63,6 +63,12 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [cart, setCart] = useState([]);
   const [vault, setVault] = useState([]);
+  const [cameraOpen, setCameraOpen] = useState(false);
+  const [cameraFacing, setCameraFacing] = useState("user");
+  const [cameraError, setCameraError] = useState("");
+
+  const videoRef = useRef(null);
+  const streamRef = useRef(null);
 
   const worldPosts = sellerPosts.filter(p => p.world === world);
 
@@ -83,6 +89,65 @@ function App() {
     setTryOnResult(null);
   }
 
+  async function openCamera(facing = cameraFacing) {
+    setCameraError("");
+    setCameraOpen(true);
+
+    try {
+      stopCamera();
+
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: facing },
+        audio: false
+      });
+
+      streamRef.current = stream;
+
+      setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      }, 100);
+    } catch (error) {
+      setCameraError("Camera could not open. Check browser camera permissions.");
+    }
+  }
+
+  function stopCamera() {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
+  }
+
+  function closeCamera() {
+    stopCamera();
+    setCameraOpen(false);
+  }
+
+  async function switchCamera() {
+    const nextFacing = cameraFacing === "user" ? "environment" : "user";
+    setCameraFacing(nextFacing);
+    await openCamera(nextFacing);
+  }
+
+  function takePhoto() {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth || 720;
+    canvas.height = video.videoHeight || 960;
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    const photo = canvas.toDataURL("image/png");
+    setUserPhoto(photo);
+    setTryOnResult(null);
+    closeCamera();
+  }
+
   async function runRealTryOn() {
     if (!userPhoto) {
       alert("Upload or take a photo first.");
@@ -95,9 +160,7 @@ function App() {
     try {
       const response = await fetch("/api/tryon", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           humanImage: userPhoto,
           garmentImage: tryOnProduct.photo
@@ -359,16 +422,12 @@ function App() {
                     />
                   </label>
 
-                  <label className="block bg-purple-700 rounded-2xl p-4 text-center font-black cursor-pointer">
-                    Take Photo
-                    <input
-                      type="file"
-                      accept="image/*"
-                      capture="user"
-                      onChange={uploadUserPhoto}
-                      className="hidden"
-                    />
-                  </label>
+                  <button
+                    onClick={() => openCamera("user")}
+                    className="bg-purple-700 rounded-2xl p-4 text-center font-black"
+                  >
+                    Take Live Photo
+                  </button>
                 </div>
 
                 {userPhoto ? (
@@ -412,7 +471,10 @@ function App() {
 
               <div className="grid grid-cols-2 gap-2 mt-4">
                 <button
-                  onClick={() => setTryOnProduct(null)}
+                  onClick={() => {
+                    closeCamera();
+                    setTryOnProduct(null);
+                  }}
                   className="bg-white/10 rounded-2xl p-3 font-bold"
                 >
                   Close
@@ -423,6 +485,43 @@ function App() {
                   className="bg-purple-700 rounded-2xl p-3 font-bold"
                 >
                   Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {cameraOpen && (
+          <div className="fixed inset-0 bg-black/95 z-[60] flex items-center justify-center p-4">
+            <div className="w-full max-w-md bg-[#17001f] rounded-3xl p-4 border border-fuchsia-500/40">
+              <h2 className="text-2xl font-black mb-2">Take Live Photo</h2>
+              <p className="text-sm text-purple-300 mb-3">
+                Use your laptop webcam or phone camera.
+              </p>
+
+              {cameraError ? (
+                <div className="bg-red-900/40 border border-red-500/40 rounded-3xl p-4 text-sm">
+                  {cameraError}
+                </div>
+              ) : (
+                <video
+                  ref={videoRef}
+                  autoPlay
+                  playsInline
+                  muted
+                  className="w-full h-96 object-cover rounded-3xl bg-black"
+                />
+              )}
+
+              <div className="grid grid-cols-2 gap-2 mt-4">
+                <button onClick={switchCamera} className="bg-white/10 rounded-2xl p-3 font-bold">
+                  Switch Camera
+                </button>
+                <button onClick={takePhoto} className="bg-fuchsia-600 rounded-2xl p-3 font-bold">
+                  Capture Photo
+                </button>
+                <button onClick={closeCamera} className="bg-white/10 rounded-2xl p-3 font-bold col-span-2">
+                  Cancel Camera
                 </button>
               </div>
             </div>
